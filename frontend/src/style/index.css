@@ -1,0 +1,169 @@
+/* css variable */
+:root {
+  --primary-blue: #00428e;
+  --primary-blue-10: rgba(0, 66, 142, 0.1);
+  --secondary-active-blue: #2197c9;
+  --black: #111;
+  --gray-1000: #fff;
+  --gray-900: #fbfbfb;
+  --gray-800: #f0f0f0;
+  --gray-700: #ebebeb;
+  --gray-600: #bebebe;
+  --gray-500: #a4a4a4;
+  --gray-400: #777;
+  --gray-300: #696969;
+  --gray-200: #404040;
+  --gray-100: #303030;
+  --gray-50: #1a1a1a;
+  --gray-0: #000;
+}
+
+.head-bold-22 {
+  color: #000;
+  font-family: 'HyundaiHeadBold';
+  font-size: 22px;
+  letter-spacing: -0.4px;
+  line-height: 28px;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.head-medium-20 {
+  color: #000;
+  font-family: 'HyundaiHeadMedium';
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  line-height: 26px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.head-medium-18 {
+  color: #000;
+  font-family: 'HyundaiHeadMedium';
+  font-size: 18px;
+  letter-spacing: -0.3px;
+  line-height: 24px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.head-medium-16 {
+  color: #000;
+  font-family: 'HyundaiHeadMedium';
+  font-size: 16px;
+  letter-spacing: -0.3px;
+  line-height: 22px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.body-bold-20 {
+  color: #000;
+  font-family: 'HyundaiTextBold';
+  font-size: 20px;
+  letter-spacing: -0.2px;
+  line-height: 28px;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.body-bold-18 {
+  color: #000;
+  font-family: 'HyundaiTextBold';
+  font-size: 18px;
+  letter-spacing: -0.2px;
+  line-height: 26px;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.body-medium-20 {
+  color: #000;
+  font-family: 'HyundaiTextMedium';
+  font-size: 20px;
+  letter-spacing: -0.2px;
+  line-height: 28px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.body-medium-18 {
+  color: #000;
+  font-family: 'HyundaiTextMedium';
+  font-size: 18px;
+  letter-spacing: -0.2px;
+  line-height: 26px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.body-medium-16 {
+  color: #000;
+  font-family: 'HyundaiTextMedium';
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  line-height: 24px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.body-medium-14 {
+  color: #000;
+  font-family: 'HyundaiTextMedium';
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  line-height: 22px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.body-regular-18 {
+  color: #000;
+  font-family: 'HyundaiTextRegular';
+  font-size: 18px;
+  letter-spacing: -0.2px;
+  line-height: 26px;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.body-regular-16 {
+  color: #000;
+  font-family: 'HyundaiTextRegular';
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  line-height: 24px;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.body-regular-14 {
+  color: #000;
+  font-family: 'HyundaiTextRegular';
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  line-height: 22px;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.caption-medium-12 {
+  color: #000;
+  font-family: 'HyundaiTextMedium';
+  font-size: 12px;
+  letter-spacing: 0px;
+  line-height: 18px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.caption-regular-12 {
+  color: #000;
+  font-family: 'HyundaiTextRegular';
+  font-size: 12px;
+  letter-spacing: 0px;
+  line-height: 18px;
+  font-weight: 400;
+  font-style: normal;
+}

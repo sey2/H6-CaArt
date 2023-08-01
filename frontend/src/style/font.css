@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'HyundaiHeadBold';
+  src: url('../static/font/HyundaiSansHeadOffice-Bold.woff2') format('woff2'),
+    url('../static/font/HyundaiSansHeadOffice-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HyundaiHeadMedium';
+  src: url('../static/font/HyundaiSansHeadOffice-Medium.woff2') format('woff2'),
+    url('../static/font/HyundaiSansHeadOffice-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HyundaiTextBold';
+  src: url('../static/font/HyundaiSansTextOffice-Bold.woff2') format('woff2'),
+    url('../static/font/HyundaiSansTextOffice-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HyundaiTextMedium';
+  src: url('../static/font/HyundaiSansTextOffice-Medium.woff2') format('woff2'),
+    url('../static/font/HyundaiSansHeadOffice-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HyundaiTextRegular';
+  src: url('../static/font/HyundaiSansTextOffice-Regular.woff2') format('woff2'),
+    url('../static/font/HyundaiSansTextOffice-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
