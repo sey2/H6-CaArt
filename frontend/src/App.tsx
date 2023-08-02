@@ -1,7 +1,8 @@
 import React from 'react';
+import ToolTip from './components/common/ToolTip';
 
 function App() {
-  return <div className="App">Hello</div>;
+  return <ToolTip />;
 }
 
 export default App;

@@ -17,9 +17,71 @@
   --gray-50: #1a1a1a;
   --gray-0: #000;
 }
+.text-primary-blue {
+  color: var(--primary-blue);
+}
+
+.text-primary-blue-10 {
+  color: var(--primary-blue-10);
+}
+
+.text-secondary-active-blue {
+  color: var(--secondary-active-blue);
+}
+
+.text-black {
+  color: var(--black);
+}
+
+.text-grey-1000 {
+  color: var(--gray-1000);
+}
+
+.text-grey-900 {
+  color: var(--gray-900);
+}
+
+.text-grey-800 {
+  color: var(--gray-800);
+}
+
+.text-grey-700 {
+  color: var(--gray-700);
+}
+
+.text-grey-600 {
+  color: var(--gray-600);
+}
+
+.text-grey-500 {
+  color: var(--gray-500);
+}
+
+.text-grey-400 {
+  color: var(--gray-400);
+}
+
+.text-grey-300 {
+  color: var(--gray-300);
+}
+
+.text-grey-200 {
+  color: var(--gray-200);
+}
+
+.text-grey-100 {
+  color: var(--gray-100);
+}
+
+.text-grey-50 {
+  color: var(--gray-50);
+}
+
+.text-grey-0 {
+  color: var(--gray-0);
+}
 
 .head-bold-22 {
-  color: #000;
   font-family: 'HyundaiHeadBold';
   font-size: 22px;
   letter-spacing: -0.4px;
@@ -29,7 +91,6 @@
 }
 
 .head-medium-20 {
-  color: #000;
   font-family: 'HyundaiHeadMedium';
   font-size: 20px;
   letter-spacing: -0.3px;
@@ -39,7 +100,6 @@
 }
 
 .head-medium-18 {
-  color: #000;
   font-family: 'HyundaiHeadMedium';
   font-size: 18px;
   letter-spacing: -0.3px;
@@ -49,7 +109,6 @@
 }
 
 .head-medium-16 {
-  color: #000;
   font-family: 'HyundaiHeadMedium';
   font-size: 16px;
   letter-spacing: -0.3px;
@@ -59,7 +118,6 @@
 }
 
 .body-bold-20 {
-  color: #000;
   font-family: 'HyundaiTextBold';
   font-size: 20px;
   letter-spacing: -0.2px;
@@ -69,7 +127,6 @@
 }
 
 .body-bold-18 {
-  color: #000;
   font-family: 'HyundaiTextBold';
   font-size: 18px;
   letter-spacing: -0.2px;
@@ -79,7 +136,6 @@
 }
 
 .body-medium-20 {
-  color: #000;
   font-family: 'HyundaiTextMedium';
   font-size: 20px;
   letter-spacing: -0.2px;
@@ -89,7 +145,6 @@
 }
 
 .body-medium-18 {
-  color: #000;
   font-family: 'HyundaiTextMedium';
   font-size: 18px;
   letter-spacing: -0.2px;
@@ -99,7 +154,6 @@
 }
 
 .body-medium-16 {
-  color: #000;
   font-family: 'HyundaiTextMedium';
   font-size: 16px;
   letter-spacing: -0.2px;
@@ -109,7 +163,6 @@
 }
 
 .body-medium-14 {
-  color: #000;
   font-family: 'HyundaiTextMedium';
   font-size: 14px;
   letter-spacing: -0.2px;
@@ -119,7 +172,6 @@
 }
 
 .body-regular-18 {
-  color: #000;
   font-family: 'HyundaiTextRegular';
   font-size: 18px;
   letter-spacing: -0.2px;
@@ -129,7 +181,6 @@
 }
 
 .body-regular-16 {
-  color: #000;
   font-family: 'HyundaiTextRegular';
   font-size: 16px;
   letter-spacing: -0.2px;
@@ -139,7 +190,6 @@
 }
 
 .body-regular-14 {
-  color: #000;
   font-family: 'HyundaiTextRegular';
   font-size: 14px;
   letter-spacing: -0.2px;
@@ -149,7 +199,6 @@
 }
 
 .caption-medium-12 {
-  color: #000;
   font-family: 'HyundaiTextMedium';
   font-size: 12px;
   letter-spacing: 0px;
@@ -159,7 +208,6 @@
 }
 
 .caption-regular-12 {
-  color: #000;
   font-family: 'HyundaiTextRegular';
   font-size: 12px;
   letter-spacing: 0px;
