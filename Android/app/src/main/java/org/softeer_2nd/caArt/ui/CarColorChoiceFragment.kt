@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import org.softeer_2nd.caArt.R
-import org.softeer_2nd.caArt.databinding.FragmentHomeBinding
+import org.softeer_2nd.caArt.databinding.FragmentCarColorChoiceBinding
 
-class HomeFragment() : Fragment() {
+class CarColorChoiceFragment() : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentCarColorChoiceBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,10 +17,7 @@ class HomeFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_carColorChoiceFragment)
-        }
+        _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
