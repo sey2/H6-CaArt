@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">Android</string>
-    <string name="exterior_color_title">외장 색상</string>
-    <string name="interior_color_title">내장 색상</string>
+    <string name="exterior_color">외장 색상</string>
+    <string name="interior_color">내장 색상</string>
     <string name="buyer_selected">의 구매자가 선택한</string>
+    <string name="lifestyle_vehicle_recommendation">당신의 라이프스타일에 맞게 차량을 추천해드려요.</string>
+    <string name="prompt_exit_car_builder">내 차 만들기를 종료하시겠어요?</string>
+    <string name="option_reset_message">선택한 옵션들은 모두 초기화 됩니다.</string>
+    <stirng name="yes">네</stirng>
+    <string name="no">아니오</string>
+    <string name="prev">이전</string>
+    <string name="next">다음</string>
+    <string name="directly_create">직접 만들래요</string>
+    <string name="recommendation">추천받기</string>
+    <string name="ask_for_age">나이를 알려주세요.</string>
+    <string name="exclusive">Exclusive</string>
+    <string name="le_blanc">Le Blanc (르블랑)</string>
+    <string name="prestige">Prestige</string>
+    <string name="caligraphy">Caligraphy</string>
+    <string name="palisade">펠리세이드</string>
 </resources>
