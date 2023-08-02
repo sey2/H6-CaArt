@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <ImageView
+                android:id="@+id/iv_car_spin"
+                android:layout_width="wrap_content"
+                android:layout_height="215dp"
+                android:background="@drawable/image_01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gl_top" />
+
+            <TextView
+                android:id="@+id/tv_exterior_color_title"
+                style="@style/TitleTextStyle"
+                android:text="@string/exterior_color_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_car_spin" />
+
+            <TextView
+                android:id="@+id/tv_exterior_color"
+                style="@style/CarColorTextStyle"
+                android:text=""
+                app:layout_constraintStart_toStartOf="@+id/tv_exterior_color_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title"
+                tools:text="그라파이 그레이 메탈릭" />
+
+            <TextView
+                android:id="@+id/tv_exterior_adoption_rate"
+                style="@style/AdoptionRateTextStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.419"
+                app:layout_constraintStart_toEndOf="@+id/tv_exterior_color"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title"
+                tools:text="75%" />
+
+            <TextView
+                android:id="@+id/tv_exterior_buyer_selected"
+                style="@style/SelectedBuyerTextViewStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.879"
+                app:layout_constraintStart_toEndOf="@+id/tv_exterior_color"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_exterior_color"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color"
+                tools:layout_height="60dp" />
+
+            <View
+                android:id="@+id/cv_exterior_color_options"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_exterior_color"
+                tools:background="@color/gray_300" />
+
+            <ImageView
+                android:id="@+id/iv_car_interior"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/image_02"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_exterior_color_options" />
+
+            <TextView
+                android:id="@+id/tv_interior_color_title"
+                style="@style/TitleTextStyle"
+                android:text="@string/interior_color_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_car_interior" />
+
+            <TextView
+                android:id="@+id/tv_interior_color"
+                style="@style/CarColorTextStyle"
+                android:text=""
+                app:layout_constraintStart_toStartOf="@+id/tv_interior_color_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title"
+                tools:text="퀄팅천연(블랙)" />
+
+            <TextView
+                android:id="@+id/tv_interior_adoption_rate"
+                style="@style/AdoptionRateTextStyle"
+                app:layout_constraintEnd_toStartOf="@+id/tv_interior_buyer_selected"
+                app:layout_constraintHorizontal_bias="0.419"
+                app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title"
+                tools:text="75%" />
+
+            <TextView
+                android:id="@+id/tv_interior_buyer_selected"
+                style="@style/SelectedBuyerTextViewStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.879"
+                app:layout_constraintStart_toEndOf="@+id/tv_interior_color"
+                app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_interior_color"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_interior_color"
+                tools:layout_height="60dp" />
+
+            <View
+                android:id="@+id/cv_interior_color_options"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_interior_color"
+                tools:background="@color/gray_300" />
+
+            <View
+                android:id="@+id/bs_color_choice"
+                android:layout_width="0dp"
+                android:layout_height="89dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_interior_color_options"
+                tools:background="@color/gray_300" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
