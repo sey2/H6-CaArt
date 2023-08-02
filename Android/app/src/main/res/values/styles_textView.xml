@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="TitleTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -35,5 +36,17 @@
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:fontFamily">@font/hyundaisanstextkrmedium</item>
         <item name="android:textColor">@color/active_blue</item>
+    </style>
+
+    <style name="DetailIndicatorTextView" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/hyundaisansheadkrregular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray_400</item>
+    </style>
+
+    <style name="SelectedDetailIndicatorTextView" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/hyundaisansheadkrmedium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray_50</item>
     </style>
 </resources>
