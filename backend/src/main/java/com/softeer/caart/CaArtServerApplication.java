@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CaartServerApplication {
+public class CaArtServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CaartServerApplication.class, args);
+		SpringApplication.run(CaArtServerApplication.class, args);
 	}
 
 }
