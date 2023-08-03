@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface buttonOption {
-  size: 'xl' | 'l' | 'xm' | 'm' | 's' | 'xs' | 'xxs';
+  size: 'xl' | 'l' | 'xm' | 'm' | 's' | 'xs' | 'xxs' | 'auto';
   height?: number | undefined;
   color: 'grey-900' | 'primary-blue' | 'grey-1000' | 'grey-50';
-  bg: 'grey-1000' | 'primary-blue';
+  bg?: 'grey-1000' | 'primary-blue';
   children: React.ReactNode;
   border?: boolean;
 }
@@ -60,6 +60,8 @@ const Button = styled.button<buttonOption>`
   border-radius: 6px;
   width: ${props => calcWidth(props.size)}px;
   color: var(--${props => props.color});
-  background-color: var(--${props => props.bg});
+  background-color: ${props =>
+    props.bg !== undefined ? `var(--${props.bg})` : 'transparent'};
   ${props => props.border && `border: 1px solid var(--grey-600)`};
+  cursor: pointer;
 `;
