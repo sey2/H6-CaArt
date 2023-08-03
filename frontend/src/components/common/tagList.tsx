@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Tag } from './tag';
+import { Tag } from './Tag';
 
 function TagList({ tagArr, type, selected }: TagListProps) {
   const tagLists = tagArr.map(item => {

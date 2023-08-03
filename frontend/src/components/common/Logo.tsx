@@ -16,9 +16,10 @@ function Logo({ type }: LogoProps) {
       : '/images/dropdown_icon_home.svg';
 
   const dropdownList = carList.map((item, index) => {
+    const indexClassName = `head-medium-16 floating${index}`;
     if (index === carNum) return null;
     return (
-      <span key={item} className="head-medium-16">
+      <span key={item} className={indexClassName}>
         {item}
       </span>
     );
@@ -49,7 +50,7 @@ export interface LogoProps {
 
 const LogoBox = styled.div`
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
 `;
 
@@ -71,6 +72,21 @@ const CarListBox = styled.div<LogoProps>`
   span {
     color: ${props => (props.type === 'default' ? '#696969' : '#bebebe')};
     cursor: pointer;
+  }
+
+  .floating1 {
+    position: absolute;
+    top: 30px;
+  }
+
+  .floating2 {
+    position: absolute;
+    top: 60px;
+  }
+
+  .floating3 {
+    position: absolute;
+    top: 90px;
   }
 `;
 
