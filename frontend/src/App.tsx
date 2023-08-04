@@ -1,14 +1,23 @@
 import React from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/homePage/HomePage';
+import RecommendPage from './pages/recommendPage/RecommendPage';
+import ResultPage from './pages/resultPage/ResultPage';
+import vehicleEstimationPage from './pages/vehicleEstimationPage/VehicleEstimationPage';
+import { EstimationProvider } from './util/Context';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" Component={HomePage} />
-      </Routes>
-    </BrowserRouter>
+    <EstimationProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" Component={HomePage} />
+          <Route path="/recommend" Component={RecommendPage} />
+          <Route path="/estimate" Component={vehicleEstimationPage} />
+          <Route path="/result" Component={ResultPage} />
+        </Routes>
+      </BrowserRouter>
+    </EstimationProvider>
   );
 }
 

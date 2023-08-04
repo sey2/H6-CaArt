@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Logo } from '../components/common/Logo';
-import SquareButton from '../components/common/SquareButton';
+import { Logo } from '../../components/common/Logo';
+import SquareButton from '../../components/common/SquareButton';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
   return (
@@ -20,12 +21,16 @@ function HomePage() {
         </TextBox>
       </TextContainer>
       <ButtonContainer>
-        <SquareButton size="m" color="grey-900" border={true}>
-          직접 만들래요
-        </SquareButton>
-        <SquareButton size="m" color="primary-blue" bg="grey-1000">
-          추천받기
-        </SquareButton>
+        <Link to="/estimate">
+          <SquareButton size="m" color="grey-900" border={true}>
+            직접 만들래요
+          </SquareButton>
+        </Link>
+        <Link to="/recommend">
+          <SquareButton size="m" color="primary-blue" bg="grey-1000">
+            추천받기
+          </SquareButton>
+        </Link>
       </ButtonContainer>
       <GradientBottom />
     </Wrapper>
