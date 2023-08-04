@@ -68,6 +68,7 @@ const CarListBox = styled.div<LogoProps>`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 
   span {
     color: ${props => (props.type === 'default' ? '#696969' : '#bebebe')};

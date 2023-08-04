@@ -225,6 +225,15 @@
   font-style: normal;
 }
 
+.body-regular-12 {
+  font-family: 'HyundaiTextRegular';
+  font-size: 12px;
+  letter-spacing: -0.2px;
+  line-height: 18px;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .caption-medium-12 {
   font-family: 'HyundaiTextMedium';
   font-size: 12px;
