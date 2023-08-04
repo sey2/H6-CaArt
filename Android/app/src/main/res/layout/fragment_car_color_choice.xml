@@ -3,145 +3,160 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.05" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_car_spin"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="@drawable/img_car_exterior"
-                app:layout_constraintDimensionRatio="w,185:375"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/gl_top"
-                android:contentDescription="@string/car_exterior_spin_image" />
+             <include
+                 android:id="@+id/inc_top_indicator"
+                 layout="@layout/layout_detail_indicator"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="16dp"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="parent">
+             </include>
 
-            <TextView
-                android:id="@+id/tv_exterior_color_title"
-                style="@style/TitleTextStyle"
-                android:text="@string/exterior_color"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_car_spin" />
+                <ImageView
+                    android:id="@+id/iv_car_spin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:background="@drawable/img_car_exterior"
+                    android:contentDescription="@string/car_exterior_spin_image"
+                    app:layout_constraintDimensionRatio="w,185:375"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inc_top_indicator" />
 
-            <TextView
-                android:id="@+id/tv_exterior_color"
-                style="@style/CarColorTextStyle"
-                android:text=""
-                app:layout_constraintStart_toStartOf="@+id/tv_exterior_color_title"
-                app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title"
-                tools:text="그라파이 그레이 메탈릭" />
+                <TextView
+                    android:id="@+id/tv_exterior_color_title"
+                    style="@style/TitleTextStyle"
+                    android:text="@string/exterior_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_car_spin" />
 
-            <TextView
-                android:id="@+id/tv_exterior_buyer_selected"
-                style="@style/SelectedBuyerTextViewStyle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title" />
+                <TextView
+                    android:id="@+id/tv_exterior_color"
+                    style="@style/CarColorTextStyle"
+                    android:text=""
+                    app:layout_constraintStart_toStartOf="@+id/tv_exterior_color_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title"
+                    tools:text="그라파이 그레이 메탈릭" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_exterior_color"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color"
-                tools:layout_height="60dp" />
+                <TextView
+                    android:id="@+id/tv_exterior_buyer_selected"
+                    style="@style/SelectedBuyerTextViewStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title" />
 
-            <View
-                android:id="@+id/cv_exterior_color_options"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_exterior_color"
-                tools:background="@color/gray_300" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_exterior_color"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color"
+                    tools:layout_height="60dp" />
 
-            <ImageView
-                android:id="@+id/iv_car_interior"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="56dp"
-                app:layout_constraintDimensionRatio="w,185:375"
-                android:background="@drawable/img_car_interior"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_exterior_color_options"
-                android:contentDescription="@string/car_interior_image" />
+                <View
+                    android:id="@+id/cv_exterior_color_options"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_exterior_color"
+                    tools:background="@color/gray_300" />
 
-            <TextView
-                android:id="@+id/tv_interior_color_title"
-                style="@style/TitleTextStyle"
-                android:text="@string/interior_color"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_car_interior" />
+                <ImageView
+                    android:id="@+id/iv_car_interior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="56dp"
+                    android:background="@drawable/img_car_interior"
+                    android:contentDescription="@string/car_interior_image"
+                    app:layout_constraintDimensionRatio="w,185:375"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_exterior_color_options" />
 
-            <TextView
-                android:id="@+id/tv_interior_color"
-                style="@style/CarColorTextStyle"
-                android:text=""
-                app:layout_constraintStart_toStartOf="@+id/tv_interior_color_title"
-                app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title"
-                tools:text="퀄팅천연(블랙)" />
+                <TextView
+                    android:id="@+id/tv_interior_color_title"
+                    style="@style/TitleTextStyle"
+                    android:text="@string/interior_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_car_interior" />
 
-            <TextView
-                android:id="@+id/tv_interior_buyer_selected"
-                style="@style/SelectedBuyerTextViewStyle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title" />
+                <TextView
+                    android:id="@+id/tv_interior_color"
+                    style="@style/CarColorTextStyle"
+                    android:text=""
+                    app:layout_constraintStart_toStartOf="@+id/tv_interior_color_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title"
+                    tools:text="퀄팅천연(블랙)" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_interior_color"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_interior_color"
-                tools:layout_height="60dp" />
+                <TextView
+                    android:id="@+id/tv_interior_buyer_selected"
+                    style="@style/SelectedBuyerTextViewStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title" />
 
-            <View
-                android:id="@+id/cv_interior_color_options"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_interior_color"
-                tools:background="@color/gray_300" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_interior_color"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_interior_color"
+                    tools:layout_height="60dp" />
 
-            <View
-                android:id="@+id/bs_color_choice"
-                android:layout_width="0dp"
-                android:layout_height="89dp"
-                android:layout_marginTop="43dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_interior_color_options"
-                tools:background="@color/gray_300" />
+                <View
+                    android:id="@+id/cv_interior_color_options"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_interior_color"
+                    tools:background="@color/gray_300" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <View
+                    android:id="@+id/bs_color_choice"
+                    android:layout_width="0dp"
+                    android:layout_height="89dp"
+                    android:layout_marginTop="43dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_interior_color_options"
+                    tools:background="@color/gray_300" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <org.softeer_2nd.caArt.CustomBottomSheet
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+        </org.softeer_2nd.caArt.CustomBottomSheet>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -24,4 +24,10 @@
     <string name="color">색상</string>
     <string name="option">옵션</string>
     <string name="right_arrow">오른쪽 화살표</string>
+    <string name="price">43,460,000원</string>
+    <string name="model">모델</string>
+    <string name="seater">7인승</string>
+    <string name="default_model_name">펠리세이드 디젤 2.2 2WD Le Blanc</string>
+    <string name="summary_view">요약보기</string>
+    <string name="estimate">견적내기</string>
 </resources>

@@ -20,7 +20,7 @@
         <item name="android:layout_marginTop">14dp</item>
     </style>
 
-    <style name="SelectedBuyerTextViewStyle">
+    <style name="SelectedBuyerTextStyle">
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_marginTop">14dp</item>
         <item name="android:text">@string/buyer_selected</item>
@@ -38,25 +38,48 @@
         <item name="android:textColor">@color/active_blue</item>
     </style>
 
-    <style name="DetailIndicatorStyle" parent="Widget.AppCompat.TextView">
+    <style name="DetailIndicatorTextStyle" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/hyundaisansheadkrregular</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/gray_400</item>
     </style>
 
-    <style name="SelectedDetailIndicatorStyle" parent="Widget.AppCompat.TextView">
+    <style name="SelectedDetailIndicatorTextStyle" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/hyundaisansheadkrmedium</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/gray_50</item>
     </style>
 
-    <style name="DialogTitleStyle" parent="Widget.AppCompat.TextView">
+    <style name="PriceTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/hyundaisanstext_medium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:text">@string/price</item>
+    </style>
+
+    <style name="BottomSheetTitleTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/hyundaisanstext_bold</item>
+    </style>
+
+    <style name="BottomSheetOptionDetailTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/gray_300</item>
+        <item name="android:fontFamily">@font/hyundaisanstext_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="DialogTitleTextStyle" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/hyundaisansheadkrbold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/gray_0</item>
     </style>
 
-    <style name="DialogDescriptionStyle" parent="Widget.AppCompat.TextView">
+    <style name="DialogDescriptionTextStyle" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/hyundaisanstextkrregular</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/gray_300</item>

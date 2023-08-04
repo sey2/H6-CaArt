@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp">
+
+    <TextView
+        android:id="@+id/tv_option_title"
+        style="@style/BottomSheetTitleTextStyle"
+        android:text="@string/model"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/iv_line"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_option_detail_top"
+        style="@style/BottomSheetOptionDetailTextStyle"
+        android:layout_marginTop="8dp"
+        android:text="@string/default_model_name"
+        app:layout_constraintStart_toStartOf="@id/iv_line"
+        app:layout_constraintTop_toBottomOf="@id/tv_option_title" />
+
+    <TextView
+        android:id="@+id/tv_price_top"
+        style="@style/PriceTextViewStyle"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_line"
+        app:layout_constraintTop_toTopOf="@+id/tv_option_detail_top" />
+
+    <TextView
+        android:id="@+id/tv_option_detail_bottom"
+        style="@style/BottomSheetOptionDetailTextStyle"
+        android:layout_marginTop="7dp"
+        android:text="@string/seater"
+        app:layout_constraintStart_toStartOf="@id/iv_line"
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_top"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <TextView
+        android:id="@+id/tv_price_bottom"
+        style="@style/PriceTextViewStyle"
+        android:layout_marginTop="4dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_line"
+        app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_top" />
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/ic_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_option_detail_bottom" />
+</androidx.constraintlayout.widget.ConstraintLayout>
