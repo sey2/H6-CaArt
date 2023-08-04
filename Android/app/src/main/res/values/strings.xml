@@ -7,7 +7,7 @@
     <string name="prompt_exit_car_builder">내 차 만들기를 종료하시겠어요?</string>
     <string name="option_reset_message">선택한 옵션들은 모두 초기화 됩니다.</string>
     <string name="yes">네</string>
-    <string name="no">아니오</string>
+    <string name="no">아니요</string>
     <string name="prev">이전</string>
     <string name="next">다음</string>
     <string name="directly_create">직접 만들래요</string>

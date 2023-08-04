@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.databinding.FragmentHomeBinding
+import org.softeer_2nd.caArt.dialogs.TwoButtonsDialog
 
 class HomeFragment() : Fragment() {
 
@@ -28,6 +29,14 @@ class HomeFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        TwoButtonsDialog("제목", "안녕").apply {
+            setOnPrimaryButtonClickListener {
+            }
+            setOnSecondaryButtonClickListener {
+                this.dismiss()
+            }
+        }.show(requireActivity().supportFragmentManager, "dd")
     }
 
     override fun onDestroyView() {

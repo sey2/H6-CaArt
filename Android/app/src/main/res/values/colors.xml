@@ -21,5 +21,5 @@
     <color name="gray_200">#FF404040</color>
     <color name="gray_100">#FF303030</color>
     <color name="gray_50">#FF1A1A1A</color>
-    <color name="gray_0">#FF000000</color>
+    <color name="gray_0">#FF111111</color>
 </resources>

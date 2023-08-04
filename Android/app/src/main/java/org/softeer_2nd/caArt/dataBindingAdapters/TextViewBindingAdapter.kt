@@ -6,10 +6,10 @@ import org.softeer_2nd.caArt.R
 
 object TextViewBindingAdapter {
 
-    @BindingAdapter("detailIndicatorSelected")
+    @BindingAdapter("app:detailIndicatorSelected")
     fun setSelectedDetailIndicatorStyle(textView: TextView, selected: Boolean) {
         val styleId =
-            if (selected) R.style.SelectedDetailIndicatorTextView else R.style.DetailIndicatorTextView
+            if (selected) R.style.SelectedDetailIndicatorStyle else R.style.DetailIndicatorStyle
         textView.setTextAppearance(styleId)
     }
 }
