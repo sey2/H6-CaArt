@@ -114,7 +114,7 @@ function Header({ size, page, currentEstimateObj }: HeaderProps) {
 }
 
 const HeaderBox = styled.div<{ size: 'minimal' | 'default' | 'full' }>`
-  width: 1280px;
+  width: 100%;
   position: sticky;
   top: 0px;
   background: #fff;

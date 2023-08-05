@@ -5,7 +5,7 @@ interface NameAndPrice {
   price: number;
 }
 
-interface MyVechicle {
+export interface MyVechicle {
   currentEstimation: {
     engine: NameAndPrice;
     body: NameAndPrice;
@@ -35,7 +35,7 @@ const EstimationContext = createContext<MyVechicle | null>(null);
 const EstimationProvider = ({ children }: Props): JSX.Element => {
   const [totalPrice, setNewTotalPrice] = useState(43000000);
   const [currentEstimation, setCurrentEstimation] = useState({
-    engine: { name: '디젤', price: 0 },
+    engine: { name: '디젤 2.2', price: 0 },
     body: { name: '7인승', price: 0 },
     wd: { name: '2WD', price: 0 },
     trim: { name: '르블랑', price: 0 },
