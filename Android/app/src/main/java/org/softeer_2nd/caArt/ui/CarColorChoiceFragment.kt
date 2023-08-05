@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import org.softeer_2nd.caArt.BottomSheetMode
 import org.softeer_2nd.caArt.databinding.FragmentCarColorChoiceBinding
-
 class CarColorChoiceFragment() : Fragment() {
 
     private var _binding: FragmentCarColorChoiceBinding? = null
@@ -18,6 +18,9 @@ class CarColorChoiceFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false)
+        binding.apply {
+            bottomSheet.setMode(BottomSheetMode.PrevAndNext)
+        }
         return binding.root
     }
 
