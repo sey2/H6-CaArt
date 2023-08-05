@@ -21,21 +21,25 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/iv_line"
         app:layout_constraintTop_toBottomOf="@+id/iv_up_arrow" />
-
-    <ImageView
+    
+    <View
         android:id="@+id/iv_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_700"
         android:layout_marginTop="12dp"
-        android:background="@drawable/ic_line"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_summary_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_summary_title"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_select_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_line" />
@@ -54,7 +58,7 @@
 
     <TextView
         android:id="@+id/tv_price"
-        style="@style/PriceTextViewStyle"
+        style="@style/PriceTextStyle"
         android:layout_marginTop="32dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/iv_line"
@@ -70,14 +74,4 @@
         app:layout_constraintEnd_toEndOf="@+id/tv_price"
         app:layout_constraintStart_toStartOf="@+id/tv_model_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_price" />
-
-    <ImageView
-        android:id="@+id/iv_home_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/ic_home_indicator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_estimate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

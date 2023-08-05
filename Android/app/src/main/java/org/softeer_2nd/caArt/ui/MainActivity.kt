@@ -1,11 +1,12 @@
-package org.softeer_2nd.caArt
+package org.softeer_2nd.caArt.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
+import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.databinding.ActivityMainBinding
-import org.softeer_2nd.caArt.viewmodel.ToolBarViewModel
+import org.softeer_2nd.caArt.viewmodels.ToolBarViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

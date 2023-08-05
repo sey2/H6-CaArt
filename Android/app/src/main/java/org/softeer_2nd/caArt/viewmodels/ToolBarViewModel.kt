@@ -1,4 +1,4 @@
-package org.softeer_2nd.caArt.viewmodel
+package org.softeer_2nd.caArt.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

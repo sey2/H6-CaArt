@@ -10,7 +10,7 @@ object TextViewBindingAdapter {
     @BindingAdapter("detailIndicatorSelected")
     fun setSelectedDetailIndicatorStyle(textView: TextView, selected: Boolean) {
         val styleId =
-            if (selected) R.style.SelectedDetailIndicatorTextViewStyle else R.style.DetailIndicatorTextViewStyle
+            if (selected) R.style.SelectedDetailIndicatorTextStyle else R.style.DetailIndicatorTextStyle
         textView.setTextAppearance(styleId)
     }
 }

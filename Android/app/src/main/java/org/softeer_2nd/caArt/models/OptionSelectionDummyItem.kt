@@ -1,6 +1,6 @@
-package org.softeer_2nd.caArt
+package org.softeer_2nd.caArt.models
 
-data class ItemTestData(
+data class OptionSelectionDummyItem(
     val optionTitle: String,
     val optionDetailTop: String,
     val optionDetailBottom: String,

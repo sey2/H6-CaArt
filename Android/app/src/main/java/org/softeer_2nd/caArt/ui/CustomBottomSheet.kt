@@ -1,4 +1,4 @@
-package org.softeer_2nd.caArt
+package org.softeer_2nd.caArt.ui
 
 import android.content.Context
 import android.util.AttributeSet
@@ -8,8 +8,10 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.RecyclerAdapters.OptionSelectionAdapter
 import org.softeer_2nd.caArt.databinding.LayoutBottomSheetBaseBinding
+import org.softeer_2nd.caArt.factorys.DummyItemFactory
 
 class CustomBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLayout(context, attrs) {
 
@@ -25,7 +27,7 @@ class CustomBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLayo
 
         recyclerView = binding.incSlideUp.findViewById<RecyclerView>(R.id.rv_select_options)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        itemAdapter = OptionSelectionAdapter(DummyItemFactory.createDummyItems())
+        itemAdapter = OptionSelectionAdapter(DummyItemFactory.createOptionSelectionDummyItems())
         recyclerView.adapter = itemAdapter
 
         bottomSheetBehavior.addBottomSheetCallback(object :

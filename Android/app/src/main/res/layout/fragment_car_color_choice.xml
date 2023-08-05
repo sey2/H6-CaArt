@@ -54,7 +54,7 @@
 
                 <TextView
                     android:id="@+id/tv_exterior_buyer_selected"
-                    style="@style/SelectedBuyerTextViewStyle"
+                    style="@style/SelectedBuyerTextStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title" />
 
@@ -111,7 +111,7 @@
 
                 <TextView
                     android:id="@+id/tv_interior_buyer_selected"
-                    style="@style/SelectedBuyerTextViewStyle"
+                    style="@style/SelectedBuyerTextStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title" />
 
@@ -152,11 +152,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <org.softeer_2nd.caArt.CustomBottomSheet
+        <org.softeer_2nd.caArt.ui.CustomBottomSheet
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom">
-        </org.softeer_2nd.caArt.CustomBottomSheet>
+        </org.softeer_2nd.caArt.ui.CustomBottomSheet>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
