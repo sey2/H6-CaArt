@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="org.softeer_2nd.caArt.R" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="dialog"
+            type="org.softeer_2nd.caArt.dialogs.CaArtDialog" />
+
+        <variable
+            name="builder"
+            type="org.softeer_2nd.caArt.dialogs.CaArtDialog.Builder" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_round_background_12"
+        android:backgroundTint="@color/white"
+        android:minWidth="60dp"
+        android:paddingVertical="23dp">
+
+        <TextView
+            android:id="@+id/tv_caart_dialog_title"
+            style="@style/DialogTitleTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{builder.title}"
+            android:textSize="@{builder.titleTextSize}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="추천이 도움이 되었나요?" />
+
+        <TextView
+            android:id="@+id/tv_caart_dialog_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{builder.description}"
+            app:layout_constraintEnd_toEndOf="@+id/tv_caart_dialog_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_caart_dialog_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_caart_dialog_title"
+            tools:text="고객님의 답변을 반영해 더 나은 서비스를 만들게요!" />
+
+        <FrameLayout
+            android:id="@+id/fl_caart_dialog_content_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:visibility="@{builder.dialogType==dialog.NONE?View.GONE:View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="@+id/tv_caart_dialog_description"
+            app:layout_constraintStart_toStartOf="@+id/tv_caart_dialog_description"
+            app:layout_constraintTop_toBottomOf="@+id/tv_caart_dialog_description">
+
+            <EditText
+                android:id="@+id/et_caart_dialog_text_content"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_dialog_text_background"
+                android:ems="10"
+                android:enabled="@{builder.dialogType==dialog.EDITABLE_TEXT_CONTENT?true:false}"
+                android:fontFamily="@font/hyundaisanstext_regular"
+                android:hint="@{builder.contentHintText}"
+                android:inputType="text"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:text="@{builder.contentText}"
+                android:textColor="@color/gray_500"
+                android:textSize="12sp"
+                android:visibility="@{builder.dialogType==dialog.NONE?View.GONE:View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="@+id/tv_caart_dialog_description"
+                app:layout_constraintStart_toStartOf="@+id/tv_caart_dialog_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_caart_dialog_description" />
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_caart_dialog_negative"
+            style="@style/SecondaryButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:onClick="@{()->builder.negativeButtonClickListener.onButtonClicked(dialog)}"
+            android:text="@{builder.negativeButtonText , default=@string/no}"
+            android:visibility="@{builder.buttonType==dialog.DOUBLE?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_caart_dialog_positive"
+            app:layout_constraintEnd_toStartOf="@+id/btn_caart_dialog_positive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_caart_dialog_positive" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_caart_dialog_positive"
+            style="@style/PrimaryButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@{builder.buttonType==dialog.DOUBLE? 6f:20f}"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="@{()->builder.positiveButtonClickListener.onButtonClicked(dialog)}"
+            android:text="@{builder.positiveButtonText , default=@string/yes}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_caart_dialog_negative"
+            app:layout_constraintTop_toBottomOf="@id/fl_caart_dialog_content_container" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

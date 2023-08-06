@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="two_buttons_dialog_width">280dp</dimen>
+    <dimen name="double_button_dialog_margin_between_button">17dp</dimen>
+    <dimen name="single_button_dialog_margin_start">32dp</dimen>
 </resources>
