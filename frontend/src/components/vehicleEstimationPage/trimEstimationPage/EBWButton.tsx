@@ -11,43 +11,24 @@ interface EBWButtonProps {
 function EBWButton({ value, price, onClick }: EBWButtonProps) {
   const { currentEstimation } = useContext(EstimationContext)!;
   function checkVehicleStatus(value: string, target: string) {
-    if (value === '디젤 2.2' || value === '가솔린 3.8') {
-      if (value === target) return true;
-    } else if (value === '7인승' || value === '8인승') {
-      if (value === target) return true;
-    } else if (value === '2WD' || value === '4WD') {
-      if (value === target) return true;
-    }
-    return false;
+    return value === target;
   }
 
   function ButtonSelector(value: string) {
     switch (value) {
       case '디젤 2.2':
-        if (checkVehicleStatus(value, currentEstimation.engine.name)) {
-          return <SelectedButton>{value}</SelectedButton>;
-        }
-        return <Button>{value}</Button>;
       case '가솔린 3.8':
         if (checkVehicleStatus(value, currentEstimation.engine.name)) {
           return <SelectedButton>{value}</SelectedButton>;
         }
         return <Button>{value}</Button>;
       case '7인승':
-        if (checkVehicleStatus(value, currentEstimation.body.name)) {
-          return <SelectedButton>{value}</SelectedButton>;
-        }
-        return <Button>{value}</Button>;
       case '8인승':
         if (checkVehicleStatus(value, currentEstimation.body.name)) {
           return <SelectedButton>{value}</SelectedButton>;
         }
         return <Button>{value}</Button>;
       case '2WD':
-        if (checkVehicleStatus(value, currentEstimation.wd.name)) {
-          return <SelectedButton>{value}</SelectedButton>;
-        }
-        return <Button>{value}</Button>;
       case '4WD':
         if (checkVehicleStatus(value, currentEstimation.wd.name)) {
           return <SelectedButton>{value}</SelectedButton>;

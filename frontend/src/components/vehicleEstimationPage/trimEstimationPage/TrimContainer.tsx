@@ -29,7 +29,7 @@ const Box = styled.div`
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  margin-top: 34px;
+  margin: 34px 0px 48px 0px;
 `;
 
 const CompareButton = styled.div`
