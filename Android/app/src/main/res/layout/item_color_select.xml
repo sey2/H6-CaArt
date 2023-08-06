@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="selected"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="backgroundRes"
+            type="java.lang.Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_item"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="10dp"
+        android:padding="1dp">
+
+        <ImageView
+            android:id="@+id/iv_background_color"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:imageResource="@{backgroundRes}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/img_option_color1" />
+
+        <TextView
+            android:id="@+id/top_tag"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:background="@drawable/shape_top_tag_round"
+            android:fontFamily="@font/hyundaisanstext_medium"
+            android:paddingTop="2dp"
+            android:text="@string/Top1"
+            android:textAlignment="center"
+            android:textColor="@color/gray_1000"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/selected_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/select_blue_500"
+            android:visibility="@{selected ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_circle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_check_circle_24"
+            android:visibility="@{selected ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/selected_background"
+            app:layout_constraintTop_toTopOf="@+id/selected_background"
+            tools:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

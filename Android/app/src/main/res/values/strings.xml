@@ -30,4 +30,7 @@
     <string name="default_model_name">펠리세이드 디젤 2.2 2WD Le Blanc</string>
     <string name="summary_view">요약보기</string>
     <string name="estimate">견적내기</string>
+    <string name="quilting_natural_black">퀄팅천연 (블랙)</string>
+    <string name="graphite_gray_metallic">그라파이 그레이 메탈릭</string>
+    <string name="Top1">Top1</string>
 </resources>
