@@ -54,8 +54,8 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
         binding.builder = builder
         binding.dialog = this
         if (builder.dialogType == VIEW_CONTENT) {
-            builder.contentView ?: return
-            changeContent(builder.contentView!!)
+            builder.contentView?.let { changeContent(it) }
+            builder.contentViewRes?.let { changeContent(it) }
         }
     }
 
@@ -71,6 +71,11 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
             removeAllViews()
             addView(content)
         }
+    }
+
+    private fun changeContent(res: Int) {
+        val content = layoutInflater.inflate(res, binding.flCaartDialogContentContainer, false)
+        changeContent(content)
     }
 
     open class Builder(
@@ -92,6 +97,7 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
         var contentText: String? = null
         var contentHintText: String? = null
         var contentView: View? = null
+        var contentViewRes: Int? = null
 
         fun setTitle(title: String, size: Int = 16): Builder = apply {
             this.title = title
@@ -123,10 +129,16 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
             dialogType = if (isEditable) EDITABLE_TEXT_CONTENT else TEXT_CONTENT
         }
 
+        fun setDialogContentView(res: Int) = apply {
+            dialogWidth = dialogWidth ?: (280f.dp2px(context) + 10f.dp2px(context))
+            dialogType = VIEW_CONTENT
+            contentViewRes = res
+        }
+
         fun setDialogContentView(view: View) = apply {
             dialogWidth = dialogWidth ?: (280f.dp2px(context) + 10f.dp2px(context))
-            contentView = view
             dialogType = VIEW_CONTENT
+            contentView = view
         }
 
         fun build() = CaArtDialog(this)

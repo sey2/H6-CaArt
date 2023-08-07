@@ -33,30 +33,13 @@ class HomeFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val view2 = TextView(requireContext()).apply {
-            text = "hello"
-            setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.black))
-        }
         CaArtDialog.Builder(requireContext())
-            .setTitle("hello", 30)
-            .setDescription("android")
-            .setButtonType(CaArtDialog.DOUBLE) //DOUBLE, SINGLE
-            .setPositiveButton(listener = {
-                //명시적 dismiss 필요
-                Toast.makeText(requireContext(), "hello", Toast.LENGTH_SHORT).show()
-                it.dismiss()
-            })
-            .setNegativeButton(text = "아니", listener = {
-                //negative 버튼 클릭 시 이 블록 수행 후 자동으로 dismiss
-            })
-            .setContentText(
-                text = "abcd1234@email.com",
-                hint = "hi",
-                isEditable = true
-            ) //setDialogContentView와 함께 쓰기 불가능
-            .setDialogContentView(view2)//원하는 뷰를 넣을 수 있음
+            .setTitle("title")
+            .setDescription("desc")
+            .setDialogContentView(R.layout.layout_detail_indicator)
             .build()
-            .show(requireActivity().supportFragmentManager, "dialogTag")
+            .show(requireActivity().supportFragmentManager, "hello")
+
     }
 
     override fun onDestroyView() {

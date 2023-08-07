@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandableView">
+        <attr name="isRotateEffect" format="boolean" />
+        <attr name="rotateIconTint" format="reference" />
+        <attr name="rotateIcon" format="reference" />
+        <attr name="initialState" format="enum">
+            <enum name="contract" value="0" />
+            <enum name="expand" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
