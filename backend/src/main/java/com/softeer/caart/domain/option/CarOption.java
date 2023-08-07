@@ -16,6 +16,7 @@ public class CarOption {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "car_option_id")
 	private Long id;
 
 	@Column(length = 50, nullable = false)

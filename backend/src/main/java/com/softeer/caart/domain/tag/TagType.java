@@ -1,5 +1,10 @@
 package com.softeer.caart.domain.tag;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum TagType {
 
 	CONVENIENCE("사용편의"),
@@ -11,8 +16,4 @@ public enum TagType {
 	ENTERTAINMENT("엔터테인먼트");
 
 	private final String name;
-
-	TagType(String name) {
-		this.name = name;
-	}
 }
