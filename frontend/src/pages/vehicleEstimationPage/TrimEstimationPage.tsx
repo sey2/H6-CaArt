@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Header } from '../../components/common/Header';
 import SquareButton from '../../components/common/SquareButton';
+import CompareModal from '../../components/vehicleEstimationPage/trimEstimationPage/CompareModal';
 import EBWContainer from '../../components/vehicleEstimationPage/trimEstimationPage/EBWContainer';
 import EBWGuideModal from '../../components/vehicleEstimationPage/trimEstimationPage/EBWGuideModal';
 import TrimCarImage from '../../components/vehicleEstimationPage/trimEstimationPage/TrimCarImage';
@@ -9,32 +10,42 @@ import TrimContainer from '../../components/vehicleEstimationPage/trimEstimation
 
 function TrimEstimationPage() {
   const [infoModalOpen, setInfoModalOpen] = useState<boolean>(false);
+  const [compareModalOpen, setComapreModalOpen] = useState<boolean>(false);
 
   return (
     <>
-      <Header size="default" page={0} />
       {infoModalOpen && <EBWGuideModal setter={setInfoModalOpen} />}
-      <Layout>
-        <TrimCarImage />
-        <RightBox>
-          <InfoText onClick={() => setInfoModalOpen(true)}>
-            <img src="/images/question_icon.svg" />
-            <span className="text-secondary-active-blue body-medium-14">
-              고르기 어렵다면?
-            </span>
-          </InfoText>
-          <EBWContainer />
-          <TrimContainer />
-          <SquareButton size="xm" bg="primary-blue" color="grey-1000">
-            색상 선택
-          </SquareButton>
-        </RightBox>
-      </Layout>
+      {compareModalOpen && <CompareModal setter={setComapreModalOpen} />}
+      <Wrapper modalStatus={compareModalOpen}>
+        <Header size="default" page={0} />
+        <Layout>
+          <TrimCarImage />
+          <RightBox>
+            <InfoText onClick={() => setInfoModalOpen(true)}>
+              <img src="/images/question_icon.svg" />
+              <span className="text-secondary-active-blue body-medium-14">
+                고르기 어렵다면?
+              </span>
+            </InfoText>
+            <EBWContainer />
+            <TrimContainer setter={setComapreModalOpen} />
+            <SquareButton size="xm" bg="primary-blue" color="grey-1000">
+              색상 선택
+            </SquareButton>
+          </RightBox>
+        </Layout>
+      </Wrapper>
     </>
   );
 }
 
 export default TrimEstimationPage;
+
+const Wrapper = styled.div<{ modalStatus: boolean }>`
+  z-index: 4;
+  /* overflow: ${props => (props.modalStatus ? 'hidden' : 'unset')}; */
+  ${props => props.modalStatus && `position:fixed`}
+`;
 
 const Layout = styled.div`
   display: grid;

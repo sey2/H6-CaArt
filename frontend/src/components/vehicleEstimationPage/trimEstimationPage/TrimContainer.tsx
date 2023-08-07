@@ -2,12 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import TrimCard from './TrimCard';
 
-function TrimContainer() {
+function TrimContainer({
+  setter,
+}: {
+  setter: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <Box>
       <TrimHeader>
         <span className="head-medium-20 text-grey-0">트림</span>
-        <CompareButton className="body-regular-12 text-grey-0">
+        <CompareButton
+          className="body-regular-12 text-grey-0"
+          onClick={() => setter(true)}
+        >
           비교하기
         </CompareButton>
       </TrimHeader>
@@ -40,6 +47,7 @@ const CompareButton = styled.div`
   gap: 10px;
   border-radius: 20px;
   border: 1px solid var(--grey-scale-grey-700, #ebebeb);
+  cursor: pointer;
 `;
 
 const TrimHeader = styled.div`
