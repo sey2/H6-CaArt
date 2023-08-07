@@ -5,6 +5,7 @@ import SquareButton from '../../components/common/SquareButton';
 import CompareModal from '../../components/vehicleEstimationPage/trimEstimationPage/CompareModal';
 import EBWContainer from '../../components/vehicleEstimationPage/trimEstimationPage/EBWContainer';
 import EBWGuideModal from '../../components/vehicleEstimationPage/trimEstimationPage/EBWGuideModal';
+import OptionExplainModal from "../../components/vehicleEstimationPage/trimEstimationPage/OptionExplainModal";
 import TrimCarImage from '../../components/vehicleEstimationPage/trimEstimationPage/TrimCarImage';
 import TrimContainer from '../../components/vehicleEstimationPage/trimEstimationPage/TrimContainer';
 

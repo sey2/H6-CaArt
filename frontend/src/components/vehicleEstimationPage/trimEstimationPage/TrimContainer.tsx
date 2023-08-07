@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import OptionExplainModal from './OptionExplainModal';
 import TrimCard from './TrimCard';
 
-function TrimContainer({
-  setter,
-}: {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+function TrimContainer() {
+  const [optionModalOpen, setOptionModalOpen] = useState(false);
+  const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+  const trimList = ['Exclusive', 'Le Blanc', 'Prestige', 'Caligraphy'];
+
+  function setTrimCard(trimLists: string[]) {
+    return trimLists.map((trim, index) => {
+      return (
+        <>
+          <TrimCard
+            trim={trim}
+            modalSetter={setOptionModalOpen}
+            positionSetter={setModalPosition}
+          />
+          {index !== trimLists.length && <Hr />}
+        </>
+      );
+    });
+  }
+
   return (
     <Box>
       <TrimHeader>
@@ -18,13 +34,16 @@ function TrimContainer({
           비교하기
         </CompareButton>
       </TrimHeader>
-      <TrimCard trim="Exclusive" />
-      <Hr />
-      <TrimCard trim="Le Blanc" />
-      <Hr />
-      <TrimCard trim="Prestige" />
-      <Hr />
-      <TrimCard trim="Caligraphy" />
+      <>
+        {setTrimCard(trimList)}
+        {optionModalOpen && (
+          <OptionExplainModal
+            x={modalPosition.x}
+            y={modalPosition.y}
+            setter={setOptionModalOpen}
+          />
+        )}
+      </>
     </Box>
   );
 }

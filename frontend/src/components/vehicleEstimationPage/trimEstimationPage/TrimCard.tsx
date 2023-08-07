@@ -1,11 +1,18 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { EstimationContext } from '../../../util/Context';
+import { priceToString } from '../../../util/priceToString';
 
 function TrimCard({
   trim,
+  modalSetter,
+  positionSetter,
 }: {
-  trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Caligraphy';
+  trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Caligraphy' | string;
+  modalSetter: React.Dispatch<React.SetStateAction<boolean>>;
+  positionSetter: React.Dispatch<
+    React.SetStateAction<{ x: number; y: number }>
+  >;
 }) {
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
   const data = {
@@ -112,13 +119,25 @@ function TrimCard({
       },
     ],
   };
+  function handleModal(e: React.MouseEvent) {
+    const offsetX = e.nativeEvent.offsetX;
+    const offsetY = e.nativeEvent.offsetY;
+    const clickedX = e.clientX;
+    const clickedY = e.clientY;
+    const x = clickedX - offsetX - 150;
+    const y = clickedY - offsetY - 421;
+    positionSetter({ x, y });
+    modalSetter(true);
+  }
 
   function getOptionList(trim: string) {
     return data.trimList.map(trimItem => {
       if (trimItem.trimName === trim) {
         return trimItem.trimOption.map(option => (
           <>
-            <li key={option.name}>{option.name}</li>
+            <li key={option.name} onClick={e => handleModal(e)}>
+              {option.name}
+            </li>
           </>
         ));
       }
@@ -135,55 +154,59 @@ function TrimCard({
     return enginePrice + bodyPrice + wdPrice + trimPrice!;
   }
   return (
-    <Wrapper>
-      {data.trimList.map(trimItem => {
-        if (trimItem.trimName === trim)
-          return (
-            <>
-              <Head>
-                <CarInfo>
+    <>
+      <Wrapper>
+        {data.trimList.map(trimItem => {
+          if (trimItem.trimName === trim)
+            return (
+              <>
+                <Head>
+                  <CarInfo>
+                    <span className="text-grey-300 body-medium-14">
+                      {trimItem.trimName}
+                    </span>
+                    <span className="text-grey-500 caption-regular-12 ">
+                      <>
+                        {currentEstimation.engine.name} ･&nbsp;
+                        {currentEstimation.body.name}
+                        &nbsp; ･&nbsp;
+                        {currentEstimation.wd.name}
+                      </>
+                    </span>
+                  </CarInfo>
+                  <CheckButton
+                    src={
+                      currentEstimation.trim.name === trimItem.trimName
+                        ? '/images/check_circle_blue_bold.svg'
+                        : '/images/check_circle_grey_bold.svg'
+                    }
+                    onClick={() =>
+                      setTrim({
+                        name: trimItem.trimName,
+                        price: trimItem.trimPrice,
+                      })
+                    }
+                  />
+                </Head>
+                <TrimSummary className="text-grey-100 body-regular-16">
+                  {trimItem.trimInfo}
+                </TrimSummary>
+                <TrimPrice className="text-grey-0 head-medium-20">
+                  {priceToString(getTotalTrimPrice(trim))}
+                </TrimPrice>
+                <OptionBox>
                   <span className="text-grey-300 body-medium-14">
-                    {trimItem.trimName}
+                    기본 옵션
                   </span>
-                  <span className="text-grey-500 caption-regular-12 ">
-                    <>
-                      {currentEstimation.engine.name} ･&nbsp;
-                      {currentEstimation.body.name}
-                      &nbsp; ･&nbsp;
-                      {currentEstimation.wd.name}
-                    </>
-                  </span>
-                </CarInfo>
-                <CheckButton
-                  src={
-                    currentEstimation.trim.name === trimItem.trimName
-                      ? '/images/check_circle_blue_bold.svg'
-                      : '/images/check_circle_grey_bold.svg'
-                  }
-                  onClick={() =>
-                    setTrim({
-                      name: trimItem.trimName,
-                      price: trimItem.trimPrice,
-                    })
-                  }
-                />
-              </Head>
-              <TrimSummary className="text-grey-100 body-regular-16">
-                {trimItem.trimInfo}
-              </TrimSummary>
-              <TrimPrice className="text-grey-0 head-medium-20">
-                {getTotalTrimPrice(trim).toLocaleString()}원
-              </TrimPrice>
-              <OptionBox>
-                <span className="text-grey-300 body-medium-14">기본 옵션</span>
-                <OptionList className="text-secondary-active-blue body-regular-14">
-                  {getOptionList(trim)}
-                </OptionList>
-              </OptionBox>
-            </>
-          );
-      })}
-    </Wrapper>
+                  <OptionList className="text-secondary-active-blue body-regular-14">
+                    {getOptionList(trim)}
+                  </OptionList>
+                </OptionBox>
+              </>
+            );
+        })}
+      </Wrapper>
+    </>
   );
 }
 
@@ -217,6 +240,10 @@ const OptionList = styled.ul`
   flex-wrap: wrap;
   text-underline-offset: 3px;
   text-decoration: underline;
+  li {
+    cursor: pointer;
+    position: relative;
+  }
 `;
 
 const CarInfo = styled.div`
