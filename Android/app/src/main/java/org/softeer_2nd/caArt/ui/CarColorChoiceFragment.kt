@@ -9,20 +9,23 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.BottomSheetMode
-import org.softeer_2nd.caArt.RecyclerAdapters.ColorOptionSelectionAdapter
+import org.softeer_2nd.caArt.recyclerAdapters.ColorOptionSelectionAdapter
 import org.softeer_2nd.caArt.databinding.FragmentCarColorChoiceBinding
 import org.softeer_2nd.caArt.factorys.CarColorChoiceViewModelFactory
 import org.softeer_2nd.caArt.factorys.DummyItemFactory
-import org.softeer_2nd.caArt.repositorys.ColorOptionImageRepository
+import org.softeer_2nd.caArt.repositorys.CarExteriorImageRepository
 import org.softeer_2nd.caArt.viewmodels.CarColorChoiceViewModel
 
 class CarColorChoiceFragment() : Fragment() {
     private var _binding: FragmentCarColorChoiceBinding? = null
     private val binding get() = _binding!!
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false)
+    private val imageRepository by lazy { CarExteriorImageRepository(requireContext()) }
+    private val carColorChoiceViewModel by viewModels<CarColorChoiceViewModel> { CarColorChoiceViewModelFactory(imageRepository) }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false).apply {
+            this.viewModel = this@CarColorChoiceFragment.carColorChoiceViewModel
+            lifecycleOwner = viewLifecycleOwner
             bottomSheet.setMode(BottomSheetMode.PrevAndNext)
         }
 
@@ -33,12 +36,12 @@ class CarColorChoiceFragment() : Fragment() {
 
         initializeRecyclerView(
             binding.rvInteriorColor,
-            ColorOptionSelectionAdapter(DummyItemFactory.createOptionExteriorColorDummyItems())
+            ColorOptionSelectionAdapter(DummyItemFactory.createOptionInteriorColorDummyItems())
         )
 
         initializeRecyclerView(
             binding.rvExteriorColor,
-            ColorOptionSelectionAdapter(DummyItemFactory.createOptionInteriorColorDummyItems())
+            ColorOptionSelectionAdapter(DummyItemFactory.createOptionExteriorColorDummyItems())
         )
     }
 

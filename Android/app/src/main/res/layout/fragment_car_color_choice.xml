@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="org.softeer_2nd.caArt.viewmodels.CarColorChoiceViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,19 +31,48 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></include>
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_car_spin_background"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/img_car_background_with_circle"
+                    android:contentDescription="@string/car_exterior_spin_image"
+                    app:layout_constraintDimensionRatio="w,195:375"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inc_top_indicator" />
 
                 <ImageView
                     android:id="@+id/iv_car_spin"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/img_car_exterior"
+                    android:layout_marginTop="12dp"
                     android:contentDescription="@string/car_exterior_spin_image"
+                    android:imageResource="@{viewModel.currentImage}"
+                    app:images="@{viewModel.images}"
                     app:layout_constraintDimensionRatio="w,185:375"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/inc_top_indicator" />
+                    app:layout_constraintTop_toBottomOf="@+id/inc_top_indicator"
+                    app:onTouch="@{viewModel}"
+                    app:spinActive="@{viewModel.spinActive}"
+                    tools:background="@drawable/img_car_exterior" />
+
+                <ImageView
+                    android:id="@+id/iv_spin_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.spinActive ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_car_spin_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/iv_car_spin"
+                    app:layout_constraintTop_toTopOf="@+id/iv_car_spin_background"
+                    android:onClick="@{()-> viewModel.activateSpinImage()}"
+                    app:srcCompat="@drawable/ic_rotate_56"
+                    android:contentDescription="@string/spin_active_button" />
 
                 <TextView
                     android:id="@+id/tv_exterior_color_title"
@@ -46,14 +84,14 @@
                 <TextView
                     android:id="@+id/tv_exterior_color"
                     style="@style/CarColorTextStyle"
-                    android:text=""
+                    android:text="@string/graphite_gray_metallic"
                     app:layout_constraintStart_toStartOf="@+id/tv_exterior_color_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title"
-                    tools:text="그라파이 그레이 메탈릭" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title" />
 
                 <TextView
                     android:id="@+id/tv_exterior_buyer_selected"
                     style="@style/SelectedBuyerTextStyle"
+                    app:spanColorText="@{@string/buyer_selected}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title" />
 
@@ -61,11 +99,10 @@
                     android:id="@+id/rv_exterior_color"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_exterior_color"
                     app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color"
                     tools:layout_height="60dp" />
 
@@ -85,7 +122,7 @@
                     android:id="@+id/iv_car_interior"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginTop="56dp"
+                    android:layout_marginTop="28dp"
                     android:background="@drawable/img_car_interior"
                     android:contentDescription="@string/car_interior_image"
                     app:layout_constraintDimensionRatio="w,185:375"
@@ -103,14 +140,14 @@
                 <TextView
                     android:id="@+id/tv_interior_color"
                     style="@style/CarColorTextStyle"
-                    android:text=""
+                    android:text="@string/quilting_natural_black"
                     app:layout_constraintStart_toStartOf="@+id/tv_interior_color_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title"
-                    tools:text="퀄팅천연(블랙)" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title" />
 
                 <TextView
                     android:id="@+id/tv_interior_buyer_selected"
                     style="@style/SelectedBuyerTextStyle"
+                    app:spanColorText="@{@string/buyer_selected}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title" />
 
@@ -118,11 +155,10 @@
                     android:id="@+id/rv_interior_color"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_interior_color"
                     app:layout_constraintTop_toBottomOf="@+id/tv_interior_color"
                     tools:layout_height="60dp" />
 

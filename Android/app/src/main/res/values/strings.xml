@@ -32,5 +32,6 @@
     <string name="estimate">견적내기</string>
     <string name="quilting_natural_black">퀄팅천연 (블랙)</string>
     <string name="graphite_gray_metallic">그라파이 그레이 메탈릭</string>
-    <string name="Top1">Top1</string>
+    <string name="top1">Top1</string>
+    <string name="spin_active_button">spinActiveButton</string>
 </resources>

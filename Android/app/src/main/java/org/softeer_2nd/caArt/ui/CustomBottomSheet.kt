@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.softeer_2nd.caArt.BottomSheetMode
 import org.softeer_2nd.caArt.R
-import org.softeer_2nd.caArt.RecyclerAdapters.OptionSelectionAdapter
+import org.softeer_2nd.caArt.recyclerAdapters.OptionSelectionAdapter
 import org.softeer_2nd.caArt.databinding.LayoutBottomSheetBaseBinding
 import org.softeer_2nd.caArt.factorys.DummyItemFactory
 

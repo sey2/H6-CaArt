@@ -26,7 +26,7 @@ object DummyItemFactory {
         return arrayListOf(
             OptionColorDummyItem("Top1", R.color.black),
             OptionColorDummyItem("Top2", R.color.white),
-            OptionColorDummyItem("Top3", R.color.gray_300)
+            OptionColorDummyItem("Top3", R.color.gray_500)
         )
     }
 }

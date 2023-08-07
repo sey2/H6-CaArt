@@ -1,4 +1,4 @@
-package org.softeer_2nd.caArt.RecyclerAdapters
+package org.softeer_2nd.caArt.recyclerAdapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

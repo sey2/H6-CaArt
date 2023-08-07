@@ -16,22 +16,20 @@
             type="java.lang.Integer" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/root_item"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginEnd="10dp"
-        android:padding="1dp">
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="5dp">
 
         <ImageView
             android:id="@+id/iv_background_color"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:imageResource="@{backgroundRes}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/select_blue_500"
             tools:background="@drawable/img_option_color1" />
 
         <TextView
@@ -41,32 +39,23 @@
             android:background="@drawable/shape_top_tag_round"
             android:fontFamily="@font/hyundaisanstext_medium"
             android:paddingTop="2dp"
-            android:text="@string/Top1"
+            android:text="@string/top1"
             android:textAlignment="center"
             android:textColor="@color/gray_1000"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/selected_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/select_blue_500"
-            android:visibility="@{selected ? View.VISIBLE : View.GONE}"
-            tools:visibility="gone" />
-
         <ImageView
             android:id="@+id/iv_circle"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_check_circle_24"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_check_circle_24"
+            android:scaleType="center"
+            android:background="@color/select_blue_500"
             android:visibility="@{selected ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/selected_background"
-            app:layout_constraintTop_toTopOf="@+id/selected_background"
+            android:layout_gravity="center"
             tools:visibility="gone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
