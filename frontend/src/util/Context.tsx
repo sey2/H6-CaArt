@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 
-interface NameAndPrice {
+export interface NameAndPrice {
   name: string;
   price: number;
 }

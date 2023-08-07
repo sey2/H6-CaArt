@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Header } from '../../components/common/Header';
+import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import CompareModal from '../../components/vehicleEstimationPage/trimEstimationPage/CompareModal';
 import EBWContainer from '../../components/vehicleEstimationPage/trimEstimationPage/EBWContainer';
@@ -71,4 +71,3 @@ const InfoText = styled.div`
   margin-bottom: 14px;
   cursor: pointer;
 `;
-
