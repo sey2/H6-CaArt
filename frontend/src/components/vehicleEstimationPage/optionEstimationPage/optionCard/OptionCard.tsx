@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import CircularButton from '../../../common/CircularButton';
 import { OptionCardTag } from './OptionCardTag';
 import { OptionCardGuide } from './OptionCardGuide';
-import { priceToString } from '../../../../util/priceToString';
-import { truncateString } from '../../../../util/truncateString';
+import { priceToString } from '../../../../util/PriceToString';
+import { truncateString } from '../../../../util/TruncateString';
 
 function OptionCard({
   data,

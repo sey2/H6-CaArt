@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { priceToString } from '../../../../util/priceToString';
+import { priceToString } from '../../../../util/PriceToString';
 import CircularButton from '../../../common/CircularButton';
 import { OptionModalProps } from './OptionModal';
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { EstimationContext } from '../../../util/Context';
-import { priceToString } from '../../../util/priceToString';
+import { priceToString } from '../../../util/PriceToString';
 
 function TrimCard({
   trim,

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import SquareButton from '../SquareButton';
 import { HeaderDetail } from './HeaderDetail';
 import { EstimationContext, NameAndPrice } from '../../../util/Context';
-import { truncateString } from '../../../util/truncateString';
-import { priceToString } from '../../../util/priceToString';
+import { truncateString } from '../../../util/TruncateString';
+import { priceToString } from '../../../util/PriceToString';
 
 function HeaderMain({ step }: { step: number }) {
   const { currentEstimation, totalPrice } = useContext(EstimationContext)!;

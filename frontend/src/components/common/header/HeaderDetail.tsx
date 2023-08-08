@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { EstimationContext } from '../../../util/Context';
-import { priceToString } from '../../../util/priceToString';
-import { truncateString } from '../../../util/truncateString';
+import { priceToString } from '../../../util/PriceToString';
+import { truncateString } from '../../../util/TruncateString';
 
 function HeaderDetail({
   setShowDetail,
