@@ -14,8 +14,11 @@ import javax.persistence.Table;
 
 import com.softeer.caart.domain.Image;
 
+import lombok.Getter;
+
 @Entity
 @Table(name = "child_car_option")
+@Getter
 public class ChildCarOption {
 
 	@Id

@@ -13,8 +13,11 @@ import javax.persistence.Table;
 
 import com.softeer.caart.domain.tag.Tag;
 
+import lombok.Getter;
+
 @Entity
 @Table(name = "rel_car_option_tag")
+@Getter
 public class OptionTag {
 
 	@Id

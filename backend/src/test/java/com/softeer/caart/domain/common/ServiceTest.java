@@ -1,5 +1,7 @@
 package com.softeer.caart.domain.common;
 
+import static com.softeer.caart.domain.option.entity.Badge.*;
+
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
@@ -11,6 +13,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import com.softeer.caart.domain.composition.entity.BodyType;
 import com.softeer.caart.domain.composition.entity.CarEngine;
 import com.softeer.caart.domain.composition.entity.WheelDrive;
+import com.softeer.caart.domain.option.entity.CarOption;
 import com.softeer.caart.domain.trim.entity.Trim;
 
 /**
@@ -27,6 +30,8 @@ public class ServiceTest {
 	protected WheelDrive WD_4; // 4WD
 	protected Trim LeBlanc;
 	protected Trim Exclusive;
+	protected CarOption 옵션;
+	protected CarOption 세트옵션;
 
 	@InjectSoftAssertions
 	protected SoftAssertions softly;
@@ -37,6 +42,7 @@ public class ServiceTest {
 		initBodyType();
 		initWheelDrive();
 		initTrim();
+		initOption();
 	}
 
 	private void initCarEngine() {
@@ -113,4 +119,26 @@ public class ServiceTest {
 		ReflectionTestUtils.setField(Exclusive, "id", 2L);
 	}
 
+	private void initOption() {
+		옵션 = CarOption.builder()
+			.name("옵션")
+			.description("옵션 설명")
+			.imageUrl("tmp")
+			.price(0)
+			.badge(NONE)
+			.isSetOption(false)
+			.isAdditionalOption(true)
+			.build();
+		ReflectionTestUtils.setField(옵션, "id", 1L);
+		세트옵션 = CarOption.builder()
+			.name("세트옵션")
+			.description("세트옵션 설명")
+			.imageUrl("tmp")
+			.price(0)
+			.badge(NONE)
+			.isSetOption(true)
+			.isAdditionalOption(true)
+			.build();
+		ReflectionTestUtils.setField(세트옵션, "id", 2L);
+	}
 }

@@ -1,5 +1,8 @@
 package com.softeer.caart.domain.option.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -8,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.softeer.caart.domain.Image;
 
@@ -46,6 +50,12 @@ public class CarOption {
 
 	@Column(nullable = false)
 	private Boolean isAdditionalOption = false;
+
+	@OneToMany(mappedBy = "carOption")
+	private List<OptionTag> tags = new ArrayList<>();
+
+	@OneToMany(mappedBy = "parentOption")
+	private List<ChildCarOption> childOptions = new ArrayList<>();
 
 	@Builder
 	public CarOption(String name, String description, String imageUrl, Integer price, Badge badge, Boolean isSetOption,
