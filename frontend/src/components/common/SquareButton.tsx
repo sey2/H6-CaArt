@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface buttonOption {
-  size: 'xl' | 'l' | 'xm' | 'm' | 's' | 'xs' | 'xxs' | 'auto';
+  size: 'xl' | 'l' | 'xm' | 'm' | 's' | 'xs' | 'xxs' | 'ms' | 'auto';
   height?: number | undefined;
   color: 'grey-900' | 'primary-blue' | 'grey-1000' | 'grey-50';
   bg?: 'grey-1000' | 'primary-blue';
@@ -20,6 +20,8 @@ function calcWidth(size: string) {
       return 309;
     case 'm':
       return 298;
+    case 'ms':
+      return 186;
     case 's':
       return 168;
     case 'xs':

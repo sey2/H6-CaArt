@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import RerecommendButton from './RerecommendButton';
+import RerecommendModal from './RerecommendModal';
 
 function TrimCarImage() {
+  const [reRecommendModal, setReRecommendModal] = useState(false);
+
   return (
     <Wrapper>
+      <RerecommendButton setter={setReRecommendModal} />
+      {reRecommendModal && <RerecommendModal setter={setReRecommendModal} />}
       <BgTop />
       <BgBottom />
       <Image src="images/car.png" width={646} height={366} />
