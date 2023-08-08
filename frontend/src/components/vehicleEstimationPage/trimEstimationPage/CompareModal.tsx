@@ -381,7 +381,7 @@ const Header = styled.div`
 
 const Wrapper = styled.div`
   width: 900px;
-  height: 1400px;
+  height: 1470px;
   border-radius: 12px;
   flex-shrink: 0;
   background: #fff;

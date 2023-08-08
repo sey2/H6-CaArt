@@ -53,11 +53,11 @@ const Button = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 22px; /* 157.143% */
+  line-height: 22px;
   letter-spacing: -0.2px;
   color: var(--grey-500);
   display: flex;
-  width: 63px;
+  width: 142px;
   padding: 9px 37px;
   justify-content: center;
   align-items: center;
@@ -69,12 +69,13 @@ const Button = styled.div`
 
 const SelectedButton = styled(Button)`
   border: 1.5px solid var(--blue-blue-500-primary, #00428e);
+  width: 142px;
   background: var(--grey-scale-grey-1000, #fff);
   font-family: HyundaiTextMedium;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 22px; /* 157.143% */
+  line-height: 22px;
   letter-spacing: -0.2px;
   color: var(--primary-blue);
 `;

@@ -11,7 +11,7 @@ function OptionExplainModal({
   y: number;
 }) {
   return (
-    <Modal top={y} left={x}>
+    <Modal top={y} left={x} onClick={e => e.stopPropagation()}>
       <X src="/images/x_icon.svg" onClick={() => setter(false)} />
       <Title className="body-bold-18 text-grey-0">
         네비게이션 기반 스마트 크루즈 컨트롤(진출입로)

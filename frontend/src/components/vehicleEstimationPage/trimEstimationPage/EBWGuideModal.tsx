@@ -193,7 +193,6 @@ const NavBar = styled.div`
 
 const NavItem = styled.div`
   display: flex;
-  gap: 24px;
 `;
 
 const Content = styled.div`
@@ -250,6 +249,7 @@ const SpanDiv = styled.div`
 `;
 
 const NItem = styled.span<{ value: string }>`
+  padding: 0px 20px 9px 20px;
   cursor: pointer;
 `;
 

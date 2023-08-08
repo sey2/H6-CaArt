@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import OptionExplainModal from './OptionExplainModal';
 import TrimCard from './TrimCard';
 
-function TrimContainer() {
-  const [optionModalOpen, setOptionModalOpen] = useState(false);
-  const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+function TrimContainer({
+  setter,
+  optionModalPositionSetter,
+  optionModalOpenSetter
+}: {
+  setter: React.Dispatch<React.SetStateAction<boolean>>,
+  optionModalPositionSetter: React.Dispatch<React.SetStateAction<{x:number, y:number}>>,
+  optionModalOpenSetter:React.Dispatch<React.SetStateAction<boolean>>,
+}) {
   const trimList = ['Exclusive', 'Le Blanc', 'Prestige', 'Caligraphy'];
 
   function setTrimCard(trimLists: string[]) {
@@ -14,8 +19,8 @@ function TrimContainer() {
         <>
           <TrimCard
             trim={trim}
-            modalSetter={setOptionModalOpen}
-            positionSetter={setModalPosition}
+            modalSetter={optionModalOpenSetter}
+            positionSetter={optionModalPositionSetter}
           />
           {index !== trimLists.length && <Hr />}
         </>
@@ -36,13 +41,6 @@ function TrimContainer() {
       </TrimHeader>
       <>
         {setTrimCard(trimList)}
-        {optionModalOpen && (
-          <OptionExplainModal
-            x={modalPosition.x}
-            y={modalPosition.y}
-            setter={setOptionModalOpen}
-          />
-        )}
       </>
     </Box>
   );
@@ -51,7 +49,7 @@ function TrimContainer() {
 export default TrimContainer;
 
 const Box = styled.div`
-  width: 335px;
+  width: 309px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;

@@ -1,34 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const TOOLTIP_MESSAGE = {
-  engine: '디젤은 연비가 좋고 가솔린은 승차감이 더 부드럽고 조용해요.',
-  body: '7인승의 경우 2열의 가운데에 시트가 없어 통행이 편하고 8인승의 경우 2열 가운데에 시트가 존재해요.',
-  method:
+  엔진: '디젤은 연비가 좋고 가솔린은 승차감이 더 부드럽고 조용해요.',
+  바디: '7인승의 경우 2열의 가운데에 시트가 없어 통행이 편하고 8인승의 경우 2열 가운데에 시트가 존재해요.',
+  구동방식:
     '2WD는 두개의 모터로 구성되어 가볍고 효율이 좋고 4WD는 네개의 모터로 구성되어 주행 안정성이 높아요.',
 };
 
-function getToolTipMessage(type: string) {
+function getToolTipMessage(type: string | undefined) {
   switch (type) {
-    case 'engine':
-      return TOOLTIP_MESSAGE.engine;
-    case 'body':
-      return TOOLTIP_MESSAGE.body;
-    case 'method':
-      return TOOLTIP_MESSAGE.method;
+    case '엔진':
+      return TOOLTIP_MESSAGE.엔진;
+    case '바디':
+      return TOOLTIP_MESSAGE.바디;
+    case '구동방식':
+      return TOOLTIP_MESSAGE.구동방식;
     default:
-      return TOOLTIP_MESSAGE.engine;
+      return TOOLTIP_MESSAGE.엔진;
   }
 }
 
-function ToolTip() {
-  const [tooltipType, setTooltipType] = useState<string>('engine');
+function ToolTip({
+  tooltipType,
+  x,
+  y,
+}: {
+  tooltipType: string | undefined;
+  x: number;
+  y: number;
+}) {
   const text = getToolTipMessage(tooltipType);
 
   return (
     <>
-    <button onClick={()=>setTooltipType('body')}>바디</button>
-      <BubbleBox>
+      <BubbleBox top={x} left={y} onClick={e => e.stopPropagation()}>
         <img src="/images/tooltip_icon.svg" />
         <p className="body-regular-14 text-grey-900">{text}</p>
       </BubbleBox>
@@ -38,9 +44,11 @@ function ToolTip() {
 
 export default ToolTip;
 
-const BubbleBox = styled.div`
-  position: relative;
+const BubbleBox = styled.div<{ top: number; left: number }>`
+  position: absolute;
   display: flex;
+  top: ${props => props.top}px;
+  left: ${props => props.left}px;
   padding: 12px 14px;
   justify-content: center;
   align-items: center;
@@ -49,6 +57,7 @@ const BubbleBox = styled.div`
   width: 281px;
   background-color: #2e3d51;
   color: var(--gray-900);
+  z-index: 10;
   ::after {
     content: '';
     position: absolute;

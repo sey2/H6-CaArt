@@ -120,6 +120,7 @@ function TrimCard({
     ],
   };
   function handleModal(e: React.MouseEvent) {
+    e.stopPropagation();
     const offsetX = e.nativeEvent.offsetX;
     const offsetY = e.nativeEvent.offsetY;
     const clickedX = e.clientX;
