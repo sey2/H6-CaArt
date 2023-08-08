@@ -13,8 +13,6 @@ function HeaderMain({ step }: { step: number }) {
   const selectedClassName = 'head-medium-14 text-primary-blue';
   const unSelectedClassName = 'head-regular-14 text-grey-600';
 
-  console.log(step);
-
   return (
     <>
       <TextListBox>
@@ -65,6 +63,7 @@ function HeaderMain({ step }: { step: number }) {
           color={'primary-blue'}
           bg={'grey-1000'}
           height={40}
+          border
         >
           요금 상세
         </SquareButton>

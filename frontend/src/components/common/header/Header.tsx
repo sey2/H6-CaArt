@@ -7,9 +7,8 @@ import { HeaderProgressBar } from './HeaderProgressBar';
 function Header({ size, page, currentEstimateObj }: HeaderProps) {
   const [step, setStep] = useState(page);
 
-  console.log(step);
-  console.log(currentEstimateObj);
-  console.log(setStep);
+  setStep;
+  currentEstimateObj;
 
   return (
     <HeaderBox size={size}>
@@ -30,7 +29,7 @@ const HeaderBox = styled.div<{ size: 'minimal' | 'default' }>`
   top: 0px;
   background: #fff;
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.08);
-
+  z-index: 1;
   ${props => getHeaderHeight(props.size)};
 `;
 

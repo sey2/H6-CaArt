@@ -82,7 +82,9 @@ function HeaderDetail({
             setShowDetail(false);
           }}
         ></img>
-        <span className="head-medium-24 text-grey-50">{totalPrice}</span>
+        <span className="head-medium-24 text-grey-50">
+          {priceToString(totalPrice)}
+        </span>
       </TotalPriceBox>
     </HeaderDetailBox>
   );
