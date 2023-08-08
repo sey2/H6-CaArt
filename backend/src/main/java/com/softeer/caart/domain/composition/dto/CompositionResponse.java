@@ -1,10 +1,6 @@
-package com.softeer.caart.domain.composition.dto.response;
+package com.softeer.caart.domain.composition.dto;
 
 import java.util.List;
-
-import com.softeer.caart.domain.composition.bodyType.dto.BodyTypeResponse;
-import com.softeer.caart.domain.composition.engine.dto.CarEngineResponse;
-import com.softeer.caart.domain.composition.wd.dto.WheelDriveResponse;
 
 import lombok.AccessLevel;
 import lombok.Getter;

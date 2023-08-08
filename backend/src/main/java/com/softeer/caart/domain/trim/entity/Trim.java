@@ -1,4 +1,7 @@
-package com.softeer.caart.domain.composition.wd;
+package com.softeer.caart.domain.trim.entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -6,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 import com.softeer.caart.domain.Image;
 
@@ -16,14 +19,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "wheel_drive")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class WheelDrive {
+public class Trim {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "wd_id")
+	@Column(name = "trim_id")
 	private Long id;
 
 	@Column(nullable = false)
@@ -38,8 +40,14 @@ public class WheelDrive {
 	@Embedded
 	private Image image;
 
+	@OneToMany(mappedBy = "trim")
+	private List<MainOptionOfTrim> mainOptions = new ArrayList<>();
+
+	@OneToMany(mappedBy = "trim")
+	private List<AvailableColor> colors = new ArrayList<>();
+
 	@Builder
-	public WheelDrive(String name, String description, Integer price, String imageUrl) {
+	public Trim(String name, String description, Integer price, String imageUrl) {
 		this.name = name;
 		this.description = description;
 		this.price = price;

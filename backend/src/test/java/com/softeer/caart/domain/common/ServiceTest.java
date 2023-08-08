@@ -8,9 +8,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.softeer.caart.domain.composition.BodyType;
-import com.softeer.caart.domain.composition.engine.CarEngine;
-import com.softeer.caart.domain.composition.wd.WheelDrive;
+import com.softeer.caart.domain.composition.entity.BodyType;
+import com.softeer.caart.domain.composition.entity.CarEngine;
+import com.softeer.caart.domain.composition.entity.WheelDrive;
+import com.softeer.caart.domain.trim.entity.Trim;
 
 /**
  * 모든 엔티티는 id를 갖으며 영속화 되어있다고 생각한다.
@@ -24,6 +25,8 @@ public class ServiceTest {
 	protected BodyType eight; // 8인승
 	protected WheelDrive WD_2; // 2WD
 	protected WheelDrive WD_4; // 4WD
+	protected Trim LeBlanc;
+	protected Trim Exclusive;
 
 	@InjectSoftAssertions
 	protected SoftAssertions softly;
@@ -33,6 +36,7 @@ public class ServiceTest {
 		initCarEngine();
 		initBodyType();
 		initWheelDrive();
+		initTrim();
 	}
 
 	private void initCarEngine() {
@@ -90,6 +94,23 @@ public class ServiceTest {
 			.imageUrl("image_url")
 			.build();
 		ReflectionTestUtils.setField(WD_4, "id", 1L);
+	}
+
+	private void initTrim() {
+		LeBlanc = Trim.builder()
+			.name("Le Blanc")
+			.description("필수적인 옵션만 모은")
+			.price(41980000)
+			.imageUrl("tmp")
+			.build();
+		ReflectionTestUtils.setField(LeBlanc, "id", 1L);
+		Exclusive = Trim.builder()
+			.name("Exclusive")
+			.description("합리적인 당신을 위한")
+			.price(38960000)
+			.imageUrl("tmp")
+			.build();
+		ReflectionTestUtils.setField(Exclusive, "id", 2L);
 	}
 
 }

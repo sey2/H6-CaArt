@@ -1,6 +1,6 @@
-package com.softeer.caart.domain.composition.wd.dto;
+package com.softeer.caart.domain.composition.dto;
 
-import com.softeer.caart.domain.composition.wd.WheelDrive;
+import com.softeer.caart.domain.composition.entity.WheelDrive;
 
 import lombok.AccessLevel;
 import lombok.Getter;

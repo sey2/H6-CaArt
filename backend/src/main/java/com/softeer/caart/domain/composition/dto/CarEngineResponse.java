@@ -1,6 +1,6 @@
-package com.softeer.caart.domain.composition.engine.dto;
+package com.softeer.caart.domain.composition.dto;
 
-import com.softeer.caart.domain.composition.engine.CarEngine;
+import com.softeer.caart.domain.composition.entity.CarEngine;
 
 import lombok.AccessLevel;
 import lombok.Getter;

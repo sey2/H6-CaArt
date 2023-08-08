@@ -1,6 +1,6 @@
-package com.softeer.caart.domain.composition.bodyType.dto;
+package com.softeer.caart.domain.composition.dto;
 
-import com.softeer.caart.domain.composition.BodyType;
+import com.softeer.caart.domain.composition.entity.BodyType;
 
 import lombok.AccessLevel;
 import lombok.Getter;

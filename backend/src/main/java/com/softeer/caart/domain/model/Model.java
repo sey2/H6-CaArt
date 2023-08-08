@@ -10,10 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.softeer.caart.domain.composition.BodyType;
-import com.softeer.caart.domain.composition.engine.CarEngine;
-import com.softeer.caart.domain.composition.wd.WheelDrive;
-import com.softeer.caart.domain.trim.Trim;
+import com.softeer.caart.domain.composition.entity.BodyType;
+import com.softeer.caart.domain.composition.entity.CarEngine;
+import com.softeer.caart.domain.composition.entity.WheelDrive;
+import com.softeer.caart.domain.trim.entity.Trim;
 
 @Entity
 public class Model {

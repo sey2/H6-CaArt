@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.option;
+package com.softeer.caart.domain.option.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -11,7 +11,14 @@ import javax.persistence.Id;
 
 import com.softeer.caart.domain.Image;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class CarOption {
 
 	@Id
@@ -40,4 +47,15 @@ public class CarOption {
 	@Column(nullable = false)
 	private Boolean isAdditionalOption = false;
 
+	@Builder
+	public CarOption(String name, String description, String imageUrl, Integer price, Badge badge, Boolean isSetOption,
+		Boolean isAdditionalOption) {
+		this.name = name;
+		this.description = description;
+		this.image = Image.from(imageUrl);
+		this.price = price;
+		this.badge = badge;
+		this.isSetOption = isSetOption;
+		this.isAdditionalOption = isAdditionalOption;
+	}
 }

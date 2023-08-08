@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.softeer.caart.domain.composition.dto.response.CompositionResponse;
+import com.softeer.caart.domain.composition.dto.CompositionResponse;
 import com.softeer.caart.domain.composition.service.CompositionService;
 import com.softeer.caart.global.response.DataResponseDto;
 import com.softeer.caart.global.response.ResponseDto;
@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 public class CompositionController {
 	private final CompositionService compositionService;
 
-	@Operation(summary = "모든 차량 구성 정보를 조회한다.", description = "디자인분류 : 트림 선택_기본, 트림 선택_엔진/바디타입/구동방식 정보 팝업")
+	@Operation(summary = "모든 차량 구성 정보를 조회한다.", description = "(디자인분류 : 트림 선택_기본, 트림 선택_엔진/바디타입/구동방식 정보 팝업)")
 	@GetMapping("")
 	public ResponseDto getCompositions() {
 		CompositionResponse compositions = compositionService.getCompositionInfos();

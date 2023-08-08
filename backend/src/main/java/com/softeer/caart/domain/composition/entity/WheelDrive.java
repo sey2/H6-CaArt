@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.composition.engine;
+package com.softeer.caart.domain.composition.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -16,14 +16,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "car_engine")
+@Table(name = "wheel_drive")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class CarEngine {
+public class WheelDrive {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "car_engine_id")
+	@Column(name = "wd_id")
 	private Long id;
 
 	@Column(nullable = false)
@@ -35,23 +35,14 @@ public class CarEngine {
 	@Column(nullable = false)
 	private Integer price;
 
-	@Column(length = 30, nullable = false)
-	private String maxPower;
-
-	@Column(length = 30, nullable = false)
-	private String maxTorque;
-
 	@Embedded
 	private Image image;
 
 	@Builder
-	public CarEngine(String name, String description, Integer price, String maxPower, String maxTorque,
-		String imageUrl) {
+	public WheelDrive(String name, String description, Integer price, String imageUrl) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.maxPower = maxPower;
-		this.maxTorque = maxTorque;
 		this.image = Image.from(imageUrl);
 	}
 }
