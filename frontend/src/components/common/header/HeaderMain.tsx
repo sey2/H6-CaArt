@@ -68,7 +68,7 @@ function HeaderMain({ step }: { step: number }) {
           요금 상세
         </SquareButton>
         <SquareButton
-          size={'xs'}
+          size={'s'}
           color={'grey-1000'}
           bg={'primary-blue'}
           height={40}
