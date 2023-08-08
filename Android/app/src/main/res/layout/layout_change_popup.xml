@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="topOptionTitle"
+            type="java.lang.String" />
+
+        <variable
+            name="bottomOptionTitle"
+            type="java.lang.String" />
+
+        <variable
+            name="guideChangePrice"
+            type="java.lang.String" />
+        
+        <variable
+            name="showGuidePrice"
+            type="java.lang.Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_top_option_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@{topOptionTitle}"
+            android:textColor="@color/active_blue"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="해제되는 내장 색상" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_top_option_title" />
+
+        <TextView
+            android:id="@+id/tv_bottom_option_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@{bottomOptionTitle}"
+            android:textColor="@color/active_blue"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_top"
+            tools:text="해제되는 옵션" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bottom_option_title" />
+
+        <View
+            android:id="@+id/iv_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/gray_700"
+            android:visibility="@{showGuidePrice ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_bottom" />
+
+        <TextView
+            android:id="@+id/tv_guid_change_price_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@string/guild_change_price"
+            android:textColor="@color/active_blue"
+            android:textSize="12sp"
+            android:visibility="@{showGuidePrice ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_guid_change_price"
+            app:layout_constraintStart_toStartOf="@id/iv_line"
+            app:layout_constraintTop_toBottomOf="@id/iv_line" />
+
+        <TextView
+            android:id="@+id/tv_guid_change_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{guideChangePrice}"
+            android:textSize="16sp"
+            android:textColor="@color/gray_0"
+            android:fontFamily="@font/hyundaisanstextkrbold"
+            android:textAlignment="textEnd"
+            android:visibility="@{showGuidePrice ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toEndOf="@id/tv_guid_change_price_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_guid_change_price_title"
+            tools:text="+12,100,000원"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

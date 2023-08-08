@@ -106,17 +106,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color"
                     tools:layout_height="60dp" />
 
-                <View
-                    android:id="@+id/cv_exterior_color_options"
+                <include
+                    android:id="@+id/inc_other_exterior_color_option"
+                    layout="@layout/layout_other_color_option"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_exterior_color"
-                    tools:background="@color/gray_300" />
+                    app:layout_constraintStart_toStartOf="@+id/rv_exterior_color"
+                    app:layout_constraintTop_toBottomOf="@id/rv_exterior_color">
+                </include>
 
                 <ImageView
                     android:id="@+id/iv_car_interior"
@@ -128,7 +128,7 @@
                     app:layout_constraintDimensionRatio="w,185:375"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_exterior_color_options" />
+                    app:layout_constraintTop_toBottomOf="@id/inc_other_exterior_color_option" />
 
                 <TextView
                     android:id="@+id/tv_interior_color_title"
@@ -162,28 +162,18 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_interior_color"
                     tools:layout_height="60dp" />
 
-                <View
-                    android:id="@+id/cv_interior_color_options"
+                <include
+                    android:id="@+id/inc_other_interior_color_option"
+                    layout="@layout/layout_other_color_option"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="160dp"
+                    android:layout_marginTop="11dp"
                     android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_interior_color"
-                    tools:background="@color/gray_300" />
-
-                <View
-                    android:id="@+id/bs_color_choice"
-                    android:layout_width="0dp"
-                    android:layout_height="89dp"
-                    android:layout_marginTop="43dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_interior_color_options"
-                    tools:background="@color/gray_300" />
-
+                    app:layout_constraintStart_toStartOf="@+id/rv_interior_color"
+                    app:layout_constraintTop_toBottomOf="@id/rv_interior_color" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -192,6 +182,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

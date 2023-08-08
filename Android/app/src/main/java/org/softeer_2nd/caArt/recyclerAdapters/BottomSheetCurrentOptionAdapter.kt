@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemOptionSelectBinding
 import org.softeer_2nd.caArt.models.OptionSelectionDummyItem
 
-class OptionSelectionAdapter(private val items: List<OptionSelectionDummyItem>) :
-    RecyclerView.Adapter<OptionSelectionAdapter.OptionSelectionViewHolder>() {
+class BottomSheetCurrentOptionAdapter(private val items: List<OptionSelectionDummyItem>) :
+    RecyclerView.Adapter<BottomSheetCurrentOptionAdapter.OptionSelectionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionSelectionViewHolder {
         val binding =

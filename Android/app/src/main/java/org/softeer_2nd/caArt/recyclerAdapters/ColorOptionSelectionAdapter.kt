@@ -1,12 +1,18 @@
 package org.softeer_2nd.caArt.recyclerAdapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemColorSelectBinding
+import org.softeer_2nd.caArt.interfaces.OnOtherColorItemClickListener
 import org.softeer_2nd.caArt.models.OptionColorDummyItem
 
-class ColorOptionSelectionAdapter(private val items: List<OptionColorDummyItem>) :
+class ColorOptionSelectionAdapter(
+    private val listener: OnOtherColorItemClickListener,
+    private val items: List<OptionColorDummyItem>,
+    private val isOtherColorOption: Boolean
+) :
     RecyclerView.Adapter<ColorOptionSelectionAdapter.ColorOptionSelectionViewHolder>() {
     private var selectedPosition = -1
     override fun onCreateViewHolder(
@@ -26,10 +32,14 @@ class ColorOptionSelectionAdapter(private val items: List<OptionColorDummyItem>)
         val previousSelected = selectedPosition
         selectedPosition = position
 
-        notifyItemChanged(previousSelected)
-        notifyItemChanged(selectedPosition)
-    }
+        if (previousSelected in 0 until itemCount) {
+            notifyItemChanged(previousSelected)
+        }
 
+        if (selectedPosition in 0 until itemCount) {
+            notifyItemChanged(selectedPosition)
+        }
+    }
 
     override fun onBindViewHolder(holder: ColorOptionSelectionViewHolder, position: Int) {
         val currentItem = items[position]
@@ -38,16 +48,26 @@ class ColorOptionSelectionAdapter(private val items: List<OptionColorDummyItem>)
 
     inner class ColorOptionSelectionViewHolder(val binding: ItemColorSelectBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        init {
-            itemView.setOnClickListener { selectItem(adapterPosition) }
+
+        fun onOtherColorItemClicked(view: View) {
+            listener.onItemClicked(items[adapterPosition].tag)
         }
+
+        fun onDefaultColorItemClicked(view: View) {
+            selectItem(adapterPosition)
+        }
+
         fun bind(item: OptionColorDummyItem) {
-            val selected = adapterPosition == selectedPosition
+            val selectedFlag = adapterPosition == selectedPosition
 
             binding.apply {
-                topTag.text = item.tag
-                this.selected = selected
-                this.backgroundRes = item.res
+                binding.otherColorSelectionHandler = this@ColorOptionSelectionViewHolder
+                selected = selectedFlag
+                backgroundRes = item.res
+                isOtherColor = this@ColorOptionSelectionAdapter.isOtherColorOption
+                inTop3 = adapterPosition <= 2
+                topTag.text = "Top ${adapterPosition + 1}"
+                optionTitle = item.tag
             }
         }
     }

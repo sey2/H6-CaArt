@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.softeer_2nd.caArt.BottomSheetMode
 import org.softeer_2nd.caArt.R
-import org.softeer_2nd.caArt.recyclerAdapters.OptionSelectionAdapter
+import org.softeer_2nd.caArt.recyclerAdapters.BottomSheetCurrentOptionAdapter
 import org.softeer_2nd.caArt.databinding.LayoutBottomSheetBaseBinding
 import org.softeer_2nd.caArt.factorys.DummyItemFactory
 
@@ -19,7 +19,7 @@ class CustomBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLayo
     private val bottomSheetBehavior: BottomSheetBehavior<View>
     private val binding: LayoutBottomSheetBaseBinding
     private var recyclerView: RecyclerView
-    private var itemAdapter: OptionSelectionAdapter
+    private var itemAdapter: BottomSheetCurrentOptionAdapter
 
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -29,7 +29,7 @@ class CustomBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLayo
 
         recyclerView = binding.incSlideUp.findViewById<RecyclerView>(R.id.rv_select_options)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        itemAdapter = OptionSelectionAdapter(DummyItemFactory.createOptionSelectionDummyItems())
+        itemAdapter = BottomSheetCurrentOptionAdapter(DummyItemFactory.createOptionSelectionDummyItems())
         recyclerView.adapter = itemAdapter
 
         bottomSheetBehavior.addBottomSheetCallback(object :

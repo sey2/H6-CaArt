@@ -34,4 +34,7 @@
     <string name="graphite_gray_metallic">그라파이 그레이 메탈릭</string>
     <string name="top1">Top1</string>
     <string name="spin_active_button">spinActiveButton</string>
+    <string name="ask_search_other_exterior_color">다른 외장 색상을 찾고 있나요?</string>
+    <string name="ask_search_other_interior_color">다른 내장 색상을 찾고 있나요?</string>
+    <string name="guild_change_price">변경 금액</string>
 </resources>

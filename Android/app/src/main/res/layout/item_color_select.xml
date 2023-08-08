@@ -14,48 +14,92 @@
         <variable
             name="backgroundRes"
             type="java.lang.Integer" />
+
+        <variable
+            name="isOtherColor"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="inTop3"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="optionTitle"
+            type="java.lang.String" />
+        
+        <variable
+            name="otherColorSelectionHandler"
+            type="org.softeer_2nd.caArt.recyclerAdapters.ColorOptionSelectionAdapter.ColorOptionSelectionViewHolder" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/root_item"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="5dp">
-
-        <ImageView
-            android:id="@+id/iv_background_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:imageResource="@{backgroundRes}"
-            android:background="@color/select_blue_500"
-            tools:background="@drawable/img_option_color1" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp">
 
         <TextView
-            android:id="@+id/top_tag"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/shape_top_tag_round"
-            android:fontFamily="@font/hyundaisanstext_medium"
-            android:paddingTop="2dp"
-            android:text="@string/top1"
-            android:textAlignment="center"
-            android:textColor="@color/gray_1000"
-            android:textSize="12sp"
+            android:id="@+id/tv_other_exterior_color_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/hyundaisanstextkrbold"
+            android:text="@{optionTitle}"
+            android:textColor="@color/active_blue"
+            android:textSize="11sp"
+            android:visibility="@{isOtherColor ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/root_item"
+            app:layout_constraintEnd_toEndOf="@+id/root_item"
+            app:layout_constraintStart_toStartOf="@+id/root_item"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/caligraphy" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/root_item"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="1dp"
+            app:cardCornerRadius="5dp"
+            android:onClick="@{isOtherColor ? otherColorSelectionHandler::onOtherColorItemClicked : otherColorSelectionHandler::onDefaultColorItemClicked}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tv_other_exterior_color_option">
 
-        <ImageView
-            android:id="@+id/iv_circle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_check_circle_24"
-            android:scaleType="center"
-            android:background="@color/select_blue_500"
-            android:visibility="@{selected ? View.VISIBLE : View.GONE}"
-            android:layout_gravity="center"
-            tools:visibility="gone" />
+            <ImageView
+                android:id="@+id/iv_background_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/select_blue_500"
+                android:imageResource="@{backgroundRes}"
+                tools:background="@drawable/img_option_color1" />
 
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/top_tag"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_top_tag_round"
+                android:fontFamily="@font/hyundaisanstext_medium"
+                android:paddingTop="2dp"
+                android:text="@string/top1"
+                android:textAlignment="center"
+                android:textColor="@color/gray_1000"
+                android:textSize="12sp"
+                android:visibility="@{(isOtherColor || !inTop3) ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_circle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/select_blue_500"
+                android:scaleType="center"
+                android:src="@drawable/ic_check_circle_24"
+                android:visibility="@{selected ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone" />
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
