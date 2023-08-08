@@ -207,6 +207,15 @@
   font-style: normal;
 }
 
+.body-medium-12 {
+  font-family: 'HyundaiTextMedium';
+  font-size: 12px;
+  letter-spacing: -0.2px;
+  line-height: 18px;
+  font-weight: 500;
+  font-style: normal;
+}
+
 .body-regular-18 {
   font-family: 'HyundaiTextRegular';
   font-size: 18px;

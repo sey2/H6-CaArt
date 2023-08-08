@@ -3,7 +3,11 @@ import styled from 'styled-components';
 
 function Tag({ tag, type, selected }: TagProps) {
   return (
-    <TagBox className="caption-medium-12" type={type} selected={selected}>
+    <TagBox
+      className={type === 'option' ? 'body-regular-12' : 'caption-medium-12'}
+      type={type}
+      selected={selected}
+    >
       {tag}
     </TagBox>
   );
