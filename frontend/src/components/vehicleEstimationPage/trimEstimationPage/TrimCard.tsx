@@ -7,10 +7,18 @@ function TrimCard({
   trim,
   modalSetter,
   positionSetter,
+  tooltipOpenSetter,
+  tooltipTypeSetter,
+  tooltipPositionSetter,
 }: {
   trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Caligraphy' | string;
   modalSetter: React.Dispatch<React.SetStateAction<boolean>>;
   positionSetter: React.Dispatch<
+    React.SetStateAction<{ x: number; y: number }>
+  >;
+  tooltipOpenSetter: React.Dispatch<React.SetStateAction<boolean>>;
+  tooltipTypeSetter: React.Dispatch<React.SetStateAction<string | undefined>>;
+  tooltipPositionSetter: React.Dispatch<
     React.SetStateAction<{ x: number; y: number }>
   >;
 }) {
@@ -154,6 +162,20 @@ function TrimCard({
     )?.trimPrice;
     return enginePrice + bodyPrice + wdPrice + trimPrice!;
   }
+
+  function handleCheckBtnClick(e: React.MouseEvent) {
+    e.stopPropagation();
+    const checkBtn = e.target as HTMLElement;
+    const targetElement =
+      checkBtn.parentElement?.parentElement?.parentElement?.firstElementChild;
+    const rect = targetElement?.getBoundingClientRect() as DOMRect;
+    const y = rect.x - 20;
+    const x = rect.y - 100;
+    tooltipTypeSetter('트림');
+    tooltipPositionSetter({ x: x, y: y });
+    tooltipOpenSetter(true);
+  }
+
   return (
     <>
       <Wrapper>
@@ -181,12 +203,13 @@ function TrimCard({
                         ? '/images/check_circle_blue_bold.svg'
                         : '/images/check_circle_grey_bold.svg'
                     }
-                    onClick={() =>
+                    onClick={e => {
                       setTrim({
                         name: trimItem.trimName,
                         price: trimItem.trimPrice,
-                      })
-                    }
+                      });
+                      handleCheckBtnClick(e);
+                    }}
                   />
                 </Head>
                 <TrimSummary className="text-grey-100 body-regular-16">

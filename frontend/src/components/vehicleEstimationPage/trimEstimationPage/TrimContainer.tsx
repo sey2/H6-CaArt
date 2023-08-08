@@ -5,11 +5,17 @@ import TrimCard from './TrimCard';
 function TrimContainer({
   setter,
   optionModalPositionSetter,
-  optionModalOpenSetter
+  optionModalOpenSetter,
+  tooltipOpenSetter,
+  tooltipTypeSetter,
+  tooltipPositionSetter,
 }: {
   setter: React.Dispatch<React.SetStateAction<boolean>>,
   optionModalPositionSetter: React.Dispatch<React.SetStateAction<{x:number, y:number}>>,
   optionModalOpenSetter:React.Dispatch<React.SetStateAction<boolean>>,
+  tooltipOpenSetter:React.Dispatch<React.SetStateAction<boolean>>,
+  tooltipTypeSetter:React.Dispatch<React.SetStateAction<string|undefined>>,
+  tooltipPositionSetter:React.Dispatch<React.SetStateAction<{x:number, y:number}>>
 }) {
   const trimList = ['Exclusive', 'Le Blanc', 'Prestige', 'Caligraphy'];
 
@@ -21,6 +27,9 @@ function TrimContainer({
             trim={trim}
             modalSetter={optionModalOpenSetter}
             positionSetter={optionModalPositionSetter}
+            tooltipOpenSetter={tooltipOpenSetter}
+            tooltipPositionSetter={tooltipPositionSetter}
+            tooltipTypeSetter={tooltipTypeSetter}
           />
           {index !== trimLists.length && <Hr />}
         </>

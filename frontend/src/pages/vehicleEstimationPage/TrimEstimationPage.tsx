@@ -8,7 +8,7 @@ import EBWContainer from '../../components/vehicleEstimationPage/trimEstimationP
 import EBWGuideModal from '../../components/vehicleEstimationPage/trimEstimationPage/EBWGuideModal';
 import TrimCarImage from '../../components/vehicleEstimationPage/trimEstimationPage/TrimCarImage';
 import TrimContainer from '../../components/vehicleEstimationPage/trimEstimationPage/TrimContainer';
-import OptionExplainModal from "../../components/vehicleEstimationPage/trimEstimationPage/OptionExplainModal";
+import OptionExplainModal from '../../components/vehicleEstimationPage/trimEstimationPage/OptionExplainModal';
 
 function TrimEstimationPage() {
   const [infoModalOpen, setInfoModalOpen] = useState<boolean>(false);
@@ -17,7 +17,10 @@ function TrimEstimationPage() {
   const [tooltipType, setTooltipType] = useState<string | undefined>('엔진');
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [optionModalOpen, setOptionModalOpen] = useState(false);
-  const [modalOptionPosition, setModalOptionPosition] = useState({ x: 0, y: 0 });
+  const [modalOptionPosition, setModalOptionPosition] = useState({
+    x: 0,
+    y: 0,
+  });
 
   function closeModalHandler() {
     setTooltipOpen(false);
@@ -35,19 +38,19 @@ function TrimEstimationPage() {
           tooltipType={tooltipType}
         />
       )}
-              {optionModalOpen && (
-          <OptionExplainModal
-            x={modalOptionPosition.x}
-            y={modalOptionPosition.y}
-            setter={setOptionModalOpen}
-          />
-        )}
+      {optionModalOpen && (
+        <OptionExplainModal
+          x={modalOptionPosition.x}
+          y={modalOptionPosition.y}
+          setter={setOptionModalOpen}
+        />
+      )}
 
       <Wrapper modalStatus={compareModalOpen} onClick={closeModalHandler}>
         <Header size="default" page={0} />
         <Layout>
           <TrimCarImage />
-          <RightBox>
+          <RightBox onScroll={closeModalHandler}>
             <InfoText onClick={() => setInfoModalOpen(true)}>
               <img src="/images/question_icon.svg" />
               <span className="text-secondary-active-blue body-medium-14">
@@ -59,7 +62,14 @@ function TrimEstimationPage() {
               typeSetter={setTooltipType}
               positionSetter={setTooltipPosition}
             />
-            <TrimContainer setter={setComapreModalOpen} optionModalPositionSetter={setModalOptionPosition} optionModalOpenSetter={setOptionModalOpen}/>
+            <TrimContainer
+              setter={setComapreModalOpen}
+              optionModalPositionSetter={setModalOptionPosition}
+              optionModalOpenSetter={setOptionModalOpen}
+              tooltipOpenSetter={setTooltipOpen}
+              tooltipTypeSetter={setTooltipType}
+              tooltipPositionSetter={setTooltipPosition}
+            />
             <SquareButton size="xm" bg="primary-blue" color="grey-1000">
               색상 선택
             </SquareButton>
@@ -74,7 +84,6 @@ export default TrimEstimationPage;
 
 const Wrapper = styled.div<{ modalStatus: boolean }>`
   z-index: 4;
-  /* overflow: ${props => (props.modalStatus ? 'hidden' : 'unset')}; */
   ${props => props.modalStatus && `position:fixed`}
 `;
 
