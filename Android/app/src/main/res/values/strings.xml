@@ -37,6 +37,10 @@
     <string name="ask_search_other_exterior_color">다른 외장 색상을 찾고 있나요?</string>
     <string name="ask_search_other_interior_color">다른 내장 색상을 찾고 있나요?</string>
     <string name="guild_change_price">변경 금액</string>
+    <string name="basic_option">기본 포함 옵션</string>
+    <string name="additional_option">추가 옵션</string>
     <string name="difficult_to_choose">고르기 어렵다면?</string>
     <string name="engine">엔진</string>
+    <string name="choice">선택</string>
+
 </resources>

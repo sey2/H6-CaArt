@@ -36,12 +36,10 @@ class HomeFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        CaArtDialog.Builder(requireContext())
-            .setTitle("title")
-            .setDescription("desc")
-            .setDialogContentView(R.layout.layout_detail_indicator)
-            .build()
-            .show(requireActivity().supportFragmentManager, "hello")
+        binding.button2.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_carOptionChoiceFragment)
+        }
+
 
     }
 

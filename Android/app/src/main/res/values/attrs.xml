@@ -9,4 +9,15 @@
             <enum name="expand" value="1" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="CircleIndicator">
+        <attr name="dotCount" format="integer"/>
+        <attr name="defaultDotRadius" format="float"/>
+        <attr name="selectedDotRadius" format="float"/>
+        <attr name="dotPadding" format="float"/>
+        <attr name="selectedDotIndex" format="integer"/>
+        <attr name="defaultDotColor" format="reference"/>
+        <attr name="selectedDotColor" format="reference"/>
+    </declare-styleable>
+
 </resources>

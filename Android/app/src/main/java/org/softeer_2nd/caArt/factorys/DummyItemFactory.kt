@@ -2,6 +2,7 @@ package org.softeer_2nd.caArt.factorys
 
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.models.OptionChangePopUpDummyItem
+import org.softeer_2nd.caArt.dataClasses.Option
 import org.softeer_2nd.caArt.models.OptionColorDummyItem
 import org.softeer_2nd.caArt.models.OptionSelectionDummyItem
 
@@ -83,4 +84,37 @@ object DummyItemFactory {
         )
     }
 
+
+    fun createAdditionalOptionGrouopItem(): List<Option> = List(5) {
+        Option(
+            name = "option ${it + 1}",
+            description = "desc".repeat(50),
+            group = "group1",
+            isDefaultOption = false,
+            price = 999999999,
+            url = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg"
+        )
+    }
+
+    fun createAdditionalSingleOptionItem(): List<Option> = listOf<Option>(
+        Option(
+            name = "option",
+            description = "desc",
+            group = null,
+            isDefaultOption = false,
+            price = 9999999,
+            url = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg"
+        )
+    )
+
+    fun createDefaultSingleOptionItem(): List<Option> = listOf<Option>(
+        Option(
+            name = "option",
+            description = "desc",
+            group = null,
+            isDefaultOption = true,
+            price = 0,
+            url = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg"
+        )
+    )
 }

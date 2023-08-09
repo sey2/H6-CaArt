@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_homeFragment_to_carTrimChoiceFragment"
             app:destination="@id/carTrimChoiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_carOptionChoiceFragment"
+            app:destination="@id/carOptionChoiceFragment" />
     </fragment>
 
     <fragment
@@ -25,4 +28,8 @@
         android:id="@+id/carColorChoiceFragment"
         android:name="org.softeer_2nd.caArt.ui.CarColorChoiceFragment"
         android:label="CarColorChoiceFragment" />
+    <fragment
+        android:id="@+id/carOptionChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.custom.CarOptionChoiceFragment"
+        android:label="CarOptionChoiceFragment" />
 </navigation>
