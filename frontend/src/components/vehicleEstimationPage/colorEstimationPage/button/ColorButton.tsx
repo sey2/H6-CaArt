@@ -1,8 +1,13 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-function ColorButton({ src,selected }: { src: string, selected?: boolean }) {
-  return <Button src={src} selected={selected}/>;
+interface ColorButton {
+  src: string,
+  selected?: boolean
+}
+
+function ColorButton(props: ColorButton) {
+  return <Button src={props.src} selected={props.selected}/>;
 }
 
 export default ColorButton;
