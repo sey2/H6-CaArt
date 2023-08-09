@@ -17,8 +17,12 @@ import com.softeer.caart.domain.trim.entity.MainOptionOfTrim;
 import com.softeer.caart.domain.trim.entity.Trim;
 import com.softeer.caart.domain.trim.repository.MainOptionOfTrimRepository;
 import com.softeer.caart.domain.trim.repository.TrimRepository;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
+@ActiveProfiles("test")
+@TestPropertySource(locations = "classpath:application-test.yml")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ExtendWith(SoftAssertionsExtension.class)
 public class RepositoryTest {

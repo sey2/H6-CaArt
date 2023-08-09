@@ -1,0 +1,25 @@
+# 스프링 및 데이터베이스 설정
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    database: h2
+  h2:
+    console:
+      enabled: true
+
+# 로깅 설정
+logging:
+  level:
+    web: debug
+    sql: debug
