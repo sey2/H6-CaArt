@@ -58,3 +58,6 @@ tasks.register('testCoverage', Test) {
     tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
 }
 
+jar {
+    enabled = false
+}

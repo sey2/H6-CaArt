@@ -5,12 +5,19 @@ on:
   push:
     branches: 
       - 'develop'
-      # - 'BE/deploy/setting'
     paths:
       - '**.java'
 
 permissions:
   contents: read
+
+env:
+  AWS_REGION: ap-northeast-2
+  S3_BUCKET_NAME: caart-deploy-s3-bucket
+  CODE_DEPLOY_APPLICATION_NAME: caArt-codedeploy-app
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: caArt-codedeploy-group
+  APPLICATION: ${{ secrets.APPLICATION }}
+  wd: ./backend
 
 jobs:
   deploy:
@@ -28,8 +35,8 @@ jobs:
         distribution: 'temurin'
 
     - name: Copy application.yml
+      working-directory: ${{ env.wd }}
       run: |
-        cd ./backend
         mkdir src/main/resources
         touch ./src/main/resources/application.yml
         echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.yml
@@ -38,39 +45,31 @@ jobs:
       uses: gradle/gradle-build-action@v2
   
     - name: Build with Gradle
+      working-directory: ${{ env.wd }}
       run: |
-        cd ./backend
         chmod +x gradlew
-        ./gradlew bootJar
-      
-    - name: Copy file to server
-      uses: appleboy/scp-action@v0.1.4
+        ./gradlew build -x test
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        rm: true
-        source: "backend/build/libs/*.jar"
-        target: ${{ secrets.SERVER_TARGET_PATH }}
-        strip_components: 3
-        
-    - name: Display structure of distributed files
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          cd ${{ secrets.SERVER_TARGET_PATH }}
-          ls -alh
-          
-    - name: Run server
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: ./start.sh
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Upload to AWS S3
+      working-directory: ${{ env.wd }}
+      run: |
+        aws deploy push \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --ignore-hidden-files \
+          --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+          --source .
+
+    - name: Deploy to AWS EC2 from S3
+      run: |
+        aws deploy create-deployment \
+          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+          --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip

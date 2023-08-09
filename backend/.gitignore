@@ -37,8 +37,8 @@ out/
 .vscode/
 
 ### 설정 파일
-*.yml
-*.yaml
+application.yml
+application.yaml
 
 ### MacOS
 .DS_Store
