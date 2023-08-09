@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <org.softeer_2nd.caArt.ui.custom.ExpandableView
+        android:id="@+id/ev_exterior_color_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_dialog_text_background"
+        android:paddingStart="16dp"
+        android:paddingTop="11dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="11dp"
+        app:initialState="contract"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rotateIcon="@drawable/ic_arrow_no_tail_20"
+        app:rotateIconTint="@color/black">
+
+        <TextView
+            android:id="@+id/tv_handle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:textColor="@color/blue_500"
+            android:textSize="14sp"
+            android:text="더 알아보기"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_hide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:visibility="visible">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_other_exterior_option"
+                android:layout_width="343dp"
+                android:layout_height="355dp"
+                android:orientation="horizontal"
+                android:background="@color/gray_500"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </org.softeer_2nd.caArt.ui.custom.ExpandableView>
+</layout>

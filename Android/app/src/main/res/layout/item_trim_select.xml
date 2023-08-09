@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="trimDummyItem"
+            type="org.softeer_2nd.caArt.models.OptionTrimSelectionDummyItem" />
+
+        <variable
+            name="isChecked"
+            type="java.lang.Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp">
+
+        <TextView
+            android:id="@+id/tv_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@{trimDummyItem.model}"
+            android:textColor="@color/gray_300"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_specifications"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Exclusive"/>
+
+        <TextView
+            android:id="@+id/tv_specifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{trimDummyItem.specifications}"
+            android:textColor="@color/gray_500"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_model"
+            app:layout_constraintTop_toTopOf="@+id/tv_model"
+            tools:text="디젤 2.2 ・ 7인승 ・ 2WD" />
+
+        <ImageView
+            android:id="@+id/iv_trim_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/cb_unchecked_28"
+            android:backgroundTint="@{isChecked ? @color/blue_500 : @color/gray_300}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tv_specifications"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_product_key_features"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/hyundaisanstext_regular"
+            android:text="@{trimDummyItem.productKeyFeatures}"
+            android:textColor="@color/gray_100"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_model"
+            app:layout_constraintTop_toBottomOf="@+id/tv_model"
+            tools:text="합리적인 가격의 인기 옵션" />
+
+        <TextView
+            android:id="@+id/tv_trim_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/hyundaisansheadkrmedium"
+            android:textColor="@color/gray_0"
+            android:text="@{trimDummyItem.price}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_product_key_features"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_key_features"
+            tools:text="@string/price" />
+
+        <include
+            android:id="@+id/inc_other_more"
+            layout="@layout/layout_more_trim_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_trim_price" />
+
+        <View
+            android:id="@+id/view_line_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray_700"
+            android:visibility="@{trimDummyItem.lineVisibleGone ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inc_other_more" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

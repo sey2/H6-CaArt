@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.BottomSheetMode
 import org.softeer_2nd.caArt.databinding.FragmentCarTrimChoiceBinding
+import org.softeer_2nd.caArt.factorys.DummyItemFactory
+import org.softeer_2nd.caArt.models.OptionTrimSelectionDummyItem
+import org.softeer_2nd.caArt.recyclerAdapters.TrimOptionSelectionAdapter
 
 import org.softeer_2nd.caArt.viewmodels.CarTrimChoiceViewModel
 
@@ -20,7 +25,7 @@ class CarTrimChoiceFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCarTrimChoiceBinding.inflate(inflater, container, false).apply {
             incEngineBodyOption.carTrimChoiceViewModel =
                 this@CarTrimChoiceFragment.carTrimChoiceViewModel
@@ -32,6 +37,20 @@ class CarTrimChoiceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.rvTrim.apply {
+            initializeColorOptions(DummyItemFactory.createSelectionTrimItemDummyItems())
+        }
+    }
+
+    private fun RecyclerView.initializeColorOptions(
+        items: List<OptionTrimSelectionDummyItem>
+    ) {
+
+        this.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        this.adapter = TrimOptionSelectionAdapter(items)
     }
 
     override fun onDestroyView() {

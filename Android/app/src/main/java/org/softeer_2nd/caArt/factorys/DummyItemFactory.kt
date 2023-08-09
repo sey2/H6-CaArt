@@ -5,6 +5,7 @@ import org.softeer_2nd.caArt.models.OptionChangePopUpDummyItem
 import org.softeer_2nd.caArt.dataClasses.Option
 import org.softeer_2nd.caArt.models.OptionColorDummyItem
 import org.softeer_2nd.caArt.models.OptionSelectionDummyItem
+import org.softeer_2nd.caArt.models.OptionTrimSelectionDummyItem
 
 
 object DummyItemFactory {
@@ -83,7 +84,15 @@ object DummyItemFactory {
             OptionChangePopUpDummyItem("Calligraphy", "+ 400,000원"),
         )
     }
-
+    
+    fun createSelectionTrimItemDummyItems(): List<OptionTrimSelectionDummyItem>{
+        return arrayListOf(
+            OptionTrimSelectionDummyItem("Exclusive", "합리적인 가격의 인기 옵션","디젤 2.2 ・ 7인승 ・ 2WD", "43,460,000원"),
+            OptionTrimSelectionDummyItem("Le Blanc (르블랑)", "필수적인 옵션만 모은","디젤 2.2 ・ 7인승 ・ 2WD", "40,440,000원"),
+            OptionTrimSelectionDummyItem("Prestige", "가치있는 드라이빙 경험을 주는","디젤 2.2 ・ 7인승 ・ 2WD", "47,720,000원"),
+            OptionTrimSelectionDummyItem("Caligraphy", "남들과 차별화된 경험","디젤 2.2 ・ 7인승 ・ 2WD", "52,540,000원")
+        )
+    }
 
     fun createAdditionalOptionGrouopItem(): List<Option> = List(5) {
         Option(

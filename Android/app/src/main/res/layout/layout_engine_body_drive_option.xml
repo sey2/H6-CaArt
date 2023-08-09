@@ -51,7 +51,7 @@
                 android:checked="true"
                 android:textColor="@drawable/selector_radio_btn_text_color"
                 android:fontFamily="@font/hyundaisanstextkrmedium"
-                android:text="@{carTrimChoiceViewModel.engineSelectionLeftButtonText}"
+                android:text="@{carTrimChoiceViewModel.engineSelectionButtonText.first}"
                 android:textAlignment="center"
                 tools:text="디젤 2.2" />
 
@@ -64,7 +64,7 @@
                 android:checked="false"
                 android:fontFamily="@font/hyundaisanstextkrmedium"
                 android:textColor="@drawable/selector_radio_btn_text_color"
-                android:text="@{carTrimChoiceViewModel.engineSelectionRightButtonText}"
+                android:text="@{carTrimChoiceViewModel.engineSelectionButtonText.second}"
                 android:textAlignment="center"
                 tools:text="가솔린 3.8" />
         </RadioGroup>
@@ -103,7 +103,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:fontFamily="@font/hyundaisanstextkrmedium"
-                android:text="@{carTrimChoiceViewModel.bodySelectionLeftButtonText}"
+                android:text="@{carTrimChoiceViewModel.bodySelectionButtonText.first}"
                 android:textAlignment="center"
                 android:textColor="@drawable/selector_radio_btn_text_color"
                 tools:text="디젤 2.2" />
@@ -116,7 +116,7 @@
                 android:button="@android:color/transparent"
                 android:checked="false"
                 android:fontFamily="@font/hyundaisanstextkrmedium"
-                android:text="@{carTrimChoiceViewModel.bodySelectionRightButtonText}"
+                android:text="@{carTrimChoiceViewModel.bodySelectionButtonText.second}"
                 android:textAlignment="center"
                 android:textColor="@drawable/selector_radio_btn_text_color"
                 tools:text="가솔린 3.8" />
@@ -156,7 +156,7 @@
                 android:button="@android:color/transparent"
                 android:checked="true"
                 android:fontFamily="@font/hyundaisanstextkrmedium"
-                android:text="@{carTrimChoiceViewModel.drivenSelectionLeftButtonText}"
+                android:text="@{carTrimChoiceViewModel.drivenSelectionButtonText.first}"
                 android:textAlignment="center"
                 android:textColor="@drawable/selector_radio_btn_text_color"
                 tools:text="디젤 2.2" />
@@ -169,7 +169,7 @@
                 android:button="@android:color/transparent"
                 android:checked="false"
                 android:fontFamily="@font/hyundaisanstextkrmedium"
-                android:text="@{carTrimChoiceViewModel.drivenSelectionRightButtonText}"
+                android:text="@{carTrimChoiceViewModel.drivenSelectionButtonText.second}"
                 android:textColor="@drawable/selector_radio_btn_text_color"
                 android:textAlignment="center"
 
