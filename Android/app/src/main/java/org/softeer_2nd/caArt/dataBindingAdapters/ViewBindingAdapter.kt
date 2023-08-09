@@ -19,3 +19,10 @@ fun View.setMarginStart(marginStart: Float) {
     lp?.marginStart = marginStart.dp2px(context)
     layoutParams = lp
 }
+
+@BindingAdapter("android:layout_marginTop")
+fun View.setMarginTop(marginTop: Float) {
+    val lp = layoutParams as? ViewGroup.MarginLayoutParams
+    lp?.topMargin = marginTop.dp2px(context)
+    layoutParams = lp
+}

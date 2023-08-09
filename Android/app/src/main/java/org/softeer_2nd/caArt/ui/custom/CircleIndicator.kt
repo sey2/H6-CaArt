@@ -19,17 +19,10 @@ class CircleIndicator(context: Context, attrs: AttributeSet) : View(context, att
     private var selectedDotIndex: Int = 0
     private var dotPadding: Int
 
-    private var defaultDotPaint = Paint().apply {
-        color = ContextCompat.getColor(context, R.color.gray_700)
-        style = Paint.Style.FILL
-        isAntiAlias = true
-    }
+    private var defaultDotPaint = createPaintWithColor(R.color.gray_700)
 
-    private var selectedDotPaint = Paint().apply {
-        color = ContextCompat.getColor(context, R.color.active_blue)
-        style = Paint.Style.FILL
-        isAntiAlias = true
-    }
+    private var selectedDotPaint = createPaintWithColor(R.color.active_blue)
+
 
     init {
         context.theme.obtainStyledAttributes(
@@ -51,17 +44,9 @@ class CircleIndicator(context: Context, attrs: AttributeSet) : View(context, att
                 val selectedColorRes =
                     getResourceId(R.styleable.CircleIndicator_selectedDotColor, R.color.active_blue)
 
-                defaultDotPaint = Paint().apply {
-                    color = ContextCompat.getColor(context, defaultColorRes)
-                    style = Paint.Style.FILL
-                    isAntiAlias = true
-                }
+                defaultDotPaint = createPaintWithColor(defaultColorRes)
 
-                selectedDotPaint = Paint().apply {
-                    color = ContextCompat.getColor(context, selectedColorRes)
-                    style = Paint.Style.FILL
-                    isAntiAlias = true
-                }
+                selectedDotPaint = createPaintWithColor(selectedColorRes)
             } finally {
                 recycle()
             }
@@ -107,12 +92,18 @@ class CircleIndicator(context: Context, attrs: AttributeSet) : View(context, att
     fun setSelectedDotIndex(index: Int) {
         if (index !in 0 until 5) return
         selectedDotIndex = index
-        requestLayout()
+        invalidate()
     }
 
     fun setDotCount(count: Int) {
         dotCount = count
-        invalidate()
+        requestLayout()
+    }
+
+    private fun createPaintWithColor(colorRes: Int) = Paint().apply {
+        color = ContextCompat.getColor(context, colorRes)
+        style = Paint.Style.FILL
+        isAntiAlias = true
     }
 
 }

@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.databinding.FragmentHomeBinding
 import org.softeer_2nd.caArt.dialogs.CaArtDialog
+import org.softeer_2nd.caArt.dialogs.OptionDetailDialog
+import org.softeer_2nd.caArt.factorys.DummyItemFactory
 
 class HomeFragment() : Fragment() {
 
@@ -36,11 +38,10 @@ class HomeFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.button2.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_carOptionChoiceFragment)
-        }
-
-
+        OptionDetailDialog.Builder()
+            .setOptionList(DummyItemFactory.createAdditionalOptionGrouopItem())
+            .build()
+            .show(requireActivity().supportFragmentManager, "tag")
     }
 
     override fun onDestroyView() {

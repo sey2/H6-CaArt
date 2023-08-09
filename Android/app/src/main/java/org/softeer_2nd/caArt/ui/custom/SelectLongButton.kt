@@ -11,8 +11,10 @@ import org.softeer_2nd.caArt.utils.dp2px
 class SelectLongButton(context: Context, attrs: AttributeSet) :
     androidx.appcompat.widget.AppCompatCheckBox(context, attrs) {
 
+    private val blueColorStateList = ContextCompat.getColorStateList(context, R.color.blue)
+    private val whiteColorStateList = ContextCompat.getColorStateList(context, R.color.white)
+
     init {
-        buttonDrawable = null
         setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_circle_16, 0, 0, 0)
         text = context.getString(R.string.choice)
         typeface = context.resources.getFont(R.font.hyundaisanstextkrmedium)
@@ -22,31 +24,31 @@ class SelectLongButton(context: Context, attrs: AttributeSet) :
         )
         compoundDrawablePadding = 8f.dp2px(context)
         setPadding(10f.dp2px(context), 0f.dp2px(context), 14f.dp2px(context), 0f.dp2px(context))
-        buttonDrawable = null
-        if (isChecked) setChecked() else setUnChecked()
+        if (isChecked) applyCheckedStyle() else applyDefaultStyle()
         minWidth = 69f.dp2px(context)
     }
 
     override fun setChecked(checked: Boolean) {
         super.setChecked(checked)
-        if (checked) setChecked() else setUnChecked()
+        if (checked) applyCheckedStyle() else applyDefaultStyle()
     }
 
-    private fun setChecked() {
+    private fun applyCheckedStyle() {
         TextViewCompat.setCompoundDrawableTintList(
             this,
-            ContextCompat.getColorStateList(context, R.color.white)
+            whiteColorStateList
         )
-        backgroundTintList = ContextCompat.getColorStateList(context, R.color.blue)
+        backgroundTintList = blueColorStateList
         setTextColor(ContextCompat.getColor(context, R.color.white))
     }
 
-    private fun setUnChecked() {
+    private fun applyDefaultStyle() {
         TextViewCompat.setCompoundDrawableTintList(
             this,
-            ContextCompat.getColorStateList(context, R.color.blue)
+            blueColorStateList
         )
         backgroundTintList = null
         setTextColor(ContextCompat.getColor(context, R.color.blue))
     }
+
 }

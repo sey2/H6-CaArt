@@ -42,5 +42,6 @@
     <string name="difficult_to_choose">고르기 어렵다면?</string>
     <string name="engine">엔진</string>
     <string name="choice">선택</string>
+    <string name="formatted_price">%1$s 원</string>
 
 </resources>
