@@ -7,9 +7,11 @@ import { OptionModalProps } from './OptionModal';
 function OptionModalTitle({
   data,
   optionNum,
+  setOpenedModalId,
 }: {
   data: OptionModalProps;
   optionNum: number;
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
   return (
     <OptionModalTitleBox>
@@ -38,7 +40,12 @@ function OptionModalTitle({
           : data.description}
       </OptionModalDescriptionBox>
 
-      <IconBox src="/images/x_icon_basic.svg"></IconBox>
+      <IconBox
+        src="/images/x_icon_basic.svg"
+        onClick={() => {
+          setOpenedModalId(0);
+        }}
+      ></IconBox>
     </OptionModalTitleBox>
   );
 }

@@ -5,21 +5,29 @@ import { OptionInfoPopupBtn } from '../optionInfoPopup/OptionInfoPopupBtn';
 
 function OptionCardListAdditionalTag({
   optionCategory,
+  setOpenedModalId,
 }: {
   optionCategory: string;
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const [clickedPlusBtn, setClickecPlusBtn] = useState(-1);
 
   const tagOptionCardList = data.opsinos.map(item => {
     return (
       <>
-        <OptionCard key={item.id} data={item} type={'additional'}></OptionCard>
+        <OptionCard
+          key={item.id}
+          data={item}
+          type={'additional'}
+          setOpenedModalId={setOpenedModalId}
+        ></OptionCard>
         <OptionInfoPopupBtn
           top={item.positionX}
           left={item.positionY}
           id={item.id}
           clickedPlusBtn={clickedPlusBtn}
           setClickecPlusBtn={setClickecPlusBtn}
+          setOpenedModalId={setOpenedModalId}
         ></OptionInfoPopupBtn>
       </>
     );

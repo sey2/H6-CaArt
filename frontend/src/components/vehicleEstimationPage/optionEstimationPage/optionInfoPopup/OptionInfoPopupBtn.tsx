@@ -8,12 +8,14 @@ function OptionInfoPopupBtn({
   id,
   clickedPlusBtn,
   setClickecPlusBtn,
+  setOpenedModalId,
 }: {
   top: number;
   left: number;
   id: number;
   clickedPlusBtn: number;
   setClickecPlusBtn: React.Dispatch<React.SetStateAction<number>>;
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const [isHover, setIsHover] = useState(false);
 
@@ -40,7 +42,12 @@ function OptionInfoPopupBtn({
         <img src="/images/plus_icon_white.svg"></img>
       </OptionInfoPopupBtnBox>
       {(clickedPlusBtn === id || isHover) && (
-        <OptionInfoPopup top={top} left={left}></OptionInfoPopup>
+        <OptionInfoPopup
+          top={top}
+          left={left}
+          id={id}
+          setOpenedModalId={setOpenedModalId}
+        ></OptionInfoPopup>
       )}
     </>
   );

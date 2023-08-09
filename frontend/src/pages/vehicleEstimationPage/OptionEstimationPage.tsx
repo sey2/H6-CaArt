@@ -5,11 +5,13 @@ import SquareButton from '../../components/common/SquareButton';
 import { OptionNavBar } from '../../components/vehicleEstimationPage/optionEstimationPage/navBar/NavBar';
 import { OptionCardList } from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardList';
 import { OptionCardListAdditionalTag } from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardListAdditionalTag';
+import { OptionModal } from '../../components/vehicleEstimationPage/optionEstimationPage/optionModal/OptionModal';
 
 function OptionEstimationPage() {
   const [isBasicOptionPage, setIsBasicOptionPage] = useState(false);
   const [optionCategory, setOptionCategory] = useState('전체');
   const topDom = useRef<null | HTMLDivElement>(null);
+  const [openedModalId, setOpenedModalId] = useState(0);
 
   useEffect(() => {
     if (topDom.current) {
@@ -31,15 +33,24 @@ function OptionEstimationPage() {
       ></OptionNavBar>
 
       {!isBasicOptionPage && optionCategory === '전체' && (
-        <OptionCardList options={data} type={'additional'}></OptionCardList>
+        <OptionCardList
+          options={data}
+          type={'additional'}
+          setOpenedModalId={setOpenedModalId}
+        ></OptionCardList>
       )}
       {!isBasicOptionPage && optionCategory !== '전체' && (
         <OptionCardListAdditionalTag
           optionCategory={optionCategory}
+          setOpenedModalId={setOpenedModalId}
         ></OptionCardListAdditionalTag>
       )}
       {isBasicOptionPage && (
-        <OptionCardList options={data} type={'basic'}></OptionCardList>
+        <OptionCardList
+          options={data}
+          type={'basic'}
+          setOpenedModalId={setOpenedModalId}
+        ></OptionCardList>
       )}
 
       <OptionEstimationPageBtn>
@@ -50,6 +61,13 @@ function OptionEstimationPage() {
           견적 내기
         </SquareButton>
       </OptionEstimationPageBtn>
+
+      {openedModalId !== 0 && (
+        <OptionModal
+          data={modalData}
+          setOpenedModalId={setOpenedModalId}
+        ></OptionModal>
+      )}
     </OptionEstimationPageBox>
   );
 }
@@ -75,6 +93,46 @@ const OptionEstimationPageBtn = styled.div`
 `;
 
 export default OptionEstimationPage;
+
+const modalData = {
+  name: '컴포트2',
+  price: 1090000,
+  description: '테스트 컴포트2 설명',
+  img: 'https://picsum.photos/200/300',
+  tagList: ['안전', '스타일'],
+  setOptions: [
+    {
+      name: '세트옵션1',
+      description: '세트옵션 설명1',
+      img: 'https://picsum.photos/200/300',
+    },
+    {
+      name: '세트옵션2',
+      description: '세트옵션 설명2',
+      img: 'https://picsum.photos/200/300',
+    },
+    {
+      name: '세트옵션3',
+      description: '세트옵션 설명3',
+      img: 'https://picsum.photos/200/300',
+    },
+    {
+      name: '세트옵션4',
+      description: '세트옵션 설명4',
+      img: 'https://picsum.photos/200/300',
+    },
+    {
+      name: '세트옵션5',
+      description: '세트옵션 설명5',
+      img: 'https://picsum.photos/200/300',
+    },
+    {
+      name: '세트옵션6',
+      description: '세트옵션 설명6',
+      img: 'https://picsum.photos/200/300',
+    },
+  ],
+};
 
 const data = [
   {

@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { OptionCard, OptionCardProps } from '../optionCard/OptionCard';
 
-function OptionCardList({ options, type }: OptionCardListProps) {
+function OptionCardList({
+  options,
+  type,
+  setOpenedModalId,
+}: OptionCardListProps) {
   const [page, setPage] = useState(0);
   const cardPerPage = type === 'additional' ? 8 : 12;
   const maxPageNum = Math.ceil(options.length / cardPerPage);
@@ -14,7 +18,14 @@ function OptionCardList({ options, type }: OptionCardListProps) {
   const targetArr = options.slice(startIndex, endIndex);
 
   const optionCardListShow = targetArr.map(item => {
-    return <OptionCard key={item.id} data={item} type={type}></OptionCard>;
+    return (
+      <OptionCard
+        key={item.id}
+        data={item}
+        type={type}
+        setOpenedModalId={setOpenedModalId}
+      ></OptionCard>
+    );
   });
 
   const OptionMoveBtnList = () => {
@@ -69,6 +80,7 @@ function OptionCardList({ options, type }: OptionCardListProps) {
 interface OptionCardListProps {
   options: OptionCardProps[];
   type: 'additional' | 'basic';
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const OptionCardListAdditionalAllBox = styled.div`

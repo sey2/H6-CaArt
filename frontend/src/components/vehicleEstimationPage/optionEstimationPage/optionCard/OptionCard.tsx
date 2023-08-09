@@ -10,10 +10,12 @@ function OptionCard({
   data,
   selected,
   type,
+  setOpenedModalId,
 }: {
   data: OptionCardProps;
   selected?: boolean;
   type: 'additional' | 'basic';
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
   return (
     <>
@@ -25,7 +27,13 @@ function OptionCard({
               {truncateString(data.optionName, 11)}
             </div>
             <OptionCardDetailTextBox className="body-regular-14 text-secondary-active-blue">
-              <span>더 알아보기</span>
+              <span
+                onClick={() => {
+                  setOpenedModalId && setOpenedModalId(data.id);
+                }}
+              >
+                더 알아보기
+              </span>
               <img src="/images/rightArrow_icon_blue.svg"></img>
             </OptionCardDetailTextBox>
           </OptionCardDetailTitleBox>
@@ -106,6 +114,10 @@ const OptionCardDetailTextBox = styled.div`
   img {
     width: 16px;
     height: 16px;
+  }
+
+  span {
+    cursor: pointer;
   }
 `;
 

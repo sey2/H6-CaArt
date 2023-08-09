@@ -1,7 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function OptionInfoPopup({ top, left }: { top: number; left: number }) {
+function OptionInfoPopup({
+  top,
+  left,
+  id,
+  setOpenedModalId,
+}: {
+  top: number;
+  left: number;
+  id: number;
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
+}) {
   return (
     <OptionInfoPopupBox top={top} left={left}>
       <OptionInfoPopupImg src="https://picsum.photos/200/300"></OptionInfoPopupImg>
@@ -12,7 +22,12 @@ function OptionInfoPopup({ top, left }: { top: number; left: number }) {
         </div>
         <div className="head-medium-16">790,000원</div>
       </OptionInfoPopupText>
-      <OptionInfoPopupIcon src="/images/rightArrow_icon_basic.svg"></OptionInfoPopupIcon>
+      <OptionInfoPopupIcon
+        src="/images/rightArrow_icon_basic.svg"
+        onClick={() => {
+          setOpenedModalId(id);
+        }}
+      ></OptionInfoPopupIcon>
     </OptionInfoPopupBox>
   );
 }
