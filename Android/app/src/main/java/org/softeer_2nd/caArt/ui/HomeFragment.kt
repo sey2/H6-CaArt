@@ -24,8 +24,11 @@ class HomeFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.button.setOnClickListener {
+        binding.btnMoveCarColor.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_carColorChoiceFragment)
+        }
+        binding.btnMoveCarTrim.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_carTrimChoiceFragment)
         }
         return binding.root
     }

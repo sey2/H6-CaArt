@@ -8,16 +8,17 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_move_car_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:layout_marginStart="80dp"
+            android:text="색상 선택 화면"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <org.softeer_2nd.caArt.ui.custom.ExpandableView
+            android:id="@+id/expandableView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -42,6 +43,17 @@
                 android:text="hidden content" />
 
         </org.softeer_2nd.caArt.ui.custom.ExpandableView>
+
+        <Button
+            android:id="@+id/btn_move_car_trim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="트림 선택 화면"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.615"
+            app:layout_constraintStart_toEndOf="@+id/btn_move_car_color"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

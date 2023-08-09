@@ -25,4 +25,5 @@
     <color name="gray_50">#FF1A1A1A</color>
     <color name="gray_0">#FF111111</color>
     <color name="transparent_dark_blue">#30000070</color>
+    <color name="tooltip">#2E3D51</color>
 </resources>

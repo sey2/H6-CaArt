@@ -11,7 +11,15 @@
         <action
             android:id="@+id/action_homeFragment_to_carColorChoiceFragment"
             app:destination="@id/carColorChoiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_carTrimChoiceFragment"
+            app:destination="@id/carTrimChoiceFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/carTrimChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.CarTrimChoiceFragment"
+        android:label="CarColorTrimFragment" />
 
     <fragment
         android:id="@+id/carColorChoiceFragment"

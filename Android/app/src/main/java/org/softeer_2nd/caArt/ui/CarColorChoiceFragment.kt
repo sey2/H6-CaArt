@@ -26,10 +26,9 @@ import org.softeer_2nd.caArt.viewmodels.CarColorChoiceViewModel
 class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
     private var _binding: FragmentCarColorChoiceBinding? = null
     private val binding get() = _binding!!
-    private val imageRepository by lazy { CarExteriorImageRepository(requireContext()) }
     private val carColorChoiceViewModel by viewModels<CarColorChoiceViewModel> {
         CarColorChoiceViewModelFactory(
-            imageRepository
+            CarExteriorImageRepository(requireContext())
         )
     }
 
