@@ -13,7 +13,7 @@ function OptionCardListAdditionalTag({
   const tagOptionCardList = data.opsinos.map(item => {
     return (
       <>
-        <OptionCard key={item.id} data={item}></OptionCard>
+        <OptionCard key={item.id} data={item} type={'additional'}></OptionCard>
         <OptionInfoPopupBtn
           top={item.positionX}
           left={item.positionY}

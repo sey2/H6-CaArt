@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { OptionCard, OptionCardProps } from '../optionCard/OptionCard';
 
-function OptionCardListAdditionalAll({ options }: OptionCardListProps) {
+function OptionCardList({ options, type }: OptionCardListProps) {
   const [page, setPage] = useState(0);
-  const maxPageNum = Math.ceil(options.length / 8);
-  const startIndex = page * 8;
+  const cardPerPage = type === 'additional' ? 8 : 12;
+  const maxPageNum = Math.ceil(options.length / cardPerPage);
+  const startIndex = page * cardPerPage;
   const endIndex =
-    page * 8 + 8 <= options.length ? page * 8 + 8 : options.length;
+    startIndex + cardPerPage <= options.length
+      ? startIndex + cardPerPage
+      : options.length;
   const targetArr = options.slice(startIndex, endIndex);
 
-  const optionCardList = targetArr.map(item => {
-    return <OptionCard key={item.id} data={item}></OptionCard>;
+  const optionCardListShow = targetArr.map(item => {
+    return <OptionCard key={item.id} data={item} type={type}></OptionCard>;
   });
 
   const OptionMoveBtnList = () => {
     const buttons = [];
-    for (let i = 0; i < maxPageNum; i++) {
+    const btnStartIndex = Math.floor(page / 5) * 5; //0, 5, 10
+    const btnEndIndex = Math.min(btnStartIndex + 4, maxPageNum);
+    for (let i = btnStartIndex; i < btnEndIndex; i++) {
       buttons.push(
         <OptionCardPageMoveBtn
           key={i}
@@ -39,28 +44,31 @@ function OptionCardListAdditionalAll({ options }: OptionCardListProps) {
           {options.length}
         </span>
       </TotalOptionNumber>
-      <OptionCardListBox>{optionCardList}</OptionCardListBox>
-      <OptionCardPageMoveBtnBox>
-        <img
-          src="/images/leftArrow_icon_basic.svg"
-          onClick={() => {
-            setPage(page === 0 ? 0 : page - 1);
-          }}
-        ></img>
-        <div className="btn_list">{OptionMoveBtnList()}</div>
-        <img
-          src="/images/rightArrow_icon_basic.svg"
-          onClick={() => {
-            setPage(page === maxPageNum - 1 ? maxPageNum - 1 : page + 1);
-          }}
-        ></img>
-      </OptionCardPageMoveBtnBox>
+      <OptionCardListBox>{optionCardListShow}</OptionCardListBox>
+      {maxPageNum > 1 && (
+        <OptionCardPageMoveBtnBox>
+          <img
+            src="/images/leftArrow_icon_basic.svg"
+            onClick={() => {
+              setPage(page === 0 ? 0 : page - 1);
+            }}
+          ></img>
+          <div className="btn_list">{OptionMoveBtnList()}</div>
+          <img
+            src="/images/rightArrow_icon_basic.svg"
+            onClick={() => {
+              setPage(page === maxPageNum - 1 ? maxPageNum - 1 : page + 1);
+            }}
+          ></img>
+        </OptionCardPageMoveBtnBox>
+      )}
     </OptionCardListAdditionalAllBox>
   );
 }
 
 interface OptionCardListProps {
   options: OptionCardProps[];
+  type: 'additional' | 'basic';
 }
 
 const OptionCardListAdditionalAllBox = styled.div`
@@ -117,4 +125,4 @@ const OptionCardPageMoveBtn = styled.div<{ index: number; page: number }>`
   cursor: pointer;
 `;
 
-export { OptionCardListAdditionalAll };
+export { OptionCardList };

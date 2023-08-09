@@ -9,9 +9,11 @@ import { truncateString } from '../../../../util/TruncateString';
 function OptionCard({
   data,
   selected,
+  type,
 }: {
   data: OptionCardProps;
   selected?: boolean;
+  type: 'additional' | 'basic';
 }) {
   return (
     <>
@@ -27,14 +29,20 @@ function OptionCard({
               <img src="/images/rightArrow_icon_blue.svg"></img>
             </OptionCardDetailTextBox>
           </OptionCardDetailTitleBox>
-          <OptionCardDetailText className="body-regular-14 text-grey-300">
-            {data.optionText}
-          </OptionCardDetailText>
-          <OptionCardDetailPrice className="body-medium-16 text-grey-100">
-            {priceToString(data.optionPrice)}
-          </OptionCardDetailPrice>
-          <CircularButton selected={selected}></CircularButton>
+
+          {type === 'additional' && (
+            <>
+              <OptionCardDetailText className="body-regular-14 text-grey-300">
+                {data.optionText}
+              </OptionCardDetailText>
+              <OptionCardDetailPrice className="body-medium-16 text-grey-100">
+                {priceToString(data.optionPrice)}
+              </OptionCardDetailPrice>
+              <CircularButton selected={selected}></CircularButton>
+            </>
+          )}
         </OptionCardDetailBox>
+
         {data.optionBadge && (
           <OptionCardTagBox>
             <OptionCardTag
@@ -43,7 +51,8 @@ function OptionCard({
             ></OptionCardTag>
           </OptionCardTagBox>
         )}
-        {data.optionPercent >= 60 && (
+
+        {data.optionPercent >= 60 && type === 'additional' && (
           <OptionCardGuideBox>
             <OptionCardGuide percentage={data.optionPercent}></OptionCardGuide>
           </OptionCardGuideBox>
