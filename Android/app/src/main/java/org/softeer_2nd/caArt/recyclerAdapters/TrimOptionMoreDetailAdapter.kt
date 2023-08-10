@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -81,6 +82,7 @@ class TrimOptionMoreDetailAdapter(
             )
 
             textSize = TEXT_SIZE_SP
+            setTextColor(ContextCompat.getColor(context, R.color.gray_100))
             typeface.let { this.typeface = typeface }
 
             if (isDefaultOption) {
