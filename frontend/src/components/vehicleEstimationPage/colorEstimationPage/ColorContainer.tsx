@@ -40,6 +40,8 @@ const ColorItem = styled.div`
   gap: 8px;
   width: 68px;
   height: 112px;
+  position: relative;
+  cursor: pointer;
 `;
 
 const Info = styled.div`

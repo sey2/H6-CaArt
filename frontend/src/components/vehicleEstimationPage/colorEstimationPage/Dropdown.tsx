@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import ColorButton from './button/ColorButton';
+import ColorChangePopup from './ColorChangePopup';
 
 interface Dropdown {
   type: 'inner' | 'outer';
@@ -11,21 +12,56 @@ interface Dropdown {
 }
 
 function Dropdown(props: Dropdown) {
+  const [modal, setModal] = useState<boolean>(false);
+
   function getDropdown(type: string) {
     if (type === 'outer') {
       return (
-        <DropdownBox state={props.outerColorDDState}>
-          <Header>
+        <>
+          {modal && <ColorChangePopup setter={setModal} />}
+          <DropdownBox state={props.outerColorDDState}>
+            <Header
+              onClick={() => props.outerColorDDSetter(!props.outerColorDDState)}
+            >
+              <span className="text-primary-blue body-medium-14">
+                다른 외장 색상을 찾고 있나요?
+              </span>
+              <DropIcon
+                src="/images/dropdown_icon.svg"
+                outerOpen={props.outerColorDDState}
+              />
+            </Header>
+            <ColorListContainer state={props.outerColorDDState}>
+              <ColorListItem onClick={() => setModal(true)}>
+                <span className="text-secondary-active-blue body-bold-11">
+                  Caligraphy
+                </span>
+                <ColorButton src="/images/temp_color.svg" />
+                <span className="text-grey-100 caption-regular-12">
+                  로버스트 에메랄드 펄
+                </span>
+              </ColorListItem>
+            </ColorListContainer>
+          </DropdownBox>
+        </>
+      );
+    }
+    return (
+      <>
+        {modal && <ColorChangePopup setter={setModal} />}
+        <DropdownBox state={props.innerColorDDState}>
+          <Header
+            onClick={() => props.innerColorDDSetter(!props.innerColorDDState)}
+          >
             <span className="text-primary-blue body-medium-14">
-              다른 외장 색상을 찾고 있나요?
+              다른 내장 색상을 찾고 있나요?
             </span>
             <DropIcon
               src="/images/dropdown_icon.svg"
-              outerOpen={props.outerColorDDState}
-              onClick={() => props.outerColorDDSetter(!props.outerColorDDState)}
+              innerOpen={props.innerColorDDState}
             />
           </Header>
-          <ColorListContainer state={props.outerColorDDState}>
+          <ColorListContainer state={props.innerColorDDState}>
             <ColorListItem>
               <span className="text-secondary-active-blue body-bold-11">
                 Caligraphy
@@ -37,32 +73,7 @@ function Dropdown(props: Dropdown) {
             </ColorListItem>
           </ColorListContainer>
         </DropdownBox>
-      );
-    }
-    return (
-      <DropdownBox state={props.innerColorDDState}>
-        <Header>
-          <span className="text-primary-blue body-medium-14">
-            다른 내장 색상을 찾고 있나요?
-          </span>
-          <DropIcon
-            src="/images/dropdown_icon.svg"
-            innerOpen={props.innerColorDDState}
-            onClick={() => props.innerColorDDSetter(!props.innerColorDDState)}
-          />
-        </Header>
-        <ColorListContainer state={props.innerColorDDState}>
-          <ColorListItem>
-            <span className="text-secondary-active-blue body-bold-11">
-              Caligraphy
-            </span>
-            <ColorButton src="/images/temp_color.svg" />
-            <span className="text-grey-100 caption-regular-12">
-              로버스트 에메랄드 펄
-            </span>
-          </ColorListItem>
-        </ColorListContainer>
-      </DropdownBox>
+      </>
     );
   }
 
@@ -84,6 +95,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 `;
 
 const DropIcon = styled.img<{ innerOpen?: boolean; outerOpen?: boolean }>`
@@ -106,4 +118,5 @@ const ColorListItem = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
+  cursor: pointer;
 `;
