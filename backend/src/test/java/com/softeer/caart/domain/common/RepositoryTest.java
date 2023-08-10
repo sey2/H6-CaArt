@@ -1,7 +1,5 @@
 package com.softeer.caart.domain.common;
 
-import static com.softeer.caart.domain.option.entity.Badge.*;
-
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
@@ -10,15 +8,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
-import com.softeer.caart.domain.option.entity.CarOption;
-import com.softeer.caart.domain.option.repository.CarOptionRepository;
+import com.softeer.caart.domain.option.entity.BaseOptionInfo;
+import com.softeer.caart.domain.option.repository.OptionRepository;
 import com.softeer.caart.domain.trim.entity.MainOptionOfTrim;
 import com.softeer.caart.domain.trim.entity.Trim;
 import com.softeer.caart.domain.trim.repository.MainOptionOfTrimRepository;
 import com.softeer.caart.domain.trim.repository.TrimRepository;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -34,13 +32,13 @@ public class RepositoryTest {
 	@Autowired
 	protected MainOptionOfTrimRepository mainOptionOfTrimRepository;
 	@Autowired
-	protected CarOptionRepository carOptionRepository;
+	protected OptionRepository optionRepository;
 
 	protected Trim LeBlanc;
 	protected Trim Exclusive;
 
-	protected CarOption 알로이힐;
-	protected CarOption 서라운드뷰모니터;
+	protected BaseOptionInfo 알로이힐;
+	protected BaseOptionInfo 서라운드뷰모니터;
 
 	protected MainOptionOfTrim 메인옵션1OfLeBlanc;
 	protected MainOptionOfTrim 메인옵션2OfLeBlanc;
@@ -69,25 +67,17 @@ public class RepositoryTest {
 	}
 
 	private void initCarOption() {
-		알로이힐 = CarOption.builder()
+		알로이힐 = BaseOptionInfo.builder()
 			.name("20인치 알로이 휠")
 			.description("-")
 			.imageUrl("tmp")
-			.price(0)
-			.badge(NONE)
-			.isSetOption(false)
-			.isAdditionalOption(false)
 			.build();
 
-		서라운드뷰모니터 = CarOption.builder()
+		서라운드뷰모니터 = BaseOptionInfo.builder()
 			.name("서라운드 뷰 모니터")
 			.description(
 				"차량 앞/뒤/좌/우 360도 모든 상황을 AVN화면을 통해 볼 수 있는 장치로 고화질 카메라 및 디지털 영상 전송 방식을 적용하여 영상 경계선 없이 선명하고 깨끗한 화질을 제공합니다.")
 			.imageUrl("tmp")
-			.price(0)
-			.badge(NONE)
-			.isSetOption(false)
-			.isAdditionalOption(false)
 			.build();
 	}
 

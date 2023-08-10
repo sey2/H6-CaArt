@@ -11,20 +11,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.softeer.caart.domain.option.entity.CarOption;
+import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 
 @Entity
-@Table(name = "rel_model_car_option")
+@Table(name = "rel_model_base_option_info")
 public class AvailableOption {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "rel_model_car_option_id")
+	@Column(name = "rel_model_base_option_info_id")
 	private Long id;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "car_option_id", nullable = false)
-	private CarOption carOption;
+	@JoinColumn(name = "base_option_info_id", nullable = false)
+	private BaseOptionInfo baseOptionInfo;
 
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "model_id", nullable = false)

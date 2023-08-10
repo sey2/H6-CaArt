@@ -11,20 +11,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.softeer.caart.domain.option.entity.CarOption;
+import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "rel_trim_car_main_option")
+@Table(name = "rel_trim_base_option_info")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class MainOptionOfTrim {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "rel_trim_car_main_option_id")
+	@Column(name = "rel_trim_base_option_info_id")
 	private Long id;
 
 	@ManyToOne(fetch = LAZY)
@@ -32,10 +32,10 @@ public class MainOptionOfTrim {
 	private Trim trim;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "car_option_id", nullable = false)
-	private CarOption mainOption;
+	@JoinColumn(name = "base_option_info_id", nullable = false)
+	private BaseOptionInfo mainOption;
 
-	public MainOptionOfTrim(Trim trim, CarOption mainOption) {
+	public MainOptionOfTrim(Trim trim, BaseOptionInfo mainOption) {
 		this.trim = trim;
 		this.mainOption = mainOption;
 	}

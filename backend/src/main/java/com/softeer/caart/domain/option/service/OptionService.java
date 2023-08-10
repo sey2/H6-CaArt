@@ -5,10 +5,10 @@ import static com.softeer.caart.global.ResultCode.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softeer.caart.domain.option.dto.CarOptionResponse;
-import com.softeer.caart.domain.option.entity.CarOption;
+import com.softeer.caart.domain.option.dto.BaseOptionResponse;
+import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
-import com.softeer.caart.domain.option.repository.CarOptionRepository;
+import com.softeer.caart.domain.option.repository.OptionRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,14 +17,14 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
-public class CarOptionService {
+public class OptionService {
 
-	private final CarOptionRepository carOptionRepository;
+	private final OptionRepository optionRepository;
 
-	public CarOptionResponse getOption(Long optionId) {
-		CarOption option = carOptionRepository.findById(optionId)
+	public BaseOptionResponse getOption(Long optionId) {
+		BaseOptionInfo option = optionRepository.findById(optionId)
 			.orElseThrow(() -> new OptionNotFoundException(OPTION_NOT_FOUND));
 
-		return CarOptionResponse.from(option);
+		return BaseOptionResponse.from(option);
 	}
 }

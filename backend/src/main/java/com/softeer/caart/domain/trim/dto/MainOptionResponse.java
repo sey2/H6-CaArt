@@ -1,6 +1,6 @@
 package com.softeer.caart.domain.trim.dto;
 
-import com.softeer.caart.domain.option.entity.CarOption;
+import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.trim.entity.MainOptionOfTrim;
 
 import lombok.AccessLevel;
@@ -16,7 +16,7 @@ public class MainOptionResponse {
 	private String optionImage;
 
 	private MainOptionResponse(MainOptionOfTrim mainOptionOfTrim) {
-		final CarOption mainOption = mainOptionOfTrim.getMainOption();
+		final BaseOptionInfo mainOption = mainOptionOfTrim.getMainOption();
 		this.optionId = mainOption.getId();
 		this.optionName = mainOption.getName();
 		this.description = mainOption.getDescription();
