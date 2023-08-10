@@ -4,10 +4,11 @@ import styled from 'styled-components';
 interface buttonOption {
   size: 'xl' | 'l' | 'xm' | 'm' | 's' | 'xs' | 'xxs' | 'ms' | 'auto';
   height?: number | undefined;
-  color: 'grey-900' | 'primary-blue' | 'grey-1000'| 'grey-400' | 'grey-50';
+  color: 'grey-900' | 'primary-blue' | 'grey-1000' | 'grey-400' | 'grey-50';
   bg?: 'grey-1000' | 'primary-blue';
   children: React.ReactNode;
   border?: boolean;
+  onClick?: () => void;
 }
 
 function calcWidth(size: string) {
@@ -44,6 +45,7 @@ function SquareButton(props: buttonOption) {
       bg={props.bg}
       border={props.border}
       height={props.height}
+      onClick={props.onClick}
     >
       {props.children}
     </Button>
