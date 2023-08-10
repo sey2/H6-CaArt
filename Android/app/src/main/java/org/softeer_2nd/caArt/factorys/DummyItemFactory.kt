@@ -84,13 +84,33 @@ object DummyItemFactory {
             OptionChangePopUpDummyItem("Calligraphy", "+ 400,000원"),
         )
     }
-    
-    fun createSelectionTrimItemDummyItems(): List<OptionTrimSelectionDummyItem>{
+
+    fun createSelectionTrimItemDummyItems(): List<OptionTrimSelectionDummyItem> {
         return arrayListOf(
-            OptionTrimSelectionDummyItem("Exclusive", "합리적인 가격의 인기 옵션","디젤 2.2 ・ 7인승 ・ 2WD", "43,460,000원"),
-            OptionTrimSelectionDummyItem("Le Blanc (르블랑)", "필수적인 옵션만 모은","디젤 2.2 ・ 7인승 ・ 2WD", "40,440,000원"),
-            OptionTrimSelectionDummyItem("Prestige", "가치있는 드라이빙 경험을 주는","디젤 2.2 ・ 7인승 ・ 2WD", "47,720,000원"),
-            OptionTrimSelectionDummyItem("Caligraphy", "남들과 차별화된 경험","디젤 2.2 ・ 7인승 ・ 2WD", "52,540,000원")
+            OptionTrimSelectionDummyItem(
+                "Exclusive",
+                "합리적인 가격의 인기 옵션",
+                "디젤 2.2 ・ 7인승 ・ 2WD",
+                "43,460,000원"
+            ),
+            OptionTrimSelectionDummyItem(
+                "Le Blanc (르블랑)",
+                "필수적인 옵션만 모은",
+                "디젤 2.2 ・ 7인승 ・ 2WD",
+                "40,440,000원"
+            ),
+            OptionTrimSelectionDummyItem(
+                "Prestige",
+                "가치있는 드라이빙 경험을 주는",
+                "디젤 2.2 ・ 7인승 ・ 2WD",
+                "47,720,000원"
+            ),
+            OptionTrimSelectionDummyItem(
+                "Caligraphy",
+                "남들과 차별화된 경험",
+                "디젤 2.2 ・ 7인승 ・ 2WD",
+                "52,540,000원"
+            )
         )
     }
 
@@ -112,7 +132,7 @@ object DummyItemFactory {
             group = null,
             isDefaultOption = false,
             price = 9999999,
-            url = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg"
+            url = "https://cdn.pixabay.com/photo/2023/05/05/21/00/cute-7973191_1280.jpg"
         )
     )
 

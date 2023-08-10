@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.view.Gravity" />
+
+        <variable
+            name="option"
+            type="org.softeer_2nd.caArt.dataClasses.Option" />
+
+        <variable
+            name="onActivateStateChangedListener"
+            type="android.widget.CompoundButton.OnCheckedChangeListener" />
+
+        <variable
+            name="isActivated"
+            type="boolean" />
+
+        <variable
+            name="orientation"
+            type="Integer" />
+
+        <variable
+            name="buttonClass"
+            type="org.softeer_2nd.caArt.ui.custom.DynamicOptionFloatingButton" />
+
+        <variable
+            name="tailXOffset"
+            type="float" />
+
+        <variable
+            name="onMoreIconClickListener"
+            type="View.OnClickListener" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <!--        <ImageView-->
+        <!--            layout_minus_marginBottom="@{orientation==buttonClass.TOP?5f:0f}"-->
+        <!--            layout_minus_marginTop="@{orientation==buttonClass.BOTTOM?5f:0f"-->
+        <!--            android:layout_width="20dp"-->
+        <!--            android:layout_height="20dp"-->
+        <!--            android:layout_gravity="@{orientation==buttonClass.TOP?Gravity.TOP:Gravity.BOTTOM}"-->
+        <!--            android:background="@drawable/shape_triangle"-->
+        <!--            android:backgroundTint="#AE7676"-->
+        <!--            android:layout_marginStart="@{tailXOffset}"-->
+        <!--            android:rotation="@{orientation==buttonClass.TOP?0:180}" />-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_option_floating_tooltip"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/shape_option_floating_tootip_background_8"
+            android:elevation="2dp"
+            android:minHeight="40dp">
+
+            <ImageView
+                android:id="@+id/iv_option_floating_option_image"
+                url="@{option.url}"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/shape_rect_r8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_option_floating_option_tag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/hyundaisanstextkrregular"
+                android:textColor="@color/gray_400"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_option_floating_option_name"
+                app:layout_constraintEnd_toEndOf="@+id/tv_option_floating_option_name"
+                app:layout_constraintStart_toEndOf="@+id/iv_option_floating_option_image"
+                app:layout_constraintStart_toStartOf="@+id/tv_option_floating_option_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="주행안전" />
+
+            <TextView
+                android:id="@+id/tv_option_floating_option_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:maxLines="1"
+                android:textColor="@color/gray_50"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_option_floating_option_price"
+                app:layout_constraintEnd_toStartOf="@+id/ib_option_floating_detail"
+                app:layout_constraintStart_toEndOf="@+id/iv_option_floating_option_image"
+                app:layout_constraintTop_toBottomOf="@+id/tv_option_floating_option_tag"
+                tools:text="빌트인 캠dfdsfsdfdsfdsfds" />
+
+            <TextView
+                android:id="@+id/tv_option_floating_option_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tv_option_floating_option_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_option_floating_option_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_option_floating_option_name"
+                tools:text="690,000 원" />
+
+            <ImageButton
+                android:id="@+id/ib_option_floating_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@color/transparent"
+                android:onClickListener="@{onMoreIconClickListener}"
+                android:padding="10dp"
+                android:rotation="270"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_no_tail_20"
+                app:tint="@color/black" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

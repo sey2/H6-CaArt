@@ -30,6 +30,6 @@
         android:label="CarColorChoiceFragment" />
     <fragment
         android:id="@+id/carOptionChoiceFragment"
-        android:name="org.softeer_2nd.caArt.ui.custom.CarOptionChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.CarOptionChoiceFragment"
         android:label="CarOptionChoiceFragment" />
 </navigation>

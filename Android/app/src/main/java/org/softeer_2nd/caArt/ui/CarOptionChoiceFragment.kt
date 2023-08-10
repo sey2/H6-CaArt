@@ -1,17 +1,18 @@
-package org.softeer_2nd.caArt.ui.custom
+package org.softeer_2nd.caArt.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
 import androidx.fragment.app.Fragment
 import org.softeer_2nd.caArt.BottomSheetMode
 import org.softeer_2nd.caArt.databinding.FragmentCarOptionChoiceBinding
+import org.softeer_2nd.caArt.databinding.LayoutDynamicOptionFloatingTooltipBinding
 
 class CarOptionChoiceFragment : Fragment() {
     private var _binding: FragmentCarOptionChoiceBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -24,7 +25,7 @@ class HomeFragment() : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.btnMoveCarColor.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_carColorChoiceFragment)
@@ -38,10 +39,13 @@ class HomeFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        OptionDetailDialog.Builder()
-            .setOptionList(DummyItemFactory.createAdditionalOptionGrouopItem())
-            .build()
-            .show(requireActivity().supportFragmentManager, "tag")
+        binding.dynamicOptionFloatingButton.setOption(DummyItemFactory.createAdditionalSingleOptionItem()[0])
+        binding.dynamicOptionFloatingButton.setOnMoreIconClickListener{
+            OptionDetailDialog.Builder()
+                .setOptionList(DummyItemFactory.createAdditionalOptionGrouopItem())
+                .build()
+                .show(requireActivity().supportFragmentManager,"")
+        }
     }
 
     override fun onDestroyView() {

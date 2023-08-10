@@ -28,4 +28,5 @@
     <color name="tooltip">#2E3D51</color>
     <color name="transparent">#00000000</color>
     <color name="transparent_white">#88ffffff</color>
+    <color name="transparent_gray">#B8ACB8C8</color>
 </resources>
