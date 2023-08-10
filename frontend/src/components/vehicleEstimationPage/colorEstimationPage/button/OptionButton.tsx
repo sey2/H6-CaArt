@@ -1,19 +1,22 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
+
 function OptionButton({
   type,
-  selected,
+  state,
+  setter
 }: {
   type: 'ex' | 'in' | '360' | string;
-  selected?: boolean;
+  state: 'ex'|'in'|'360'|string,
+  setter: React.Dispatch<React.SetStateAction<'ex'|'in'|'360'|string>>
 }) {
   function getButtonType(type: string) {
     switch (type) {
       case 'ex':
         return (
           <>
-            <Flex>
+            <Flex onClick={()=>setter(type)}>
               <img src="/images/ex_img.svg" />
               <span>외장</span>
             </Flex>
@@ -22,7 +25,7 @@ function OptionButton({
       case 'in':
         return (
           <>
-            <Flex>
+            <Flex onClick={()=>setter(type)}>
               <img src="/images/in_img.svg" />
               <span>내장</span>
             </Flex>
@@ -32,7 +35,7 @@ function OptionButton({
       case '360':
         return (
           <>
-            <Flex style={{ width: 96 }}>
+            <Flex style={{ width: 96 }} onClick={()=>setter(type)}>
               <img src="/images/360_img.svg" />
               <span>360</span>
             </Flex>
@@ -40,9 +43,10 @@ function OptionButton({
         );
     }
   }
+  console.log(state)
 
   return (
-    <Box className="caption-medium-12 text-grey-0" selected={selected}>
+    <Box className="caption-medium-12 text-grey-0">
       {getButtonType(type)}
     </Box>
   );
@@ -50,7 +54,7 @@ function OptionButton({
 
 export default OptionButton;
 
-const Box = styled.div<{ selected?: boolean }>`
+const Box = styled.div`
   animation: width 0.5s linear;
   background-color: white;
   width: 52px;
@@ -59,7 +63,6 @@ const Box = styled.div<{ selected?: boolean }>`
   padding: 10px;
   border-radius: 4px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  ${props => props.selected && 'width: 96px'};
   cursor: pointer;
 `;
 
@@ -67,4 +70,4 @@ const Flex = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
-`;
+`
