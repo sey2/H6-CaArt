@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 public class MainOptionResponse {
 	private Long optionId;
 	private String optionName;
-	private String optionDescription;
-	private String image;
+	private String description;
+	private String optionImage;
 
 	private MainOptionResponse(MainOptionOfTrim mainOptionOfTrim) {
 		final CarOption mainOption = mainOptionOfTrim.getMainOption();
 		this.optionId = mainOption.getId();
 		this.optionName = mainOption.getName();
-		this.optionDescription = mainOption.getDescription();
-		this.image = mainOption.getImage().getUrl();
+		this.description = mainOption.getDescription();
+		this.optionImage = mainOption.getImage().getUrl();
 	}
 
 	public static MainOptionResponse from(MainOptionOfTrim mainOptionOfTrim) {

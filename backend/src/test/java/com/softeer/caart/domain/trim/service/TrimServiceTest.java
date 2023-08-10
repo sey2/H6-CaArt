@@ -43,6 +43,6 @@ class TrimServiceTest extends ServiceTest {
 		List<TrimResponse> trims = trimService.getTrims();
 
 		// then
-		softly.assertThat(trims.get(1).getPrice()).isGreaterThan(trims.get(0).getPrice());
+		softly.assertThat(trims.get(1).getTrimPrice()).isGreaterThan(trims.get(0).getTrimPrice());
 	}
 }

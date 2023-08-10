@@ -9,20 +9,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CarEngineResponse {
-	private String name;
+	private String engineName;
 	private String description;
-	private Integer price;
+	private Integer enginePrice;
 	private String maxPower;
 	private String maxTorque;
-	private String image;
+	private String engineImage;
 
 	private CarEngineResponse(CarEngine carEngine) {
-		this.name = carEngine.getName();
+		this.engineName = carEngine.getName();
 		this.description = carEngine.getDescription();
-		this.price = carEngine.getPrice();
+		this.enginePrice = carEngine.getPrice();
 		this.maxPower = carEngine.getMaxPower();
 		this.maxTorque = carEngine.getMaxTorque();
-		this.image = carEngine.getImage().getUrl();
+		this.engineImage = carEngine.getImage().getUrl();
 	}
 
 	public static CarEngineResponse from(CarEngine carEngine) {

@@ -9,16 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class ColorResponse {
-	private Long id;
-	private String name;
-	private Integer price;
-	private String image;
+	private Long colorId;
+	private String colorName;
+	private Integer colorPrice;
+	private String colorImage;
 
 	private ColorResponse(Color color) {
-		this.id = color.getId();
-		this.name = color.getName();
-		this.price = color.getPrice();
-		this.image = color.getImage().getUrl();
+		this.colorId = color.getId();
+		this.colorName = color.getName();
+		this.colorPrice = color.getPrice();
+		this.colorImage = color.getImage().getUrl();
 	}
 
 	public static ColorResponse from(Color color) {

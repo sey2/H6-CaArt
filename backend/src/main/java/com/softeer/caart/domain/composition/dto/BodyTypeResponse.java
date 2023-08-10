@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BodyTypeResponse {
-	private String name;
+	private String bodyTypeName;
 	private String description;
-	private String image;
+	private String bodyTypeImage;
 
 	private BodyTypeResponse(BodyType bodyType) {
-		this.name = bodyType.getName();
+		this.bodyTypeName = bodyType.getName();
 		this.description = bodyType.getDescription();
-		this.image = bodyType.getImage().getUrl();
+		this.bodyTypeImage = bodyType.getImage().getUrl();
 	}
 
 	public static BodyTypeResponse from(BodyType bodyType) {

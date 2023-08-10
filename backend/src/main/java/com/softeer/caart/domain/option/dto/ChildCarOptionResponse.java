@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class ChildCarOptionResponse {
-	private String name;
+	private String childOptionName;
 	private String description;
-	private String image;
+	private String childOptionImage;
 
 	private ChildCarOptionResponse(ChildCarOption option) {
-		this.name = option.getName();
+		this.childOptionName = option.getName();
 		this.description = option.getDescription();
-		this.image = option.getImage().getUrl();
+		this.childOptionImage = option.getImage().getUrl();
 	}
 
 	public static ChildCarOptionResponse from(ChildCarOption option) {

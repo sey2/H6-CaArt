@@ -48,7 +48,7 @@ class CarOptionServiceTest extends ServiceTest {
 			final CarOptionResponse optionResponse = carOptionService.getOption(-1L);
 
 			// then
-			softly.assertThat(optionResponse.getName()).isEqualTo(옵션.getName());
+			softly.assertThat(optionResponse.getOptionName()).isEqualTo(옵션.getName());
 		}
 
 		@Test

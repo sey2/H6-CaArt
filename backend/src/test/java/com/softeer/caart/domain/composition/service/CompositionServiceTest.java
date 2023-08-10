@@ -41,6 +41,6 @@ class CompositionServiceTest extends ServiceTest {
 
 		// then
 		softly.assertThat(compositions.getCarEngines().size()).isEqualTo(2);
-		softly.assertThat(compositions.getCarEngines().get(0).getName()).isEqualTo(디젤.getName());
+		softly.assertThat(compositions.getCarEngines().get(0).getEngineName()).isEqualTo(디젤.getName());
 	}
 }

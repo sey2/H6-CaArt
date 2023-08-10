@@ -13,27 +13,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class CarOptionResponse {
-	private Long id;
-	private String name;
+	private Long optionId;
+	private String optionName;
 	private Integer price;
 	private String description;
-	private String image;
+	private String optionImage;
 	private List<String> tags;
 	private List<ChildCarOptionResponse> childOptions;
 
 	private CarOptionResponse(CarOption option) {
-		this.id = option.getId();
-		this.name = option.getName();
+		this.optionId = option.getId();
+		this.optionName = option.getName();
 		this.price = option.getPrice();
 		this.description = option.getDescription();
-		this.image = option.getImage().getUrl();
+		this.optionImage = option.getImage().getUrl();
 		this.tags = option.getTags().stream()
 			.map(optionTag -> optionTag.getTag().getName())
 			.sorted()
 			.collect(Collectors.toList());
 		this.childOptions = option.getChildOptions().stream()
 			.map(ChildCarOptionResponse::from)
-			.sorted(Comparator.comparing(ChildCarOptionResponse::getName))
+			.sorted(Comparator.comparing(ChildCarOptionResponse::getChildOptionName))
 			.collect(Collectors.toList());
 	}
 

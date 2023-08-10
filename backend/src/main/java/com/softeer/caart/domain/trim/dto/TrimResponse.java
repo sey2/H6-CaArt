@@ -16,19 +16,19 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TrimResponse {
-	private String name;
+	private String trimName;
 	private String description;
-	private String imageUrl;
-	private Integer price;
+	private String trimImage;
+	private Integer trimPrice;
 	private List<MainOptionResponse> mainOptions;
 	private List<ColorResponse> exteriorColors;
 	private List<ColorResponse> interiorColors;
 
 	private TrimResponse(Trim trim) {
-		this.name = trim.getName();
+		this.trimName = trim.getName();
 		this.description = trim.getDescription();
-		this.imageUrl = trim.getImage().getUrl();
-		this.price = trim.getPrice();
+		this.trimImage = trim.getImage().getUrl();
+		this.trimPrice = trim.getPrice();
 		this.mainOptions = trim.getMainOptions().stream()
 			.map(MainOptionResponse::from)
 			.collect(Collectors.toList());
@@ -36,13 +36,13 @@ public class TrimResponse {
 			.map(AvailableColor::getColor)
 			.filter(Color::isExterior)
 			.map(ColorResponse::from)
-			.sorted(Comparator.comparing(ColorResponse::getName))
+			.sorted(Comparator.comparing(ColorResponse::getColorName))
 			.collect(Collectors.toList());
 		this.interiorColors = trim.getColors().stream()
 			.map(AvailableColor::getColor)
 			.filter(Color::isInterior)
 			.map(ColorResponse::from)
-			.sorted(Comparator.comparing(ColorResponse::getName))
+			.sorted(Comparator.comparing(ColorResponse::getColorName))
 			.collect(Collectors.toList());
 	}
 

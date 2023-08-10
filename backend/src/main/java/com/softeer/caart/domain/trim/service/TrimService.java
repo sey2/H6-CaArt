@@ -23,7 +23,7 @@ public class TrimService {
 	public List<TrimResponse> getTrims() {
 		return trimRepository.findAll().stream()
 			.map(TrimResponse::from)
-			.sorted(Comparator.comparing(TrimResponse::getPrice))
+			.sorted(Comparator.comparing(TrimResponse::getTrimPrice))
 			.collect(Collectors.toList());
 	}
 }
