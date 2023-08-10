@@ -3,6 +3,7 @@ package org.softeer_2nd.caArt.factorys
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.models.OptionChangePopUpDummyItem
 import org.softeer_2nd.caArt.dataClasses.Option
+import org.softeer_2nd.caArt.models.OptionTrimMoreDetailDummyItem
 import org.softeer_2nd.caArt.models.OptionColorDummyItem
 import org.softeer_2nd.caArt.models.OptionSelectionDummyItem
 import org.softeer_2nd.caArt.models.OptionTrimSelectionDummyItem
@@ -146,4 +147,26 @@ object DummyItemFactory {
             url = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg"
         )
     )
+
+    fun createTrimMoreExteriorDetailItem(): List<OptionTrimMoreDetailDummyItem> {
+        return arrayListOf(OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/eb63693b-8048-4657-9982-4af6b2f94e88"),
+            OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/cedfafbc-c507-4300-8827-d194e024d3e8"),
+            OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/83456bef-6975-4803-ad20-21e1b8470239"),
+            OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/49bf8a47-6a23-462a-a646-b097b975e7bc"),
+            OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/49bf8a47-6a23-462a-a646-b097b975e7b")
+        )
+    }
+
+    fun createTrimMoreInteriorDetailItem(): List<OptionTrimMoreDetailDummyItem> {
+        return arrayListOf(OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/cb1f6699-ba72-414b-bc27-7e0fbfcb9e2c"),
+            OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/3f2501e4-a266-444e-bcfd-7870af2d4738"),
+        )
+    }
+
+    fun createTrimMoreDefaultDetailItem(): List<OptionTrimMoreDetailDummyItem> {
+        return arrayListOf(OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/8cf13d19-d76f-401b-afef-1d9393881216"),
+            OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/dd00cc97-de91-47d8-8eb9-03312233508a"),
+            OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/6df8efd6-b047-4f8e-bc8a-03659e10000f")
+        )
+    }
 }

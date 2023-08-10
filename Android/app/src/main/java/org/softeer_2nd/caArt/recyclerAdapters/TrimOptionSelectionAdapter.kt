@@ -2,8 +2,10 @@ package org.softeer_2nd.caArt.recyclerAdapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemTrimSelectBinding
+import org.softeer_2nd.caArt.factorys.DummyItemFactory
 import org.softeer_2nd.caArt.models.OptionTrimSelectionDummyItem
 
 class TrimOptionSelectionAdapter(
@@ -17,6 +19,7 @@ class TrimOptionSelectionAdapter(
     ): TrimOptionSelectionViewHolder {
         val binding =
             ItemTrimSelectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return TrimOptionSelectionViewHolder(binding)
     }
 
@@ -41,6 +44,25 @@ class TrimOptionSelectionAdapter(
                 items[adapterPosition].isChecked = true
                 notifyItemChanged(adapterPosition)
                 selectedPosition = adapterPosition
+            }
+
+            binding.incOtherMore.rvOtherMoreExteriorDetail.apply {
+                this.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                this.adapter = TrimOptionMoreDetailAdapter(DummyItemFactory.createTrimMoreExteriorDetailItem())
+                isNestedScrollingEnabled = false
+            }
+
+            binding.incOtherMore.rvOtherMoreInteriorDetail.apply {
+                this.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                this.adapter = TrimOptionMoreDetailAdapter(DummyItemFactory.createTrimMoreInteriorDetailItem())
+            }
+
+            binding.incOtherMore.rvOtherMoreDefaultDetail.apply {
+                this.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                this.adapter = TrimOptionMoreDetailAdapter(DummyItemFactory.createTrimMoreDefaultDetailItem(), true)
             }
         }
 

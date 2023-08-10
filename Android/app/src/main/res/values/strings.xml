@@ -43,5 +43,10 @@
     <string name="engine">엔진</string>
     <string name="choice">선택</string>
     <string name="formatted_price">%1$s 원</string>
-
+    <string name="more_find">더 알아보기</string>
+    <string name="body">바디</string>
+    <string name="driven">구동방식</string>
+    <string name="default_include_option">기본 포함 옵션</string>
+    <string name="interior">내장</string>
+    <string name="exterior">외장</string>
 </resources>

@@ -12,6 +12,7 @@
         android:paddingTop="11dp"
         android:paddingEnd="15dp"
         android:paddingBottom="11dp"
+        android:orientation="vertical"
         app:initialState="contract"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,24 +28,77 @@
             android:fontFamily="@font/hyundaisanstextkrmedium"
             android:textColor="@color/blue_500"
             android:textSize="14sp"
-            android:text="더 알아보기"/>
+            android:text="@string/more_find"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_hide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:visibility="visible">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="17dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_other_exterior_option"
-                android:layout_width="343dp"
-                android:layout_height="355dp"
-                android:orientation="horizontal"
-                android:background="@color/gray_500"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+            <TextView
+                android:id="@+id/tv_exterior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/exterior"
+                android:textSize="12sp"
+                android:textColor="@color/gray_300"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_other_more_exterior_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_exterior" />
+
+            <TextView
+                android:id="@+id/tv_interior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/interior"
+                android:textSize="12sp"
+                android:layout_marginTop="19dp"
+                android:textColor="@color/gray_300"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_other_more_exterior_detail" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_other_more_interior_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_interior" />
+
+            <TextView
+                android:id="@+id/tv_default_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_include_option"
+                android:textSize="12sp"
+                android:layout_marginTop="19dp"
+                android:textColor="@color/gray_300"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_other_more_interior_detail" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_other_more_default_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_default_option" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </org.softeer_2nd.caArt.ui.custom.ExpandableView>
 </layout>
