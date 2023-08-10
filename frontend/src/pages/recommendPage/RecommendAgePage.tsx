@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import { PageNum } from '../../components/recommendPage/ageAndLifeStyle/PageNum';
-import { ReccomendPageButton } from '../../components/recommendPage/ageAndLifeStyle/ReccomendPageButton';
+import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
 
-function ReccomendAgePage() {
+function RecommendAgePage() {
   return (
     <ReccomendAgePageBox>
       <Header size={'minimal'} page={0}></Header>
@@ -18,18 +18,18 @@ function ReccomendAgePage() {
           <PageNum>1/2</PageNum>
         </ReccomendAgePageQBox>
         <ReccomendAgePageABox>
-          <ReccomendPageButton size="small" selected onClick={() => {}}>
+          <RecommendPageButton size="small" selected onClick={() => {}}>
             20대
-          </ReccomendPageButton>
-          <ReccomendPageButton size="small" onClick={() => {}}>
+          </RecommendPageButton>
+          <RecommendPageButton size="small" onClick={() => {}}>
             30대
-          </ReccomendPageButton>
-          <ReccomendPageButton size="small" onClick={() => {}}>
+          </RecommendPageButton>
+          <RecommendPageButton size="small" onClick={() => {}}>
             40대
-          </ReccomendPageButton>
-          <ReccomendPageButton size="small" onClick={() => {}}>
+          </RecommendPageButton>
+          <RecommendPageButton size="small" onClick={() => {}}>
             50대 이상
-          </ReccomendPageButton>
+          </RecommendPageButton>
         </ReccomendAgePageABox>
         <SquareButton
           size="xl"
@@ -70,4 +70,4 @@ const ReccomendAgePageABox = styled.div`
   margin-bottom: 424px;
 `;
 
-export { ReccomendAgePage };
+export { RecommendAgePage };

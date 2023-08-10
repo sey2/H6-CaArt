@@ -1,29 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface ReccomendPageButtonProps {
+interface RecommendPageButtonProps {
   size: 'small' | 'large';
   selected?: boolean;
   children: string;
   onClick: () => void;
 }
 
-function ReccomendPageButton({
+function RecommendPageButton({
   size,
   selected,
   children,
   onClick,
-}: ReccomendPageButtonProps) {
+}: RecommendPageButtonProps) {
   return (
-    <ReccomendPageButtonBox size={size} selected={selected} onClick={onClick}>
+    <RecommendPageButtonBox size={size} selected={selected} onClick={onClick}>
       <div>{children}</div>
       <img src="images/check_circle_blue_bold.svg" hidden={!selected}></img>
-    </ReccomendPageButtonBox>
+    </RecommendPageButtonBox>
   );
 }
 
-const ReccomendPageButtonBox = styled.div<
-  Pick<ReccomendPageButtonProps, 'size' | 'selected'>
+const RecommendPageButtonBox = styled.div<
+  Pick<RecommendPageButtonProps, 'size' | 'selected'>
 >`
   display: flex;
   align-items: center;
@@ -43,4 +43,4 @@ const ReccomendPageButtonBox = styled.div<
   }
 `;
 
-export { ReccomendPageButton };
+export { RecommendPageButton };

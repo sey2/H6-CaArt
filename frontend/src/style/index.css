@@ -153,9 +153,27 @@
   font-style: normal;
 }
 
+.head-medium-12 {
+  font-family: 'HyundaiHeadMedium';
+  font-size: 12px;
+  letter-spacing: -0.06px;
+  line-height: 16px;
+  font-weight: 500;
+  font-style: normal;
+}
+
 .head-regular-22 {
   font-family: 'HyundaiHeadRegular';
   font-size: 22px;
+  letter-spacing: -0.3px;
+  line-height: 28px;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.head-regular-20 {
+  font-family: 'HyundaiHeadRegular';
+  font-size: 20px;
   letter-spacing: -0.3px;
   line-height: 28px;
   font-weight: 400;
