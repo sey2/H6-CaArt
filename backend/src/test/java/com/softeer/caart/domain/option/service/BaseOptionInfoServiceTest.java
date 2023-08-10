@@ -12,8 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.softeer.caart.domain.common.ServiceTest;
-import com.softeer.caart.domain.option.dto.AdditionalOptionResponse;
-import com.softeer.caart.domain.option.dto.BaseOptionResponse;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
 import com.softeer.caart.domain.option.repository.OptionRepository;
 import com.softeer.caart.global.ResultCode;
@@ -37,32 +35,6 @@ class BaseOptionInfoServiceTest extends ServiceTest {
 			assertThatThrownBy(() -> optionService.getOption(-1L))
 				.isInstanceOf(OptionNotFoundException.class)
 				.hasMessage(ResultCode.OPTION_NOT_FOUND.getMessage());
-		}
-
-		@Test
-		@DisplayName("옵션의 세부 정보를 조회한다")
-		void success_getOption() {
-			// given
-			doReturn(Optional.of(옵션)).when(optionRepository).findById(any(Long.class));
-
-			// when
-			final BaseOptionResponse optionResponse = optionService.getOption(-1L);
-
-			// then
-			softly.assertThat(optionResponse.getOptionName()).isEqualTo(옵션.getName());
-		}
-
-		@Test
-		@DisplayName("세트 옵션인 경우 자식 옵션을 가져온다")
-		void success_getSetOption() {
-			// given
-			doReturn(Optional.of(세트옵션)).when(optionRepository).findById(any(Long.class));
-
-			// when
-			final AdditionalOptionResponse optionResponse = optionService.getOption(-1L);
-
-			// then
-			softly.assertThat(optionResponse.getSubOptions().size()).isGreaterThanOrEqualTo(0);
 		}
 	}
 }

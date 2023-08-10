@@ -1,5 +1,6 @@
 package com.softeer.caart.domain.option.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ public class AdditionalOptionInfo {
 	@Column(name = "additional_option_info_id")
 	private Long id;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "base_option_info_id", nullable = false)
 	private BaseOptionInfo details;
 
@@ -46,13 +47,14 @@ public class AdditionalOptionInfo {
 	@Column(nullable = false)
 	private Badge badge;
 
-	private String summary = null;  // 세트 옵션의 경우 null, 설명이 없는 옵션의 경우 "-"
+	@Column(nullable = true)
+	private String summary;    // 세트 옵션의 경우 null, 설명이 없는 옵션의 경우 "-"
 
 	@Embedded
 	private Position position;
 
-	@OneToMany(mappedBy = "mainOptionInfo")
-	private List<SubOptionInfo> subOptions;
+	@OneToMany(mappedBy = "superOption")
+	private List<SubOptionInfo> subOptions = new ArrayList<>();
 
 	@Builder
 	public AdditionalOptionInfo(BaseOptionInfo details, Integer price, Boolean isSetOption, Badge badge, String summary,
