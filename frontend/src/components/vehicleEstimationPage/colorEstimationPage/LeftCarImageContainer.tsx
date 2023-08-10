@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import OptionButton from './button/OptionButton';
+import CarRotator from "./CarRotator";
 
 interface CarContainerType {
   type: 'ex' | 'in' | '360' | string;
@@ -14,21 +15,35 @@ function LeftCarImageContainer({ type, setter, state }: CarContainerType) {
       case 'ex':
         return exView();
       case 'in':
-        return <InView />;
+        return inView();
       case '360':
-        return <RotateView />;
+        return rotateView();
       default:
     }
   }
 
   function exView() {
     return (
-      <Wrapper>
+      <>
         <BgTop />
         <BgBottom />
         <Image src="images/car.png" width={646} height={366} />
-      </Wrapper>
+      </>
     );
+  }
+
+  function inView() {
+    return(
+      <>
+        <Image src="/images/inner_temp.png" width='100%' height='100%'/>
+      </>
+    )
+  }
+
+  function rotateView() {
+    return(
+      <CarRotator />
+    )
   }
 
   return (
@@ -36,7 +51,9 @@ function LeftCarImageContainer({ type, setter, state }: CarContainerType) {
       <TypeBox>
         <OptionButton type="ex" state={state} setter={setter} />
         <OptionButton type="in" state={state} setter={setter} />
-        <OptionButton type="360" state={state} setter={setter} />
+        {state !== 'in' && (
+          <OptionButton type="360" state={state} setter={setter} />
+        )}
       </TypeBox>
       {drawView(type)}
     </Wrapper>
@@ -51,9 +68,6 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const InView = styled.div``;
-
-const RotateView = styled.div``;
 
 const TypeBox = styled.div`
   position: absolute;
