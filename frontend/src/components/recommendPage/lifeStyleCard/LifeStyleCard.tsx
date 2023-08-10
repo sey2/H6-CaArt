@@ -9,7 +9,11 @@ function LifeStyleCard({
   text,
   imgSrc,
   selected,
-}: LifeStyleCardProps & LifeStyleSelectedProps) {
+  setOpenedModalNum,
+}: LifeStyleCardProps &
+  LifeStyleSelectedProps & {
+    setOpenedModalNum: React.Dispatch<React.SetStateAction<number>>;
+  }) {
   return (
     <LifeStyleCardBox selected={selected}>
       <LifeStyleImgBox src={imgSrc} selected={selected}></LifeStyleImgBox>
@@ -29,7 +33,7 @@ function LifeStyleCard({
           <ClickDivBox
             className="body-medium-14 text-grey-200"
             onClick={() => {
-              console.log(id);
+              setOpenedModalNum(id);
             }}
           >
             라이프스타일 엿보기
@@ -54,6 +58,7 @@ interface LifeStyleSelectedProps {
 const LifeStyleCardBox = styled.div<LifeStyleSelectedProps>`
   display: flex;
   align-items: flex-start;
+  position: relative;
   width: 296px;
   height: 180px;
   border-radius: 8px;
