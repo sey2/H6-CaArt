@@ -15,7 +15,7 @@ function Tag({ tag, type, selected }: TagProps) {
 
 export interface TagProps {
   tag: string;
-  type: 'lifeStyle' | 'result' | 'option';
+  type: 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek';
   selected?: boolean;
 }
 
@@ -30,7 +30,7 @@ const TagBox = styled.li<Pick<TagProps, 'type' | 'selected'>>`
 `;
 
 const cssHandler = (
-  type: 'lifeStyle' | 'result' | 'option',
+  type: 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek',
   selected: boolean | undefined,
 ) => {
   switch (type) {
@@ -44,6 +44,8 @@ const cssHandler = (
       return `background: transparent; color: #696969; border-radius: 30px; border: 1px solid #BEBEBE;`;
     case 'option':
       return `background: #404040; color:#f0f0f0; border-radius: 100px`;
+    case 'lifeStylePeek':
+      return `background: rgba(15,17,20,0.8); color: #fff; border-radius: 100px; backdrop-filter: blur(4px);`;
   }
 };
 

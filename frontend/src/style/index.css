@@ -90,6 +90,15 @@
   font-style: normal;
 }
 
+.head-medium-32 {
+  font-family: 'HyundaiHeadMedium';
+  font-size: 32px;
+  letter-spacing: -0.3px;
+  line-height: 44.8px;
+  font-weight: 500;
+  font-style: normal;
+}
+
 .head-medium-24 {
   font-family: 'HyundaiHeadMedium';
   font-size: 24px;

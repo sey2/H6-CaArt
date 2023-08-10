@@ -12,7 +12,7 @@ function TagList({ tagArr, type, selected }: TagListProps) {
 
 interface TagListProps {
   tagArr: string[];
-  type: 'lifeStyle' | 'result' | 'option';
+  type: 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek';
   selected?: boolean;
 }
 
@@ -23,10 +23,13 @@ const TagListBox = styled.ul<Pick<TagListProps, 'type'>>`
   ${props => cssHandler(props.type)};
 `;
 
-const cssHandler = (type: 'lifeStyle' | 'result' | 'option') => {
+const cssHandler = (
+  type: 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek',
+) => {
   switch (type) {
     case 'lifeStyle':
     case 'option':
+    case 'lifeStylePeek':
       return `gap: 8px;`;
     case 'result':
       return `gap: 6px;`;
