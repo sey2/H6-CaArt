@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.softeer.caart.domain.tag.Tag;
+import com.softeer.caart.domain.tag.entity.Tag;
 
 import lombok.Getter;
 

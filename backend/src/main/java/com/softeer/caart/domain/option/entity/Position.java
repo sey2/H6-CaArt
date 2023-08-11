@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Position {
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "mobile_x")
 	private Double mobileX;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "mobile_y")
 	private Double mobileY;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "web_x")
 	private Double webX;
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "web_y")
 	private Double webY;
 }
