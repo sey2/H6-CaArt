@@ -1,0 +1,21 @@
+<svg width="98" height="88" viewBox="0 0 98 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 48096196">
+<g id="Rectangle 6668033" filter="url(#filter0_d_80_10386)">
+<path d="M76 60V22L32 60H76Z" fill="#E6EAEF"/>
+</g>
+<path id="Rectangle 6668036" d="M32 60H76V88H0L32 60Z" fill="#E6EAEF"/>
+<path id="Rectangle 6668037" d="M76 22L76 88L98 88L98 -9.61651e-07L76 22Z" fill="#E6EAEF"/>
+</g>
+<defs>
+<filter id="filter0_d_80_10386" x="20" y="14" width="60" height="54" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-4"/>
+<feGaussianBlur stdDeviation="4"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_80_10386"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_80_10386" result="shape"/>
+</filter>
+</defs>
+</svg>
