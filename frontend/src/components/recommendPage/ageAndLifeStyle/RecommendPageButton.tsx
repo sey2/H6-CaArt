@@ -14,9 +14,13 @@ function RecommendPageButton({
   children,
   onClick,
 }: RecommendPageButtonProps) {
+  const className = selected
+    ? `body-bold-18 text-primary-blue`
+    : `body-regular-18 text-grey-400`;
+
   return (
     <RecommendPageButtonBox size={size} selected={selected} onClick={onClick}>
-      <div>{children}</div>
+      <div className={className}>{children}</div>
       <img src="images/check_circle_blue_bold.svg" hidden={!selected}></img>
     </RecommendPageButtonBox>
   );
