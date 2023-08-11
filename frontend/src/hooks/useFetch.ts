@@ -26,7 +26,7 @@ const useFetch = <T>(url: string): FetchResponse<T> => {
           throw new Error(`${response.status}: ${response.statusText}`);
         }
         const jsonData = await response.json();
-        setData(jsonData);
+        setData(jsonData.data);
         setStatus('success');
       } catch (error) {
         setError(String(error));
