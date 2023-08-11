@@ -41,8 +41,10 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
             this.viewModel = this@CarColorChoiceFragment.carColorChoiceViewModel
             lifecycleOwner = viewLifecycleOwner
             bottomSheet.setMode(BottomSheetMode.PrevAndNext)
-            incOtherExteriorColorOption.handleText = getString(R.string.ask_search_other_exterior_color)
-            incOtherInteriorColorOption.handleText = getString(R.string.ask_search_other_interior_color)
+            incOtherExteriorColorOption.handleText =
+                getString(R.string.ask_search_other_exterior_color)
+            incOtherInteriorColorOption.handleText =
+                getString(R.string.ask_search_other_interior_color)
         }
 
         return binding.root
@@ -85,11 +87,9 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         isOtherColorOption: Boolean
     ) {
         if (isOtherColorOption) {
-            val layoutManager = StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)
-            this.layoutManager = layoutManager
+            this.layoutManager = StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)
         } else {
-            this.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
         this.adapter = ColorOptionSelectionAdapter(fragment, items, isOtherColorOption)
@@ -109,8 +109,10 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
             guideChangePrice = "+ 12,100,000원"
         }
 
-        val topOptionAdapter = OptionChangePopupAdapter(DummyItemFactory.createCurrentTrimOptionDummyItems())
-        val bottomOptionAdapter = OptionChangePopupAdapter(DummyItemFactory.createChangeTrimOptionDummyItems())
+        val topOptionAdapter =
+            OptionChangePopupAdapter(DummyItemFactory.createCurrentTrimOptionDummyItems())
+        val bottomOptionAdapter =
+            OptionChangePopupAdapter(DummyItemFactory.createChangeTrimOptionDummyItems())
 
         dialogContent.rvTop.apply {
             layoutManager = LinearLayoutManager(context)
