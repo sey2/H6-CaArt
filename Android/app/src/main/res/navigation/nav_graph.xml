@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="org.softeer_2nd.caArt.ui.HomeFragment"
+        android:name="org.softeer_2nd.caArt.views.fragments.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_carColorChoiceFragment"
@@ -21,15 +21,15 @@
 
     <fragment
         android:id="@+id/carTrimChoiceFragment"
-        android:name="org.softeer_2nd.caArt.ui.CarTrimChoiceFragment"
+        android:name="org.softeer_2nd.caArt.views.fragments.CarTrimChoiceFragment"
         android:label="CarColorTrimFragment" />
 
     <fragment
         android:id="@+id/carColorChoiceFragment"
-        android:name="org.softeer_2nd.caArt.ui.CarColorChoiceFragment"
+        android:name="org.softeer_2nd.caArt.views.fragments.CarColorChoiceFragment"
         android:label="CarColorChoiceFragment" />
     <fragment
         android:id="@+id/carOptionChoiceFragment"
-        android:name="org.softeer_2nd.caArt.ui.CarOptionChoiceFragment"
+        android:name="org.softeer_2nd.caArt.views.fragments.CarOptionChoiceFragment"
         android:label="CarOptionChoiceFragment" />
 </navigation>

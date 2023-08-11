@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import org.softeer_2nd.caArt.repositorys.ImageRepository
+import org.softeer_2nd.caArt.models.repositorys.ImageRepository
 
 class CarColorChoiceViewModel(private val imageRepository: ImageRepository) : ViewModel() {
     private val _images = MutableLiveData<List<Int>>()

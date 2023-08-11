@@ -177,7 +177,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <org.softeer_2nd.caArt.ui.CustomBottomSheet
+        <org.softeer_2nd.caArt.views.fragments.CustomBottomSheet
             android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

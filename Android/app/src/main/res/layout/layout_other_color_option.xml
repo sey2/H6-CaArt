@@ -9,7 +9,7 @@
             type="java.lang.String" />
     </data>
 
-    <org.softeer_2nd.caArt.ui.custom.ExpandableView
+    <org.softeer_2nd.caArt.views.custom.ExpandableView
         android:id="@+id/ev_exterior_color_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,5 +53,5 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </org.softeer_2nd.caArt.ui.custom.ExpandableView>
+    </org.softeer_2nd.caArt.views.custom.ExpandableView>
 </layout>

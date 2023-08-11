@@ -11,7 +11,7 @@
 
         <variable
             name="option"
-            type="org.softeer_2nd.caArt.dataClasses.Option" />
+            type="org.softeer_2nd.caArt.models.datas.Option" />
 
         <variable
             name="onActivateStateChangedListener"
@@ -27,7 +27,7 @@
 
         <variable
             name="buttonClass"
-            type="org.softeer_2nd.caArt.ui.custom.DynamicOptionFloatingButton" />
+            type="org.softeer_2nd.caArt.views.custom.DynamicOptionFloatingButton" />
 
         <variable
             name="tailXOffset"

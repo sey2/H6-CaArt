@@ -9,7 +9,7 @@
 
         <variable
             name="trimDummyItem"
-            type="org.softeer_2nd.caArt.models.OptionTrimSelectionDummyItem" />
+            type="org.softeer_2nd.caArt.models.dummys.OptionTrimSelectionDummyItem" />
 
         <variable
             name="isChecked"
