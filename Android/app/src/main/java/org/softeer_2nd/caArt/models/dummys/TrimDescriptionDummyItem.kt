@@ -5,6 +5,6 @@ data class TrimDescriptionDummyItem(
     val subText: String,
     val imgUrl: String,
     val description: String,
-    val maxPower: String,
-    val maxTorque: String
+    val maxPower: String? = null,
+    val maxTorque: String? = null
 )

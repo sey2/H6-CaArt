@@ -13,9 +13,9 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tl_trim_description_category"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                app:layout_constraintBottom_toTopOf="@id/vp_trim_description"
+                app:layout_constraintBottom_toTopOf="@id/vp_trim_container"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,9 +41,9 @@
             </com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp_trim_description"
+                android:id="@+id/vp_trim_container"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

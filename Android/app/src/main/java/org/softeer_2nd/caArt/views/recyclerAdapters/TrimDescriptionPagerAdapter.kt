@@ -5,34 +5,38 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemTrimDescriptionPagerBinding
-import org.softeer_2nd.caArt.models.factorys.DummyItemFactory
+import org.softeer_2nd.caArt.models.dummys.TrimDescriptionDummyItem
 
-class TrimDescriptionPagerAdapter() :
+class TrimDescriptionPagerAdapter(private val items: List<List<TrimDescriptionDummyItem>>) :
     RecyclerView.Adapter<TrimDescriptionPagerAdapter.TrimDescriptionHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrimDescriptionHolder {
         val binding = ItemTrimDescriptionPagerBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
+
         return TrimDescriptionHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TrimDescriptionHolder, position: Int) {
-        holder.bind()
+        holder.bind(items[position])
     }
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = items.size
 
     inner class TrimDescriptionHolder(private val binding: ItemTrimDescriptionPagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private val descriptionAdapter: TrimDescriptionAdapter = TrimDescriptionAdapter(emptyList())
 
-        fun bind() {
-            binding.rvTrimDescription.apply {
-                this.layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                this.adapter = TrimDescriptionAdapter(DummyItemFactory.createTrimDescriptionItem())
-            }
+        init {
+            binding.rvTrimDescription.layoutManager =
+                LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
+            binding.rvTrimDescription.adapter = descriptionAdapter
+        }
+        fun bind(itemList: List<TrimDescriptionDummyItem>) {
+            descriptionAdapter.updateData(itemList)
         }
     }
 }

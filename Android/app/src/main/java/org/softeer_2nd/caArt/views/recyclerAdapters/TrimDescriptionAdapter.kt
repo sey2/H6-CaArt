@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import org.softeer_2nd.caArt.databinding.ItemTrimDescriptionBinding
 import org.softeer_2nd.caArt.models.dummys.TrimDescriptionDummyItem
 
-class TrimDescriptionAdapter(private val items: List<TrimDescriptionDummyItem>) :
+class TrimDescriptionAdapter(private val items: MutableList<TrimDescriptionDummyItem>) :
     RecyclerView.Adapter<TrimDescriptionAdapter.TrimDescriptionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrimDescriptionViewHolder {
@@ -24,6 +24,12 @@ class TrimDescriptionAdapter(private val items: List<TrimDescriptionDummyItem>) 
     }
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun updateData(newItems: List<TrimDescriptionDummyItem>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     inner class TrimDescriptionViewHolder(val binding: ItemTrimDescriptionBinding) :

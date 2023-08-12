@@ -22,7 +22,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/shape_dialog_text_blue_background"
+            android:background="@drawable/shape_dialog_text_background_blue"
             android:padding="20dp"
             app:initialState="contract"
             app:layout_constraintEnd_toEndOf="parent"

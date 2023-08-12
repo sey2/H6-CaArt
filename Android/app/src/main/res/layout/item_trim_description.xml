@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="itemDescription"
             type="org.softeer_2nd.caArt.models.dummys.TrimDescriptionDummyItem" />
@@ -19,12 +21,12 @@
             android:id="@+id/rv_trim_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_dailog_text_gray_background"
+            android:background="@drawable/shape_dailog_text_background_gray700"
             android:paddingStart="16dp"
             android:paddingTop="10dp"
             android:paddingEnd="15dp"
             android:paddingBottom="11dp"
-            app:initialState="expand"
+            app:initialState="contract"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,12 +34,12 @@
             app:rotateIconTint="@color/black">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_handle"
+                android:id="@+id/cl_trim_description_ep_handle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_handle"
+                    android:id="@+id/tv_cl_trim_description_ep_top"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/hyundaisanstextkrmedium"
@@ -50,7 +52,7 @@
                     tools:text="가솔린3.8" />
 
                 <TextView
-                    android:id="@+id/tv_sub"
+                    android:id="@+id/tv_cl_trim_description_ep_bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -58,16 +60,15 @@
                     android:text="@{itemDescription.subText}"
                     android:textColor="@color/gray_400"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_handle"
-                    app:layout_constraintTop_toBottomOf="@id/tv_handle"
+                    app:layout_constraintStart_toStartOf="@id/tv_cl_trim_description_ep_top"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cl_trim_description_ep_top"
                     tools:text="부드럽고 안정적인 주행" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_hide"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:visibility="visible">
+                android:layout_height="wrap_content">
 
                 <View
                     android:id="@+id/view_top_line"
@@ -103,6 +104,7 @@
                     android:id="@+id/view"
                     style="@style/CaArtBorderViewStyle"
                     android:layout_marginTop="16dp"
+                    android:visibility="@{itemDescription.maxPower == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_description" />
@@ -115,6 +117,7 @@
                     android:text="@string/horse_power"
                     android:textColor="@color/gray_500"
                     android:textSize="14sp"
+                    android:visibility="@{itemDescription.maxPower == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="@+id/tv_description"
                     app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -127,6 +130,7 @@
                     android:text="@string/max_torque"
                     android:textColor="@color/gray_500"
                     android:textSize="14sp"
+                    android:visibility="@{itemDescription.maxTorque == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_max_power_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_max_power_title" />
@@ -139,6 +143,7 @@
                     android:text="@{itemDescription.maxPower}"
                     android:textColor="@color/gray_300"
                     android:textSize="14sp"
+                    android:visibility="@{itemDescription.maxPower == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toEndOf="@+id/tv_max_power_title"
                     app:layout_constraintTop_toTopOf="@+id/tv_max_power_title"
                     tools:text="@string/max_power_desc" />
@@ -151,6 +156,7 @@
                     android:text="@{itemDescription.maxTorque}"
                     android:textColor="@color/gray_300"
                     android:textSize="14sp"
+                    android:visibility="@{itemDescription.maxTorque == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toEndOf="@+id/tv_max_power_title"
                     app:layout_constraintTop_toTopOf="@+id/tv_max_torque_title"
                     tools:text="@string/max_torque_desc" />
