@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.models.datas.BottomSheetMode
 import org.softeer_2nd.caArt.databinding.FragmentCarTrimChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
@@ -34,6 +36,10 @@ class CarTrimChoiceFragment : Fragment() {
                 this@CarTrimChoiceFragment.carTrimChoiceViewModel
             lifecycleOwner = viewLifecycleOwner
             bottomSheet.setMode(BottomSheetMode.Next)
+
+            tvQuestion.setOnClickListener {
+                findNavController().navigate(R.id.action_carTrimChoiceFragment_to_carTrimDescriptionFragment)
+            }
         }
 
         createChangePopup(false)

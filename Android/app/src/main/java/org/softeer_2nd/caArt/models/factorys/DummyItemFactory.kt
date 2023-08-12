@@ -7,6 +7,7 @@ import org.softeer_2nd.caArt.models.dummys.OptionTrimMoreDetailDummyItem
 import org.softeer_2nd.caArt.models.dummys.OptionColorDummyItem
 import org.softeer_2nd.caArt.models.dummys.OptionSelectionDummyItem
 import org.softeer_2nd.caArt.models.dummys.OptionTrimSelectionDummyItem
+import org.softeer_2nd.caArt.models.dummys.TrimDescriptionDummyItem
 
 
 object DummyItemFactory {
@@ -170,6 +171,27 @@ object DummyItemFactory {
             OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/8cf13d19-d76f-401b-afef-1d9393881216"),
             OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/dd00cc97-de91-47d8-8eb9-03312233508a"),
             OptionTrimMoreDetailDummyItem("https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/6df8efd6-b047-4f8e-bc8a-03659e10000f")
+        )
+    }
+
+    fun createTrimDescriptionItem(): List<TrimDescriptionDummyItem> {
+        return arrayListOf(
+            TrimDescriptionDummyItem(
+                "디젤 3.3",
+                "강한 성능 높은 연비 효율",
+                "https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/c7a1fc75-2a61-4c11-a77f-335a4684be96",
+                "설명",
+                "asdasdas",
+                "asdas"
+            ),
+            TrimDescriptionDummyItem(
+                "가솔린 3.1",
+                "강한 성능 높은 연비 효율",
+                "https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/54762273/c7a1fc75-2a61-4c11-a77f-335a4684be96",
+                "설명",
+                "asdasdas",
+                "asdas"
+            )
         )
     }
 }

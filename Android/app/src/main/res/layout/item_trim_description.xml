@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="itemDescription"
+            type="org.softeer_2nd.caArt.models.dummys.TrimDescriptionDummyItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <org.softeer_2nd.caArt.views.custom.ExpandableView
+            android:id="@+id/rv_trim_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_dailog_text_gray_background"
+            android:paddingStart="16dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="11dp"
+            app:initialState="expand"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rotateIcon="@drawable/ic_arrow_no_tail_20"
+            app:rotateIconTint="@color/black">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_handle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_handle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hyundaisanstextkrmedium"
+                    android:text="@{itemDescription.handleText}"
+                    android:textColor="@color/gray_100"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="가솔린3.8" />
+
+                <TextView
+                    android:id="@+id/tv_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/hyundaisanstextkrregular"
+                    android:text="@{itemDescription.subText}"
+                    android:textColor="@color/gray_400"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_handle"
+                    app:layout_constraintTop_toBottomOf="@id/tv_handle"
+                    tools:text="부드럽고 안정적인 주행" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_hide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:visibility="visible">
+
+                <View
+                    android:id="@+id/view_top_line"
+                    style="@style/CaArtBorderViewStyle"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_description"
+                    android:layout_width="180dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/img_car_exterior"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_top_line" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/hyundaisanstextkrregular"
+                    android:text="@{itemDescription.description}"
+                    android:textColor="@color/gray_300"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/iv_description"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_description"
+                    tools:text="@string/trim_desc" />
+
+                <View
+                    android:id="@+id/view"
+                    style="@style/CaArtBorderViewStyle"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+                <TextView
+                    android:id="@+id/tv_max_power_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/horse_power"
+                    android:textColor="@color/gray_500"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_description"
+                    app:layout_constraintTop_toBottomOf="@+id/view" />
+
+                <TextView
+                    android:id="@+id/tv_max_torque_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/max_torque"
+                    android:textColor="@color/gray_500"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_max_power_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_max_power_title" />
+
+                <TextView
+                    android:id="@+id/tv_max_power"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@{itemDescription.maxPower}"
+                    android:textColor="@color/gray_300"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_max_power_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_max_power_title"
+                    tools:text="@string/max_power_desc" />
+
+                <TextView
+                    android:id="@+id/tv_max_torque"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@{itemDescription.maxTorque}"
+                    android:textColor="@color/gray_300"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_max_power_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_max_torque_title"
+                    tools:text="@string/max_torque_desc" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </org.softeer_2nd.caArt.views.custom.ExpandableView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

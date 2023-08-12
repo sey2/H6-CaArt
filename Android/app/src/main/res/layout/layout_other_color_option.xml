@@ -13,7 +13,7 @@
         android:id="@+id/ev_exterior_color_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_dialog_text_background"
+        android:background="@drawable/shape_dialog_text_blue_background"
         android:paddingStart="16dp"
         android:paddingTop="11dp"
         android:paddingEnd="15dp"
