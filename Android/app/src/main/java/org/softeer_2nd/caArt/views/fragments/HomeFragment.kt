@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.databinding.FragmentHomeBinding
-import org.softeer_2nd.caArt.views.dialogs.OptionDetailDialog
-import org.softeer_2nd.caArt.models.factorys.DummyItemFactory
 
 class HomeFragment() : Fragment() {
 
@@ -34,12 +32,16 @@ class HomeFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.dynamicOptionFloatingButton.setOption(DummyItemFactory.createAdditionalSingleOptionItem()[0])
-        binding.dynamicOptionFloatingButton.setOnMoreIconClickListener{
-            OptionDetailDialog.Builder()
-                .setOptionList(DummyItemFactory.createAdditionalOptionGrouopItem())
-                .build()
-                .show(requireActivity().supportFragmentManager,"")
+        //binding.dynamicOptionFloatingButton.setOption(DummyItemFactory.createAdditionalSingleOptionItem()[0])
+//        binding.dynamicOptionFloatingButton.setOnMoreIconClickListener{
+//            OptionDetailDialog.Builder()
+//                .setOptionList(DummyItemFactory.createAdditionalOptionGrouopItem())
+//                .build()
+//                .show(requireActivity().supportFragmentManager,"")
+//        }
+
+        binding.btnTest.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCarOptionChoiceFragment())
         }
     }
 

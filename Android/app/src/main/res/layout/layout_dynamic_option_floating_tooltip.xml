@@ -10,28 +10,39 @@
         <import type="android.view.Gravity" />
 
         <variable
-            name="option"
-            type="org.softeer_2nd.caArt.models.datas.Option" />
+            name="optionName"
+            type="String" />
 
         <variable
-            name="onActivateStateChangedListener"
-            type="android.widget.CompoundButton.OnCheckedChangeListener" />
+            name="optionTag"
+            type="String" />
 
         <variable
-            name="isActivated"
-            type="boolean" />
-
-        <variable
-            name="orientation"
+            name="optionPrice"
             type="Integer" />
 
         <variable
-            name="buttonClass"
-            type="org.softeer_2nd.caArt.views.custom.DynamicOptionFloatingButton" />
+            name="optionImageUrl"
+            type="String" />
+        <!--        <variable-->
+        <!--            name="option"-->
+        <!--            type="org.softeer_2nd.caArt.dataClasses.Option" />-->
 
-        <variable
-            name="tailXOffset"
-            type="float" />
+        <!--        <variable-->
+        <!--            name="onActivateStateChangedListener"-->
+        <!--            type="android.widget.CompoundButton.OnCheckedChangeListener" />-->
+
+        <!--        <variable-->
+        <!--            name="isActivated"-->
+        <!--            type="boolean" />-->
+
+        <!--        <variable-->
+        <!--            name="orientation"-->
+        <!--            type="Integer" />-->
+
+        <!--        <variable-->
+        <!--            name="tailXOffset"-->
+        <!--            type="float" />-->
 
         <variable
             name="onMoreIconClickListener"
@@ -42,17 +53,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp">
-
-        <!--        <ImageView-->
-        <!--            layout_minus_marginBottom="@{orientation==buttonClass.TOP?5f:0f}"-->
-        <!--            layout_minus_marginTop="@{orientation==buttonClass.BOTTOM?5f:0f"-->
-        <!--            android:layout_width="20dp"-->
-        <!--            android:layout_height="20dp"-->
-        <!--            android:layout_gravity="@{orientation==buttonClass.TOP?Gravity.TOP:Gravity.BOTTOM}"-->
-        <!--            android:background="@drawable/shape_triangle"-->
-        <!--            android:backgroundTint="#AE7676"-->
-        <!--            android:layout_marginStart="@{tailXOffset}"-->
-        <!--            android:rotation="@{orientation==buttonClass.TOP?0:180}" />-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_option_floating_tooltip"
@@ -66,7 +66,7 @@
 
             <ImageView
                 android:id="@+id/iv_option_floating_option_image"
-                url="@{option.url}"
+                url="@{optionImageUrl}"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="12dp"
@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/hyundaisanstextkrregular"
+                android:text="@{optionTag}"
                 android:textColor="@color/gray_400"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_option_floating_option_name"
@@ -99,6 +100,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/hyundaisanstextkrmedium"
                 android:maxLines="1"
+                android:text="@{optionName}"
                 android:textColor="@color/gray_50"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_option_floating_option_price"
@@ -109,11 +111,13 @@
 
             <TextView
                 android:id="@+id/tv_option_floating_option_price"
+                formattedPrice="@{optionPrice}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:textColor="@color/gray_200"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tv_option_floating_option_name"

@@ -55,13 +55,6 @@
             app:layout_constraintStart_toEndOf="@+id/btn_move_car_color"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <org.softeer_2nd.caArt.views.custom.DynamicOptionFloatingButton
-            android:id="@+id/dynamicOptionFloatingButton"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/expandableView2" />
 
         <Button
             android:id="@+id/btn_test"
@@ -74,18 +67,6 @@
             app:layout_constraintHorizontal_bias="0.876"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <org.softeer_2nd.caArt.views.custom.DynamicOptionFloatingButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dynamicOptionFloatingButton" />
-
-        <org.softeer_2nd.caArt.views.custom.DynamicOptionFloatingButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dynamicOptionFloatingButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

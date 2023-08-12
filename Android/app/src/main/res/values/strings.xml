@@ -49,6 +49,10 @@
     <string name="default_include_option">기본 포함 옵션</string>
     <string name="interior">내장</string>
     <string name="exterior">외장</string>
+    <string name="more">더 알아보기</string>
+    <string name="see_more">더보기</string>
+    <string name="total">전체</string>
+    <string name="suggest_check_option_detail">* 상기 이미지는 이해를 돕기 위한 이미지로 실제 옵션 사진은 상세보기에서 확인해주세요.</string>
     <string name="max_power">최대 파워</string>
     <string name="max_torque">최대 토크</string>
     <string name="max_power_desc">45.0/1,750~2,750kgf-m/rpm</string>
