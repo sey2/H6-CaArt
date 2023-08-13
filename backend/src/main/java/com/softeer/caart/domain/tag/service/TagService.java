@@ -1,9 +1,11 @@
 package com.softeer.caart.domain.tag.service;
 
-import java.util.Comparator;
+import static org.springframework.data.domain.Sort.Direction.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 public class TagService {
 	private final TagRepository tagRepository;
 
-	// TODO : 추후 TagResponse에 priority 삭제
-	// TODO : 정렬 관련 test code 작성
 	public List<TagResponse> getTags() {
-		return tagRepository.findAll().stream()
+		return tagRepository.findAll(Sort.by(DESC, "priority")).stream()
 			.map(TagResponse::from)
-			.sorted(Comparator.comparing(TagResponse::getPriority).reversed())
 			.collect(Collectors.toList());
 	}
 }

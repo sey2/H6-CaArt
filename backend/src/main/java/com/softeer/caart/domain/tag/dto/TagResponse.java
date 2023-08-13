@@ -12,12 +12,16 @@ public class TagResponse {
 	private Long tagId;
 	private String tagName;
 	private String tagImage;
+	private String tagIcon;
+	private String tagIconSelected;
 	private Integer priority;
 
 	private TagResponse(Tag tag) {
 		this.tagId = tag.getId();
 		this.tagName = tag.getName();
 		this.tagImage = tag.getImage().getUrl();
+		this.tagIcon = tag.getIcon();
+		this.tagIconSelected = tag.getIconSelected();
 		this.priority = tag.getPriority();
 	}
 

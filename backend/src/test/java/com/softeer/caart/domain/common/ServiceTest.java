@@ -15,6 +15,7 @@ import com.softeer.caart.domain.composition.entity.CarEngine;
 import com.softeer.caart.domain.composition.entity.WheelDrive;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
+import com.softeer.caart.domain.tag.entity.Tag;
 import com.softeer.caart.domain.trim.entity.Trim;
 
 /**
@@ -33,6 +34,8 @@ public class ServiceTest {
 	protected Trim Exclusive;
 	protected BaseOptionInfo 옵션;
 	protected AdditionalOptionInfo 세트옵션;
+	protected Tag 메인태그_우선순위10;
+	protected Tag 전체태그_우선순위5;
 
 	@InjectSoftAssertions
 	protected SoftAssertions softly;
@@ -44,6 +47,7 @@ public class ServiceTest {
 		initWheelDrive();
 		initTrim();
 		initOption();
+		initTag();
 	}
 
 	private void initCarEngine() {
@@ -138,5 +142,24 @@ public class ServiceTest {
 			.isSetOption(true)
 			.build();
 		ReflectionTestUtils.setField(세트옵션, "id", 2L);
+	}
+
+	private void initTag() {
+		메인태그_우선순위10 = Tag.builder()
+			.name("메인태그")
+			.imageUrl("메인태그 image")
+			.icon("메인태그 icon")
+			.iconSelected("메인태그 selectedIcon")
+			.priority(10)
+			.build();
+		ReflectionTestUtils.setField(메인태그_우선순위10, "id", 1L);
+		전체태그_우선순위5 = Tag.builder()
+			.name("전체태그")
+			.imageUrl("전체태그 image")
+			.icon("전체태그 icon")
+			.iconSelected("전체태그 selectedIcon")
+			.priority(5)
+			.build();
+		ReflectionTestUtils.setField(전체태그_우선순위5, "id", 2L);
 	}
 }

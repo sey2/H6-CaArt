@@ -9,10 +9,14 @@ import javax.persistence.Id;
 
 import com.softeer.caart.domain.Image;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Tag {
 
 	@Id
@@ -34,4 +38,25 @@ public class Tag {
 
 	@Column(nullable = false)
 	private Integer priority;
+
+	@Builder
+	public Tag(String name, String imageUrl, String icon, String iconSelected, Integer priority) {
+		this.name = name;
+		this.image = Image.from(imageUrl);
+		this.icon = icon;
+		this.iconSelected = iconSelected;
+		this.priority = priority;
+	}
+
+	@Override
+	public String toString() {
+		return "Tag{" +
+			"id=" + id +
+			", name='" + name + '\'' +
+			", image=" + image +
+			", icon='" + icon + '\'' +
+			", iconSelected='" + iconSelected + '\'' +
+			", priority=" + priority +
+			'}';
+	}
 }
