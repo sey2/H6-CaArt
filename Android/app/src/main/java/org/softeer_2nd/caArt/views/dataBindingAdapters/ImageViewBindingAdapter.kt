@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("url")
-fun ImageView.setImageSrcWithUrl(url: String) {
+fun ImageView.setImageSrcWithUrl(url: String?) {
     Glide.with(this)
         .load(url)
         .centerCrop()

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="url"
+            type="String" />
+        <variable
+            name="optionName"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_option_preview_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            url="@{url}"
+            android:background="@drawable/shape_rect_r4"
+            android:backgroundTint="#DFCCCC"
+            app:layout_constraintDimensionRatio="w,112:168"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/drawable_search_156" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_more"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_rect_r4"
+            android:backgroundTint="@color/gray_700"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:gravity="center_vertical"
+            android:minHeight="22dp"
+            android:paddingStart="8dp"
+            android:text="@string/more"
+            android:textColor="@color/gray_300"
+            android:textSize="11sp"
+            app:drawableEndCompat="@drawable/ic_arrow_right_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_option_preview_image" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_option_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/hyundaisanshead_medium"
+            android:maxLines="1"
+            android:text="@{optionName}"
+            android:textColor="@color/gray_0"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_option_preview_more" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
