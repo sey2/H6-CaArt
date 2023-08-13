@@ -9,14 +9,8 @@
         android:name="org.softeer_2nd.caArt.views.fragments.HomeFragment"
         android:label="HomeFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_carColorChoiceFragment"
-            app:destination="@id/carColorChoiceFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_carTrimChoiceFragment"
             app:destination="@id/carTrimChoiceFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_carOptionChoiceFragment"
-            app:destination="@id/carOptionChoiceFragment" />
     </fragment>
 
     <fragment
@@ -26,12 +20,20 @@
         <action
             android:id="@+id/action_carTrimChoiceFragment_to_carTrimDescriptionFragment"
             app:destination="@id/carTrimDescriptionFragment" />
+        <action
+            android:id="@+id/action_carTrimChoiceFragment_to_carColorChoiceFragment"
+            app:destination="@id/carColorChoiceFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/carColorChoiceFragment"
         android:name="org.softeer_2nd.caArt.views.fragments.CarColorChoiceFragment"
-        android:label="CarColorChoiceFragment" />
+        android:label="CarColorChoiceFragment" >
+        <action
+            android:id="@+id/action_carColorChoiceFragment_to_carOptionChoiceFragment"
+            app:destination="@id/carOptionChoiceFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/carOptionChoiceFragment"
         android:name="org.softeer_2nd.caArt.views.fragments.CarOptionChoiceFragment"

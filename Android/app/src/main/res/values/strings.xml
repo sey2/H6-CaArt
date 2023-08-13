@@ -59,4 +59,8 @@
     <string name="max_torque_desc">202/3,800PS/rpmTextView</string>
     <string name="horse_power">최고 출력</string>
     <string name="trim_desc">고마력의 우수한 가속 성능을 확보하여, 넉넉하고 안정감 있는 주행이 가능합니다. 엔진의 진동이 적어 편안하고 조용한 드라이빙 감성을 제공합니다.</string>
+    <string name="recommend_life_style">당신의 라이프 스타일에 맞게\n차량을 추천해드려요.</string>
+    <string name="life_style">라이프 스타일</string>
+    <string name="make_myself">직접 만들래요</string>
+    <string name="recommend">추천받기</string>
 </resources>

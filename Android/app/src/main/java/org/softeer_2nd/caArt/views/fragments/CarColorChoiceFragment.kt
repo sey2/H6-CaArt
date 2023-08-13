@@ -37,16 +37,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false).apply {
-            this.viewModel = this@CarColorChoiceFragment.carColorChoiceViewModel
-            lifecycleOwner = viewLifecycleOwner
-            bottomSheet.setMode(BottomSheetMode.PrevAndNext)
-            incOtherExteriorColorOption.handleText =
-                getString(R.string.ask_search_other_exterior_color)
-            incOtherInteriorColorOption.handleText =
-                getString(R.string.ask_search_other_interior_color)
-        }
-
+        _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -77,6 +68,19 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
                 DummyItemFactory.createOptionInteriorOtherColorDummyItems(),
                 true
             )
+
+            this.viewModel = this@CarColorChoiceFragment.carColorChoiceViewModel
+            lifecycleOwner = viewLifecycleOwner
+
+            colorSummryBottomSheet.setMode(
+                BottomSheetMode.PrevAndNext,
+                CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarOptionChoiceFragment()
+            )
+
+            incOtherExteriorColorOption.handleText =
+                getString(R.string.ask_search_other_exterior_color)
+            incOtherInteriorColorOption.handleText =
+                getString(R.string.ask_search_other_interior_color)
         }
 
     }

@@ -130,8 +130,8 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <org.softeer_2nd.caArt.views.fragments.CustomBottomSheet
-            android:id="@+id/bottom_sheet"
+        <org.softeer_2nd.caArt.views.custom.SummaryBottomSheet
+            android:id="@+id/trim_summary_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom" />

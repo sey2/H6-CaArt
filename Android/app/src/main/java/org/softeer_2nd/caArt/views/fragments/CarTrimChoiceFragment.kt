@@ -31,17 +31,7 @@ class CarTrimChoiceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCarTrimChoiceBinding.inflate(inflater, container, false).apply {
-            incEngineBodyOption.carTrimChoiceViewModel =
-                this@CarTrimChoiceFragment.carTrimChoiceViewModel
-            lifecycleOwner = viewLifecycleOwner
-            bottomSheet.setMode(BottomSheetMode.Next)
-
-            tvQuestion.setOnClickListener {
-                findNavController().navigate(R.id.action_carTrimChoiceFragment_to_carTrimDescriptionFragment)
-            }
-        }
-
+        _binding = FragmentCarTrimChoiceBinding.inflate(inflater, container, false)
         createChangePopup(false)
         return binding.root
     }
@@ -49,8 +39,20 @@ class CarTrimChoiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvTrim.apply {
-            initializeColorOptions(DummyItemFactory.createSelectionTrimItemDummyItems())
+        binding.apply {
+            incEngineBodyOption.carTrimChoiceViewModel =
+                this@CarTrimChoiceFragment.carTrimChoiceViewModel
+            lifecycleOwner = viewLifecycleOwner
+
+            trimSummaryBottomSheet.apply {
+                setMode(BottomSheetMode.Next, CarTrimChoiceFragmentDirections.actionCarTrimChoiceFragmentToCarColorChoiceFragment())
+            }
+
+            tvQuestion.setOnClickListener {
+                findNavController().navigate(CarTrimChoiceFragmentDirections.actionCarTrimChoiceFragmentToCarTrimDescriptionFragment())
+            }
+
+            rvTrim.initializeColorOptions(DummyItemFactory.createSelectionTrimItemDummyItems())
         }
     }
 
@@ -69,7 +71,7 @@ class CarTrimChoiceFragment : Fragment() {
         _binding = null
     }
 
-    private fun createChangePopup(bottomOptionVisible: Boolean){
+    private fun createChangePopup(bottomOptionVisible: Boolean) {
         val layoutInflater = LayoutInflater.from(requireContext())
         val dialogContent = LayoutChangePopupBinding.inflate(layoutInflater).apply {
             topOptionTitle = "현재 되는 내장 색상"
@@ -79,8 +81,10 @@ class CarTrimChoiceFragment : Fragment() {
             guideChangePrice = "+ 12,100,000원"
         }
 
-        val topOptionAdapter = OptionChangePopupAdapter(DummyItemFactory.createInteriorColorOptionChangeDummyItems())
-        val bottomOptionAdapter = OptionChangePopupAdapter(DummyItemFactory.createDefaultOptionChangeDummyItems())
+        val topOptionAdapter =
+            OptionChangePopupAdapter(DummyItemFactory.createInteriorColorOptionChangeDummyItems())
+        val bottomOptionAdapter =
+            OptionChangePopupAdapter(DummyItemFactory.createDefaultOptionChangeDummyItems())
 
         dialogContent.rvTop.apply {
             layoutManager = LinearLayoutManager(context)
@@ -92,7 +96,8 @@ class CarTrimChoiceFragment : Fragment() {
             adapter = bottomOptionAdapter
         }
 
-        val description = if(bottomOptionVisible) "지금 변경하시면 선택한 색상과 옵션이 해제돼요" else "지금 변경하시면 선택한 색상이 해제돼요."
+        val description =
+            if (bottomOptionVisible) "지금 변경하시면 선택한 색상과 옵션이 해제돼요" else "지금 변경하시면 선택한 색상이 해제돼요."
 
         CaArtDialog.Builder(requireContext())
             .setTitle("Exclusive 트림으로 변경\n하시겠어요?")

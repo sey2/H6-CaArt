@@ -1,7 +1,16 @@
 package org.softeer_2nd.caArt.views.dataBindingAdapters
 
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.TypedValue
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.FontRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import org.softeer_2nd.caArt.R
 import java.text.NumberFormat
@@ -24,4 +33,31 @@ fun TextView.setFormattedPrice(price: Int) {
     val formatter = NumberFormat.getNumberInstance(Locale.KOREA)
     val formattedPrice = formatter.format(price)
     text = context.getString(R.string.formatted_price, formattedPrice)
+}
+
+@BindingAdapter(value = ["highlightText", "highlightColor", "highlightSpSize"], requireAll = false)
+fun TextView.setHighlightText(
+    targetString: String?,
+    highlightColor: Int? = null,
+    highlightSpSize: Int? = null
+) {
+    if (targetString == null) return
+
+    val spannableString = SpannableStringBuilder(text)
+    val start = text.indexOf(targetString)
+    val end = start + targetString.length
+
+    targetString.let {
+        spannableString.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+
+    highlightColor?.let {
+        spannableString.setSpan(ForegroundColorSpan(highlightColor), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+
+    highlightSpSize?.let {
+        spannableString.setSpan(AbsoluteSizeSpan(it, true), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+
+    this.text = spannableString
 }

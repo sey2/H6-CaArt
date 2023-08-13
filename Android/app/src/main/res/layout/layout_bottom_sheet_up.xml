@@ -1,77 +1,80 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_up_arrow"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/ic_arrow_no_tail_20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_summary_title"
-        style="@style/BottomSheetTitleTextStyle"
-        android:layout_marginTop="12dp"
-        android:text="@string/summary_view"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/iv_line"
-        app:layout_constraintTop_toBottomOf="@+id/iv_up_arrow" />
-    
-    <View
-        android:id="@+id/iv_line"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/gray_700"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_summary_title"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_select_options"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_line" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_model_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:fontFamily="@font/hyundaisanstext_medium"
-        android:text="@string/le_blanc"
-        android:textColor="@color/gray_500"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/iv_line"
-        app:layout_constraintTop_toBottomOf="@+id/rv_select_options" />
+        <ImageView
+            android:id="@+id/iv_up_arrow"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_arrow_no_tail_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_price"
-        style="@style/PriceTextStyle"
-        android:layout_marginTop="32dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/iv_line"
-        app:layout_constraintTop_toBottomOf="@+id/rv_select_options" />
+        <TextView
+            android:id="@+id/tv_summary_title"
+            style="@style/BottomSheetTitleTextStyle"
+            android:layout_marginTop="12dp"
+            android:text="@string/summary_view"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_line"
+            app:layout_constraintTop_toBottomOf="@+id/iv_up_arrow" />
 
-    <Button
-        android:id="@+id/btn_estimate"
-        style="@style/PrimaryButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="14dp"
-        android:text="@string/estimate"
-        app:layout_constraintEnd_toEndOf="@+id/tv_price"
-        app:layout_constraintStart_toStartOf="@+id/tv_model_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/iv_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_summary_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_select_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_line" />
+
+        <TextView
+            android:id="@+id/tv_model_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:fontFamily="@font/hyundaisanstext_medium"
+            android:text="@string/le_blanc"
+            android:textColor="@color/gray_500"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_line"
+            app:layout_constraintTop_toBottomOf="@+id/rv_select_options" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/PriceTextStyle"
+            android:layout_marginTop="32dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_line"
+            app:layout_constraintTop_toBottomOf="@+id/rv_select_options" />
+
+        <Button
+            android:id="@+id/btn_estimate"
+            style="@style/PrimaryButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="14dp"
+            android:text="@string/estimate"
+            app:layout_constraintEnd_toEndOf="@+id/tv_price"
+            app:layout_constraintStart_toStartOf="@+id/tv_model_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

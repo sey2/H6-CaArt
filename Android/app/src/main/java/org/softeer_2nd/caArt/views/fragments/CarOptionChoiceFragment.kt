@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import org.softeer_2nd.caArt.R
+import org.softeer_2nd.caArt.models.datas.BottomSheetMode
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +37,9 @@ class CarOptionChoiceFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.bsOptionChoiceSummary.apply{
+            setMode(BottomSheetMode.PrevAndEstimate, CarTrimChoiceFragmentDirections.actionCarTrimChoiceFragmentToCarTrimDescriptionFragment())
+        }
 
         binding.incOptionChoiceTopIndicator.currentIndex = 2
 

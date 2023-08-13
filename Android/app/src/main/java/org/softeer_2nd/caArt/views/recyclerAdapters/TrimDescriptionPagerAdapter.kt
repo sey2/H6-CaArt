@@ -28,7 +28,9 @@ class TrimDescriptionPagerAdapter(private val items: List<List<TrimDescriptionDu
 
     inner class TrimDescriptionHolder(private val binding: ItemTrimDescriptionPagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val descriptionAdapter: TrimDescriptionAdapter = TrimDescriptionAdapter(emptyList())
+        private val descriptionAdapter: TrimDescriptionAdapter = TrimDescriptionAdapter(
+            mutableListOf()
+        )
 
         init {
             binding.rvTrimDescription.layoutManager =

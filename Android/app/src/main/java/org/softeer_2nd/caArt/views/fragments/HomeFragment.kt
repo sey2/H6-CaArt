@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.views.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +21,6 @@ class HomeFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.btnMoveCarColor.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_carColorChoiceFragment)
-        }
-        binding.btnMoveCarTrim.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_carTrimChoiceFragment)
-        }
         return binding.root
     }
 
@@ -40,9 +35,18 @@ class HomeFragment() : Fragment() {
 //                .show(requireActivity().supportFragmentManager,"")
 //        }
 
-        binding.btnTest.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCarOptionChoiceFragment())
+        binding.videoHomeBackground.apply {
+            setVideoURI(Uri.parse("android.resource://${context.packageName}/${R.raw.home_video}"))
+            setOnPreparedListener { mediaPlayer ->
+                mediaPlayer.isLooping = true
+                start()
+            }
         }
+
+        binding.btnMakeMySelf.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCarTrimChoiceFragment())
+        }
+
     }
 
     override fun onDestroyView() {
