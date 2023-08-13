@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="situationalImageUrl"
-            type="String" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -51,8 +44,7 @@
             app:layout_constraintEnd_toStartOf="@+id/inc_situation_option2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_situational_tag_options_situation_image"
-            app:srcCompat="@drawable/drawable_search_156" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_situational_tag_options_situation_image" />
 
         <include
             android:id="@+id/inc_situation_option2"

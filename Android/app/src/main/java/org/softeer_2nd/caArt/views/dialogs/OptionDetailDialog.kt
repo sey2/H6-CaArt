@@ -40,37 +40,7 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
     ): View? {
 
         viewPager = ViewPager2(requireContext()).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            clipToPadding = false
-            clipChildren = false
-
-            val margin = 22f.dp2px(requireContext())
-            val adjacentItemPreviewWidth = 8f.dp2px(context)
-            addItemDecoration(object : RecyclerView.ItemDecoration() {
-                override fun getItemOffsets(
-                    outRect: Rect,
-                    view: View,
-                    parent: RecyclerView,
-                    state: RecyclerView.State
-                ) {
-                    super.getItemOffsets(outRect, view, parent, state)
-                    outRect.left = margin
-                    outRect.right = margin
-                }
-            })
-            offscreenPageLimit = 1
-            setPageTransformer { page, position ->
-                page.translationX = position * -(margin + adjacentItemPreviewWidth)
-
-            }
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    (adapter as OptionDetailPageAdapter).setDisplayingPageIndex(position)
-                }
-            })
+            initOptionDetailViewPager()
         }
         return viewPager ?: super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -93,6 +63,40 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
         viewPager?.adapter = adapter
     }
 
+    private fun ViewPager2.initOptionDetailViewPager() {
+        layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        clipToPadding = false
+        clipChildren = false
+
+        val margin = 22f.dp2px(requireContext())
+        val adjacentItemPreviewWidth = 8f.dp2px(context)
+        addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                super.getItemOffsets(outRect, view, parent, state)
+                outRect.left = margin
+                outRect.right = margin
+            }
+        })
+        offscreenPageLimit = 1
+        setPageTransformer { page, position ->
+            page.translationX = position * -(margin + adjacentItemPreviewWidth)
+
+        }
+        registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                (adapter as OptionDetailPageAdapter).setDisplayingPageIndex(position)
+            }
+        })
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         viewPager = null
@@ -100,9 +104,10 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
 
     class Builder() {
         var optionList: List<Option>? = null
-        var type: Int = SINGLE_OPTION
+        private var _type: Int = SINGLE_OPTION
+        val type get() = _type
         fun setOptionList(list: List<Option>) = apply {
-            type = if (list.size == 1) SINGLE_OPTION else OPTION_GROUP
+            _type = if (list.size == 1) SINGLE_OPTION else OPTION_GROUP
             optionList = list
         }
 

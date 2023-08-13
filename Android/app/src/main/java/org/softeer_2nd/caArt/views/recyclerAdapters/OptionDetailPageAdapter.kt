@@ -76,17 +76,20 @@ class OptionDetailPageAdapter(
     inner class OptionDetailPageViewHolder(private val binding: ItemOptionDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+
         fun bind(option: Option, position: Int) {
-            binding.option = option
-            binding.onCancelButtonClickListener = onCancelButtonClickListener
-            binding.pageIndex = position
-            binding.pageCount = optionList.size
-            binding.isBlurEffect = position != displayPageIndex
-            binding.cbOptionDetailChoice.setOnCheckedChangeListener { _, isSelected ->
-                onOptionSelectListener.onItemClicked(
-                    position,
-                    OptionSelectEvent(option, isSelected)
-                )
+            binding.apply {
+                this.option = option
+                onCancelButtonClickListener = onCancelButtonClickListener
+                pageIndex = position
+                pageCount = optionList.size
+                isBlurEffect = position != displayPageIndex
+                cbOptionDetailChoice.setOnCheckedChangeListener { _, isSelected ->
+                    onOptionSelectListener.onItemClicked(
+                        position,
+                        OptionSelectEvent(option, isSelected)
+                    )
+                }
             }
         }
     }
