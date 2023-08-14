@@ -1,16 +1,38 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { useFetch } from "../../../hooks/useFetch";
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
 
-function TrimCard({
-  trim,
-  modalSetter,
-  positionSetter,
-  tooltipOpenSetter,
-  tooltipTypeSetter,
-  tooltipPositionSetter,
-}: {
+interface Option {
+  optionId: number;
+  optionName: string;
+  description: string;
+  optionImage: string;
+}
+
+interface Color {
+  colorId: number;
+  colorName: string;
+  colorPrice: number;
+  colorImage: string;
+}
+
+interface Trim {
+  trimName: string;
+  description: string;
+  trimImage: string;
+  trimPrice: number;
+  mainOptions: Option[];
+  exteriorColors: Color[];
+  interiorColors: Color[];
+}
+
+interface TrimData {
+  trims: Trim[];
+}
+
+interface TrimCardType {
   trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Caligraphy' | string;
   modalSetter: React.Dispatch<React.SetStateAction<boolean>>;
   positionSetter: React.Dispatch<
@@ -21,112 +43,19 @@ function TrimCard({
   tooltipPositionSetter: React.Dispatch<
     React.SetStateAction<{ x: number; y: number }>
   >;
-}) {
+}
+
+function TrimCard({
+  trim,
+  modalSetter,
+  positionSetter,
+  tooltipOpenSetter,
+  tooltipTypeSetter,
+  tooltipPositionSetter,
+}: TrimCardType) {
+  const {data} = useFetch<TrimData>('/trims');
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
-  const data = {
-    trimList: [
-      {
-        trimName: 'Exclusive',
-        trimInfo: '합리적인 당신을 위한',
-        trimPrice: 10000000,
-        trimOption: [
-          {
-            id: 0,
-            name: '12인치 네비게이션',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 1,
-            name: '내비 기반 크루즈 컨트롤',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 2,
-            name: '세이프티 파워 윈도우',
-            info: '11',
-            image: '11',
-          },
-        ],
-      },
-      {
-        trimName: 'Le Blanc',
-        trimInfo: '필수적인 옵션만 모은',
-        trimPrice: 20000000,
-        trimOption: [
-          {
-            id: 0,
-            name: '20인치 알로이 휠',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 1,
-            name: '12인치 클러스터',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 2,
-            name: '서라운드 뷰 모니터',
-            info: '11',
-            image: '11',
-          },
-        ],
-      },
-      {
-        trimName: 'Prestige',
-        trimInfo: '가치있는 드라이빙 경험을 주는',
-        trimPrice: 30000000,
-        trimOption: [
-          {
-            id: 0,
-            name: '2열 통풍시트',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 1,
-            name: '스마트 자세제어',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 2,
-            name: '2열 수동식 도어 커튼',
-            info: '11',
-            image: '11',
-          },
-        ],
-      },
-      {
-        trimName: 'Caligraphy',
-        trimInfo: '남들과 차별화된 경험',
-        trimPrice: 40000000,
-        trimOption: [
-          {
-            id: 0,
-            name: '20인치 캘리그라피 전용 휠',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 1,
-            name: 'KRELL 프리미엄 사운드',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 2,
-            name: '블랙 에디션',
-            info: '11',
-            image: '11',
-          },
-        ],
-      },
-    ],
-  };
+  
   function handleModal(e: React.MouseEvent) {
     e.stopPropagation();
     const offsetX = e.nativeEvent.offsetX;
@@ -140,12 +69,12 @@ function TrimCard({
   }
 
   function getOptionList(trim: string) {
-    return data.trimList.map(trimItem => {
+    return data?.trims.map(trimItem => {
       if (trimItem.trimName === trim) {
-        return trimItem.trimOption.map(option => (
+        return trimItem.mainOptions.map(option => (
           <>
-            <li key={option.name} onClick={e => handleModal(e)}>
-              {option.name}
+            <li key={option.optionName} onClick={e => handleModal(e)}>
+              {option.optionName}
             </li>
           </>
         ));
@@ -157,8 +86,8 @@ function TrimCard({
     const enginePrice = currentEstimation.engine.price;
     const bodyPrice = currentEstimation.body.price;
     const wdPrice = currentEstimation.wd.price;
-    const trimPrice = data.trimList.find(
-      trimItem => trimItem.trimName == trim,
+    const trimPrice = data?.trims.find(
+      trimItem => trimItem.trimName === trim,
     )?.trimPrice;
     return enginePrice + bodyPrice + wdPrice + trimPrice!;
   }
@@ -179,7 +108,7 @@ function TrimCard({
   return (
     <>
       <Wrapper>
-        {data.trimList.map(trimItem => {
+        {data?.trims.map(trimItem => {
           if (trimItem.trimName === trim)
             return (
               <>
@@ -213,7 +142,7 @@ function TrimCard({
                   />
                 </Head>
                 <TrimSummary className="text-grey-100 body-regular-16">
-                  {trimItem.trimInfo}
+                  {trimItem.description}
                 </TrimSummary>
                 <TrimPrice className="text-grey-0 head-medium-20">
                   {priceToString(getTotalTrimPrice(trim))}

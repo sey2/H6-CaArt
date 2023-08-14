@@ -1,69 +1,168 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
+import { useFetch } from '../../../hooks/useFetch';
+import { priceToString } from "../../../util/PriceToString";
+
+interface Engine {
+  engineName: string;
+  description: string;
+  enginePrice: number;
+  maxPower: string;
+  maxTorque: string;
+  engineImage: string;
+}
+
+interface BodyType {
+  bodyTypeName: string;
+  description: string;
+  bodyTypeImage: string;
+}
+
+interface WheelDrive {
+  wheelDriveName: string;
+  description: string;
+  wheelDrivePrice: number;
+  wheelDriveImage: string;
+}
+
+interface CompositionsData {
+  compositions: {
+    carEngines: Engine[];
+    bodyTypes: BodyType[];
+    wheelDrives: WheelDrive[];
+  };
+}
+
+type NavType = 'carEngines' | 'bodyTypes' | 'wheelDrives' | string;
 
 function EBWGuideModal({
   setter,
 }: {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const tempData = {
-    engine: [
-      {
-        name: '디젤',
-        description: '디스크립션 1',
-        maxPower: 100,
-        maxTorque: 200,
-        image: '/images/engine2_2.svg',
-        price: 200000,
-      },
-      {
-        name: '가솔린',
-        description: '디스크립션 1',
-        maxPower: 100,
-        maxTorque: 200,
-        image: '/images/engine2_2.svg',
-        price: 200000,
-      },
-    ],
-    bodyType: [
-      {
-        name: '7인승',
-        description: '디스크립션 1',
-        maxPower: 300,
-        maxTorque: 400,
-        image: '/images/engine2_2.svg',
-        price: 200000,
-      },
-      {
-        name: '8인승',
-        description: '디스크립션 1',
-        maxPower: 500,
-        maxTorque: 600,
-        image: '/images/engine2_2.svg',
-        price: 200000,
-      },
-    ],
-    wheelDrive: [
-      {
-        name: '2WD',
-        description: '디스크립션 1',
-        maxPower: 700,
-        maxTorque: 800,
-        image: '/images/engine2_2.svg',
-        price: 200000,
-      },
-      {
-        name: '4WD',
-        description: '디스크립션 1',
-        maxPower: 900,
-        maxTorque: 1000,
-        image: '/images/engine2_2.svg',
-        price: 200000,
-      },
-    ],
-  };
+  const [selectedNav, setSelectedNav] = useState<NavType>('carEngines');
+  const [compositionData, setCompositionData] = useState<CompositionsData>();
+  const { data } = useFetch<CompositionsData>('/compositions');
 
-  const [selectedNav, setSelectedNav] = useState('engine');
+  useEffect(() => {
+    setCompositionData(data as CompositionsData);
+  }, [data]);
+
+  function getEngineInfo() {
+    const data = compositionData?.compositions['carEngines'];
+    return data?.map(item => (
+      <>
+        <Item>
+          <img src={item.engineImage} />
+          <div>
+            <InfoTop>
+              <span className="head-medium-22 text-grey-100">
+                {item.engineName}
+              </span>
+              <span className="body-regular-14 text-grey-100">
+                {item.description}
+              </span>
+            </InfoTop>
+            <Hr />
+            <InfoBottom>
+              <SpanDiv>
+                <span className="head-regular-14 text-grey-400">최고출력</span>
+                <span className="head-medium-14 text-grey-200">
+                  {item.maxPower} PS/rpm
+                </span>
+              </SpanDiv>
+              <SpanDiv>
+                <span className="head-regular-14 text-grey-400">최고토크</span>
+                <span className="head-medium-14 text-grey-200">
+                  {item.maxTorque} kfg-m/rpm
+                </span>
+              </SpanDiv>
+            </InfoBottom>
+          </div>
+        </Item>
+      </>
+    ));
+  }
+
+  function getBodyInfo() {
+    const data = compositionData?.compositions['bodyTypes'];
+    return data?.map(item => (
+      <>
+        <Item>
+          <img src={item.bodyTypeImage} />
+          <div>
+            <InfoTop>
+              <span className="head-medium-22 text-grey-100">
+                {item.bodyTypeName}
+              </span>
+              <span className="body-regular-14 text-grey-100">
+                {item.description}
+              </span>
+            </InfoTop>
+            <Hr />
+            <InfoBottom>
+              <SpanDiv>
+                <span className="head-regular-14 text-grey-400"></span>
+                <span className="head-medium-14 text-grey-200">
+                </span>
+              </SpanDiv>
+              <SpanDiv>
+                <span className="head-regular-14 text-grey-400"></span>
+                <span className="head-medium-14 text-grey-200">
+                </span>
+              </SpanDiv>
+            </InfoBottom>
+          </div>
+        </Item>
+      </>
+    ));
+  }
+
+  function getWdInfo() {
+    const data = compositionData?.compositions['wheelDrives'];
+    return data?.map(item => (
+      <>
+        <Item>
+          <img src={item.wheelDriveImage} />
+          <div>
+            <InfoTop>
+              <span className="head-medium-22 text-grey-100">
+                {item.wheelDriveName}
+              </span>
+              <span className="body-regular-14 text-grey-100">
+                {item.description}
+              </span>
+            </InfoTop>
+            <Hr />
+            <InfoBottom>
+              <SpanDiv>
+                <span className="head-regular-14 text-grey-400">가격</span>
+                <span className="head-medium-14 text-grey-200">
+                  {priceToString(item.wheelDrivePrice)}
+                </span>
+              </SpanDiv>
+              <SpanDiv>
+                <span className="head-regular-14 text-grey-400"></span>
+                <span className="head-medium-14 text-grey-200">
+                </span>
+              </SpanDiv>
+            </InfoBottom>
+          </div>
+        </Item>
+      </>
+    ));
+  }
+
+  function contentHandler(selected: NavType) {
+    switch(selected){
+      case 'carEngines':
+        return getEngineInfo();
+      case 'bodyTypes':
+        return getBodyInfo();
+      case 'wheelDrives':
+        return getWdInfo();
+    }
+  }
 
   function handleNavItem(e: React.MouseEvent) {
     const eventTarget = e.target as HTMLElement;
@@ -75,16 +174,18 @@ function EBWGuideModal({
 
   function translator(value: string) {
     switch (value) {
-      case 'engine':
+      case 'carEngines':
         return '엔진';
-      case 'bodyType':
+      case 'bodyTypes':
         return '바디타입';
-      case 'wheelDrive':
+      case 'wheelDrives':
         return '구동방식';
       case 'maxTorque':
         return '최대토크';
       case 'maxPower':
         return '최대출력';
+      default:
+        return '';
     }
   }
 
@@ -107,7 +208,6 @@ function EBWGuideModal({
     );
   }
 
-  const nowData = tempData[selectedNav as keyof typeof tempData];
   return (
     <Modal>
       <Overlay
@@ -118,50 +218,16 @@ function EBWGuideModal({
       <Wrapper onClick={e => e.stopPropagation()}>
         <NavBar className="body-medium-18 text-grey-500">
           <NavItem>
-            {Object.keys(tempData).map(data => setNavItem(data))}
+            {compositionData?.compositions &&
+              Object.keys(compositionData?.compositions as object).map(
+                navName => setNavItem(navName),
+              )}
           </NavItem>
           <X src="/images/x_icon.svg" onClick={() => setter(false)} />
         </NavBar>
         <Hhr />
         <Content>
-          {nowData.map(data => {
-            return (
-              <>
-                <Item>
-                  <img src={data.image} />
-                  <div>
-                    <InfoTop>
-                      <span className="head-medium-22 text-grey-100">
-                        {data.name}
-                      </span>
-                      <span className="body-regular-14 text-grey-100">
-                        {data.description}
-                      </span>
-                    </InfoTop>
-                    <Hr />
-                    <InfoBottom>
-                      <SpanDiv>
-                        <span className="head-regular-14 text-grey-400">
-                          최고출력
-                        </span>
-                        <span className="head-medium-14 text-grey-200">
-                          {data.maxPower} PS/rpm
-                        </span>
-                      </SpanDiv>
-                      <SpanDiv>
-                        <span className="head-regular-14 text-grey-400">
-                          최고토크
-                        </span>
-                        <span className="head-medium-14 text-grey-200">
-                          {data.maxTorque} kfg-m/rpm
-                        </span>
-                      </SpanDiv>
-                    </InfoBottom>
-                  </div>
-                </Item>
-              </>
-            );
-          })}
+          {contentHandler(selectedNav)}
         </Content>
       </Wrapper>
     </Modal>

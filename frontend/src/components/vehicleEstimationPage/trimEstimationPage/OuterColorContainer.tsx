@@ -57,5 +57,5 @@ const Circle = styled.div<{ bgColor: string }>`
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: props.bgColor;
+  background-color: ${props=> props.bgColor};
 `;
