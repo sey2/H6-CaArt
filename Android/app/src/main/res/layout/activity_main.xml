@@ -6,13 +6,13 @@
     <data>
         <variable
             name="toolBarViewModel"
-            type="org.softeer_2nd.caArt.viewmodels.ToolBarViewModel" />
+            type="org.softeer_2nd.caArt.viewmodel.ToolBarViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.MainActivity">
+        tools:context=".view.MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

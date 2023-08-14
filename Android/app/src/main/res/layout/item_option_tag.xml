@@ -11,7 +11,7 @@
             type="String"/>
         <variable
             name="clickListener"
-            type="org.softeer_2nd.caArt.views.callbackListener.OnRecyclerItemClickListener" />
+            type="org.softeer_2nd.caArt.view.callbackListener.OnRecyclerItemClickListener" />
         <variable
             name="isSelected"
             type="Boolean" />

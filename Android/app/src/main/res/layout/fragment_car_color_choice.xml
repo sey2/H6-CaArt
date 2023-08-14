@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="org.softeer_2nd.caArt.viewmodels.CarColorChoiceViewModel" />
+            type="org.softeer_2nd.caArt.viewmodel.CarColorChoiceViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -177,7 +177,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <org.softeer_2nd.caArt.views.custom.SummaryBottomSheet
+        <org.softeer_2nd.caArt.view.custom.SummaryBottomSheet
             android:id="@+id/color_summry_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
