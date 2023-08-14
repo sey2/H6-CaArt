@@ -22,7 +22,8 @@ public class TagController {
 	@Operation(summary = "태그의 목록을 조회한다.", description = "태그는 priority를 기준으로 정렬한다. priority는 정렬에만 사용한다")
 	@GetMapping
 	public ResponseDto getTags() {
-		return DataResponseDto.of("tags", tagService.getTags());
+		return DataResponseDto.of(tagService.getTags());
 	}
+
 }
 

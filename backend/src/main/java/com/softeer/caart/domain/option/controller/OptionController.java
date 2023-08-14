@@ -26,13 +26,13 @@ public class OptionController {
 	@GetMapping("/basic")
 	public ResponseDto getBasicOption(@RequestParam Long optionId) {
 		BasicOptionResponse basicOption = optionService.getBasicOption(optionId);
-		return DataResponseDto.of("option", basicOption);
+		return DataResponseDto.of(basicOption);
 	}
 
 	@Operation(summary = "추가 옵션의 세부 정보를 조회한다", description = "태그와 옵션은 이름 순으로 오름차순 정렬한다")
 	@GetMapping("/additional")
 	public ResponseDto getAdditionalOption(@RequestParam Long optionId) {
 		AdditionalOptionResponse additionalOption = optionService.getAdditionalOption(optionId);
-		return DataResponseDto.of("option", additionalOption);
+		return DataResponseDto.of(additionalOption);
 	}
 }

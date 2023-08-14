@@ -27,7 +27,7 @@ public class TrimController {
 	@GetMapping
 	public ResponseDto getTrims() {
 		List<TrimResponse> trims = trimService.getTrims();
-		return DataResponseDto.of("trims", trims);
+		return DataResponseDto.of(trims);
 	}
 }
 

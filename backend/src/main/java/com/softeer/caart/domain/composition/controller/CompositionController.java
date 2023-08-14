@@ -24,6 +24,6 @@ public class CompositionController {
 	@GetMapping
 	public ResponseDto getCompositions() {
 		CompositionResponse compositions = compositionService.getCompositionInfos();
-		return DataResponseDto.of("compositions", compositions);
+		return DataResponseDto.of(compositions);
 	}
 }

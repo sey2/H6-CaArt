@@ -1,27 +1,19 @@
 package com.softeer.caart.global.response;
 
 import com.softeer.caart.global.ResultCode;
-import lombok.Getter;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import lombok.Getter;
 
 @Getter
 public class DataResponseDto<T> extends ResponseDto {
-    private final Map<String, T> data;
+	private final T data;
 
-    private DataResponseDto(String key, T data) {
-        super(true, ResultCode.OK.getStatusCode(), ResultCode.OK.getMessage());
-        this.data = stringToMap(key, data);
-    }
+	private DataResponseDto(T data) {
+		super(true, ResultCode.OK.getStatusCode(), ResultCode.OK.getMessage());
+		this.data = data;
+	}
 
-    public static <T> DataResponseDto<T> of(String key, T data) {
-        return new DataResponseDto<>(key, data);
-    }
-
-    private Map<String, T> stringToMap(String key, T data) {
-        return Stream.of(Map.entry(key, data))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
+	public static <T> DataResponseDto<T> of(T data) {
+		return new DataResponseDto<>(data);
+	}
 }
