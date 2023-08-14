@@ -9,6 +9,6 @@ class CarTrimRepository @Inject constructor(
 ) {
 
     suspend fun fetchTrims(): List<Trim> {
-        return service.getTrimList().data?.trims ?: listOf()
+        return service.getTrimList().data?: listOf()
     }
 }

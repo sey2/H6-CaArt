@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.FragmentCarOptionChoiceBinding
 import org.softeer_2nd.caArt.databinding.ItemSituationOptionsOptionBinding
+import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.view.dialog.OptionDetailDialog
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.util.dp2px
@@ -41,7 +41,7 @@ class CarOptionChoiceFragment : Fragment() {
 
         binding.incOptionChoiceTopIndicator.currentIndex = 2
 
-        //binding.bsOptionChoiceSummary.setMode(BottomSheetMode.PrevAndEstimate)
+        binding.bsOptionChoiceSummary.setMode(BottomSheetMode.PrevAndEstimate,CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarOptionChoiceFragment())
 
         val optionTagAdapter = OptionTagRecyclerAdapter(
             List(8) { "태그$it" }

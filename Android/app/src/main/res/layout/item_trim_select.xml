@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
-            android:background="@drawable/cb_unchecked_28"
+            android:background="@drawable/ic_unchecked_28"
             android:backgroundTint="@{isChecked ? @color/blue_500 : @color/gray_300}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

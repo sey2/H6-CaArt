@@ -11,6 +11,12 @@
         <action
             android:id="@+id/action_homeFragment_to_carTrimChoiceFragment"
             app:destination="@id/carTrimChoiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_carOptionChoiceFragment"
+            app:destination="@id/carOptionChoiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_lifeStyleSurveyFragment"
+            app:destination="@id/lifeStyleSurveyFragment" />
     </fragment>
 
     <fragment
@@ -43,4 +49,8 @@
         android:id="@+id/carTrimDescriptionFragment"
         android:name="org.softeer_2nd.caArt.view.fragment.CarTrimDescriptionFragment"
         android:label="carTrimDescriptionFragment" />
+    <fragment
+        android:id="@+id/lifeStyleSurveyFragment"
+        android:name="org.softeer_2nd.caArt.view.fragment.LifeStyleSurveyFragment"
+        android:label="LifeStyleSurveyFragment" />
 </navigation>
