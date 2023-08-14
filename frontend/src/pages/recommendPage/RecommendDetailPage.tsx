@@ -1,11 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
 import { SlideBar } from '../../components/recommendPage/ageAndLifeStyle/SlideBar';
+import { RecommendPageProps } from './RecommendPage';
 
-function RecommendDetailPage() {
+export const question = [
+  ['1년 이하', '1년 이상 ~ 5년 미만', '5년 이상'],
+  ['1인', '2인', '3~4인', '5인 이상'],
+  ['출퇴근용', '레저용', '가정용', '업무용'],
+  ['디자인', '성능', '안전', '편의성'],
+];
+
+function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
   return (
     <RecommendDetailPageBox>
       <Header size={'minimal'} page={2}></Header>
@@ -28,14 +37,32 @@ function RecommendDetailPage() {
             </span>
           </RecommendDetailPageQBox>
           <ReccomendDetailPageABox>
-            <RecommendPageButton size="small" selected onClick={() => {}}>
-              1년 이하
+            <RecommendPageButton
+              size="small"
+              selected={choice.experience == 0}
+              onClick={() => {
+                setChoice({ ...choice, experience: 0 });
+              }}
+            >
+              {question[0][0]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              1년 이상 ~ 5년 미만
+            <RecommendPageButton
+              size="small"
+              selected={choice.experience == 1}
+              onClick={() => {
+                setChoice({ ...choice, experience: 1 });
+              }}
+            >
+              {question[0][1]}
             </RecommendPageButton>
-            <RecommendPageButton size="large" onClick={() => {}}>
-              5년 이상
+            <RecommendPageButton
+              size="large"
+              selected={choice.experience == 2}
+              onClick={() => {
+                setChoice({ ...choice, experience: 2 });
+              }}
+            >
+              {question[0][2]}
             </RecommendPageButton>
           </ReccomendDetailPageABox>
         </RecommendDetailPageQABox>
@@ -47,17 +74,41 @@ function RecommendDetailPage() {
             </span>
           </RecommendDetailPageQBox>
           <ReccomendDetailPageABox>
-            <RecommendPageButton size="small" selected onClick={() => {}}>
-              1인
+            <RecommendPageButton
+              size="small"
+              selected={choice.family === 0}
+              onClick={() => {
+                setChoice({ ...choice, family: 0 });
+              }}
+            >
+              {question[1][0]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              2인
+            <RecommendPageButton
+              size="small"
+              selected={choice.family === 1}
+              onClick={() => {
+                setChoice({ ...choice, family: 1 });
+              }}
+            >
+              {question[1][1]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              3~4인
+            <RecommendPageButton
+              size="small"
+              selected={choice.family === 2}
+              onClick={() => {
+                setChoice({ ...choice, family: 2 });
+              }}
+            >
+              {question[1][2]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              5인 이상
+            <RecommendPageButton
+              size="small"
+              selected={choice.family === 3}
+              onClick={() => {
+                setChoice({ ...choice, family: 3 });
+              }}
+            >
+              {question[1][3]}
             </RecommendPageButton>
           </ReccomendDetailPageABox>
         </RecommendDetailPageQABox>
@@ -69,17 +120,41 @@ function RecommendDetailPage() {
             </span>
           </RecommendDetailPageQBox>
           <ReccomendDetailPageABox>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              출퇴근용
+            <RecommendPageButton
+              size="small"
+              selected={choice.purpose === 0}
+              onClick={() => {
+                setChoice({ ...choice, purpose: 0 });
+              }}
+            >
+              {question[2][0]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              레저용
+            <RecommendPageButton
+              size="small"
+              selected={choice.purpose === 1}
+              onClick={() => {
+                setChoice({ ...choice, purpose: 1 });
+              }}
+            >
+              {question[2][1]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              가정용
+            <RecommendPageButton
+              size="small"
+              selected={choice.purpose === 2}
+              onClick={() => {
+                setChoice({ ...choice, purpose: 2 });
+              }}
+            >
+              {question[2][2]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              업무용
+            <RecommendPageButton
+              size="small"
+              selected={choice.purpose === 3}
+              onClick={() => {
+                setChoice({ ...choice, purpose: 3 });
+              }}
+            >
+              {question[2][3]}
             </RecommendPageButton>
           </ReccomendDetailPageABox>
         </RecommendDetailPageQABox>
@@ -91,33 +166,65 @@ function RecommendDetailPage() {
             </span>
           </RecommendDetailPageQBox>
           <ReccomendDetailPageABox>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              디자인
+            <RecommendPageButton
+              size="small"
+              selected={choice.value === 0}
+              onClick={() => {
+                setChoice({ ...choice, value: 0 });
+              }}
+            >
+              {question[3][0]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              성능
+            <RecommendPageButton
+              size="small"
+              selected={choice.value === 1}
+              onClick={() => {
+                setChoice({ ...choice, value: 1 });
+              }}
+            >
+              {question[3][1]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              안전
+            <RecommendPageButton
+              size="small"
+              selected={choice.value === 2}
+              onClick={() => {
+                setChoice({ ...choice, value: 2 });
+              }}
+            >
+              {question[3][2]}
             </RecommendPageButton>
-            <RecommendPageButton size="small" onClick={() => {}}>
-              편의성
+            <RecommendPageButton
+              size="small"
+              selected={choice.value === 3}
+              onClick={() => {
+                setChoice({ ...choice, value: 3 });
+              }}
+            >
+              {question[3][3]}
             </RecommendPageButton>
           </ReccomendDetailPageABox>
         </RecommendDetailPageQABox>
 
         <SlideBarBox>
-          <SlideBar></SlideBar>
+          <SlideBar
+            budget={choice.budget}
+            setBudget={(budget: number) => {
+              setChoice({ ...choice, budget: budget });
+            }}
+          ></SlideBar>
         </SlideBarBox>
 
-        <SquareButton
-          size="xl"
-          color="grey-1000"
-          bg="primary-blue"
-          onClick={() => {}}
+        <Link
+          to="/recommend/customResult"
+          onClick={e => {
+            (choice.purpose === -1 || choice.value === -1) &&
+              e.preventDefault();
+          }}
         >
-          완료
-        </SquareButton>
+          <SquareButton size="xl" color="grey-1000" bg="primary-blue">
+            완료
+          </SquareButton>
+        </Link>
       </RecommendDetailPageMain>
     </RecommendDetailPageBox>
   );

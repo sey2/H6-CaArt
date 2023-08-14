@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import { PageNum } from '../../components/recommendPage/ageAndLifeStyle/PageNum';
 import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
+import { RecommendPageProps } from './RecommendPage';
 
-function RecommendAgePage() {
+function RecommendAgePage({ choice, setChoice }: RecommendPageProps) {
   return (
     <ReccomendAgePageBox>
       <Header size={'minimal'} page={0}></Header>
@@ -17,28 +19,51 @@ function RecommendAgePage() {
           </div>
           <PageNum>1/2</PageNum>
         </ReccomendAgePageQBox>
+
         <ReccomendAgePageABox>
-          <RecommendPageButton size="small" selected onClick={() => {}}>
+          <RecommendPageButton
+            size="small"
+            selected={choice.age === 0}
+            onClick={() => {
+              setChoice({ ...choice, age: 0 });
+            }}
+          >
             20대
           </RecommendPageButton>
-          <RecommendPageButton size="small" onClick={() => {}}>
+          <RecommendPageButton
+            size="small"
+            selected={choice.age === 1}
+            onClick={() => {
+              setChoice({ ...choice, age: 1 });
+            }}
+          >
             30대
           </RecommendPageButton>
-          <RecommendPageButton size="small" onClick={() => {}}>
+          <RecommendPageButton
+            size="small"
+            selected={choice.age === 2}
+            onClick={() => {
+              setChoice({ ...choice, age: 2 });
+            }}
+          >
             40대
           </RecommendPageButton>
-          <RecommendPageButton size="small" onClick={() => {}}>
+          <RecommendPageButton
+            size="small"
+            selected={choice.age === 3}
+            onClick={() => {
+              setChoice({ ...choice, age: 3 });
+            }}
+          >
             50대 이상
           </RecommendPageButton>
         </ReccomendAgePageABox>
-        <SquareButton
-          size="xl"
-          color="grey-1000"
-          bg="primary-blue"
-          onClick={() => {}}
-        >
-          다음
-        </SquareButton>
+
+        <Link to="/recommend/lifeStyle">
+          <SquareButton size="xl" color="grey-1000" bg="primary-blue">
+            다음
+          </SquareButton>
+        </Link>
       </ReccomendAgePageMain>
     </ReccomendAgePageBox>
   );

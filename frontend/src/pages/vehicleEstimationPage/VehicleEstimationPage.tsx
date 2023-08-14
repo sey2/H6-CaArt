@@ -3,7 +3,7 @@ import TrimEstimationPage from './TrimEstimationPage';
 import ColorEstimationPage from './ColorEstimationPage';
 import OptionEstimationPage from './OptionEstimationPage';
 
-function vehicleEstimationPage() {
+function VehicleEstimationPage() {
   const [estimationPageName] = useState<'trim' | 'color' | 'option'>('trim');
 
   const estimationPage = (function () {
@@ -22,4 +22,4 @@ function vehicleEstimationPage() {
   return <>{estimationPage}</>;
 }
 
-export default vehicleEstimationPage;
+export default VehicleEstimationPage;

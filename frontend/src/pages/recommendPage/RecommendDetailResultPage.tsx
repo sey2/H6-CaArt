@@ -1,11 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Header } from '../../components/common/header/Header';
 import { ResultMain } from '../../components/common/result/ResultMain';
 import SquareButton from '../../components/common/SquareButton';
 import { TagList } from '../../components/common/TagList';
+import { RecommendPageProps } from './RecommendPage';
+import { question } from './RecommendDetailPage';
 
-function RecommendDetailResultPage() {
+function RecommendDetailResultPage({
+  choice,
+}: Pick<RecommendPageProps, 'choice'>) {
+  //choice 기반 api요청으로 데이터 가져올 예정
   return (
     <RecommendDetailResultPageBox>
       <Header size="minimal" page={2}></Header>
@@ -13,7 +19,13 @@ function RecommendDetailResultPage() {
       <RecommendDetailResultPageCarImgBox>
         <FlexBox>
           <TagList
-            tagArr={['1년 이하', '1인', '출퇴근용', '디자인', '4200만원']}
+            tagArr={[
+              `${question[0][choice.experience]}`,
+              `${question[1][choice.family]}`,
+              `${question[2][choice.purpose]}`,
+              `${question[3][choice.value]}`,
+              `${choice.budget}만원`,
+            ]}
             type="result"
           ></TagList>
           <RecommendDetailResultPageCarTextBox>
@@ -32,23 +44,16 @@ function RecommendDetailResultPage() {
 
       <ResultMain></ResultMain>
       <RecommendDetailResultPageBtnBox>
-        <SquareButton
-          size="m"
-          color="grey-50"
-          bg="grey-1000"
-          border
-          onClick={() => {}}
-        >
-          커스텀하기
-        </SquareButton>
-        <SquareButton
-          size="m"
-          color="grey-1000"
-          bg="primary-blue"
-          onClick={() => {}}
-        >
-          빠른 견적내기
-        </SquareButton>
+        <Link to="/estimate">
+          <SquareButton size="m" color="grey-50" bg="grey-1000" border>
+            커스텀하기
+          </SquareButton>
+        </Link>
+        <Link to="/result">
+          <SquareButton size="m" color="grey-1000" bg="primary-blue">
+            빠른 견적내기
+          </SquareButton>
+        </Link>
       </RecommendDetailResultPageBtnBox>
     </RecommendDetailResultPageBox>
   );

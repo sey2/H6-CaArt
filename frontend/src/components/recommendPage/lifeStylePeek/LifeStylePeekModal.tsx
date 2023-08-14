@@ -44,7 +44,7 @@ function LifeStylePeekModal({
     <ModalBox>
       <OverlayBox
         onClick={() => {
-          setOpenedModalNum(0);
+          setOpenedModalNum(-1);
         }}
       ></OverlayBox>
       <WrapperBox>

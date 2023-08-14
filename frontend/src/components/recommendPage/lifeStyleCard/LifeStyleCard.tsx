@@ -10,10 +10,11 @@ function LifeStyleCard({
   imgSrc,
   selected,
   setOpenedModalNum,
+  setLifeStyle,
 }: LifeStyleCardProps &
   LifeStyleSelectedProps & {
     setOpenedModalNum: React.Dispatch<React.SetStateAction<number>>;
-  }) {
+  } & { setLifeStyle: (id: number) => void }) {
   return (
     <LifeStyleCardBox selected={selected}>
       <LifeStyleImgBox src={imgSrc} selected={selected}></LifeStyleImgBox>
@@ -23,7 +24,7 @@ function LifeStyleCard({
           <div className="body-medium-18 text-primary-blue">{text}</div>
           <ClickDivBox
             onClick={() => {
-              console.log(id);
+              setLifeStyle(id);
             }}
           >
             <CheckButton selected={selected}></CheckButton>

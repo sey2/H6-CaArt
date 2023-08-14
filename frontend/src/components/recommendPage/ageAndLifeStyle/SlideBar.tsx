@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-function SlideBar() {
-  const [budget, setBudget] = useState(5400);
-
+function SlideBar({
+  budget,
+  setBudget,
+}: {
+  budget: number;
+  setBudget: (budget: number) => void;
+}) {
   function rangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setBudget(parseInt(event.target.value));
   }

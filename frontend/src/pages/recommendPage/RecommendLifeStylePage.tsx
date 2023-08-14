@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import { PageNum } from '../../components/recommendPage/ageAndLifeStyle/PageNum';
 import { LifeStyleCard } from '../../components/recommendPage/lifeStyleCard/LifeStyleCard';
 import { LifeStylePeekModal } from '../../components/recommendPage/lifeStylePeek/LifeStylePeekModal';
+import { RecommendPageProps } from './RecommendPage';
 
-function RecomendLifeStylePage() {
-  const [openedModalNum, setOpenedModalNum] = useState(0);
+function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
+  const [openedModalNum, setOpenedModalNum] = useState(-1);
   return (
     <RecomendLifeStylePageBox>
       <Header size="minimal" page={1}></Header>
@@ -24,47 +26,69 @@ function RecomendLifeStylePage() {
           </RecomendLifeStylePageTitleText>
           <PageNum>2/2</PageNum>
         </RecomendLifeStylePageTitle>
-        <RecomendLifeStylePageExit
-          className="body-medium-14 text-secondary-active-blue"
-          onClick={() => {}}
-        >
-          원하는 라이프사티일이 없다면?
-        </RecomendLifeStylePageExit>
+        <Link to="/recommend/custom">
+          <RecomendLifeStylePageExit className="body-medium-14 text-secondary-active-blue">
+            원하는 라이프사티일이 없다면?
+          </RecomendLifeStylePageExit>
+        </Link>
         <RecomendLifeStyleCardBox>
           <LifeStyleCard
             id={data.id}
             tag={data.tag}
             text={data.text}
             imgSrc={data.imgSrc}
+            selected={choice.lifeStyle === 0}
             setOpenedModalNum={setOpenedModalNum}
+            setLifeStyle={id => {
+              setChoice({ ...choice, lifeStyle: id });
+            }}
           ></LifeStyleCard>
           <LifeStyleCard
-            id={data.id}
-            tag={data.tag}
-            text={data.text}
-            imgSrc={data.imgSrc}
+            id={data1.id}
+            tag={data1.tag}
+            text={data1.text}
+            imgSrc={data1.imgSrc}
+            selected={choice.lifeStyle === 1}
             setOpenedModalNum={setOpenedModalNum}
+            setLifeStyle={id => {
+              setChoice({ ...choice, lifeStyle: id });
+            }}
           ></LifeStyleCard>
           <LifeStyleCard
-            id={data.id}
-            tag={data.tag}
-            text={data.text}
-            imgSrc={data.imgSrc}
+            id={data2.id}
+            tag={data2.tag}
+            text={data2.text}
+            imgSrc={data2.imgSrc}
+            selected={choice.lifeStyle === 2}
             setOpenedModalNum={setOpenedModalNum}
+            setLifeStyle={id => {
+              setChoice({ ...choice, lifeStyle: id });
+            }}
           ></LifeStyleCard>
           <LifeStyleCard
-            id={data.id}
-            tag={data.tag}
-            text={data.text}
-            imgSrc={data.imgSrc}
+            id={data3.id}
+            tag={data3.tag}
+            text={data3.text}
+            imgSrc={data3.imgSrc}
+            selected={choice.lifeStyle === 3}
             setOpenedModalNum={setOpenedModalNum}
+            setLifeStyle={id => {
+              setChoice({ ...choice, lifeStyle: id });
+            }}
           ></LifeStyleCard>
         </RecomendLifeStyleCardBox>
-        <SquareButton size="xl" color="grey-1000" bg="primary-blue">
-          선택 완료
-        </SquareButton>
+        <Link
+          to="/recommend/result"
+          onClick={e => {
+            choice.lifeStyle === -1 && e.preventDefault();
+          }}
+        >
+          <SquareButton size="xl" color="grey-1000" bg="primary-blue">
+            선택 완료
+          </SquareButton>
+        </Link>
       </RecomendLifeStyleMain>
-      {openedModalNum !== 0 && (
+      {openedModalNum !== -1 && (
         <LifeStylePeekModal
           profile={modalData.profile}
           tag={modalData.tag}
@@ -118,7 +142,28 @@ const RecomendLifeStyleCardBox = styled.div`
 export { RecomendLifeStylePage };
 
 const data = {
+  id: 0,
+  tag: ['#주행안전', '#사용편의'],
+  text: '가족과 함께 타서\n안전을 중시해요.',
+  imgSrc: 'https://picsum.photos/200/300',
+};
+
+const data1 = {
   id: 1,
+  tag: ['#주행안전', '#사용편의'],
+  text: '가족과 함께 타서\n안전을 중시해요.',
+  imgSrc: 'https://picsum.photos/200/300',
+};
+
+const data2 = {
+  id: 2,
+  tag: ['#주행안전', '#사용편의'],
+  text: '가족과 함께 타서\n안전을 중시해요.',
+  imgSrc: 'https://picsum.photos/200/300',
+};
+
+const data3 = {
+  id: 3,
   tag: ['#주행안전', '#사용편의'],
   text: '가족과 함께 타서\n안전을 중시해요.',
   imgSrc: 'https://picsum.photos/200/300',

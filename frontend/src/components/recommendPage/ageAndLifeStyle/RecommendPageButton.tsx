@@ -21,7 +21,7 @@ function RecommendPageButton({
   return (
     <RecommendPageButtonBox size={size} selected={selected} onClick={onClick}>
       <div className={className}>{children}</div>
-      <img src="images/check_circle_blue_bold.svg" hidden={!selected}></img>
+      <img src="/images/check_circle_blue_bold.svg" hidden={!selected}></img>
     </RecommendPageButtonBox>
   );
 }
