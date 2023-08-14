@@ -65,7 +65,8 @@ function LifeStylePeekModal({
 }
 
 const ModalBox = styled.div`
-  position: absolute;
+  position: fixed;
+  width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
@@ -81,8 +82,8 @@ const ModalBox = styled.div`
 const OverlayBox = styled.div`
   width: 100vw;
   height: 1498px;
+  position: absolute;
   background: rgba(15, 17, 20, 0.55);
-  position: relative;
   z-index: 5;
 `;
 
@@ -90,10 +91,10 @@ const WrapperBox = styled.div<{ scrollPosition?: number }>`
   width: 688px;
   height: 100vh;
   border-radius: 20px;
-  position: absolute;
-  top: 90px;
+  position: relative;
+  top: 92px;
   left: 50%;
-  transform: translate(-50%, 0px);
+  transform: translate(-50%);
   z-index: 10;
 `;
 
