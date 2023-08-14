@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { OptionNavBarProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
-import { OptionNavBarLower } from './NavBarLower';
-import { OptionNavBarUpper } from './NavBarUpper';
+import OptionNavBarLower from './NavBarLower';
+import OptionNavBarUpper from './NavBarUpper';
 
 function OptionNavBar({
   isBasicOptionPage,
@@ -39,8 +39,7 @@ const OptionNavBarBox = styled.div`
 const OptionNavBarBottomLine = styled.div`
   height: 1px;
   margin: 18px 128px 0px 128px;
-
   background: var(--grey-700);
 `;
 
-export { OptionNavBar };
+export default OptionNavBar;

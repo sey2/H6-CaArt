@@ -1,29 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
-import { OptionNavBar } from '../../components/vehicleEstimationPage/optionEstimationPage/navBar/NavBar';
-import { OptionCardList } from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardList';
-import { OptionCardListAdditionalTag } from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardListAdditionalTag';
+import OptionNavBar from '../../components/vehicleEstimationPage/optionEstimationPage/navBar/NavBar';
+import OptionCardList from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardList';
+import OptionCardListAdditionalTag from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardListAdditionalTag';
 import { OptionModal } from '../../components/vehicleEstimationPage/optionEstimationPage/optionModal/OptionModal';
 
 function OptionEstimationPage() {
   const [isBasicOptionPage, setIsBasicOptionPage] = useState(false);
   const [optionCategory, setOptionCategory] = useState('전체');
-  const topDom = useRef<null | HTMLDivElement>(null);
   const [openedModalId, setOpenedModalId] = useState(0);
 
   useEffect(() => {
-    if (topDom.current) {
-      topDom.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
   }, [isBasicOptionPage, optionCategory]);
 
   return (
     <OptionEstimationPageBox>
-      <div ref={topDom} style={{ width: '100%' }}>
-        <Header size="default" page={2}></Header>
-      </div>
+      <Header size="default" page={2}></Header>
 
       <OptionNavBar
         isBasicOptionPage={isBasicOptionPage}
@@ -35,7 +30,7 @@ function OptionEstimationPage() {
       {!isBasicOptionPage && optionCategory === '전체' && (
         <OptionCardList
           options={data}
-          type={'additional'}
+          type={'additionalAll'}
           setOpenedModalId={setOpenedModalId}
         ></OptionCardList>
       )}
@@ -137,137 +132,137 @@ const modalData = {
 const data = [
   {
     id: 1,
-    optionName: '컴포트2',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트2',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: 'N Performance',
+    percent: 80,
   },
   {
     id: 2,
-    optionName: '컴포트3',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트3',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: 'H Genuine Accessories',
+    percent: 35,
   },
   {
     id: 3,
-    optionName: '컴포트4',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트4',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 65,
   },
   {
     id: 4,
-    optionName: '컴포트5',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트5',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 5,
-    optionName: '컴포트22',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트6',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 6,
-    optionName: '컴포트33',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트7',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 7,
-    optionName: '컴포트55',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트8',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 8,
-    optionName: '컴포트3',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트9',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 9,
-    optionName: '컴포트4',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트10',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 10,
-    optionName: '컴포트5',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트11',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 11,
-    optionName: '컴포트22',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트12',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 12,
-    optionName: '컴포트33',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트13',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 13,
-    optionName: '컴포트44',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트14',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 14,
-    optionName: '컴포트55',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트15',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
   {
     id: 15,
-    optionName: '컴포트44',
-    optionText: '편의성을 위해 구성된 세트 옵션',
-    optionImgSrc: 'https://picsum.photos/200/300',
-    optionPrice: 1090000,
-    optionBadge: '',
-    optionPercent: 35,
+    name: '컴포트16',
+    description: '편의성을 위해 구성된 세트 옵션',
+    imgSrc: 'https://picsum.photos/200/300',
+    price: 1090000,
+    badge: '',
+    percent: 35,
   },
 ];

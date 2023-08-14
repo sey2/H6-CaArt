@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { OptionCard } from '../optionCard/OptionCard';
+import OptionCard from '../optionCard/OptionCard';
 import { OptionInfoPopupBtn } from '../optionInfoPopup/OptionInfoPopupBtn';
+import { EstimationContext } from '../../../../util/Context';
 
 function OptionCardListAdditionalTag({
   optionCategory,
@@ -10,6 +11,7 @@ function OptionCardListAdditionalTag({
   optionCategory: string;
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
+  const { currentEstimation } = useContext(EstimationContext)!;
   const [clickedPlusBtn, setClickecPlusBtn] = useState(-1);
 
   const tagOptionCardList = data.opsinos.map(item => {
@@ -18,7 +20,12 @@ function OptionCardListAdditionalTag({
         <OptionCard
           key={item.id}
           data={item}
-          type={'additional'}
+          type={'additionalTag'}
+          selected={
+            currentEstimation.options.findIndex(
+              option => option.name === item.name,
+            ) !== -1
+          }
           setOpenedModalId={setOpenedModalId}
         ></OptionCard>
         <OptionInfoPopupBtn
@@ -72,43 +79,42 @@ const OptionCardListAdditionalTagCaption = styled.div`
   margin-top: 36px;
 `;
 
-export { OptionCardListAdditionalTag };
+export default OptionCardListAdditionalTag;
 
 const data = {
-  //임시 데이터
   optionNum: 4,
   optionTagImg: 'https://picsum.photos/200/300',
   opsinos: [
     {
       id: 1,
-      optionName: '컴포트2',
-      optionText: '편의성을 위해 구성된 세트 옵션',
-      optionImgSrc: 'https://picsum.photos/200/300',
-      optionPrice: 1090000,
-      optionBadge: '',
-      optionPercent: 30,
+      name: '컴포트2',
+      description: '편의성을 위해 구성된 세트 옵션',
+      imgSrc: 'https://picsum.photos/200/300',
+      price: 1090000,
+      badge: 'H Genuine Accessories',
+      percent: 70,
       positionX: 100,
       positionY: 100,
     },
     {
       id: 2,
-      optionName: '컴포트2',
-      optionText: '편의성을 위해 구성된 세트 옵션',
-      optionImgSrc: 'https://picsum.photos/200/300',
-      optionPrice: 1090000,
-      optionBadge: '',
-      optionPercent: 30,
+      name: '컴포트3',
+      description: '편의성을 위해 구성된 세트 옵션',
+      imgSrc: 'https://picsum.photos/200/300',
+      price: 1090000,
+      badge: '',
+      percent: 30,
       positionX: 200,
       positionY: 200,
     },
     {
       id: 3,
-      optionName: '컴포트2',
-      optionText: '편의성을 위해 구성된 세트 옵션',
-      optionImgSrc: 'https://picsum.photos/200/300',
-      optionPrice: 1090000,
-      optionBadge: '',
-      optionPercent: 30,
+      name: '컴포트4',
+      description: '편의성을 위해 구성된 세트 옵션',
+      imgSrc: 'https://picsum.photos/200/300',
+      price: 1090000,
+      badge: '',
+      percent: 30,
       positionX: 300,
       positionY: 300,
     },

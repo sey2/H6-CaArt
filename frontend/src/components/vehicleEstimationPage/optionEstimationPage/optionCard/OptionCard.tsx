@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import CircularButton from '../../../common/CircularButton';
-import { OptionCardTag } from './OptionCardTag';
-import { OptionCardGuide } from './OptionCardGuide';
+import OptionCardTag from './OptionCardTag';
+import OptionCardGuide from './OptionCardGuide';
 import { priceToString } from '../../../../util/PriceToString';
 import { truncateString } from '../../../../util/TruncateString';
+import { EstimationContext } from '../../../../util/Context';
+
+export type OptionCardType = 'additionalAll' | 'additionalTag' | 'basic';
+
+export interface OptionCardProps {
+  id: number;
+  name: string;
+  description: string;
+  imgSrc: string;
+  price: number;
+  badge: string;
+  percent: number;
+}
 
 function OptionCard({
   data,
@@ -14,70 +27,78 @@ function OptionCard({
 }: {
   data: OptionCardProps;
   selected?: boolean;
-  type: 'additional' | 'basic';
+  type: OptionCardType;
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  return (
+  const { addOption, deleteOption } = useContext(EstimationContext)!;
+
+  const optionCardBasicInfo = (
+    <OptionCardDetailTitleBox>
+      <span className="head-medium-16 text-grey-0">
+        {truncateString(data.name, 11)}
+      </span>
+      <OptionCardDetailTextBox className="body-regular-14 text-secondary-active-blue">
+        <span
+          onClick={() => {
+            setOpenedModalId(data.id);
+          }}
+        >
+          더 알아보기
+        </span>
+        <img src="/images/rightArrow_icon_blue.svg"></img>
+      </OptionCardDetailTextBox>
+    </OptionCardDetailTitleBox>
+  );
+
+  const optionCardAdditionalInfo = (
     <>
-      <OptionCardBox key={data.id}>
-        <OptionCardImg src={data.optionImgSrc}></OptionCardImg>
-        <OptionCardDetailBox>
-          <OptionCardDetailTitleBox>
-            <div className="head-medium-16 text-grey-0">
-              {truncateString(data.optionName, 11)}
-            </div>
-            <OptionCardDetailTextBox className="body-regular-14 text-secondary-active-blue">
-              <span
-                onClick={() => {
-                  setOpenedModalId && setOpenedModalId(data.id);
-                }}
-              >
-                더 알아보기
-              </span>
-              <img src="/images/rightArrow_icon_blue.svg"></img>
-            </OptionCardDetailTextBox>
-          </OptionCardDetailTitleBox>
-
-          {type === 'additional' && (
-            <>
-              <OptionCardDetailText className="body-regular-14 text-grey-300">
-                {data.optionText}
-              </OptionCardDetailText>
-              <OptionCardDetailPrice className="body-medium-16 text-grey-100">
-                {priceToString(data.optionPrice)}
-              </OptionCardDetailPrice>
-              <CircularButton selected={selected}></CircularButton>
-            </>
-          )}
-        </OptionCardDetailBox>
-
-        {data.optionBadge && (
-          <OptionCardTagBox>
-            <OptionCardTag
-              type={data.optionBadge === 'N Performance' ? 'red' : 'blue'}
-              tag={data.optionBadge}
-            ></OptionCardTag>
-          </OptionCardTagBox>
-        )}
-
-        {data.optionPercent >= 60 && type === 'additional' && (
-          <OptionCardGuideBox>
-            <OptionCardGuide percentage={data.optionPercent}></OptionCardGuide>
-          </OptionCardGuideBox>
-        )}
-      </OptionCardBox>
+      <OptionCardDetailText className="body-regular-14 text-grey-300">
+        {data.description}
+      </OptionCardDetailText>
+      <OptionCardDetailPrice className="body-medium-16 text-grey-100">
+        {priceToString(data.price)}
+      </OptionCardDetailPrice>
+      <CircularButton
+        selected={selected}
+        onClick={() => {
+          if (selected) {
+            deleteOption(data.name);
+          } else {
+            addOption({ name: data.name, price: data.price });
+          }
+        }}
+      ></CircularButton>
     </>
   );
-}
 
-export interface OptionCardProps {
-  id: number;
-  optionName: string;
-  optionText: string;
-  optionImgSrc: string;
-  optionPrice: number;
-  optionBadge: string;
-  optionPercent: number;
+  const optionCardBadge = (
+    <OptionCardTagBox>
+      <OptionCardTag
+        type={data.badge === 'N Performance' ? 'red' : 'blue'}
+        tag={data.badge}
+      ></OptionCardTag>
+    </OptionCardTagBox>
+  );
+
+  const optionCardGuide = (
+    <OptionCardGuideBox>
+      <OptionCardGuide percentage={data.percent}></OptionCardGuide>
+    </OptionCardGuideBox>
+  );
+
+  return (
+    <OptionCardBox>
+      <OptionCardImg src={data.imgSrc}></OptionCardImg>
+      <OptionCardDetailBox>
+        <>
+          {optionCardBasicInfo}
+          {type !== 'basic' && optionCardAdditionalInfo}
+        </>
+      </OptionCardDetailBox>
+      {data.badge && optionCardBadge}
+      {data.percent >= 60 && type === 'additionalAll' && optionCardGuide}
+    </OptionCardBox>
+  );
 }
 
 const OptionCardBox = styled.div`
@@ -99,6 +120,10 @@ const OptionCardImg = styled.img<{ src: string }>`
 const OptionCardDetailBox = styled.div`
   display: flex;
   flex-direction: column;
+
+  button {
+    cursor: pointer;
+  }
 `;
 
 const OptionCardDetailTitleBox = styled.div`
@@ -144,4 +169,4 @@ const OptionCardGuideBox = styled.div`
   top: 128px;
 `;
 
-export { OptionCard };
+export default OptionCard;

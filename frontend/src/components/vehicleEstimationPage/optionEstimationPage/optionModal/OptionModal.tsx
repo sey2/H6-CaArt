@@ -29,12 +29,12 @@ function OptionModal({
   const optionModalList = data.setOptions.map((item, index) => {
     return (
       <OptionModalBox key={item.name} selected={index === optionNum}>
-        <div>
+        <OptionModalTagImgBox>
           <OptionModalImgBox src={item.img}></OptionModalImgBox>
           <OptionModalTagList>
             <TagList type="option" tagArr={data.tagList}></TagList>
           </OptionModalTagList>
-        </div>
+        </OptionModalTagImgBox>
         <div>
           <OptionModalTitle
             data={data}
@@ -62,12 +62,12 @@ function OptionModal({
         <>
           {data.setOptions.length === 0 && (
             <OptionModalBox selected>
-              <div>
+              <OptionModalTagImgBox>
                 <OptionModalImgBox src={data.img}></OptionModalImgBox>
                 <OptionModalTagList>
                   <TagList type="option" tagArr={data.tagList}></TagList>
                 </OptionModalTagList>
-              </div>
+              </OptionModalTagImgBox>
               <div>
                 <OptionModalTitle
                   data={data}
@@ -159,6 +159,10 @@ const OptionModalBox = styled.div<{ selected: boolean }>`
   background: var(--grey-1000);
   filter: ${props => (props.selected ? `` : `brightness(0.55)`)};
   transition: all 1s;
+`;
+
+const OptionModalTagImgBox = styled.div`
+  position: relative;
 `;
 
 const OptionModalImgBox = styled.img`

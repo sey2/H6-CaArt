@@ -15,14 +15,13 @@ function OptionCardGuide({ percentage }: { percentage: number }) {
 
 const OptionCardGuideBox = styled.div`
   display: flex;
+  align-items: center;
   width: 244px;
   height: 34px;
   padding: 8px 12px;
-  align-items: center;
   border-radius: 0px 0px 4px 4px;
   background: rgba(33, 151, 201, 0.64);
   backdrop-filter: blur(4px);
-  box-sizing: border-box;
 `;
 
-export { OptionCardGuide };
+export default OptionCardGuide;

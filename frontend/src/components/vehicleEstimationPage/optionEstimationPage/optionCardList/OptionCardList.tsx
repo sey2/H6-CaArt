@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { OptionCard, OptionCardProps } from '../optionCard/OptionCard';
+import OptionCard, {
+  OptionCardProps,
+  OptionCardType,
+} from '../optionCard/OptionCard';
+import { EstimationContext } from '../../../../util/Context';
+
+interface OptionCardListProps {
+  options: OptionCardProps[];
+  type: OptionCardType;
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
+}
 
 function OptionCardList({
   options,
   type,
   setOpenedModalId,
 }: OptionCardListProps) {
+  const { currentEstimation } = useContext(EstimationContext)!;
   const [page, setPage] = useState(0);
-  const cardPerPage = type === 'additional' ? 8 : 12;
+  const cardPerPage = type === 'basic' ? 12 : 8;
   const maxPageNum = Math.ceil(options.length / cardPerPage);
   const startIndex = page * cardPerPage;
   const endIndex =
@@ -23,6 +34,11 @@ function OptionCardList({
         key={item.id}
         data={item}
         type={type}
+        selected={
+          currentEstimation.options.findIndex(
+            option => option.name === item.name,
+          ) !== -1
+        }
         setOpenedModalId={setOpenedModalId}
       ></OptionCard>
     );
@@ -30,7 +46,7 @@ function OptionCardList({
 
   const OptionMoveBtnList = () => {
     const buttons = [];
-    const btnStartIndex = Math.floor(page / 5) * 5; //0, 5, 10
+    const btnStartIndex = Math.floor(page / 5) * 5;
     const btnEndIndex = Math.min(btnStartIndex + 4, maxPageNum);
     for (let i = btnStartIndex; i < btnEndIndex; i++) {
       buttons.push(
@@ -47,6 +63,24 @@ function OptionCardList({
     return buttons;
   };
 
+  const OptionMoveBtn = (
+    <OptionCardPageMoveBtnBox>
+      <img
+        src="/images/leftArrow_icon_basic.svg"
+        onClick={() => {
+          setPage(page === 0 ? 0 : page - 1);
+        }}
+      ></img>
+      <div className="btn_list">{OptionMoveBtnList()}</div>
+      <img
+        src="/images/rightArrow_icon_basic.svg"
+        onClick={() => {
+          setPage(page === maxPageNum - 1 ? maxPageNum - 1 : page + 1);
+        }}
+      ></img>
+    </OptionCardPageMoveBtnBox>
+  );
+
   return (
     <OptionCardListAdditionalAllBox>
       <TotalOptionNumber>
@@ -56,31 +90,9 @@ function OptionCardList({
         </span>
       </TotalOptionNumber>
       <OptionCardListBox>{optionCardListShow}</OptionCardListBox>
-      {maxPageNum > 1 && (
-        <OptionCardPageMoveBtnBox>
-          <img
-            src="/images/leftArrow_icon_basic.svg"
-            onClick={() => {
-              setPage(page === 0 ? 0 : page - 1);
-            }}
-          ></img>
-          <div className="btn_list">{OptionMoveBtnList()}</div>
-          <img
-            src="/images/rightArrow_icon_basic.svg"
-            onClick={() => {
-              setPage(page === maxPageNum - 1 ? maxPageNum - 1 : page + 1);
-            }}
-          ></img>
-        </OptionCardPageMoveBtnBox>
-      )}
+      {maxPageNum > 1 && OptionMoveBtn}
     </OptionCardListAdditionalAllBox>
   );
-}
-
-interface OptionCardListProps {
-  options: OptionCardProps[];
-  type: 'additional' | 'basic';
-  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const OptionCardListAdditionalAllBox = styled.div`
@@ -137,4 +149,4 @@ const OptionCardPageMoveBtn = styled.div<{ index: number; page: number }>`
   cursor: pointer;
 `;
 
-export { OptionCardList };
+export default OptionCardList;
