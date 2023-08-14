@@ -26,7 +26,7 @@ public class BodyType {
 	@Column(name = "body_type_id")
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 30)
 	private String name;
 
 	@Column(nullable = false)

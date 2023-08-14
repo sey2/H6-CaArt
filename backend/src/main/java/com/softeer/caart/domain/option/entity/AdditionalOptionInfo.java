@@ -47,7 +47,7 @@ public class AdditionalOptionInfo {
 	private Boolean isSetOption = false;
 
 	@Enumerated(value = EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, length = 30)
 	private Badge badge;
 
 	@Column(nullable = false)
