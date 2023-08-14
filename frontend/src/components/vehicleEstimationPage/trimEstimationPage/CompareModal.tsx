@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import useModal from '../../../hooks/useModal';
 
 function CompareModal({
   setter,
@@ -156,7 +157,7 @@ function CompareModal({
     Exclusive: [
       {
         option: 'wheel',
-        imgSrc: '/images/carComponent/wheel.svg',
+        imgSrc: '/images/carComponent/18_wheel.svg',
         name: '기본 휠',
         inch: '18 inch',
       },
@@ -271,81 +272,113 @@ function CompareModal({
     ));
   }
 
+  useModal();
+
   return (
-    <Overlay onClick={() => setter(false)}>
+    <Modal>
+      <Overlay onClick={() => setter(false)} />
       <Wrapper onClick={e => e.stopPropagation()}>
-        <Header className="head-medium-22 text-grey-50">
-          비교하기
-          <X src="/images/x_icon.svg" onClick={() => setter(false)} />
-        </Header>
-        <Grid>
-          {data.trimList.map(trim => (
-            <>
-              <Item key={trim.trimName}>
-                <CarImage src={trim.trimImage} />
-                <Box>
-                  <p className="body-regular-14 text-grey-300">
-                    {trim.trimInfo}
-                  </p>
-                  <p className="head-medium-20 text-grey-0">{trim.trimName}</p>
-                  <p
-                    className="body-medium-16 text-grey-200"
-                    style={{ marginBottom: 26 }}
-                  >
-                    &#8361;&nbsp;
-                    {trim.trimPrice.toLocaleString()}
-                    &nbsp;
-                    <span className="body-regular-16 ">부터</span>
-                  </p>
-                  <p className="body-medium-14 text-grey-200">외장 색상</p>
-                  <OuterColorContainer>
-                    {setColor(trim.trimOuterColor)}
-                  </OuterColorContainer>
-                  <p className="body-medium-14 text-grey-200">내장 색상</p>
-                  <InnerColorContainer>
-                    {setInnerColor(trim.trimInnerColor)}
-                  </InnerColorContainer>
-                  <Hr />
-                  <OptionBox gap={51}>
-                    {Object.entries(commonOption).map(item => {
-                      if (item[0] === trim.trimName) {
-                        return item[1].map(option => (
-                          <>
-                            <Option key={option.name}>
-                              <img src={option.imgSrc} />
-                              <InchSpan>{option.inch}</InchSpan>
-                              <NameSpan>{option.name}</NameSpan>
-                            </Option>
-                          </>
-                        ));
-                      }
-                    })}
-                  </OptionBox>
-                  <Hr />
-                  <span className="body-medium-14 text-grey-300">
-                    기본 옵션
-                  </span>
-                  <OptionBox
-                    gap={8}
-                    className="text-secondary-active-blue body-regular-14"
-                  >
-                    {trim.trimOption.map(option => (
-                      <>
-                        <span key={option.name}>{option.name}</span>
-                      </>
-                    ))}
-                  </OptionBox>
-                </Box>
-              </Item>
-            </>
-          ))}
-        </Grid>
+        <Wrapperbox>
+          <Header className="head-medium-22 text-grey-50">
+            비교하기
+            <X src="/images/x_icon.svg" onClick={() => setter(false)} />
+          </Header>
+          <Grid>
+            {data.trimList.map(trim => (
+              <>
+                <Item key={trim.trimName}>
+                  <CarImage src={trim.trimImage} />
+                  <Box>
+                    <p className="body-regular-14 text-grey-300">
+                      {trim.trimInfo}
+                    </p>
+                    <p className="head-medium-20 text-grey-0">
+                      {trim.trimName}
+                    </p>
+                    <p
+                      className="body-medium-16 text-grey-200"
+                      style={{ marginBottom: 26 }}
+                    >
+                      &#8361;&nbsp;
+                      {trim.trimPrice.toLocaleString()}
+                      &nbsp;
+                      <span className="body-regular-16 ">부터</span>
+                    </p>
+                    <p className="body-medium-14 text-grey-200">외장 색상</p>
+                    <OuterColorContainer>
+                      {setColor(trim.trimOuterColor)}
+                    </OuterColorContainer>
+                    <p className="body-medium-14 text-grey-200">내장 색상</p>
+                    <InnerColorContainer>
+                      {setInnerColor(trim.trimInnerColor)}
+                    </InnerColorContainer>
+                    <Hr />
+                    <OptionBox gap={51}>
+                      {Object.entries(commonOption).map(item => {
+                        if (item[0] === trim.trimName) {
+                          return item[1].map(option => (
+                            <>
+                              <Option key={option.name}>
+                                <img src={option.imgSrc} />
+                                <InchSpan>{option.inch}</InchSpan>
+                                <NameSpan>{option.name}</NameSpan>
+                              </Option>
+                            </>
+                          ));
+                        }
+                      })}
+                    </OptionBox>
+                    <Hr />
+                    <span className="body-medium-14 text-grey-300">
+                      기본 옵션
+                    </span>
+                    <OptionBox
+                      gap={8}
+                      className="text-secondary-active-blue body-regular-14"
+                    >
+                      {trim.trimOption.map(option => (
+                        <>
+                          <span key={option.name}>{option.name}</span>
+                        </>
+                      ))}
+                    </OptionBox>
+                  </Box>
+                </Item>
+              </>
+            ))}
+          </Grid>
+        </Wrapperbox>
       </Wrapper>
-    </Overlay>
+    </Modal>
   );
 }
 
 export default CompareModal;
+
+const Modal = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const Wrapperbox = styled.div`
+  border-radius: 12px;
+  padding: 24px 38px 48px 38px;
+  margin-top: 70px;
+  margin-bottom: 148px;
+  width: 900px;
+  height: 1500px;
+  background-color: #fff;
+`;
 
 const Grid = styled.div`
   display: grid;
@@ -361,15 +394,10 @@ const Item = styled.div`
 `;
 
 const Overlay = styled.div`
-  width: 100vw;
-  height: 1550px;
+  width: 100%;
+  height: 1650px;
   background: rgba(15, 17, 20, 0.55);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
-  top: 0;
-  left: 0;
   z-index: 5;
 `;
 
@@ -380,14 +408,13 @@ const Header = styled.div`
 `;
 
 const Wrapper = styled.div`
+  position: relative;
   width: 900px;
-  height: 1470px;
+  height: 100vh;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 12px;
-  flex-shrink: 0;
-  background: #fff;
-  padding: 24px 38px 48px 38px;
-  margin-top: 148px;
-  margin-bottom: 148px;
+  z-index: 10;
 `;
 
 const X = styled.img`
@@ -411,11 +438,12 @@ const Box = styled.div`
   gap: 8px;
 `;
 
-const Hr = styled.hr`
-  width: 140px;
+const Hr = styled.div`
+  width: 160px;
+  height: 1px;
   margin-top: 33px;
   margin-bottom: 33px;
-  border-color: var(--primary-blue-10);
+  background: var(--primary-blue-10);
 `;
 
 const OptionBox = styled.div<{ gap: number }>`

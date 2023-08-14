@@ -8,7 +8,7 @@ interface FetchResponse<T> {
   status: FetchStatus;
 }
 
-const BASE_URL = 'http://api.ca-art.store';
+const BASE_URL = 'https://api.ca-art.store';
 
 const useFetch = <T>(url: string): FetchResponse<T> => {
   const [data, setData] = useState<T | null>(null);

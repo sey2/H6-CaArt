@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
-import { priceToString } from "../../../util/PriceToString";
+import { priceToString } from '../../../util/PriceToString';
 
 interface Engine {
   engineName: string;
@@ -103,13 +103,11 @@ function EBWGuideModal({
             <InfoBottom>
               <SpanDiv>
                 <span className="head-regular-14 text-grey-400"></span>
-                <span className="head-medium-14 text-grey-200">
-                </span>
+                <span className="head-medium-14 text-grey-200"></span>
               </SpanDiv>
               <SpanDiv>
                 <span className="head-regular-14 text-grey-400"></span>
-                <span className="head-medium-14 text-grey-200">
-                </span>
+                <span className="head-medium-14 text-grey-200"></span>
               </SpanDiv>
             </InfoBottom>
           </div>
@@ -143,8 +141,7 @@ function EBWGuideModal({
               </SpanDiv>
               <SpanDiv>
                 <span className="head-regular-14 text-grey-400"></span>
-                <span className="head-medium-14 text-grey-200">
-                </span>
+                <span className="head-medium-14 text-grey-200"></span>
               </SpanDiv>
             </InfoBottom>
           </div>
@@ -154,7 +151,7 @@ function EBWGuideModal({
   }
 
   function contentHandler(selected: NavType) {
-    switch(selected){
+    switch (selected) {
       case 'carEngines':
         return getEngineInfo();
       case 'bodyTypes':
@@ -226,15 +223,21 @@ function EBWGuideModal({
           <X src="/images/x_icon.svg" onClick={() => setter(false)} />
         </NavBar>
         <Hhr />
-        <Content>
-          {contentHandler(selectedNav)}
-        </Content>
+        <Content>{contentHandler(selectedNav)}</Content>
       </Wrapper>
     </Modal>
   );
 }
 
 export default EBWGuideModal;
+
+const Overlay = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 17, 20, 0.55);
+  position: relative;
+  z-index: 3;
+`;
 
 const Wrapper = styled.div`
   width: 800px;
@@ -282,14 +285,6 @@ const InfoTop = styled.div`
 const InfoBottom = styled.div`
   display: findByLabelText;
   gap: 7px;
-`;
-
-const Overlay = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: rgba(15, 17, 20, 0.55);
-  position: relative;
-  z-index: 3;
 `;
 
 const X = styled.img`
