@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import useModal from '../../../hooks/useModal';
 import { LifeStylePeekForYou } from './LifeStylePeekForYou';
 import { LifeStylePeekInterview } from './LifeStylePeekInterview';
 import { LifeStylePeekProfile } from './LifeStylePeekProfile';
@@ -27,18 +28,7 @@ function LifeStylePeekModal({
 }: LifeStylePeekProps & {
   setOpenedModalNum: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  useEffect(() => {
-    document.body.style.cssText = `
-      position: fixed;
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = '';
-      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-    };
-  }, []);
+  useModal();
 
   return (
     <ModalBox>

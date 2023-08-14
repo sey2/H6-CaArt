@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { OptionInfoPopup } from './OptionInfoPopup';
+import OptionInfoPopup from './OptionInfoPopup';
 
 function OptionInfoPopupBtn({
   top,
@@ -76,4 +76,4 @@ const OptionInfoPopupBtnBox = styled.div<{
   }
 `;
 
-export { OptionInfoPopupBtn };
+export default OptionInfoPopupBtn;

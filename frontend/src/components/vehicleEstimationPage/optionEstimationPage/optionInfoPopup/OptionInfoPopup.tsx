@@ -43,7 +43,7 @@ const OptionInfoPopupBox = styled.div<{ top: number; left: number }>`
   border-radius: 8px;
   background: var(--grey-1000);
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: 0;
 
   ::after {
     content: '';
@@ -83,6 +83,7 @@ const OptionInfoPopupIcon = styled.img`
   position: absolute;
   top: 36px;
   right: 8px;
+  cursor: pointer;
 `;
 
-export { OptionInfoPopup };
+export default OptionInfoPopup;

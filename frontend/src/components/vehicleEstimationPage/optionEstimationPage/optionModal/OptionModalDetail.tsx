@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export interface OptionSetProps {
+  name: string;
+  description: string;
+  img: string;
+}
+
 function OptionModalDetail({
   options,
   optionNum,
@@ -47,12 +53,6 @@ function OptionModalDetail({
   );
 }
 
-export interface OptionSetProps {
-  name: string;
-  description: string;
-  img: string;
-}
-
 const OptionModalDetailBox = styled.div`
   padding-top: 28px;
   padding-left: 28px;
@@ -87,4 +87,4 @@ const OptionModalDetailBtn = styled.div<{ selected: boolean }>`
     props.selected ? `var(--secondary-active-blue)` : `var(--grey-700)`};
 `;
 
-export { OptionModalDetail };
+export default OptionModalDetail;

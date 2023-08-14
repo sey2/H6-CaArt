@@ -5,7 +5,7 @@ import SquareButton from '../../components/common/SquareButton';
 import OptionNavBar from '../../components/vehicleEstimationPage/optionEstimationPage/navBar/NavBar';
 import OptionCardList from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardList';
 import OptionCardListAdditionalTag from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardListAdditionalTag';
-import { OptionModal } from '../../components/vehicleEstimationPage/optionEstimationPage/optionModal/OptionModal';
+import OptionModal from '../../components/vehicleEstimationPage/optionEstimationPage/optionModal/OptionModal';
 
 function OptionEstimationPage() {
   const [isBasicOptionPage, setIsBasicOptionPage] = useState(false);

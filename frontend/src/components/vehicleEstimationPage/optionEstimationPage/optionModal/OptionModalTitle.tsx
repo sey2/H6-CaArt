@@ -1,41 +1,57 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { priceToString } from '../../../../util/PriceToString';
 import CircularButton from '../../../common/CircularButton';
 import { OptionModalProps } from './OptionModal';
+import { EstimationContext } from '../../../../util/Context';
 
 function OptionModalTitle({
   data,
   optionNum,
+  selected,
   setOpenedModalId,
 }: {
   data: OptionModalProps;
   optionNum: number;
+  selected?: boolean;
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
+  const { currentEstimation, addOption, deleteOption } =
+    useContext(EstimationContext)!;
+  const isSetOption = data.setOptions.length !== 0;
   return (
     <OptionModalTitleBox>
       <OptionModalTitleUpperBox>
         <OptionModalTitleTextBox>
-          <span className="body-medium-12 text-grey-400">
-            {data.setOptions.length !== 0 ? data.name : ''}
-          </span>
+          {isSetOption && (
+            <span className="body-medium-12 text-grey-400">{data.name}</span>
+          )}
           <OptionModalMainTitle className="head-medium-20 text-grey-0">
-            {data.setOptions.length !== 0
-              ? data.setOptions[optionNum].name
-              : data.name}
+            {isSetOption ? data.setOptions[optionNum].name : data.name}
           </OptionModalMainTitle>
           <span className="body-medium-16 text-grey-200">
             {priceToString(data.price)}
           </span>
         </OptionModalTitleTextBox>
         <SelectBtnBox>
-          <CircularButton></CircularButton>
+          <CircularButton
+            selected={selected}
+            onClick={() => {
+              if (selected) {
+                console.log('del', data.name);
+                deleteOption(data.name);
+              } else {
+                console.log('add', data.name, data.price);
+                addOption({ name: data.name, price: data.price });
+                console.log(currentEstimation);
+              }
+            }}
+          ></CircularButton>
         </SelectBtnBox>
       </OptionModalTitleUpperBox>
 
       <OptionModalDescriptionBox className="body-regular-14 text-grey-200">
-        {data.setOptions.length !== 0
+        {isSetOption
           ? data.setOptions[optionNum].description
           : data.description}
       </OptionModalDescriptionBox>
@@ -75,6 +91,10 @@ const OptionModalTitleTextBox = styled.div`
 const SelectBtnBox = styled.div`
   display: flex;
   padding-right: 24px;
+
+  button {
+    cursor: pointer;
+  }
 `;
 
 const OptionModalMainTitle = styled.div`
@@ -91,6 +111,7 @@ const IconBox = styled.img`
   position: absolute;
   top: 24px;
   right: 24px;
+  cursor: pointer;
 `;
 
-export { OptionModalTitle };
+export default OptionModalTitle;

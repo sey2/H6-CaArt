@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import OptionCard from '../optionCard/OptionCard';
-import { OptionInfoPopupBtn } from '../optionInfoPopup/OptionInfoPopupBtn';
+import OptionInfoPopupBtn from '../optionInfoPopup/OptionInfoPopupBtn';
 import { EstimationContext } from '../../../../util/Context';
 
 function OptionCardListAdditionalTag({

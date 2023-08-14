@@ -1,8 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { TagList } from '../../../common/TagList';
-import { OptionModalDetail, OptionSetProps } from './OptionModalDetail';
-import { OptionModalTitle } from './OptionModalTitle';
+import OptionModalDetail, { OptionSetProps } from './OptionModalDetail';
+import OptionModalTitle from './OptionModalTitle';
+import { EstimationContext } from '../../../../util/Context';
+import useModal from '../../../../hooks/useModal';
+
+export interface OptionModalProps {
+  name: string;
+  price: number;
+  description: string;
+  img: string;
+  tagList: string[];
+  setOptions: OptionSetProps[];
+}
 
 function OptionModal({
   data,
@@ -11,20 +22,9 @@ function OptionModal({
   data: OptionModalProps;
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
+  const { currentEstimation } = useContext(EstimationContext)!;
   const [optionNum, setOptionNum] = useState(0);
-
-  useEffect(() => {
-    document.body.style.cssText = `
-      position: fixed; 
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.cssText = '';
-      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-    };
-  }, []);
+  useModal();
 
   const optionModalList = data.setOptions.map((item, index) => {
     return (
@@ -39,6 +39,11 @@ function OptionModal({
           <OptionModalTitle
             data={data}
             optionNum={optionNum}
+            selected={
+              currentEstimation.options.findIndex(
+                option => option.name === data.name,
+              ) !== -1
+            }
             setOpenedModalId={setOpenedModalId}
           ></OptionModalTitle>
           <OptionModalDetail
@@ -51,6 +56,62 @@ function OptionModal({
     );
   });
 
+  const optionModalOne = (
+    <OptionModalBox selected>
+      <OptionModalTagImgBox>
+        <OptionModalImgBox src={data.img}></OptionModalImgBox>
+        <OptionModalTagList>
+          <TagList type="option" tagArr={data.tagList}></TagList>
+        </OptionModalTagList>
+      </OptionModalTagImgBox>
+      <div>
+        <OptionModalTitle
+          data={data}
+          optionNum={optionNum}
+          selected={
+            currentEstimation.options.findIndex(
+              option => option.name === data.name,
+            ) !== -1
+          }
+          setOpenedModalId={setOpenedModalId}
+        ></OptionModalTitle>
+        <OptionModalDetail
+          options={data.setOptions}
+          optionNum={optionNum}
+          setOptionNum={setOptionNum}
+        ></OptionModalDetail>
+      </div>
+    </OptionModalBox>
+  );
+
+  const optionModalSetList = (
+    <>
+      <OptionModalListBox optionNum={optionNum}>
+        {optionModalList}
+      </OptionModalListBox>
+
+      {data.setOptions.length !== 0 && optionNum !== 0 && (
+        <OptionModalLeftBtn
+          onClick={() => {
+            setOptionNum(optionNum - 1);
+          }}
+        >
+          <img src="/images/leftArrow_icon_basic.svg"></img>
+        </OptionModalLeftBtn>
+      )}
+      {data.setOptions.length !== 0 &&
+        optionNum !== data.setOptions.length - 1 && (
+          <OptionModalRightBtn
+            onClick={() => {
+              setOptionNum(optionNum + 1);
+            }}
+          >
+            <img src="/images/rightArrow_icon_basic.svg"></img>
+          </OptionModalRightBtn>
+        )}
+    </>
+  );
+
   return (
     <ModalBox>
       <OverlayBox
@@ -60,56 +121,8 @@ function OptionModal({
       ></OverlayBox>
       <WrapperBox>
         <>
-          {data.setOptions.length === 0 && (
-            <OptionModalBox selected>
-              <OptionModalTagImgBox>
-                <OptionModalImgBox src={data.img}></OptionModalImgBox>
-                <OptionModalTagList>
-                  <TagList type="option" tagArr={data.tagList}></TagList>
-                </OptionModalTagList>
-              </OptionModalTagImgBox>
-              <div>
-                <OptionModalTitle
-                  data={data}
-                  optionNum={optionNum}
-                  setOpenedModalId={setOpenedModalId}
-                ></OptionModalTitle>
-                <OptionModalDetail
-                  options={data.setOptions}
-                  optionNum={optionNum}
-                  setOptionNum={setOptionNum}
-                ></OptionModalDetail>
-              </div>
-            </OptionModalBox>
-          )}
-
-          {data.setOptions.length !== 0 && (
-            <>
-              <OptionModalListBox optionNum={optionNum}>
-                {optionModalList}
-              </OptionModalListBox>
-
-              {data.setOptions.length !== 0 && optionNum !== 0 && (
-                <OptionModalLeftBtn
-                  onClick={() => {
-                    setOptionNum(optionNum - 1);
-                  }}
-                >
-                  <img src="/images/leftArrow_icon_basic.svg"></img>
-                </OptionModalLeftBtn>
-              )}
-              {data.setOptions.length !== 0 &&
-                optionNum !== data.setOptions.length - 1 && (
-                  <OptionModalRightBtn
-                    onClick={() => {
-                      setOptionNum(optionNum + 1);
-                    }}
-                  >
-                    <img src="/images/rightArrow_icon_basic.svg"></img>
-                  </OptionModalRightBtn>
-                )}
-            </>
-          )}
+          {data.setOptions.length === 0 && optionModalOne}
+          {data.setOptions.length !== 0 && optionModalSetList}
         </>
       </WrapperBox>
     </ModalBox>
@@ -118,16 +131,24 @@ function OptionModal({
 
 const ModalBox = styled.div`
   position: fixed;
+  width: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   z-index: 3;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const OverlayBox = styled.div`
   width: 100vw;
   height: 100vh;
+  position: absolute;
   background: rgba(15, 17, 20, 0.55);
-  position: relative;
   z-index: 5;
 `;
 
@@ -135,21 +156,12 @@ const WrapperBox = styled.div`
   width: 900px;
   height: 440px;
   border-radius: 12px;
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
 `;
-
-export interface OptionModalProps {
-  name: string;
-  price: number;
-  description: string;
-  img: string;
-  tagList: string[];
-  setOptions: OptionSetProps[];
-}
 
 const OptionModalBox = styled.div<{ selected: boolean }>`
   display: flex;
@@ -187,32 +199,29 @@ const OptionModalListBox = styled.div<{ optionNum: number }>`
   transition: all 1s;
 `;
 
-const OptionModalLeftBtn = styled.div`
+const OptionModalBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
   top: 195px;
-  left: -102px;
   width: 50px;
   height: 50px;
   border-radius: 4px;
   background: rgba(0, 0, 0, 0.1);
   z-index: 20;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
 `;
 
-const OptionModalRightBtn = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 195px;
+const OptionModalLeftBtn = styled(OptionModalBtn)`
+  left: -102px;
+`;
+
+const OptionModalRightBtn = styled(OptionModalBtn)`
   right: -102px;
-  width: 50px;
-  height: 50px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.4);
-  z-index: 20;
 `;
 
-export { OptionModal };
+export default OptionModal;
