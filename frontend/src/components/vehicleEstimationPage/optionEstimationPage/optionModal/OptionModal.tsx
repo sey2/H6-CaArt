@@ -1,96 +1,96 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { TagList } from '../../../common/TagList';
-import OptionModalDetail, { OptionSetProps } from './OptionModalDetail';
+import OptionModalDetail from './OptionModalDetail';
 import OptionModalTitle from './OptionModalTitle';
 import { EstimationContext } from '../../../../util/Context';
 import useModal from '../../../../hooks/useModal';
+import { useFetch } from '../../../../hooks/useFetch';
+import { ErrorPopup } from '../../../common/ErrorPopup';
 
-export interface OptionModalProps {
-  name: string;
-  price: number;
+export interface SubOptionProps {
+  optionName: string;
   description: string;
-  img: string;
-  tagList: string[];
-  setOptions: OptionSetProps[];
+  optionImage: string;
+}
+
+export interface OptionProps {
+  optionId: number;
+  optionName: string;
+  optionPrice: number;
+  description: string | null;
+  optionImage: string;
+  tags: string[];
+  subOptions: SubOptionProps[];
 }
 
 function OptionModal({
-  data,
+  openedModalId,
   setOpenedModalId,
 }: {
-  data: OptionModalProps;
+  openedModalId: number;
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const { currentEstimation } = useContext(EstimationContext)!;
   const [optionNum, setOptionNum] = useState(0);
   useModal();
 
-  const optionModalList = data.setOptions.map((item, index) => {
-    return (
-      <OptionModalBox key={item.name} selected={index === optionNum}>
-        <OptionModalTagImgBox>
-          <OptionModalImgBox src={item.img}></OptionModalImgBox>
-          <OptionModalTagList>
-            <TagList type="option" tagArr={data.tagList}></TagList>
-          </OptionModalTagList>
-        </OptionModalTagImgBox>
-        <div>
-          <OptionModalTitle
-            data={data}
-            optionNum={optionNum}
-            selected={
-              currentEstimation.options.findIndex(
-                option => option.name === data.name,
-              ) !== -1
-            }
-            setOpenedModalId={setOpenedModalId}
-          ></OptionModalTitle>
-          <OptionModalDetail
-            options={data.setOptions}
-            optionNum={optionNum}
-            setOptionNum={setOptionNum}
-          ></OptionModalDetail>
-        </div>
-      </OptionModalBox>
-    );
-  });
-
-  const optionModalOne = (
-    <OptionModalBox selected>
-      <OptionModalTagImgBox>
-        <OptionModalImgBox src={data.img}></OptionModalImgBox>
-        <OptionModalTagList>
-          <TagList type="option" tagArr={data.tagList}></TagList>
-        </OptionModalTagList>
-      </OptionModalTagImgBox>
-      <div>
-        <OptionModalTitle
-          data={data}
-          optionNum={optionNum}
-          selected={
-            currentEstimation.options.findIndex(
-              option => option.name === data.name,
-            ) !== -1
-          }
-          setOpenedModalId={setOpenedModalId}
-        ></OptionModalTitle>
-        <OptionModalDetail
-          options={data.setOptions}
-          optionNum={optionNum}
-          setOptionNum={setOptionNum}
-        ></OptionModalDetail>
-      </div>
-    </OptionModalBox>
+  const { data, status, error } = useFetch<OptionProps>(
+    `/options/additional?optionId=${openedModalId}`,
   );
+  if (status === 'loading') {
+    return <div>loading</div>;
+  } else if (status === 'error') {
+    console.error(error);
+    return <ErrorPopup></ErrorPopup>;
+  }
+  if (data === null) return <div></div>;
+
+  function generateOptionModal(
+    item: SubOptionProps | OptionProps,
+    index: number,
+    selected: boolean,
+  ) {
+    if (data !== null) {
+      return (
+        <OptionModalBox key={item.optionName} selected={selected}>
+          <OptionModalTagImgBox>
+            <OptionModalImgBox src={item.optionImage}></OptionModalImgBox>
+            <OptionModalTagList>
+              <TagList type="option" tagArr={data.tags}></TagList>
+            </OptionModalTagList>
+          </OptionModalTagImgBox>
+          <div>
+            <OptionModalTitle
+              option={data}
+              optionNum={index}
+              selected={
+                currentEstimation.options.findIndex(
+                  option => option.name === data.optionName,
+                ) !== -1
+              }
+              setOpenedModalId={setOpenedModalId}
+            ></OptionModalTitle>
+            <OptionModalDetail
+              options={data.subOptions}
+              optionNum={index}
+              setOptionNum={setOptionNum}
+            ></OptionModalDetail>
+          </div>
+        </OptionModalBox>
+      );
+    }
+  }
 
   const optionModalSetList = (
     <>
       <OptionModalListBox optionNum={optionNum}>
-        {optionModalList}
+        {data.subOptions.map((item, index) => {
+          return generateOptionModal(item, index, index === optionNum);
+        })}
       </OptionModalListBox>
 
-      {data.setOptions.length !== 0 && optionNum !== 0 && (
+      {optionNum !== 0 && (
         <OptionModalLeftBtn
           onClick={() => {
             setOptionNum(optionNum - 1);
@@ -99,18 +99,19 @@ function OptionModal({
           <img src="/images/leftArrow_icon_basic.svg"></img>
         </OptionModalLeftBtn>
       )}
-      {data.setOptions.length !== 0 &&
-        optionNum !== data.setOptions.length - 1 && (
-          <OptionModalRightBtn
-            onClick={() => {
-              setOptionNum(optionNum + 1);
-            }}
-          >
-            <img src="/images/rightArrow_icon_basic.svg"></img>
-          </OptionModalRightBtn>
-        )}
+      {optionNum !== data.subOptions.length - 1 && (
+        <OptionModalRightBtn
+          onClick={() => {
+            setOptionNum(optionNum + 1);
+          }}
+        >
+          <img src="/images/rightArrow_icon_basic.svg"></img>
+        </OptionModalRightBtn>
+      )}
     </>
   );
+
+  const optionModalOne = generateOptionModal(data, optionNum, true);
 
   return (
     <ModalBox>
@@ -121,8 +122,8 @@ function OptionModal({
       ></OverlayBox>
       <WrapperBox>
         <>
-          {data.setOptions.length === 0 && optionModalOne}
-          {data.setOptions.length !== 0 && optionModalSetList}
+          {data.subOptions.length === 0 && optionModalOne}
+          {data.subOptions.length !== 0 && optionModalSetList}
         </>
       </WrapperBox>
     </ModalBox>

@@ -2,35 +2,38 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { priceToString } from '../../../../util/PriceToString';
 import CircularButton from '../../../common/CircularButton';
-import { OptionModalProps } from './OptionModal';
 import { EstimationContext } from '../../../../util/Context';
+import { OptionProps } from './OptionModal';
 
 function OptionModalTitle({
-  data,
+  option,
   optionNum,
   selected,
   setOpenedModalId,
 }: {
-  data: OptionModalProps;
+  option: OptionProps;
   optionNum: number;
   selected?: boolean;
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  const { currentEstimation, addOption, deleteOption } =
-    useContext(EstimationContext)!;
-  const isSetOption = data.setOptions.length !== 0;
+  const { addOption, deleteOption } = useContext(EstimationContext)!;
+  const isSetOption = option.subOptions.length !== 0;
   return (
     <OptionModalTitleBox>
       <OptionModalTitleUpperBox>
         <OptionModalTitleTextBox>
           {isSetOption && (
-            <span className="body-medium-12 text-grey-400">{data.name}</span>
+            <span className="body-medium-12 text-grey-400">
+              {option.optionName}
+            </span>
           )}
           <OptionModalMainTitle className="head-medium-20 text-grey-0">
-            {isSetOption ? data.setOptions[optionNum].name : data.name}
+            {isSetOption
+              ? option.subOptions[optionNum].optionName
+              : option.optionName}
           </OptionModalMainTitle>
           <span className="body-medium-16 text-grey-200">
-            {priceToString(data.price)}
+            {priceToString(option.optionPrice)}
           </span>
         </OptionModalTitleTextBox>
         <SelectBtnBox>
@@ -38,12 +41,12 @@ function OptionModalTitle({
             selected={selected}
             onClick={() => {
               if (selected) {
-                console.log('del', data.name);
-                deleteOption(data.name);
+                deleteOption(option.optionName);
               } else {
-                console.log('add', data.name, data.price);
-                addOption({ name: data.name, price: data.price });
-                console.log(currentEstimation);
+                addOption({
+                  name: option.optionName,
+                  price: option.optionPrice,
+                });
               }
             }}
           ></CircularButton>
@@ -52,8 +55,8 @@ function OptionModalTitle({
 
       <OptionModalDescriptionBox className="body-regular-14 text-grey-200">
         {isSetOption
-          ? data.setOptions[optionNum].description
-          : data.description}
+          ? option.subOptions[optionNum].description
+          : option.description}
       </OptionModalDescriptionBox>
 
       <IconBox
@@ -69,7 +72,7 @@ function OptionModalTitle({
 const OptionModalTitleBox = styled.div`
   position: relative;
   width: 344px;
-  height: 250px;
+  min-height: 250px;
 `;
 
 const OptionModalTitleUpperBox = styled.div`
@@ -90,7 +93,8 @@ const OptionModalTitleTextBox = styled.div`
 
 const SelectBtnBox = styled.div`
   display: flex;
-  padding-right: 24px;
+  position: absolute;
+  right: 24px;
 
   button {
     cursor: pointer;
@@ -98,7 +102,7 @@ const SelectBtnBox = styled.div`
 `;
 
 const OptionModalMainTitle = styled.div`
-  width: 167px;
+  width: 314px;
 `;
 
 const OptionModalDescriptionBox = styled.div`
@@ -112,6 +116,10 @@ const IconBox = styled.img`
   top: 24px;
   right: 24px;
   cursor: pointer;
+
+  &:hover {
+    background: var(--grey-700);
+  }
 `;
 
 export default OptionModalTitle;

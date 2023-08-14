@@ -59,7 +59,7 @@ function OptionEstimationPage() {
 
       {openedModalId !== 0 && (
         <OptionModal
-          data={modalData}
+          openedModalId={openedModalId}
           setOpenedModalId={setOpenedModalId}
         ></OptionModal>
       )}
@@ -88,46 +88,6 @@ const OptionEstimationPageBtn = styled.div`
 `;
 
 export default OptionEstimationPage;
-
-const modalData = {
-  name: '컴포트2',
-  price: 1090000,
-  description: '테스트 컴포트2 설명',
-  img: 'https://picsum.photos/200/300',
-  tagList: ['안전', '스타일'],
-  setOptions: [
-    {
-      name: '세트옵션1',
-      description: '세트옵션 설명1',
-      img: 'https://picsum.photos/200/300',
-    },
-    {
-      name: '세트옵션2',
-      description: '세트옵션 설명2',
-      img: 'https://picsum.photos/200/300',
-    },
-    {
-      name: '세트옵션3',
-      description: '세트옵션 설명3',
-      img: 'https://picsum.photos/200/300',
-    },
-    {
-      name: '세트옵션4',
-      description: '세트옵션 설명4',
-      img: 'https://picsum.photos/200/300',
-    },
-    {
-      name: '세트옵션5',
-      description: '세트옵션 설명5',
-      img: 'https://picsum.photos/200/300',
-    },
-    {
-      name: '세트옵션6',
-      description: '세트옵션 설명6',
-      img: 'https://picsum.photos/200/300',
-    },
-  ],
-};
 
 const data = [
   {

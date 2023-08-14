@@ -1,18 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-
-export interface OptionSetProps {
-  name: string;
-  description: string;
-  img: string;
-}
+import { truncateString } from '../../../../util/TruncateString';
+import { SubOptionProps } from './OptionModal';
 
 function OptionModalDetail({
   options,
   optionNum,
   setOptionNum,
 }: {
-  options: OptionSetProps[];
+  options: SubOptionProps[];
   optionNum: number;
   setOptionNum: React.Dispatch<React.SetStateAction<number>>;
 }) {
@@ -28,7 +24,7 @@ function OptionModalDetail({
           setOptionNum(index);
         }}
       >
-        {item.name}
+        {truncateString(item.optionName, 12)}
       </span>
     );
   });
@@ -63,12 +59,16 @@ const OptionModalDetailBox = styled.div`
 const OptionModalDetailListBox = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 260px;
+  width: 314px;
   gap: 14px;
 
   span {
     width: 45%;
     cursor: pointer;
+  }
+
+  span:hover {
+    color: var(--secondary-active-blue);
   }
 `;
 
@@ -85,6 +85,11 @@ const OptionModalDetailBtn = styled.div<{ selected: boolean }>`
   cursor: pointer;
   background: ${props =>
     props.selected ? `var(--secondary-active-blue)` : `var(--grey-700)`};
+
+  &:hover {
+    background: var(--secondary-active-blue);
+    opacity: 0.6;
+  }
 `;
 
 export default OptionModalDetail;

@@ -8,7 +8,7 @@ function Tag({ tag, type, selected }: TagProps) {
       type={type}
       selected={selected}
     >
-      {tag}
+      {`#${tag}`}
     </TagBox>
   );
 }
