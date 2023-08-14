@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.14'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'jacoco'
+    id "io.sentry.jvm.gradle" version "3.11.1"
 }
 
 group = 'com.softeer'
@@ -26,9 +27,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
+    implementation 'io.sentry:sentry-spring-boot-starter:6.27.0' // Sentry
+    implementation 'io.sentry:sentry-logback:6.27.0' // logging
+    implementation 'org.springframework.boot:spring-boot-starter-aop' // @aspect
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
+    implementation 'com.google.code.gson:gson:2.9.0' // Gson
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2'
 }
@@ -61,3 +67,12 @@ tasks.register('testCoverage', Test) {
 jar {
     enabled = false
 }
+
+sentry {
+    includeSourceContext = true
+
+    org = "___ORG_SLUG___"
+    projectName = "ca_art"
+    authToken = "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"
+}
+
