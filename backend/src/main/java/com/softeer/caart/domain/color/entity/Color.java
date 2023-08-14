@@ -44,11 +44,11 @@ public class Color {
 		this.isExterior = isExterior;
 	}
 
-	public Boolean isExterior() {
+	public Boolean isExteriorColor() {
 		return this.isExterior;
 	}
 
-	public Boolean isInterior() {
+	public Boolean isInteriorColor() {
 		return !this.isExterior;
 	}
 }

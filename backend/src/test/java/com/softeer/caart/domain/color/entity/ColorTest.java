@@ -18,7 +18,7 @@ class ColorTest {
 			.build();
 
 		// when
-		boolean exterior = color.isExterior();
+		boolean exterior = color.isExteriorColor();
 
 		// then
 		assertTrue(exterior);
@@ -36,7 +36,7 @@ class ColorTest {
 			.build();
 
 		// when
-		boolean interior = color.isInterior();
+		boolean interior = color.isInteriorColor();
 
 		// then
 		assertTrue(interior);

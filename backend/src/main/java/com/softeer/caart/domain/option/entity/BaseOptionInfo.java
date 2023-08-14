@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.softeer.caart.domain.Image;
+import com.softeer.caart.domain.option.exception.InvalidOptionException;
+import com.softeer.caart.global.ResultCode;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -33,8 +35,11 @@ public class BaseOptionInfo {
 	@Column(length = 50, nullable = false)
 	private String name;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String description;
+
+	@Column(nullable = false)
+	private Boolean isBasic;
 
 	@Embedded
 	private Image image;
@@ -43,9 +48,20 @@ public class BaseOptionInfo {
 	private List<OptionTag> tags = new ArrayList<>();
 
 	@Builder
-	public BaseOptionInfo(String name, String description, String imageUrl) {
+	public BaseOptionInfo(String name, String description, Boolean isBasic, String imageUrl) {
 		this.name = name;
 		this.description = description;
+		this.isBasic = isBasic;
 		this.image = Image.from(imageUrl);
+	}
+
+	public boolean isOptionTypeBasic() {
+		return this.isBasic;
+	}
+
+	public void validateBasicOption() {
+		if (!isOptionTypeBasic()) {
+			throw new InvalidOptionException(ResultCode.INVALID_BASIC_OPTION);
+		}
 	}
 }

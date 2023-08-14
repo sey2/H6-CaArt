@@ -17,6 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.softeer.caart.domain.option.exception.InvalidOptionException;
+import com.softeer.caart.global.ResultCode;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,8 +50,8 @@ public class AdditionalOptionInfo {
 	@Column(nullable = false)
 	private Badge badge;
 
-	@Column(nullable = true)
-	private String summary;    // 세트 옵션의 경우 null, 설명이 없는 옵션의 경우 "-"
+	@Column(nullable = false)
+	private String summary;
 
 	@Embedded
 	private Position position;
@@ -58,12 +61,23 @@ public class AdditionalOptionInfo {
 
 	@Builder
 	public AdditionalOptionInfo(BaseOptionInfo details, Integer price, Boolean isSetOption, Badge badge, String summary,
-		Position position) {
+		Position position, List<SubOptionInfo> subOptions) {
 		this.details = details;
 		this.price = price;
 		this.isSetOption = isSetOption;
 		this.badge = badge;
 		this.summary = summary;
 		this.position = position;
+		this.subOptions = subOptions;
+	}
+
+	public boolean isOptionTypeSet() {
+		return this.isSetOption;
+	}
+
+	public void validateAdditionalOption() {
+		if (details.isOptionTypeBasic()) {
+			throw new InvalidOptionException(ResultCode.INVALID_ADDITIONAL_OPTION);
+		}
 	}
 }

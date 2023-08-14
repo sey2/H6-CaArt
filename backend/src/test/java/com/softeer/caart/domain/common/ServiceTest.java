@@ -2,6 +2,8 @@ package com.softeer.caart.domain.common;
 
 import static com.softeer.caart.domain.option.entity.Badge.*;
 
+import java.util.List;
+
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
@@ -15,6 +17,7 @@ import com.softeer.caart.domain.composition.entity.CarEngine;
 import com.softeer.caart.domain.composition.entity.WheelDrive;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
+import com.softeer.caart.domain.option.entity.SubOptionInfo;
 import com.softeer.caart.domain.tag.entity.Tag;
 import com.softeer.caart.domain.trim.entity.Trim;
 
@@ -32,8 +35,11 @@ public class ServiceTest {
 	protected WheelDrive WD_4; // 4WD
 	protected Trim LeBlanc;
 	protected Trim Exclusive;
-	protected BaseOptionInfo 옵션;
-	protected AdditionalOptionInfo 세트옵션;
+	protected BaseOptionInfo 기본옵션O;
+	protected BaseOptionInfo 기본옵션X;
+	protected AdditionalOptionInfo 추가옵션_세트O_기본X; // isSetOption true, isBasic false
+	protected AdditionalOptionInfo 추가옵션_세트X_기본O; // isSetOption false, isBasic true (예외 케이스)
+	protected SubOptionInfo 자식옵션;
 	protected Tag 메인태그_우선순위10;
 	protected Tag 전체태그_우선순위5;
 
@@ -46,7 +52,9 @@ public class ServiceTest {
 		initBodyType();
 		initWheelDrive();
 		initTrim();
-		initOption();
+		initBaseOptionInfo();
+		initSubOptionInfo();
+		initAdditionalOptionInfo();
 		initTag();
 	}
 
@@ -124,24 +132,49 @@ public class ServiceTest {
 		ReflectionTestUtils.setField(Exclusive, "id", 2L);
 	}
 
-	private void initOption() {
-		옵션 = BaseOptionInfo.builder()
-			.name("옵션")
-			.description("옵션 설명")
+	private void initBaseOptionInfo() {
+		기본옵션O = BaseOptionInfo.builder()
+			.name("기본옵션")
+			.description("기본옵션 설명")
+			.isBasic(true)
 			.imageUrl("tmp")
 			.build();
-		ReflectionTestUtils.setField(옵션, "id", 1L);
-		세트옵션 = AdditionalOptionInfo.builder()
-			.details(BaseOptionInfo.builder()
-				.name("세트옵션")
-				.description("세트옵션 설명")
-				.imageUrl("tmp")
-				.build())
-			.price(0)
-			.badge(NONE)
-			.isSetOption(true)
+		ReflectionTestUtils.setField(기본옵션O, "id", 1L);
+		기본옵션X = BaseOptionInfo.builder()
+			.name("기본옵션X")
+			.description("기본옵션X 설명")
+			.isBasic(false)
+			.imageUrl("tmp")
 			.build();
-		ReflectionTestUtils.setField(세트옵션, "id", 2L);
+		ReflectionTestUtils.setField(기본옵션X, "id", 2L);
+	}
+
+	private void initSubOptionInfo() {
+		자식옵션 = SubOptionInfo.builder()
+			.details(기본옵션O)
+			.superOption(추가옵션_세트O_기본X)
+			.build();
+	}
+
+	private void initAdditionalOptionInfo() {
+		추가옵션_세트O_기본X = AdditionalOptionInfo.builder()
+			.details(기본옵션X)
+			.price(0)
+			.isSetOption(true)
+			.badge(NONE)
+			.summary("추가옵션_세트O")
+			.position(null)
+			.subOptions(List.of(자식옵션))
+			.build();
+		ReflectionTestUtils.setField(추가옵션_세트O_기본X, "id", 3L);
+		추가옵션_세트X_기본O = AdditionalOptionInfo.builder()
+			.details(기본옵션O)
+			.price(0)
+			.isSetOption(false)
+			.badge(NONE)
+			.summary("추가옵션_세트X")
+			.build();
+		ReflectionTestUtils.setField(추가옵션_세트X_기본O, "id", 3L);
 	}
 
 	private void initTag() {

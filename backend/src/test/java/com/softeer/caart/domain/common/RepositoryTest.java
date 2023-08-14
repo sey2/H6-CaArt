@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
-import com.softeer.caart.domain.option.repository.OptionRepository;
+import com.softeer.caart.domain.option.repository.BaseOptionInfoRepository;
 import com.softeer.caart.domain.trim.entity.MainOptionOfTrim;
 import com.softeer.caart.domain.trim.entity.Trim;
 import com.softeer.caart.domain.trim.repository.MainOptionOfTrimRepository;
@@ -32,7 +32,7 @@ public class RepositoryTest {
 	@Autowired
 	protected MainOptionOfTrimRepository mainOptionOfTrimRepository;
 	@Autowired
-	protected OptionRepository optionRepository;
+	protected BaseOptionInfoRepository baseOptionInfoRepository;
 
 	protected Trim LeBlanc;
 	protected Trim Exclusive;

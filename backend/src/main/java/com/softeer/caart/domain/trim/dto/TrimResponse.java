@@ -34,13 +34,13 @@ public class TrimResponse {
 			.collect(Collectors.toList());
 		this.exteriorColors = trim.getColors().stream()
 			.map(AvailableColor::getColor)
-			.filter(Color::isExterior)
+			.filter(Color::isExteriorColor)
 			.map(ColorResponse::from)
 			.sorted(Comparator.comparing(ColorResponse::getColorName))
 			.collect(Collectors.toList());
 		this.interiorColors = trim.getColors().stream()
 			.map(AvailableColor::getColor)
-			.filter(Color::isInterior)
+			.filter(Color::isInteriorColor)
 			.map(ColorResponse::from)
 			.sorted(Comparator.comparing(ColorResponse::getColorName))
 			.collect(Collectors.toList());

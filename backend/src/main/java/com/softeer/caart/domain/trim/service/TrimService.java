@@ -10,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.softeer.caart.domain.trim.dto.TrimResponse;
 import com.softeer.caart.domain.trim.repository.TrimRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
 public class TrimService {
