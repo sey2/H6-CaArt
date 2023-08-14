@@ -10,31 +10,34 @@ function TrimContainer({
   tooltipTypeSetter,
   tooltipPositionSetter,
 }: {
-  setter: React.Dispatch<React.SetStateAction<boolean>>,
-  optionModalPositionSetter: React.Dispatch<React.SetStateAction<{x:number, y:number}>>,
-  optionModalOpenSetter:React.Dispatch<React.SetStateAction<boolean>>,
-  tooltipOpenSetter:React.Dispatch<React.SetStateAction<boolean>>,
-  tooltipTypeSetter:React.Dispatch<React.SetStateAction<string|undefined>>,
-  tooltipPositionSetter:React.Dispatch<React.SetStateAction<{x:number, y:number}>>
+  setter: React.Dispatch<React.SetStateAction<boolean>>;
+  optionModalPositionSetter: React.Dispatch<
+    React.SetStateAction<{ x: number; y: number }>
+  >;
+  optionModalOpenSetter: React.Dispatch<React.SetStateAction<boolean>>;
+  tooltipOpenSetter: React.Dispatch<React.SetStateAction<boolean>>;
+  tooltipTypeSetter: React.Dispatch<React.SetStateAction<string | undefined>>;
+  tooltipPositionSetter: React.Dispatch<
+    React.SetStateAction<{ x: number; y: number }>
+  >;
 }) {
-  const trimList = ['Exclusive', 'Le Blanc', 'Prestige', 'Caligraphy'];
+  const trimList = ['Exclusive', 'Le Blanc', 'Prestige', 'Calligraphy'];
 
   function setTrimCard(trimLists: string[]) {
-    return trimLists.map((trim, index) => {
-      return (
-        <>
-          <TrimCard
-            trim={trim}
-            modalSetter={optionModalOpenSetter}
-            positionSetter={optionModalPositionSetter}
-            tooltipOpenSetter={tooltipOpenSetter}
-            tooltipPositionSetter={tooltipPositionSetter}
-            tooltipTypeSetter={tooltipTypeSetter}
-          />
-          {index !== trimLists.length && <Hr />}
+    return trimLists.map((trim, index) => (
+      <>
+        <TrimCard
+          key={index}
+          trim={trim}
+          modalSetter={optionModalOpenSetter}
+          positionSetter={optionModalPositionSetter}
+          tooltipOpenSetter={tooltipOpenSetter}
+          tooltipPositionSetter={tooltipPositionSetter}
+          tooltipTypeSetter={tooltipTypeSetter}
+        />
+        {index !== trimLists.length && <Hr />}
         </>
-      );
-    });
+    ));
   }
 
   return (
@@ -48,9 +51,7 @@ function TrimContainer({
           비교하기
         </CompareButton>
       </TrimHeader>
-      <>
-        {setTrimCard(trimList)}
-      </>
+      <>{setTrimCard(trimList)}</>
     </Box>
   );
 }

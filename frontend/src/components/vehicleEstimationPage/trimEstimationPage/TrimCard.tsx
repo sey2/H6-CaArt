@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { useFetch } from "../../../hooks/useFetch";
+import { useFetch } from '../../../hooks/useFetch';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
 
@@ -28,10 +28,6 @@ interface Trim {
   interiorColors: Color[];
 }
 
-interface TrimData {
-  trims: Trim[];
-}
-
 interface TrimCardType {
   trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Caligraphy' | string;
   modalSetter: React.Dispatch<React.SetStateAction<boolean>>;
@@ -53,9 +49,9 @@ function TrimCard({
   tooltipTypeSetter,
   tooltipPositionSetter,
 }: TrimCardType) {
-  const {data} = useFetch<TrimData>('/trims');
+  const { data } = useFetch<Trim[]>('/trims');
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
-  
+
   function handleModal(e: React.MouseEvent) {
     e.stopPropagation();
     const offsetX = e.nativeEvent.offsetX;
@@ -69,7 +65,7 @@ function TrimCard({
   }
 
   function getOptionList(trim: string) {
-    return data?.trims.map(trimItem => {
+    return data?.map(trimItem => {
       if (trimItem.trimName === trim) {
         return trimItem.mainOptions.map(option => (
           <>
@@ -86,7 +82,7 @@ function TrimCard({
     const enginePrice = currentEstimation.engine.price;
     const bodyPrice = currentEstimation.body.price;
     const wdPrice = currentEstimation.wd.price;
-    const trimPrice = data?.trims.find(
+    const trimPrice = data?.find(
       trimItem => trimItem.trimName === trim,
     )?.trimPrice;
     return enginePrice + bodyPrice + wdPrice + trimPrice!;
@@ -108,7 +104,7 @@ function TrimCard({
   return (
     <>
       <Wrapper>
-        {data?.trims.map(trimItem => {
+        {data?.map(trimItem => {
           if (trimItem.trimName === trim)
             return (
               <>

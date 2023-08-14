@@ -26,11 +26,9 @@ interface WheelDrive {
 }
 
 interface CompositionsData {
-  compositions: {
     carEngines: Engine[];
     bodyTypes: BodyType[];
     wheelDrives: WheelDrive[];
-  };
 }
 
 type NavType = 'carEngines' | 'bodyTypes' | 'wheelDrives' | string;
@@ -49,7 +47,7 @@ function EBWGuideModal({
   }, [data]);
 
   function getEngineInfo() {
-    const data = compositionData?.compositions['carEngines'];
+    const data = compositionData?.['carEngines'];
     return data?.map(item => (
       <>
         <Item>
@@ -85,7 +83,7 @@ function EBWGuideModal({
   }
 
   function getBodyInfo() {
-    const data = compositionData?.compositions['bodyTypes'];
+    const data = compositionData?.['bodyTypes'];
     return data?.map(item => (
       <>
         <Item>
@@ -117,10 +115,10 @@ function EBWGuideModal({
   }
 
   function getWdInfo() {
-    const data = compositionData?.compositions['wheelDrives'];
+    const data = compositionData?.['wheelDrives'];
     return data?.map(item => (
       <>
-        <Item>
+        <Item key={item.description}>
           <img src={item.wheelDriveImage} />
           <div>
             <InfoTop>
@@ -215,8 +213,8 @@ function EBWGuideModal({
       <Wrapper onClick={e => e.stopPropagation()}>
         <NavBar className="body-medium-18 text-grey-500">
           <NavItem>
-            {compositionData?.compositions &&
-              Object.keys(compositionData?.compositions as object).map(
+            {compositionData &&
+              Object.keys(compositionData as object).map(
                 navName => setNavItem(navName),
               )}
           </NavItem>

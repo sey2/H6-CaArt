@@ -46,10 +46,7 @@ function TrimEstimationPage() {
         />
       )}
 
-      <Wrapper
-        modalStatus={compareModalOpen}
-        onClick={closeModalHandler}
-      >
+      <Wrapper onClick={closeModalHandler}>
         <Header size="default" page={0} />
         <Layout>
           <TrimCarImage />
@@ -85,7 +82,7 @@ function TrimEstimationPage() {
 
 export default TrimEstimationPage;
 
-const Wrapper = styled.div<{ modalStatus: boolean}>`
+const Wrapper = styled.div`
   z-index: 4;
   ::-webkit-scrollbar {
     display: none;

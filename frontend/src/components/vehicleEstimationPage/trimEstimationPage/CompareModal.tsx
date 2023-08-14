@@ -267,7 +267,7 @@ function CompareModal({
   function setInnerColor(colorSet: string[]) {
     return colorSet.map(color => (
       <>
-        <p className="body-regular-14 text-grey-300">{color}</p>
+        <p key={color} className="body-regular-14 text-grey-300">{color}</p>
       </>
     ));
   }
