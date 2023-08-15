@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
+import { OptionType } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
 
@@ -39,6 +40,7 @@ interface TrimCardType {
   tooltipPositionSetter: React.Dispatch<
     React.SetStateAction<{ x: number; y: number }>
   >;
+  optionSetter: React.Dispatch<React.SetStateAction<OptionType | undefined>>;
 }
 
 function TrimCard({
@@ -48,19 +50,21 @@ function TrimCard({
   tooltipOpenSetter,
   tooltipTypeSetter,
   tooltipPositionSetter,
+  optionSetter,
 }: TrimCardType) {
   const { data } = useFetch<Trim[]>('/trims');
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
 
-  function handleModal(e: React.MouseEvent) {
+  function handleModal(e: React.MouseEvent, option: OptionType) {
     e.stopPropagation();
     const offsetX = e.nativeEvent.offsetX;
-    const offsetY = e.nativeEvent.offsetY;
+    // const offsetY = e.nativeEvent.offsetY;
     const clickedX = e.clientX;
     const clickedY = e.clientY;
     const x = clickedX - offsetX - 150;
-    const y = clickedY - offsetY - 421;
+    const y = clickedY / 2;
     positionSetter({ x, y });
+    optionSetter(option);
     modalSetter(true);
   }
 
@@ -69,7 +73,7 @@ function TrimCard({
       if (trimItem.trimName === trim) {
         return trimItem.mainOptions.map(option => (
           <>
-            <li key={option.optionName} onClick={e => handleModal(e)}>
+            <li key={option.optionName} onClick={e => handleModal(e, option)}>
               {option.optionName}
             </li>
           </>

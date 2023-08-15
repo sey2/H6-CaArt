@@ -10,6 +10,13 @@ import TrimCarImage from '../../components/vehicleEstimationPage/trimEstimationP
 import TrimContainer from '../../components/vehicleEstimationPage/trimEstimationPage/TrimContainer';
 import OptionExplainModal from '../../components/vehicleEstimationPage/trimEstimationPage/OptionExplainModal';
 
+export interface OptionType {
+  optionId: number;
+  optionName: string;
+  description: string;
+  optionImage: string;
+}
+
 function TrimEstimationPage() {
   const [infoModalOpen, setInfoModalOpen] = useState<boolean>(false);
   const [compareModalOpen, setComapreModalOpen] = useState<boolean>(false);
@@ -21,6 +28,7 @@ function TrimEstimationPage() {
     x: 0,
     y: 0,
   });
+  const [optionModalData, setOptionModalData] = useState<OptionType>();
 
   function closeModalHandler() {
     setTooltipOpen(false);
@@ -43,6 +51,7 @@ function TrimEstimationPage() {
           x={modalOptionPosition.x}
           y={modalOptionPosition.y}
           setter={setOptionModalOpen}
+          data={optionModalData}
         />
       )}
 
@@ -69,6 +78,7 @@ function TrimEstimationPage() {
               tooltipOpenSetter={setTooltipOpen}
               tooltipTypeSetter={setTooltipType}
               tooltipPositionSetter={setTooltipPosition}
+              optionSetter={setOptionModalData}
             />
             <SquareButton size="xm" bg="primary-blue" color="grey-1000">
               색상 선택

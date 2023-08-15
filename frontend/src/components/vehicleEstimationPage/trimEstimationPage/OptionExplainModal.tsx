@@ -1,26 +1,26 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { OptionType } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
 
 function OptionExplainModal({
   x,
   y,
   setter,
+  data,
 }: {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
+  data: OptionType | undefined;
   x: number;
   y: number;
 }) {
+  console.log('x:', x, 'y:', y);
   return (
     <Modal top={y} left={x} onClick={e => e.stopPropagation()}>
       <X src="/images/x_icon.svg" onClick={() => setter(false)} />
-      <Title className="body-bold-18 text-grey-0">
-        네비게이션 기반 스마트 크루즈 컨트롤(진출입로)
-      </Title>
-      <Image src="/images/temp.svg" />
+      <Title className="body-bold-18 text-grey-0">{data?.optionName}</Title>
+      <Image src={data?.optionImage} />
       <Content className="body-regular-14 text-grey-200">
-        스마트 크루즈 중 고속도로/도시고속도로/ 자동차전용 도로 내 고속도로
-        진출입로 주행 시 차로를 판단하여 사전감속 또 최적 속도에 맞추어 감속을
-        진행합니다.
+        {data?.description}
       </Content>
       <footer className="caption-regular-12 text-grey-400">
         *사진과 설명은 참고용이며 실제 차량과는 상이할 수 있습니다.
@@ -33,8 +33,8 @@ export default OptionExplainModal;
 
 const Modal = styled.div<{ top: number; left: number }>`
   position: absolute;
-  top: ${props => props.top - 8}px;
-  left: ${props => props.left}px;
+  top: ${props => props.top}px;
+  left: ${props => props.left - 160}px;
   display: flex;
   flex-direction: column;
   width: 300px;

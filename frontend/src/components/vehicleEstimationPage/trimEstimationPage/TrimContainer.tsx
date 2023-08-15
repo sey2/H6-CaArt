@@ -1,15 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { OptionType } from "../../../pages/vehicleEstimationPage/TrimEstimationPage";
 import TrimCard from './TrimCard';
 
-function TrimContainer({
-  setter,
-  optionModalPositionSetter,
-  optionModalOpenSetter,
-  tooltipOpenSetter,
-  tooltipTypeSetter,
-  tooltipPositionSetter,
-}: {
+interface TrimContainerProps {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
   optionModalPositionSetter: React.Dispatch<
     React.SetStateAction<{ x: number; y: number }>
@@ -20,7 +14,18 @@ function TrimContainer({
   tooltipPositionSetter: React.Dispatch<
     React.SetStateAction<{ x: number; y: number }>
   >;
-}) {
+  optionSetter: React.Dispatch<React.SetStateAction<OptionType | undefined>>;
+}
+
+function TrimContainer({
+  setter,
+  optionModalPositionSetter,
+  optionModalOpenSetter,
+  tooltipOpenSetter,
+  tooltipTypeSetter,
+  tooltipPositionSetter,
+  optionSetter,
+}: TrimContainerProps) {
   const trimList = ['Exclusive', 'Le Blanc', 'Prestige', 'Calligraphy'];
 
   function setTrimCard(trimLists: string[]) {
@@ -34,6 +39,7 @@ function TrimContainer({
           tooltipOpenSetter={tooltipOpenSetter}
           tooltipPositionSetter={tooltipPositionSetter}
           tooltipTypeSetter={tooltipTypeSetter}
+          optionSetter={optionSetter}
         />
         {index !== trimLists.length && <Hr />}
         </>
