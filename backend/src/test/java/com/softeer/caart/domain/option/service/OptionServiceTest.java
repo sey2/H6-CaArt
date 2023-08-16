@@ -19,7 +19,7 @@ import com.softeer.caart.domain.option.repository.AdditionalOptionInfoRepository
 import com.softeer.caart.domain.option.repository.BaseOptionInfoRepository;
 import com.softeer.caart.global.ResultCode;
 
-class BaseOptionInfoServiceTest extends ServiceTest {
+class OptionServiceTest extends ServiceTest {
 	@InjectMocks
 	private OptionService optionService;
 

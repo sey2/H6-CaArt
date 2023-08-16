@@ -9,16 +9,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CarEngineResponse {
+	private Long engineId;
 	private String engineName;
 	private String description;
+	private String summary;
 	private Integer enginePrice;
 	private String maxPower;
 	private String maxTorque;
 	private String engineImage;
 
 	private CarEngineResponse(CarEngine carEngine) {
+		this.engineId = carEngine.getId();
 		this.engineName = carEngine.getName();
 		this.description = carEngine.getDescription();
+		this.summary = carEngine.getSummary();
 		this.enginePrice = carEngine.getPrice();
 		this.maxPower = carEngine.getMaxPower();
 		this.maxTorque = carEngine.getMaxTorque();

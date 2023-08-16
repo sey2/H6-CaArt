@@ -15,12 +15,10 @@ import com.softeer.caart.domain.composition.repository.CarEngineRepository;
 import com.softeer.caart.domain.composition.repository.WheelDriveRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-@Slf4j
 public class CompositionService {
 	private final CarEngineRepository carEngineRepository;
 	private final BodyTypeRepository bodyTypeRepository;

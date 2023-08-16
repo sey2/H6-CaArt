@@ -33,16 +33,20 @@ public class WheelDrive {
 	private String description;
 
 	@Column(nullable = false)
+	private String summary;
+
+	@Column(nullable = false)
 	private Integer price;
 
 	@Embedded
 	private Image image;
 
 	@Builder
-	public WheelDrive(String name, String description, Integer price, String imageUrl) {
+	public WheelDrive(String name, String description, Integer price, String imageUrl, String summary) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.image = Image.from(imageUrl);
+		this.summary = summary;
 	}
 }

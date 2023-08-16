@@ -32,13 +32,17 @@ public class BodyType {
 	@Column(nullable = false)
 	private String description;
 
+	@Column(nullable = false)
+	private String summary;
+
 	@Embedded
 	private Image image;
 
 	@Builder
-	public BodyType(String name, String description, String imageUrl) {
+	public BodyType(String name, String description, String imageUrl, String summary) {
 		this.name = name;
 		this.description = description;
 		this.image = Image.from(imageUrl);
+		this.summary = summary;
 	}
 }

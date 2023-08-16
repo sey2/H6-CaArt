@@ -13,12 +13,10 @@ import com.softeer.caart.domain.tag.dto.TagResponse;
 import com.softeer.caart.domain.tag.repository.TagRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-@Slf4j
 public class TagService {
 	private final TagRepository tagRepository;
 

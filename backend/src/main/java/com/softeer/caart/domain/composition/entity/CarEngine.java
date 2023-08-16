@@ -33,6 +33,9 @@ public class CarEngine {
 	private String description;
 
 	@Column(nullable = false)
+	private String summary;
+
+	@Column(nullable = false)
 	private Integer price;
 
 	@Column(length = 30, nullable = false)
@@ -46,12 +49,13 @@ public class CarEngine {
 
 	@Builder
 	public CarEngine(String name, String description, Integer price, String maxPower, String maxTorque,
-		String imageUrl) {
+		String imageUrl, String summary) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.maxPower = maxPower;
 		this.maxTorque = maxTorque;
 		this.image = Image.from(imageUrl);
+		this.summary = summary;
 	}
 }

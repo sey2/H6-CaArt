@@ -11,8 +11,8 @@ import io.swagger.v3.oas.models.info.Info;
 
 @Configuration
 @OpenAPIDefinition(servers = {
-	@Server(url = "https://api.ca-art.store", description = "Default server URL"),
-	@Server(url = "http://localhost:8080", description = "Local server URL for development")
+	@Server(url = "http://localhost:8080", description = "Local server URL for development"),
+	@Server(url = "https://api.ca-art.store", description = "Default server URL")
 })
 public class SwaggerConfig {
 	@Bean
