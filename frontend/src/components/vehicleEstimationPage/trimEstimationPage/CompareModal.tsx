@@ -4,8 +4,10 @@ import useModal from '../../../hooks/useModal';
 
 function CompareModal({
   setter,
+  isOpen,
 }: {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
 }) {
   const data = {
     trimList: [
@@ -267,7 +269,9 @@ function CompareModal({
   function setInnerColor(colorSet: string[]) {
     return colorSet.map(color => (
       <>
-        <p key={color} className="body-regular-14 text-grey-300">{color}</p>
+        <p key={color} className="body-regular-14 text-grey-300">
+          {color}
+        </p>
       </>
     ));
   }
@@ -275,7 +279,7 @@ function CompareModal({
   useModal();
 
   return (
-    <Modal>
+    <Modal className={isOpen ? 'active' : ''}>
       <Overlay onClick={() => setter(false)} />
       <Wrapper onClick={e => e.stopPropagation()}>
         <Wrapperbox>
@@ -363,6 +367,13 @@ const Modal = styled.div`
   left: 0;
   z-index: 3;
   overflow: scroll;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-out;
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {

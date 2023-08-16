@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom';
 
 function RerecommendModal({
   setter,
+  isOpen,
 }: {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
 }) {
   function closeModal() {
     setter(false);
   }
 
   return (
-    <Overlay onClick={closeModal}>
+    <Overlay onClick={closeModal} className={isOpen ? 'active' : ''}>
       <Box onClick={e => e.stopPropagation()}>
         <Top>
           <span className="head-medium-22 text-grey-50">
@@ -62,6 +64,13 @@ const Overlay = styled.div`
   left: 0;
   z-index: 10;
   background: rgba(15, 17, 20, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-out;
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
 `;
 
 const Box = styled.div`

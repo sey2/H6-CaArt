@@ -26,17 +26,19 @@ interface WheelDrive {
 }
 
 interface CompositionsData {
-    carEngines: Engine[];
-    bodyTypes: BodyType[];
-    wheelDrives: WheelDrive[];
+  carEngines: Engine[];
+  bodyTypes: BodyType[];
+  wheelDrives: WheelDrive[];
 }
 
 type NavType = 'carEngines' | 'bodyTypes' | 'wheelDrives' | string;
 
 function EBWGuideModal({
   setter,
+  isOpen,
 }: {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
 }) {
   const [selectedNav, setSelectedNav] = useState<NavType>('carEngines');
   const [compositionData, setCompositionData] = useState<CompositionsData>();
@@ -50,7 +52,7 @@ function EBWGuideModal({
     const data = compositionData?.['carEngines'];
     return data?.map(item => (
       <>
-        <Item>
+        <Item key={item.engineName}>
           <img src={item.engineImage} />
           <div>
             <InfoTop>
@@ -86,7 +88,7 @@ function EBWGuideModal({
     const data = compositionData?.['bodyTypes'];
     return data?.map(item => (
       <>
-        <Item>
+        <Item key={item.bodyTypeName}>
           <img src={item.bodyTypeImage} />
           <div>
             <InfoTop>
@@ -204,7 +206,7 @@ function EBWGuideModal({
   }
 
   return (
-    <Modal>
+    <Modal className={isOpen ? 'active' : ''}>
       <Overlay
         onClick={() => {
           setter(false);
@@ -214,8 +216,8 @@ function EBWGuideModal({
         <NavBar className="body-medium-18 text-grey-500">
           <NavItem>
             {compositionData &&
-              Object.keys(compositionData as object).map(
-                navName => setNavItem(navName),
+              Object.keys(compositionData as object).map(navName =>
+                setNavItem(navName),
               )}
           </NavItem>
           <X src="/images/x_icon.svg" onClick={() => setter(false)} />
@@ -323,4 +325,11 @@ const Modal = styled.div`
   top: 0;
   left: 0;
   z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-out;
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
 `;

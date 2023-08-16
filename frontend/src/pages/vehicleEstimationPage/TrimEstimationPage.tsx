@@ -37,8 +37,8 @@ function TrimEstimationPage() {
 
   return (
     <>
-      {infoModalOpen && <EBWGuideModal setter={setInfoModalOpen} />}
-      {compareModalOpen && <CompareModal setter={setComapreModalOpen} />}
+      {<EBWGuideModal setter={setInfoModalOpen} isOpen={infoModalOpen} />}
+      {<CompareModal setter={setComapreModalOpen} isOpen={compareModalOpen} />}
       {tooltipOpen && (
         <ToolTip
           x={tooltipPosition.x}
@@ -46,14 +46,15 @@ function TrimEstimationPage() {
           tooltipType={tooltipType}
         />
       )}
-      {optionModalOpen && (
+      {
         <OptionExplainModal
           x={modalOptionPosition.x}
           y={modalOptionPosition.y}
           setter={setOptionModalOpen}
           data={optionModalData}
+          isOpen={optionModalOpen}
         />
-      )}
+      }
 
       <Wrapper onClick={closeModalHandler}>
         <Header size="default" page={0} />

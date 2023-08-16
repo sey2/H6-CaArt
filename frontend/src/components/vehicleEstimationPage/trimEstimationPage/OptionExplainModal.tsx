@@ -7,15 +7,22 @@ function OptionExplainModal({
   y,
   setter,
   data,
+  isOpen,
 }: {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
   data: OptionType | undefined;
   x: number;
   y: number;
+  isOpen: boolean;
 }) {
   console.log('x:', x, 'y:', y);
   return (
-    <Modal top={y} left={x} onClick={e => e.stopPropagation()}>
+    <Modal
+      top={y}
+      left={x}
+      onClick={e => e.stopPropagation()}
+      className={isOpen ? 'active' : ''}
+    >
       <X src="/images/x_icon.svg" onClick={() => setter(false)} />
       <Title className="body-bold-18 text-grey-0">{data?.optionName}</Title>
       <Image src={data?.optionImage} />
@@ -44,6 +51,13 @@ const Modal = styled.div<{ top: number; left: number }>`
   background: var(--grey-1000);
   box-shadow: 0px 4px 30px 0px rgba(142, 152, 168, 0.4);
   z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-out;
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
 `;
 const Title = styled.span`
   width: 206px;

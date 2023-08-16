@@ -57,12 +57,12 @@ function TrimCard({
 
   function handleModal(e: React.MouseEvent, option: OptionType) {
     e.stopPropagation();
+    modalSetter(false);
     const offsetX = e.nativeEvent.offsetX;
-    // const offsetY = e.nativeEvent.offsetY;
     const clickedX = e.clientX;
     const clickedY = e.clientY;
-    const x = clickedX - offsetX - 150;
-    const y = clickedY / 2;
+    const x = Math.ceil(clickedX - offsetX - 150);
+    const y = Math.ceil(clickedY / 2);
     positionSetter({ x, y });
     optionSetter(option);
     modalSetter(true);
