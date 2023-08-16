@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import org.softeer_2nd.caArt.databinding.FragmentCarTrimDescriptionBinding
-import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.view.recyclerAdapter.TrimDescriptionPagerAdapter
+import org.softeer_2nd.caArt.viewmodel.CarTrimDescriptionViewModel
 
 class CarTrimDescriptionFragment() : Fragment() {
 
     private var _binding: FragmentCarTrimDescriptionBinding? = null
     private val binding get() = _binding!!
 
+    private val carTrimDescriptionViewModel by activityViewModels<CarTrimDescriptionViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,9 +29,11 @@ class CarTrimDescriptionFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        carTrimDescriptionViewModel.getCompositions()
+
         binding.apply {
             vpTrimContainer.adapter =
-                TrimDescriptionPagerAdapter(DummyItemFactory.createDescriptionDummyItems())
+                TrimDescriptionPagerAdapter()
 
             TabLayoutMediator(tlTrimDescriptionCategory, vpTrimContainer) { tab, position ->
                 when (position) {
@@ -38,6 +42,10 @@ class CarTrimDescriptionFragment() : Fragment() {
                     2 -> tab.text = "구동방식"
                 }
             }.attach()
+        }
+
+        carTrimDescriptionViewModel.composition.observe(viewLifecycleOwner) {
+            (binding.vpTrimContainer.adapter as TrimDescriptionPagerAdapter).updateItems(carTrimDescriptionViewModel.composition.value!!)
         }
     }
 

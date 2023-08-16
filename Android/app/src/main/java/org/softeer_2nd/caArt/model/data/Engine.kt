@@ -1,0 +1,13 @@
+package org.softeer_2nd.caArt.model.data
+
+import com.google.gson.annotations.SerializedName
+
+data class Engine(
+    @SerializedName("engineName") override val itemName: String,
+    @SerializedName("engineImage") override val imageUrl: String,
+    @SerializedName("enginePrice") val enginePrice: Int,
+    override val description: String,
+    override val summary: String,
+    override val maxPower: String,
+    override val maxTorque: String
+) : TrimDescription

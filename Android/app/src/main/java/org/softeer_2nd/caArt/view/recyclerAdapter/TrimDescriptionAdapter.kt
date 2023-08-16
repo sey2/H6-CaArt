@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import org.softeer_2nd.caArt.databinding.ItemTrimDescriptionBinding
-import org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem
+import org.softeer_2nd.caArt.model.data.TrimDescription
 
-class TrimDescriptionAdapter(private val items: MutableList<TrimDescriptionDummyItem>) :
+class TrimDescriptionAdapter(private val items: MutableList<TrimDescription>) :
     RecyclerView.Adapter<TrimDescriptionAdapter.TrimDescriptionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrimDescriptionViewHolder {
@@ -25,7 +25,7 @@ class TrimDescriptionAdapter(private val items: MutableList<TrimDescriptionDummy
         return items.size
     }
 
-    fun updateData(newItems: List<TrimDescriptionDummyItem>) {
+    fun updateData(newItems: List<TrimDescription>) {
         items.clear()
         items.addAll(newItems)
         notifyDataSetChanged()
@@ -33,10 +33,11 @@ class TrimDescriptionAdapter(private val items: MutableList<TrimDescriptionDummy
 
     inner class TrimDescriptionViewHolder(val binding: ItemTrimDescriptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: TrimDescriptionDummyItem) {
+
+        fun bind(item: TrimDescription) {
             binding.apply {
-                itemDescription = item
-                ivDescription.load(item.imgUrl){
+                this.item = item
+                ivDescription.load(item.imageUrl) {
                     scale(coil.size.Scale.FILL)
                     transformations(RoundedCornersTransformation(8f))
                 }

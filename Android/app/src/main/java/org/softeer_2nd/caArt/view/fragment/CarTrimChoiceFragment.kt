@@ -40,6 +40,7 @@ class CarTrimChoiceFragment: Fragment(), OnTrimItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         carTrimChoiceViewModel.getTrims()
+        carTrimChoiceViewModel.getCompositions()
 
         binding.apply {
             incEngineBodyOption.carTrimChoiceViewModel =

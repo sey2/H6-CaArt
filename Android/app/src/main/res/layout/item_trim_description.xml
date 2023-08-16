@@ -8,8 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="itemDescription"
-            type="org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem" />
+            name="item"
+            type="org.softeer_2nd.caArt.model.data.TrimDescription" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/hyundaisanstextkrmedium"
-                    android:text="@{itemDescription.handleText}"
+                    android:text="@{item.itemName}"
                     android:textColor="@color/gray_100"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/hyundaisanstextkrregular"
-                    android:text="@{itemDescription.subText}"
+                    android:text="@{item.summary}"
                     android:textColor="@color/gray_400"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tv_cl_trim_description_ep_top"
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/hyundaisanstextkrregular"
-                    android:text="@{itemDescription.description}"
+                    android:text="@{item.description}"
                     android:textColor="@color/gray_300"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@+id/iv_description"
@@ -104,7 +104,7 @@
                     android:id="@+id/view"
                     style="@style/CaArtBorderViewStyle"
                     android:layout_marginTop="16dp"
-                    android:visibility="@{itemDescription.maxPower == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{item.maxPower == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_description" />
@@ -117,7 +117,7 @@
                     android:text="@string/horse_power"
                     android:textColor="@color/gray_500"
                     android:textSize="14sp"
-                    android:visibility="@{itemDescription.maxPower == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{item.maxPower == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="@+id/tv_description"
                     app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -130,7 +130,7 @@
                     android:text="@string/max_torque"
                     android:textColor="@color/gray_500"
                     android:textSize="14sp"
-                    android:visibility="@{itemDescription.maxTorque == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{item.maxTorque == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_max_power_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_max_power_title" />
@@ -140,10 +140,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:text="@{itemDescription.maxPower}"
+                    android:text="@{item.maxPower}"
                     android:textColor="@color/gray_300"
                     android:textSize="14sp"
-                    android:visibility="@{itemDescription.maxPower == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{item.maxPower == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toEndOf="@+id/tv_max_power_title"
                     app:layout_constraintTop_toTopOf="@+id/tv_max_power_title"
                     tools:text="@string/max_power_desc" />
@@ -153,10 +153,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:text="@{itemDescription.maxTorque}"
+                    android:text="@{item.maxTorque}"
                     android:textColor="@color/gray_300"
                     android:textSize="14sp"
-                    android:visibility="@{itemDescription.maxTorque == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{item.maxTorque == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toEndOf="@+id/tv_max_power_title"
                     app:layout_constraintTop_toTopOf="@+id/tv_max_torque_title"
                     tools:text="@string/max_torque_desc" />
