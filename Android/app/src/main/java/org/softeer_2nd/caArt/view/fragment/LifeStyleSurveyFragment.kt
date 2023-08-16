@@ -6,17 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import org.softeer_2nd.caArt.databinding.FragmentSurveyBinding
+import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.view.recyclerAdapter.SurveyAnswerOptionsRecyclerAdapter
+import org.softeer_2nd.caArt.viewmodel.LifeStyleSurveyViewModel
 
-class LifeStyleSurveyFragment : Fragment() {
+class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
+
+    override val processViewModel: LifeStyleSurveyViewModel by viewModels()
 
     private var _binding: FragmentSurveyBinding? = null
     private val binding get() = _binding!!
+
+    private var surveyAdapter: SurveyAnswerOptionsRecyclerAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,19 +37,30 @@ class LifeStyleSurveyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.pageCount = 5
-        binding.pageIndex = 1
-        binding.apply {
-            pageCount = 5
-            pageIndex = 3
-            questionString = "나이를 알려주세요."
-        }
+        binding.processViewModel = processViewModel
 
-        val surveyAdapter = SurveyAnswerOptionsRecyclerAdapter().apply {
+        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter().apply {
             setAnswerOptionList(List(5) { "$it" })
         }
 
-        binding.rvSurveyAnswerOptionsContainer.initSurveyAnswerOptionsRecyclerView(surveyAdapter)
+        binding.rvSurveyAnswerOptionsContainer.initSurveyAnswerOptionsRecyclerView(surveyAdapter!!)
+
+    }
+
+    override fun onLastProcessChanged(lastProcess: Int) {
+        binding.pageCount = lastProcess
+    }
+
+    override fun onProcessChanged(
+        currentProcess: Int,
+        isLastProcess: Boolean,
+        data: SurveyQuestion?
+    ) {
+        binding.pageIndex = currentProcess
+        if (!isLastProcess) {
+            binding.questionString = data?.question
+            surveyAdapter?.setAnswerOptionList(data?.answerOptions ?: emptyList())
+        }
 
     }
 
@@ -64,6 +82,7 @@ class LifeStyleSurveyFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        surveyAdapter = null
         _binding = null
     }
 

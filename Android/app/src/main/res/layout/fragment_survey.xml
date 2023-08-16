@@ -20,6 +20,10 @@
         <variable
             name="questionHighlightString"
             type="String" />
+
+        <variable
+            name="processViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.LifeStyleSurveyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,6 +72,7 @@
             android:insetTop="0dp"
             android:insetRight="0dp"
             android:insetBottom="0dp"
+            android:onClick="@{()->processViewModel.next()}"
             android:text="@{pageIndex!=pageCount?@string/next:@string/estimate}"
             android:textSize="16sp"
             app:backgroundTint="@color/blue"

@@ -27,14 +27,6 @@ class HomeFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.dynamicOptionFloatingButton.setOption(DummyItemFactory.createAdditionalSingleOptionItem()[0])
-//        binding.dynamicOptionFloatingButton.setOnMoreIconClickListener{
-//            OptionDetailDialog.Builder()
-//                .setOptionList(DummyItemFactory.createAdditionalOptionGrouopItem())
-//                .build()
-//                .show(requireActivity().supportFragmentManager,"")
-//        }
-
         binding.videoHomeBackground.apply {
             setVideoURI(Uri.parse("android.resource://${context.packageName}/${R.raw.home_video}"))
             setOnPreparedListener { mediaPlayer ->
@@ -45,6 +37,10 @@ class HomeFragment() : Fragment() {
 
         binding.btnMakeMySelf.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCarTrimChoiceFragment())
+        }
+
+        binding.btnMoveCarColor.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLifeStyleSurveyFragment())
         }
 
     }

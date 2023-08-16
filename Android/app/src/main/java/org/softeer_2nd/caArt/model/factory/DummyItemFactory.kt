@@ -3,6 +3,8 @@ package org.softeer_2nd.caArt.model.factory
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.dummy.OptionChangePopUpDummyItem
 import org.softeer_2nd.caArt.model.data.Option
+import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
+import org.softeer_2nd.caArt.model.dummy.OptionTrimMoreDetailDummyItem
 import org.softeer_2nd.caArt.model.dummy.OptionColorDummyItem
 import org.softeer_2nd.caArt.model.dummy.OptionSelectionDummyItem
 import org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem
@@ -84,6 +86,7 @@ object DummyItemFactory {
             OptionChangePopUpDummyItem("Calligraphy", "+ 400,000원"),
         )
     }
+
     fun createAdditionalOptionGrouopItem(): List<Option> = List(5) {
         Option(
             name = "option ${it + 1}",
@@ -178,5 +181,14 @@ object DummyItemFactory {
             createTrimBodyDescriptionItem(),
             createTrimDrivenDescriptionItem()
         )
+    }
+
+    fun createSurveyQuestionDummyItem(): List<SurveyQuestion> {
+        return List(3) { questionIndex ->
+            SurveyQuestion(
+                question = "$questionIndex 나이를 알려주세요.",
+                answerOptions = List(5) { "${it * 10}" }
+            )
+        }
     }
 }
