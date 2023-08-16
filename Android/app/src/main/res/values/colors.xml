@@ -9,9 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#00428E</color>
     <color name="blue_10">#00428E1A</color>
+    <color name="blue_100">#1A00428E</color>
     <color name="blue_500">#00428E</color>
     <color name="select_blue_500">#5000428E</color>
     <color name="active_blue">#FF2197C9</color>
+    <color name="transparent_blue">#1A2197C9</color>
     <color name="gray_1000">#FFFFFFFF</color>
     <color name="gray_900">#FFFBFBFB</color>
     <color name="gray_800">#FFF0F0F0</color>

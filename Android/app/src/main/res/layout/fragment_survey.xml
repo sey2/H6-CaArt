@@ -27,6 +27,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_survey_screen_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -116,5 +117,6 @@
             app:layout_constraintStart_toEndOf="@+id/tv_survey_question"
             app:layout_constraintTop_toTopOf="@+id/tv_survey_question"
             tools:text="1/2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

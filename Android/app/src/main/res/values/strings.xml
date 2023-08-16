@@ -63,4 +63,7 @@
     <string name="life_style">라이프 스타일</string>
     <string name="make_myself">직접 만들래요</string>
     <string name="recommend">추천받기</string>
+    <string name="peek_into_lifestyle">라이프스타일 엿보기</string>
+    <string name="no_lifestyle_you_want">원하는 라이프스타일이 없다면?</string>
+    <string name="select_lifestyle_detail">라이프스타일 상세 선택</string>
 </resources>

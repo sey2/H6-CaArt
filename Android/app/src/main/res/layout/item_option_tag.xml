@@ -2,16 +2,21 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="tagName"
             type="String" />
+
         <variable
             name="iconUrl"
-            type="String"/>
+            type="String" />
+
         <variable
             name="clickListener"
             type="org.softeer_2nd.caArt.view.callbackListener.OnRecyclerItemClickListener" />
+
         <variable
             name="isSelected"
             type="Boolean" />
@@ -25,7 +30,7 @@
             android:id="@+id/imageView3"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/shape_option_tag_item_background_r16_blue"
+            android:background="@drawable/shape_stroke_background_r16_blue"
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +49,6 @@
             app:layout_constraintEnd_toEndOf="@+id/imageView3"
             app:layout_constraintStart_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            tools:text="전체"/>
+            tools:text="전체" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

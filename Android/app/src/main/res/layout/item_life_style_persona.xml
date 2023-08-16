@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="tagText1"
+            type="String" />
+
+        <variable
+            name="tagText2"
+            type="String" />
+
+        <variable
+            name="lifeStyleDescription"
+            type="String" />
+
+        <variable
+            name="isSelected"
+            type="boolean" />
+
+        <variable
+            name="lifeStyleImageUrl"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/v_life_style_persona_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="-64dp"
+            android:background="@drawable/shape_stroke_background_r16_blue"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_life_style_persona_image" />
+
+        <ImageView
+            android:id="@+id/iv_life_style_persona_image"
+            url="@{lifeStyleImageUrl}"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:background="@drawable/shape_life_style_persona_image_background_oval_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/drawable_search_156" />
+
+        <TextView
+            android:id="@+id/tv_life_style_persona_tag1"
+            style="@style/LifeStylePersonaTagTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTintMode="add"
+            android:text="@{'#'+tagText1}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_life_style_persona_image"
+            tools:text="#주행안전" />
+
+        <TextView
+            android:id="@+id/tv_life_style_persona_tag2"
+            style="@style/LifeStylePersonaTagTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:backgroundTintMode="add"
+            android:text="@{'#'+tagText2}"
+            app:layout_constraintStart_toEndOf="@+id/tv_life_style_persona_tag1"
+            app:layout_constraintTop_toTopOf="@+id/tv_life_style_persona_tag1"
+            tools:text="#사용편의" />
+
+        <TextView
+            android:id="@+id/tv_life_style_persona_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="28dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@{lifeStyleDescription}"
+            android:textColor="@{isSelected?@color/blue:@color/gray_0}"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_life_style_persona_more"
+            app:layout_constraintEnd_toStartOf="@+id/iv_life_style_persona_select"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_life_style_persona_tag1"
+            tools:text="가족과 함께 타서 안전을\n중시해요" />
+
+        <View
+            android:id="@+id/v_life_style_persona_bottom_border"
+            style="@style/CaArtBorderViewStyle"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@{isSelected?@color/gray_700:@color/white}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_life_style_persona_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_life_style_persona_more"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:gravity="center|top"
+            android:padding="4dp"
+            android:text="@string/peek_into_lifestyle"
+            android:textColor="@color/gray_200"
+            app:layout_constraintBottom_toBottomOf="@+id/v_life_style_persona_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_life_style_persona_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_life_style_persona_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_life_style_persona_description"
+            app:srcCompat="@drawable/ic_checked_28"
+            app:tint="@{isSelected?@color/blue:@color/gray_500}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

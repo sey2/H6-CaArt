@@ -12,7 +12,6 @@ abstract class ProcessViewModel<PROCESS_DATA_TYPE> : ViewModel() {
     protected val _lastProcess = MutableLiveData<Int>()
     val lastProcess: LiveData<Int> = _lastProcess
 
-
     private var _currentProcessIndex = -1
     val currentProcessIndex get() = _currentProcessIndex
     val currentProcess get() = _currentProcessIndex + 1

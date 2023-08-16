@@ -3,6 +3,7 @@ package org.softeer_2nd.caArt.model.factory
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.dummy.OptionChangePopUpDummyItem
 import org.softeer_2nd.caArt.model.data.Option
+import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
 import org.softeer_2nd.caArt.model.dummy.OptionTrimMoreDetailDummyItem
 import org.softeer_2nd.caArt.model.dummy.OptionColorDummyItem
@@ -188,6 +189,17 @@ object DummyItemFactory {
             SurveyQuestion(
                 question = "$questionIndex 나이를 알려주세요.",
                 answerOptions = List(5) { "${it * 10}" }
+            )
+        }
+    }
+
+    fun createLifestylePersonaListDummyItem(): List<Persona> {
+        return List(4) {
+            Persona(
+                personaId = it,
+                coverLetter = "매일 출퇴근해서 경제적이고\n편안한 주행을 원해요",
+                profileImage = "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/lifestyle/persona-2.png",
+                tags = listOf("추위/더위", "사용편의")
             )
         }
     }
