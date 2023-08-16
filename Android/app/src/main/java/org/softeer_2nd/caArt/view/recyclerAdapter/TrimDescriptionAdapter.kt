@@ -3,9 +3,8 @@ package org.softeer_2nd.caArt.view.recyclerAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import org.softeer_2nd.caArt.databinding.ItemTrimDescriptionBinding
 import org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem
 
@@ -37,11 +36,10 @@ class TrimDescriptionAdapter(private val items: MutableList<TrimDescriptionDummy
         fun bind(item: TrimDescriptionDummyItem) {
             binding.apply {
                 itemDescription = item
-                Glide.with(ivDescription.context)
-                    .load(item.imgUrl)
-                    .fitCenter()
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(8)))
-                    .into(ivDescription)
+                ivDescription.load(item.imgUrl){
+                    scale(coil.size.Scale.FILL)
+                    transformations(RoundedCornersTransformation(8f))
+                }
             }
         }
     }

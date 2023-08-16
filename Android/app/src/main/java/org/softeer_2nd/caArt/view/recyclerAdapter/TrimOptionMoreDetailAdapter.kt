@@ -9,9 +9,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.TrimItemColor
 import org.softeer_2nd.caArt.model.data.TrimMainItem
@@ -21,7 +20,8 @@ class TrimOptionMoreDetailAdapter(
     private val isDefaultOption: Boolean = false
 ) : RecyclerView.Adapter<TrimOptionMoreDetailAdapter.TrimOptionMoreDetailViewHolder>() {
 
-    private var items =  mutableListOf<Any>()
+    private var items = mutableListOf<Any>()
+
     companion object {
         const val IMAGE_WIDTH_DP = 24f
         const val IMAGE_HEIGHT_DP = 24f
@@ -50,7 +50,7 @@ class TrimOptionMoreDetailAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    fun updateItems(newItems: List<Any>){
+    fun updateItems(newItems: List<Any>) {
         items.clear()
         items.addAll(newItems)
         notifyDataSetChanged()
@@ -106,16 +106,16 @@ class TrimOptionMoreDetailAdapter(
         }
 
         fun bind(imageItem: Any) {
-            val url = if(isDefaultOption) (imageItem as TrimMainItem).optionImage else (imageItem as TrimItemColor).colorImage
+            val url =
+                if (isDefaultOption) (imageItem as TrimMainItem).optionImage else (imageItem as TrimItemColor).colorImage
 
-            Glide.with(context)
-                .load(url)
-                .fitCenter()
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(6)))
-                .into(ivMoreOption)
+            ivMoreOption.load(url) {
+                scale(coil.size.Scale.FILL)
+                transformations(RoundedCornersTransformation(6f))
+            }
 
-            if(isDefaultOption)
-              tvOptionTitle.text = (imageItem as TrimMainItem).optionName
+            if (isDefaultOption)
+                tvOptionTitle.text = (imageItem as TrimMainItem).optionName
         }
     }
 }

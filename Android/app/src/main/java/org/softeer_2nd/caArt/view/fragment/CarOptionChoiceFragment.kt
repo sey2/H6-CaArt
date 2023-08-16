@@ -35,13 +35,19 @@ class CarOptionChoiceFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.bsOptionChoiceSummary.apply{
-            setMode(BottomSheetMode.PrevAndEstimate, CarTrimChoiceFragmentDirections.actionCarTrimChoiceFragmentToCarTrimDescriptionFragment())
+        binding.bsOptionChoiceSummary.apply {
+            setMode(
+                BottomSheetMode.PrevAndEstimate,
+                CarTrimChoiceFragmentDirections.actionCarTrimChoiceFragmentToCarTrimDescriptionFragment()
+            )
         }
 
         binding.incOptionChoiceTopIndicator.currentIndex = 2
 
-        binding.bsOptionChoiceSummary.setMode(BottomSheetMode.PrevAndEstimate,CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarOptionChoiceFragment())
+        binding.bsOptionChoiceSummary.setMode(
+            BottomSheetMode.PrevAndEstimate,
+            CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarOptionChoiceFragment()
+        )
 
         val optionTagAdapter = OptionTagRecyclerAdapter(
             List(8) { "태그$it" }

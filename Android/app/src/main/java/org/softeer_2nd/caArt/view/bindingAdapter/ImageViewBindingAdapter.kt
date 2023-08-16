@@ -2,12 +2,12 @@ package org.softeer_2nd.caArt.view.bindingAdapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
+import coil.load
 
 @BindingAdapter("url")
 fun ImageView.setImageSrcWithUrl(url: String?) {
-    Glide.with(this)
-        .load(url)
-        .centerCrop()
-        .into(this)
+
+    load(url){
+        scale(coil.size.Scale.FILL)
+    }
 }
