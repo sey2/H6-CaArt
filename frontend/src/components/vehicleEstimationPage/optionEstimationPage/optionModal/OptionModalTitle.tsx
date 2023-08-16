@@ -17,7 +17,8 @@ function OptionModalTitle({
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const { addOption, deleteOption } = useContext(EstimationContext)!;
-  const isSetOption = option.subOptions.length !== 0;
+  const isSetOption = option.subOptions && option.subOptions.length !== 0;
+
   return (
     <OptionModalTitleBox>
       <OptionModalTitleUpperBox>
@@ -29,33 +30,35 @@ function OptionModalTitle({
           )}
           <OptionModalMainTitle className="head-medium-20 text-grey-0">
             {isSetOption
-              ? option.subOptions[optionNum].optionName
+              ? option.subOptions![optionNum].optionName
               : option.optionName}
           </OptionModalMainTitle>
           <span className="body-medium-16 text-grey-200">
-            {priceToString(option.optionPrice)}
+            {option.optionPrice && priceToString(option.optionPrice)}
           </span>
         </OptionModalTitleTextBox>
-        <SelectBtnBox>
-          <CircularButton
-            selected={selected}
-            onClick={() => {
-              if (selected) {
-                deleteOption(option.optionName);
-              } else {
-                addOption({
-                  name: option.optionName,
-                  price: option.optionPrice,
-                });
-              }
-            }}
-          ></CircularButton>
-        </SelectBtnBox>
+        {option.optionPrice && (
+          <SelectBtnBox>
+            <CircularButton
+              selected={selected}
+              onClick={() => {
+                if (selected) {
+                  deleteOption(option.optionName);
+                } else {
+                  addOption({
+                    name: option.optionName,
+                    price: option.optionPrice!,
+                  });
+                }
+              }}
+            ></CircularButton>
+          </SelectBtnBox>
+        )}
       </OptionModalTitleUpperBox>
 
       <OptionModalDescriptionBox className="body-regular-14 text-grey-200">
         {isSetOption
-          ? option.subOptions[optionNum].description
+          ? option.subOptions![optionNum].description
           : option.description}
       </OptionModalDescriptionBox>
 

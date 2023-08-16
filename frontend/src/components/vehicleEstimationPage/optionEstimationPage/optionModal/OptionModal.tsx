@@ -15,19 +15,21 @@ export interface SubOptionProps {
 }
 
 export interface OptionProps {
-  optionId: number;
   optionName: string;
-  optionPrice: number;
   description: string | null;
   optionImage: string;
   tags: string[];
-  subOptions: SubOptionProps[];
+  optionId?: number;
+  optionPrice?: number;
+  subOptions?: SubOptionProps[];
 }
 
 function OptionModal({
+  isBasicOptionPage,
   openedModalId,
   setOpenedModalId,
 }: {
+  isBasicOptionPage: boolean;
   openedModalId: number;
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }) {
@@ -35,9 +37,10 @@ function OptionModal({
   const [optionNum, setOptionNum] = useState(0);
   useModal();
 
-  const { data, status, error } = useFetch<OptionProps>(
-    `/options/additional?optionId=${openedModalId}`,
-  );
+  const apiURL = `/options/${
+    isBasicOptionPage ? 'basic' : 'additional'
+  }?optionId=${openedModalId}`;
+  const { data, status, error } = useFetch<OptionProps>(apiURL);
   if (status === 'loading') {
     return <div>loading</div>;
   } else if (status === 'error') {
@@ -71,11 +74,13 @@ function OptionModal({
               }
               setOpenedModalId={setOpenedModalId}
             ></OptionModalTitle>
-            <OptionModalDetail
-              options={data.subOptions}
-              optionNum={index}
-              setOptionNum={setOptionNum}
-            ></OptionModalDetail>
+            {data.subOptions && (
+              <OptionModalDetail
+                options={data.subOptions}
+                optionNum={index}
+                setOptionNum={setOptionNum}
+              ></OptionModalDetail>
+            )}
           </div>
         </OptionModalBox>
       );
@@ -85,9 +90,10 @@ function OptionModal({
   const optionModalSetList = (
     <>
       <OptionModalListBox optionNum={optionNum}>
-        {data.subOptions.map((item, index) => {
-          return generateOptionModal(item, index, index === optionNum);
-        })}
+        {data.subOptions &&
+          data.subOptions.map((item, index) => {
+            return generateOptionModal(item, index, index === optionNum);
+          })}
       </OptionModalListBox>
 
       {optionNum !== 0 && (
@@ -99,7 +105,7 @@ function OptionModal({
           <img src="/images/leftArrow_icon_basic.svg"></img>
         </OptionModalLeftBtn>
       )}
-      {optionNum !== data.subOptions.length - 1 && (
+      {data.subOptions && optionNum !== data.subOptions.length - 1 && (
         <OptionModalRightBtn
           onClick={() => {
             setOptionNum(optionNum + 1);
@@ -121,10 +127,9 @@ function OptionModal({
         }}
       ></OverlayBox>
       <WrapperBox>
-        <>
-          {data.subOptions.length === 0 && optionModalOne}
-          {data.subOptions.length !== 0 && optionModalSetList}
-        </>
+        {(data.subOptions == null || data.subOptions.length === 0) &&
+          optionModalOne}
+        {data.subOptions && data.subOptions.length !== 0 && optionModalSetList}
       </WrapperBox>
     </ModalBox>
   );
@@ -137,7 +142,6 @@ const ModalBox = styled.div`
   top: 0;
   left: 0;
   z-index: 3;
-  overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {

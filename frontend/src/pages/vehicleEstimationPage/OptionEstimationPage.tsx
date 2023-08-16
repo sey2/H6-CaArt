@@ -59,6 +59,7 @@ function OptionEstimationPage() {
 
       {openedModalId !== 0 && (
         <OptionModal
+          isBasicOptionPage={isBasicOptionPage}
           openedModalId={openedModalId}
           setOpenedModalId={setOpenedModalId}
         ></OptionModal>
@@ -91,7 +92,7 @@ export default OptionEstimationPage;
 
 const data = [
   {
-    id: 1,
+    id: 31,
     name: '컴포트2',
     description: '편의성을 위해 구성된 세트 옵션',
     imgSrc: 'https://picsum.photos/200/300',
