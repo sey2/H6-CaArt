@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
             type="org.softeer_2nd.caArt.viewmodel.CarTrimChoiceViewModel" />
+
+        <variable
+            name="carImgUrl"
+            type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -53,8 +56,10 @@
                     android:layout_marginEnd="42dp"
                     android:layout_marginBottom="37dp"
                     android:background="@drawable/img_car_trim"
+                    android:scaleType="centerCrop"
                     android:contentDescription="@string/car_exterior_spin_image"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_car_spin_background"
+                    app:url="@{carImgUrl}"
                     app:layout_constraintDimensionRatio="w,185:375"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +124,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_trim"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="36dp"
                     android:layout_marginBottom="130dp"
                     android:nestedScrollingEnabled="false"

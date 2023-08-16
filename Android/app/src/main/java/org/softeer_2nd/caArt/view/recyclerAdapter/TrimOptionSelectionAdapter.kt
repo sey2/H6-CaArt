@@ -5,14 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemTrimSelectBinding
-import org.softeer_2nd.caArt.model.factory.DummyItemFactory
-import org.softeer_2nd.caArt.model.dummy.OptionTrimSelectionDummyItem
+import org.softeer_2nd.caArt.model.data.Trim
+import org.softeer_2nd.caArt.view.callbackListener.OnTrimItemClickListener
 
-class TrimOptionSelectionAdapter(
-    private val items: List<OptionTrimSelectionDummyItem>
-) :
+class TrimOptionSelectionAdapter(private val onTrimItemClickListener: OnTrimItemClickListener):
     RecyclerView.Adapter<TrimOptionSelectionAdapter.TrimOptionSelectionViewHolder>() {
     private var selectedPosition = 0
+    private var items = mutableListOf<Trim>()
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -32,10 +31,20 @@ class TrimOptionSelectionAdapter(
         holder.bind(currentItem)
     }
 
+    fun updateItems(newItems: List<Trim>){
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
     inner class TrimOptionSelectionViewHolder(val binding: ItemTrimSelectBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private val exteriorAdapter = TrimOptionMoreDetailAdapter()
+        private val interiorAdapter = TrimOptionMoreDetailAdapter()
+        private val defaultAdapter = TrimOptionMoreDetailAdapter(true)
         init {
             binding.ivTrimCheck.setOnClickListener {
+                onTrimItemClickListener.onItemClicked(adapterPosition)
+
                 if (selectedPosition != -1) {
                     items[selectedPosition].isChecked = false
                     notifyItemChanged(selectedPosition)
@@ -49,35 +58,34 @@ class TrimOptionSelectionAdapter(
             binding.incOtherMore.rvOtherMoreExteriorDetail.apply {
                 this.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                this.adapter = TrimOptionMoreDetailAdapter(DummyItemFactory.createTrimMoreExteriorDetailItem())
+                this.adapter = exteriorAdapter
                 isNestedScrollingEnabled = false
             }
 
             binding.incOtherMore.rvOtherMoreInteriorDetail.apply {
                 this.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                this.adapter = TrimOptionMoreDetailAdapter(DummyItemFactory.createTrimMoreInteriorDetailItem())
+                this.adapter = interiorAdapter
             }
 
             binding.incOtherMore.rvOtherMoreDefaultDetail.apply {
                 this.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                this.adapter = TrimOptionMoreDetailAdapter(DummyItemFactory.createTrimMoreDefaultDetailItem(), true)
+                this.adapter = defaultAdapter
             }
         }
 
 
-        fun bind(item: OptionTrimSelectionDummyItem) {
+        fun bind(item: Trim) {
             binding.apply {
-                trimDummyItem = OptionTrimSelectionDummyItem(
-                    item.model,
-                    item.productKeyFeatures,
-                    item.specifications,
-                    item.price,
-                    adapterPosition == itemCount - 1
-                )
+                trimItems = item
+                lineVisibleGone = adapterPosition == (itemCount - 1)
                 isChecked = item.isChecked
             }
+
+            exteriorAdapter.updateItems(item.exteriorColors)
+            interiorAdapter.updateItems(item.interiorColors)
+            defaultAdapter.updateItems(item.mainOptions)
         }
     }
 }

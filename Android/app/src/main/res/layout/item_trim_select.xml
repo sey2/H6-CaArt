@@ -8,11 +8,15 @@
         <import type="android.view.View" />
 
         <variable
-            name="trimDummyItem"
-            type="org.softeer_2nd.caArt.model.dummy.OptionTrimSelectionDummyItem" />
+            name="trimItems"
+            type="org.softeer_2nd.caArt.model.data.Trim" />
 
         <variable
             name="isChecked"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="lineVisibleGone"
             type="java.lang.Boolean" />
     </data>
 
@@ -27,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/hyundaisanstextkrmedium"
-            android:text="@{trimDummyItem.model}"
+            android:text="@{trimItems.trimName}"
             android:textColor="@color/gray_300"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/tv_specifications"
@@ -40,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{trimDummyItem.specifications}"
+            android:text="디젤 2.2 ・ 7인승 ・ 2WD"
             android:textColor="@color/gray_500"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/tv_model"
@@ -65,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/hyundaisanstext_regular"
-            android:text="@{trimDummyItem.productKeyFeatures}"
+            android:text="@{trimItems.description}"
             android:textColor="@color/gray_100"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/tv_model"
@@ -79,7 +83,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/hyundaisansheadkrmedium"
             android:textColor="@color/gray_0"
-            android:text="@{trimDummyItem.price}"
+            app:formattedPrice="@{trimItems.trimPrice}"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/tv_product_key_features"
             app:layout_constraintTop_toBottomOf="@+id/tv_product_key_features"
@@ -103,7 +107,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
             android:background="@color/gray_700"
-            android:visibility="@{trimDummyItem.lineVisibleGone ? View.GONE : View.VISIBLE}"
+            android:visibility="@{lineVisibleGone ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inc_other_more" />

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.softeer_2nd.caArt.model.data.Trim
 import org.softeer_2nd.caArt.model.repository.CarTrimRepository
 import javax.inject.Inject
 
@@ -14,9 +15,8 @@ class CarTrimChoiceViewModel @Inject constructor(
     val repository: CarTrimRepository
 ) : ViewModel() {
 
-    init {
-        getTrims()
-    }
+    private val _trims = MutableLiveData<List<Trim>>()
+    val trims:LiveData<List<Trim>> = _trims
 
     private val _engineSelectionButtonText =
         MutableLiveData<Pair<String, String>>(Pair("디젤 2.2", "가솔린 3.8"))
@@ -29,10 +29,9 @@ class CarTrimChoiceViewModel @Inject constructor(
         MutableLiveData<Pair<String, String>>(Pair("2WD", "4WD"))
     val drivenSelectionButtonText: LiveData<Pair<String, String>> = _drivenSelectionButtonText
 
-
     fun getTrims() {
         viewModelScope.launch {
-            val list = repository.fetchTrims()
+            _trims.value = repository.fetchTrims()
         }
     }
 }

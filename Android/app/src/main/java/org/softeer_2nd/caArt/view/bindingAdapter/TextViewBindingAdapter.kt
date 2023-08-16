@@ -26,7 +26,7 @@ fun TextView.setTextSizeWithFloat(size: Float) {
 }
 
 @BindingAdapter("formattedPrice")
-fun TextView.setFormattedPrice(price: Int) {
+fun TextView.setFormattedPrice(price: Long) {
     val formatter = NumberFormat.getNumberInstance(Locale.KOREA)
     val formattedPrice = formatter.format(price)
     text = context.getString(R.string.formatted_price, formattedPrice)

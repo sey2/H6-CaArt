@@ -15,14 +15,13 @@ import org.softeer_2nd.caArt.databinding.FragmentCarTrimChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
 import org.softeer_2nd.caArt.view.dialog.CaArtDialog
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
-import org.softeer_2nd.caArt.model.dummy.OptionTrimSelectionDummyItem
+import org.softeer_2nd.caArt.view.callbackListener.OnTrimItemClickListener
 import org.softeer_2nd.caArt.view.recyclerAdapter.OptionChangePopupAdapter
 import org.softeer_2nd.caArt.view.recyclerAdapter.TrimOptionSelectionAdapter
-
 import org.softeer_2nd.caArt.viewmodel.CarTrimChoiceViewModel
 
 @AndroidEntryPoint
-class CarTrimChoiceFragment: Fragment() {
+class CarTrimChoiceFragment: Fragment(), OnTrimItemClickListener {
     private var _binding: FragmentCarTrimChoiceBinding? = null
     private val binding get() = _binding!!
 
@@ -40,6 +39,8 @@ class CarTrimChoiceFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        carTrimChoiceViewModel.getTrims()
+
         binding.apply {
             incEngineBodyOption.carTrimChoiceViewModel =
                 this@CarTrimChoiceFragment.carTrimChoiceViewModel
@@ -53,18 +54,19 @@ class CarTrimChoiceFragment: Fragment() {
                 findNavController().navigate(CarTrimChoiceFragmentDirections.actionCarTrimChoiceFragmentToCarTrimDescriptionFragment())
             }
 
-            rvTrim.initializeColorOptions(DummyItemFactory.createSelectionTrimItemDummyItems())
+            rvTrim.initializeColorOptions()
+        }
+
+        carTrimChoiceViewModel.trims.observe(viewLifecycleOwner) {
+            (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateItems(carTrimChoiceViewModel.trims.value!!)
         }
     }
 
-    private fun RecyclerView.initializeColorOptions(
-        items: List<OptionTrimSelectionDummyItem>
-    ) {
-
+    private fun RecyclerView.initializeColorOptions() {
         this.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        this.adapter = TrimOptionSelectionAdapter(items)
+        this.adapter = TrimOptionSelectionAdapter(this@CarTrimChoiceFragment)
+        this.itemAnimator = null
     }
 
     override fun onDestroyView() {
@@ -107,6 +109,10 @@ class CarTrimChoiceFragment: Fragment() {
             .setPositiveButton(text = "변경하기", listener = {})
             .build()
             .show(childFragmentManager, "colorOptionChangePopup")
+    }
+
+    override fun onItemClicked(itemIndx: Int) {
+        binding.carImgUrl = carTrimChoiceViewModel.trims.value!![itemIndx].trimImage
     }
 
 }
