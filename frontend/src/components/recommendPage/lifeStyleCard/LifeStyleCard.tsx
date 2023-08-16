@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import replaceWonSymbol from '../../../util/ReplaceWonSymbol';
 import CheckButton from '../../common/CheckButton';
 import { TagList } from '../../common/TagList';
 
@@ -21,7 +22,9 @@ function LifeStyleCard({
       <LifeStyleInnerBox>
         <TagList tagArr={tag} type={'lifeStyle'} selected={selected}></TagList>
         <LifeStyleTextBox selected={selected}>
-          <div className="body-medium-18 text-primary-blue">{text}</div>
+          <div className="body-medium-18 text-primary-blue">
+            {replaceWonSymbol(text)}
+          </div>
           <ClickDivBox
             onClick={() => {
               setLifeStyle(id);

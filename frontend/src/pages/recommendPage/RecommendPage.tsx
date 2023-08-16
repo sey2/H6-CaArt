@@ -27,7 +27,7 @@ export interface RecommendPageProps {
 function RecommendPage() {
   const [choice, setChoice] = useState({
     age: 0,
-    lifeStyle: -1,
+    lifeStyle: 0,
     experience: 0,
     family: 0,
     purpose: -1,
