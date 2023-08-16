@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import SquareButton from '../../common/SquareButton';
 import { Link } from 'react-router-dom';
+import { FlexBox } from "../../common/FlexBox";
 
 function RerecommendModal({
   setter,
@@ -17,16 +18,16 @@ function RerecommendModal({
   return (
     <Overlay onClick={closeModal} className={isOpen ? 'active' : ''}>
       <Box onClick={e => e.stopPropagation()}>
-        <Top>
+        <FlexBox justify="space-between" margin="0px 0px 8px 0px">
           <span className="head-medium-22 text-grey-50">
             추천 페이지로 돌아가시겠어요?
           </span>
           <X src="/images/x_icon.svg" onClick={closeModal} />
-        </Top>
+        </FlexBox>
         <span className="body-regular-14 text-grey-400">
           선택한 옵션들은 모두 초기화돼요.
         </span>
-        <ButtonContainer>
+        <FlexBox align="center" justify="center" gap={8} margin="32px 0px 0px 0px">
           <div onClick={closeModal}>
             <SquareButton
               size={'ms'}
@@ -48,7 +49,7 @@ function RerecommendModal({
               추천받기
             </SquareButton>
           </Link>
-        </ButtonContainer>
+        </FlexBox>
       </Box>
     </Overlay>
   );
@@ -86,20 +87,6 @@ const Box = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 24px;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 32px;
-`;
-
-const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
 `;
 
 const X = styled.img`

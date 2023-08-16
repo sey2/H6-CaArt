@@ -1,56 +1,59 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { FlexBox } from "../../../common/FlexBox";
 
+type ButtonType = 'ex' | 'in' | '360' | string;
+
+interface OptionButtonProps {
+  type: ButtonType;
+  state: ButtonType;
+  setter: React.Dispatch<React.SetStateAction<ButtonType>>;
+}
 
 function OptionButton({
   type,
   state,
   setter,
-}: {
-  type: 'ex' | 'in' | '360' | string;
-  state: 'ex' | 'in' | '360' | string;
-  setter: React.Dispatch<React.SetStateAction<'ex' | 'in' | '360' | string>>;
-}) {
+}: OptionButtonProps) {
   function returnByType(type: string) {
     switch (type) {
       case 'ex':
         return (
           <>
-            <Flex
+            <FlexBox gap={16} align="center" width={96}
               onClick={() => {
                 setter(type);
               }}
             >
               <img src="/images/ex_img.svg" />
               <span>외장</span>
-            </Flex>
+            </FlexBox>
           </>
         );
       case 'in':
         return (
           <>
-            <Flex
+            <FlexBox gap={16} align="center" width={96}
               onClick={() => {
                 setter(type);
               }}
             >
               <img src="/images/in_img.svg" />
               <span>내장</span>
-            </Flex>
+            </FlexBox>
           </>
         );
       case '360':
         return (
           <>
-            <Flex
-              style={{ width: 96 }}
+            <FlexBox gap={16} align="center" width={96}
               onClick={() => {
                 setter(type);
               }}
             >
               <img src="/images/360_img.svg" />
               <span>360</span>
-            </Flex>
+            </FlexBox>
           </>
         );
     }
@@ -85,11 +88,4 @@ const Box = styled.div<{ type: string; selected: string }>`
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   cursor: pointer;
   ${props => (props.type === props.selected ? 'width: 96px' : 'width:52px')};
-`;
-
-const Flex = styled.div`
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  width: 96px;
 `;

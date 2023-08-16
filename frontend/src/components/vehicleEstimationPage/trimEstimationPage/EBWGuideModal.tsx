@@ -31,15 +31,17 @@ interface CompositionsData {
   wheelDrives: WheelDrive[];
 }
 
+interface GuideModalProps {
+  setter: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
+}
+
 type NavType = 'carEngines' | 'bodyTypes' | 'wheelDrives' | string;
 
 function EBWGuideModal({
   setter,
   isOpen,
-}: {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
-}) {
+}: GuideModalProps) {
   const [selectedNav, setSelectedNav] = useState<NavType>('carEngines');
   const [compositionData, setCompositionData] = useState<CompositionsData>();
   const { data } = useFetch<CompositionsData>('/compositions');

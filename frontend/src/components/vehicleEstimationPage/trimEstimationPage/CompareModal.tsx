@@ -1,263 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import useModal from '../../../hooks/useModal';
+import {FlexBox, SFlex} from "../../common/FlexBox";
+import {data, commonOption} from '../../../static/data/CompareModalData'
+import { Hr } from "../../common/Hr";
+
+interface CompareModalProps {
+  setter: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
+}
 
 function CompareModal({
   setter,
   isOpen,
-}: {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
-}) {
-  const data = {
-    trimList: [
-      {
-        trimName: 'Exclusive',
-        trimInfo: '합리적인 당신을 위한',
-        trimPrice: 10000000,
-        trimImage: '/images/car/exclusive.svg',
-        trimOuterColor: [
-          '#121212',
-          '#979999',
-          '#171D2F',
-          '#292622',
-          '#313433',
-          '#F2F4F3',
-        ],
-        trimInnerColor: ['인조가죽(블랙)'],
-        trimOption: [
-          {
-            id: 0,
-            name: '12인치 네비게이션',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 1,
-            name: '내비 기반 크루즈 컨트롤',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 2,
-            name: '세이프티 파워 윈도우',
-            info: '11',
-            image: '11',
-          },
-        ],
-      },
-      {
-        trimName: 'Le Blanc',
-        trimInfo: '필수적인 옵션만 모은',
-        trimPrice: 20000000,
-        trimImage: '/images/car/leBlanc.svg',
-        trimOuterColor: [
-          '#121212',
-          '#979999',
-          '#171D2F',
-          '#292622',
-          '#313433',
-          '#F2F4F3',
-        ],
-        trimInnerColor: ['쿨그레이', '퀄팅천연(블랙)'],
-        trimOption: [
-          {
-            id: 0,
-            name: '20인치 알로이 휠',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 1,
-            name: '12인치 클러스터',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 2,
-            name: '서라운드 뷰 모니터',
-            info: '11',
-            image: '11',
-          },
-        ],
-      },
-      {
-        trimName: 'Prestige',
-        trimInfo: '가치있는 드라이빙 경험을 주는',
-        trimPrice: 30000000,
-        trimImage: '/images/car/prestige.svg',
-        trimOuterColor: [
-          '#121212',
-          '#979999',
-          '#171D2F',
-          '#292622',
-          '#313433',
-          '#F2F4F3',
-        ],
-        trimInnerColor: ['네이비', '블랙', '버건디'],
-        trimOption: [
-          {
-            id: 0,
-            name: '2열 통풍시트',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 1,
-            name: '스마트 자세제어',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 2,
-            name: '2열 수동식 도어 커튼',
-            info: '11',
-            image: '11',
-          },
-        ],
-      },
-      {
-        trimName: 'Caligraphy',
-        trimInfo: '남들과 차별화된 경험',
-        trimPrice: 40000000,
-        trimImage: '/images/car/calligraphy.svg',
-        trimOuterColor: [
-          '#121212',
-          '#A1A3A2',
-          '#142419',
-          '#181F30',
-          '#2C2925',
-          '#3C3F3E',
-          '#F1F2F3',
-        ],
-        trimInnerColor: ['블랙(고급)', '브라운', '블랙 원톤(블랙에디션 전용)'],
-        trimOption: [
-          {
-            id: 0,
-            name: '20인치 캘리그라피 전용 휠',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 1,
-            name: 'KRELL 프리미엄 사운드',
-            info: '11',
-            image: '11',
-          },
-          {
-            id: 2,
-            name: '블랙 에디션',
-            info: '11',
-            image: '11',
-          },
-        ],
-      },
-    ],
-  };
-
-  const commonOption = {
-    Exclusive: [
-      {
-        option: 'wheel',
-        imgSrc: '/images/carComponent/18_wheel.svg',
-        name: '기본 휠',
-        inch: '18 inch',
-      },
-      {
-        option: 'sit',
-        imgSrc: '/images/carComponent/sit.svg',
-        name: '인조/천연가죽 시트',
-      },
-      {
-        option: 'navigation',
-        imgSrc: '/images/carComponent/navigation.svg',
-        name: '네비게이션',
-        inch: '12.3 inch',
-      },
-      {
-        option: 'cluster',
-        imgSrc: '/images/carComponent/cluster.svg',
-        name: '클러스터',
-        inch: '4.2 inch',
-      },
-    ],
-    'Le Blanc': [
-      {
-        option: 'wheel',
-        imgSrc: '/images/carComponent/wheel.svg',
-        name: '알로이 휠',
-        inch: '20 inch',
-      },
-      {
-        option: 'sit',
-        imgSrc: '/images/carComponent/sit.svg',
-        name: '퀄팅 천연가죽 시트',
-      },
-      {
-        option: 'navigation',
-        imgSrc: '/images/carComponent/navigation.svg',
-        name: '네비게이션',
-        inch: '12.3 inch',
-      },
-      {
-        option: 'cluster',
-        imgSrc: '/images/carComponent/cluster.svg',
-        name: '클러스터',
-        inch: '12.3 inch',
-      },
-    ],
-    Prestige: [
-      {
-        option: 'wheel',
-        imgSrc: '/images/carComponent/wheel.svg',
-        name: '알로이 휠',
-        inch: '20 inch',
-      },
-      {
-        option: 'sit',
-        imgSrc: '/images/carComponent/sit.svg',
-        name: '퀄팅 나파가죽 시트',
-      },
-      {
-        option: 'navigation',
-        imgSrc: '/images/carComponent/navigation.svg',
-        name: '네비게이션',
-        inch: '12.3 inch',
-      },
-      {
-        option: 'cluster',
-        imgSrc: '/images/carComponent/cluster.svg',
-        name: '클러스터',
-        inch: '12.3 inch',
-      },
-    ],
-    Caligraphy: [
-      {
-        option: 'wheel',
-        imgSrc: '/images/carComponent/wheel.svg',
-        name: '캘리그라피 전용 휠',
-        inch: '20 inch',
-      },
-      {
-        option: 'sit',
-        imgSrc: '/images/carComponent/sit.svg',
-        name: '퀄팅 나파가죽 시트 (캘리그라피 전용)',
-      },
-      {
-        option: 'navigation',
-        imgSrc: '/images/carComponent/navigation.svg',
-        name: '네비게이션',
-        inch: '12.3 inch',
-      },
-      {
-        option: 'cluster',
-        imgSrc: '/images/carComponent/cluster.svg',
-        name: '클러스터',
-        inch: '12.3 inch',
-      },
-    ],
-  };
-
+}: CompareModalProps) {
   function setColor(colorSet: string[]) {
     return colorSet.map(color => (
       <>
@@ -290,9 +46,9 @@ function CompareModal({
           <Grid>
             {data.trimList.map(trim => (
               <>
-                <Item key={trim.trimName}>
+                <FlexBox key={trim.trimName} direction="column" align="center">
                   <CarImage src={trim.trimImage} />
-                  <Box>
+                  <FlexBox direction="column" justify="center" gap={8}>
                     <p className="body-regular-14 text-grey-300">
                       {trim.trimInfo}
                     </p>
@@ -309,20 +65,20 @@ function CompareModal({
                       <span className="body-regular-16 ">부터</span>
                     </p>
                     <p className="body-medium-14 text-grey-200">외장 색상</p>
-                    <OuterColorContainer>
+                    <FlexBox justify="center" gap={8} margin="0 0 16px 0">
                       {setColor(trim.trimOuterColor)}
-                    </OuterColorContainer>
+                    </FlexBox>
                     <p className="body-medium-14 text-grey-200">내장 색상</p>
-                    <InnerColorContainer>
+                    <FlexBox display="inline" justify="center" align="center" wrap="wrap" gap={8} height={52}>
                       {setInnerColor(trim.trimInnerColor)}
-                    </InnerColorContainer>
-                    <Hr />
-                    <OptionBox gap={51}>
+                    </FlexBox>
+                    <Hr width={160} margin="33px 0px 33px 0px" />
+                    <FlexBox gap={51} direction="column">
                       {Object.entries(commonOption).map(item => {
                         if (item[0] === trim.trimName) {
                           return item[1].map(option => (
                             <>
-                              <Option key={option.name}>
+                              <Option key={option.name} direction="column" gap={8} align="center">
                                 <img src={option.imgSrc} />
                                 <InchSpan>{option.inch}</InchSpan>
                                 <NameSpan>{option.name}</NameSpan>
@@ -331,13 +87,14 @@ function CompareModal({
                           ));
                         }
                       })}
-                    </OptionBox>
-                    <Hr />
+                    </FlexBox>
+                    <Hr width={160} margin="33px 0px 33px 0px"/>
                     <span className="body-medium-14 text-grey-300">
                       기본 옵션
                     </span>
-                    <OptionBox
+                    <FlexBox
                       gap={8}
+                      direction="column"
                       className="text-secondary-active-blue body-regular-14"
                     >
                       {trim.trimOption.map(option => (
@@ -345,9 +102,9 @@ function CompareModal({
                           <span key={option.name}>{option.name}</span>
                         </>
                       ))}
-                    </OptionBox>
-                  </Box>
-                </Item>
+                    </FlexBox>
+                  </FlexBox>
+                </FlexBox>
               </>
             ))}
           </Grid>
@@ -398,12 +155,6 @@ const Grid = styled.div`
   text-align: center;
 `;
 
-const Item = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const Overlay = styled.div`
   width: 100%;
   height: 1650px;
@@ -441,38 +192,12 @@ const CarImage = styled.img`
   margin-bottom: 25px;
 `;
 
-const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  gap: 8px;
-`;
-
-const Hr = styled.div`
-  width: 160px;
-  height: 1px;
-  margin-top: 33px;
-  margin-bottom: 33px;
-  background: var(--primary-blue-10);
-`;
-
-const OptionBox = styled.div<{ gap: number }>`
-  display: flex;
-  gap: ${props => props.gap}px;
-  flex-direction: column;
-`;
-
-const Option = styled.div`
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
-  align-items: center;
+const Option = styled(SFlex)`
   img {
     width: 54.4px;
     height: 54.4px;
   }
-`;
+`
 
 const InchSpan = styled.span`
   color: var(--secondary-active-blue);
@@ -500,20 +225,4 @@ const Circle = styled.div<{ bgColor: string }>`
   height: 16px;
   border-radius: 50%;
   background-color: ${props => props.bgColor};
-`;
-
-const OuterColorContainer = styled.div`
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 16px;
-`;
-
-const InnerColorContainer = styled.div`
-  display: inline-flex;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  height: 52px;
 `;

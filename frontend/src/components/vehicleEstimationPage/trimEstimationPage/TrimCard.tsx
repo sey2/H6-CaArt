@@ -4,6 +4,7 @@ import { useFetch } from '../../../hooks/useFetch';
 import { OptionType } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
+import { FlexBox } from "../../common/FlexBox";
 
 interface Option {
   optionId: number;
@@ -113,7 +114,7 @@ function TrimCard({
             return (
               <>
                 <Head>
-                  <CarInfo>
+                  <FlexBox align="center" gap={8}>
                     <span className="text-grey-300 body-medium-14">
                       {trimItem.trimName}
                     </span>
@@ -125,7 +126,7 @@ function TrimCard({
                         {currentEstimation.wd.name}
                       </>
                     </span>
-                  </CarInfo>
+                  </FlexBox>
                   <CheckButton
                     src={
                       currentEstimation.trim.name === trimItem.trimName
@@ -197,12 +198,6 @@ const OptionList = styled.ul`
     cursor: pointer;
     position: relative;
   }
-`;
-
-const CarInfo = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
 `;
 
 const TrimSummary = styled.div`

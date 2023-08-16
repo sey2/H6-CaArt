@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import EBWButton from './EBWButton';
 import { EstimationContext } from '../../../util/Context';
+import { FlexBox } from "../../common/FlexBox";
 
 function EBWContainer({
   openSetter,
@@ -69,7 +70,7 @@ function EBWContainer({
   return (
     <>
       <Box className="body-medium-14 text-grey-200">
-        <Item>
+        <FlexBox direction="column">
           <Title className="engine">엔진</Title>
           <ButtonBox onClick={e => findSpan(e)}>
             <EBWButton value="디젤 2.2" price={0} onClick={handleButtonClick} />
@@ -79,21 +80,21 @@ function EBWContainer({
               onClick={handleButtonClick}
             />
           </ButtonBox>
-        </Item>
-        <Item>
+        </FlexBox>
+        <FlexBox direction="column">
           <Title>바디</Title>
           <ButtonBox onClick={e => findSpan(e)}>
             <EBWButton value="7인승" price={0} onClick={handleButtonClick} />
             <EBWButton value="8인승" price={3000} onClick={handleButtonClick} />
           </ButtonBox>
-        </Item>
-        <Item>
+        </FlexBox>
+        <FlexBox direction="column">
           <Title>구동방식</Title>
           <ButtonBox onClick={e => findSpan(e)}>
             <EBWButton value="2WD" price={0} onClick={handleButtonClick} />
             <EBWButton value="4WD" price={5000} onClick={handleButtonClick} />
           </ButtonBox>
-        </Item>
+        </FlexBox>
       </Box>
     </>
   );
@@ -119,9 +120,4 @@ const ButtonBox = styled.div`
 
 const Title = styled.span`
   margin-bottom: 4px;
-`;
-
-const Item = styled.div`
-  display: flex;
-  flex-direction: column;
 `;

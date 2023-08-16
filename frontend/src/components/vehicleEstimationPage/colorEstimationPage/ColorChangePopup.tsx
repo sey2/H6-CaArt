@@ -2,6 +2,8 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { priceToString } from '../../../util/PriceToString';
 import SquareButton from '../../common/SquareButton';
+import { FlexBox } from '../../common/FlexBox';
+import { Hr } from '../../common/Hr';
 
 interface ModalProps {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,8 +26,8 @@ function ColorChangePopup({ setter }: ModalProps) {
           <SubTitle className="text-secondary-active-blue body-medium-16">
             현재 트림
           </SubTitle>
-          <Hr color="light" />
-          <FlexBox direction="row" justify="space-between">
+          <Hr margin="7px 0px 0px 0px" />
+          <FlexBox justify="space-between">
             <TrimName className="text-grey-100 body-regular-16">
               Le Blanc (르블랑)
             </TrimName>
@@ -36,8 +38,8 @@ function ColorChangePopup({ setter }: ModalProps) {
           <SubTitle className="text-secondary-active-blue body-medium-16">
             변경 트림
           </SubTitle>
-          <Hr color="light" />
-          <FlexBox direction="row" justify="space-between">
+          <Hr margin="7px 0px 0px 0px" />
+          <FlexBox justify="space-between">
             <TrimName className="text-grey-100 body-regular-16">
               Calligraphy
             </TrimName>
@@ -45,8 +47,8 @@ function ColorChangePopup({ setter }: ModalProps) {
               {priceToString(52540000)}
             </TrimPrice>
           </FlexBox>
-          <Hr marginTop={68} color="dark" />
-          <FlexBox direction="row" justify="space-between">
+          <Hr margin="68px 0px 13px 0px" color="grey-500" />
+          <FlexBox justify="space-between">
             <span className="text-secondary-active-blue body-medium-16">
               변경 금액
             </span>
@@ -55,7 +57,12 @@ function ColorChangePopup({ setter }: ModalProps) {
             </span>
           </FlexBox>
         </FlexBox>
-        <ButtonContainer>
+        <FlexBox
+          justify="flex-end"
+          gap={10}
+          align="center"
+          margin="33px 0px 0px 0px"
+        >
           <div onClick={() => setter(false)}>
             <SquareButton size="xxs" height={40} color="grey-400" border>
               아니요
@@ -69,7 +76,7 @@ function ColorChangePopup({ setter }: ModalProps) {
           >
             변경하기
           </SquareButton>
-        </ButtonContainer>
+        </FlexBox>
       </Wrapper>
     </Overlay>
   );
@@ -105,12 +112,6 @@ const Title = styled.span`
   justify-content: space-between;
 `;
 
-const FlexBox = styled.div<{ justify?: string; direction: string }>`
-  display: flex;
-  flex-direction: ${props => props.direction};
-  ${props => props.justify && `justify-content: ${props.justify}`}
-`;
-
 const TrimName = styled.span`
   margin-top: 8px;
 `;
@@ -121,20 +122,6 @@ const TrimPrice = styled.span`
 
 const SubTitle = styled.span`
   margin-top: 36px;
-`;
-const Hr = styled.hr<{ marginTop?: number; color: 'light' | 'dark' }>`
-  width: 100%;
-  border-color: ${props =>
-    props.color === 'light' ? `var(--grey-700)` : `var(--grey-500)`};
-  ${props => props.marginTop && `margin-top: ${props.marginTop}px`};
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  align-items: center;
-  margin-top: 33px;
 `;
 
 const X = styled.img`

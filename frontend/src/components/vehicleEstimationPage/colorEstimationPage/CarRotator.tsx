@@ -27,7 +27,10 @@ function CarRotator() {
     >
       <BgTop />
       <BgBottom />
-      <Image src={`/images/A2B/${String(image).padStart(3,'0')}.png`} onMouseMove={startSwipe} />
+      <Image
+        src={`/images/A2B/${String(image).padStart(3, '0')}.png`}
+        onMouseMove={startSwipe}
+      />
     </ImageContainer>
   );
 }
@@ -35,8 +38,8 @@ function CarRotator() {
 export default CarRotator;
 
 const ImageContainer = styled.div`
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   position: relative;
 `;
 
@@ -54,8 +57,8 @@ const BgBottom = styled.div`
 `;
 
 const Image = styled.img`
-position:absolute;
-  top:50%;
-  left:50%;
-transform: translate(-50%, -50%);  
-`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
