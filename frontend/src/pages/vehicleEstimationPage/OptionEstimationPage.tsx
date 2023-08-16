@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
@@ -49,12 +50,16 @@ function OptionEstimationPage() {
       )}
 
       <OptionEstimationPageBtn>
-        <SquareButton size="m" color="grey-50" bg="grey-1000" border>
-          색상 선택
-        </SquareButton>
-        <SquareButton size="m" color="grey-1000" bg="primary-blue">
-          견적 내기
-        </SquareButton>
+        <Link to="/estimate/color">
+          <SquareButton size="m" color="grey-50" bg="grey-1000" border>
+            색상 선택
+          </SquareButton>
+        </Link>
+        <Link to="/result">
+          <SquareButton size="m" color="grey-1000" bg="primary-blue">
+            견적 내기
+          </SquareButton>
+        </Link>
       </OptionEstimationPageBtn>
 
       {openedModalId !== 0 && (

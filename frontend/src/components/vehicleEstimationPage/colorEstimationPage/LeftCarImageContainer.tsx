@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import OptionButton from './button/OptionButton';
-import CarRotator from "./CarRotator";
+import CarRotator from './CarRotator';
 
 interface CarContainerType {
   type: 'ex' | 'in' | '360' | string;
@@ -27,23 +27,21 @@ function LeftCarImageContainer({ type, setter, state }: CarContainerType) {
       <>
         <BgTop />
         <BgBottom />
-        <Image src="images/car.png" width={646} height={366} />
+        <Image src="/images/car.png" width={646} height={366} />
       </>
     );
   }
 
   function inView() {
-    return(
+    return (
       <>
-        <Image src="/images/inner_temp.png" width='100%' height='100%'/>
+        <Image src="/images/inner_temp.png" width="100%" height="100%" />
       </>
-    )
+    );
   }
 
   function rotateView() {
-    return(
-      <CarRotator />
-    )
+    return <CarRotator />;
   }
 
   return (
@@ -67,7 +65,6 @@ const Wrapper = styled.div`
   overflow: hidden;
   position: relative;
 `;
-
 
 const TypeBox = styled.div`
   position: absolute;

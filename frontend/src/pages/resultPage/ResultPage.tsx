@@ -4,6 +4,7 @@ import { ResultMain } from '../../components/common/result/ResultMain';
 import { styled } from 'styled-components';
 import SquareButton from '../../components/common/SquareButton';
 import BuyCarContainer from '../../components/resultPage/BuyCarContainer';
+import { Link } from 'react-router-dom';
 
 function ResultPage() {
   return (
@@ -26,8 +27,14 @@ function ResultPage() {
       <Hr />
       <BuyCarContainer />
       <ButtonContainer className="last">
-        <SquareButton size="m" color="grey-50" border>수정</SquareButton>
-        <SquareButton size="m" color="grey-1000" bg="primary-blue">구매/상담</SquareButton>
+        <Link to="/estimate/option">
+          <SquareButton size="m" color="grey-50" border>
+            수정
+          </SquareButton>
+        </Link>
+        <SquareButton size="m" color="grey-1000" bg="primary-blue">
+          구매/상담
+        </SquareButton>
       </ButtonContainer>
     </>
   );
@@ -53,7 +60,7 @@ const ButtonContainer = styled.div`
   margin-bottom: 52px;
   .last {
     gap: 18px;
-    margin-top:66px;
+    margin-top: 66px;
     margin-bottom: 36px;
   }
 `;

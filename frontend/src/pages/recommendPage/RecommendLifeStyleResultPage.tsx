@@ -19,7 +19,7 @@ function RecommendLifeStyleResultPage({
       </RecommendLifeStyleResultPageCarImgBox>
       <ResultMain></ResultMain>
       <RecommendLifeStyleResultPageBtnBox>
-        <Link to="/estimate">
+        <Link to="/estimate/trim">
           <SquareButton size="m" color="grey-50" bg="grey-1000" border>
             커스텀하기
           </SquareButton>

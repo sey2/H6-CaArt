@@ -9,10 +9,15 @@ function TrimCarImage() {
   return (
     <Wrapper>
       <RerecommendButton setter={setReRecommendModal} />
-      {<RerecommendModal setter={setReRecommendModal} isOpen={reRecommendModal} />}
+      {
+        <RerecommendModal
+          setter={setReRecommendModal}
+          isOpen={reRecommendModal}
+        />
+      }
       <BgTop />
       <BgBottom />
-      <Image src="images/car.png" width={646} height={366} />
+      <Image src="/images/car.png" width={646} height={366} />
     </Wrapper>
   );
 }
@@ -23,7 +28,6 @@ const Wrapper = styled.div`
   height: calc(100vh - 120px);
   overflow: hidden;
   position: relative;
-  
 `;
 
 const move = keyframes`

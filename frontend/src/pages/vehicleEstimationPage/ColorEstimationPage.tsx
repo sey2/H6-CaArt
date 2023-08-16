@@ -6,6 +6,7 @@ import LeftCarImageContainer from '../../components/vehicleEstimationPage/colorE
 import Dropdown from '../../components/vehicleEstimationPage/colorEstimationPage/Dropdown';
 import ColorContainer from '../../components/vehicleEstimationPage/colorEstimationPage/ColorContainer';
 import SquareButton from '../../components/common/SquareButton';
+import { Link } from 'react-router-dom';
 
 function ColorEstimationPage() {
   const [innerDDState, setInnerDDState] = useState(false);
@@ -50,17 +51,21 @@ function ColorEstimationPage() {
               outerColorDDState={outerDDState}
             />
             <ButtonContainer className="body-medium-16">
-              <SquareButton size="xs" color="grey-50" border>
-                트림 선택
-              </SquareButton>
-              <SquareButton
-                size="xs"
-                color="grey-1000"
-                bg="primary-blue"
-                border
-              >
-                옵션 선택
-              </SquareButton>
+              <Link to="/estimate/trim">
+                <SquareButton size="xs" color="grey-50" border>
+                  트림 선택
+                </SquareButton>
+              </Link>
+              <Link to="/estimate/option">
+                <SquareButton
+                  size="xs"
+                  color="grey-1000"
+                  bg="primary-blue"
+                  border
+                >
+                  옵션 선택
+                </SquareButton>
+              </Link>
             </ButtonContainer>
           </RightBox>
         </Layout>

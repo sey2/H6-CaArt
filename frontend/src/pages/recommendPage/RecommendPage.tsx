@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { ErrorPopup } from '../../components/common/ErrorPopup';
 // import { Header } from '../../components/common/header/Header';
 import { RecommendAgePage } from './RecommendAgePage';
 import { RecommendDetailPage } from './RecommendDetailPage';
@@ -40,14 +41,14 @@ function RecommendPage() {
       {/* <Header size="minimal" page={0}></Header> */}
       <Routes>
         <Route
-          path=""
+          path="age"
           element={
             <RecommendAgePage
               choice={choice}
               setChoice={setChoice}
             ></RecommendAgePage>
           }
-        ></Route>
+        />
         <Route
           path="lifeStyle"
           element={
@@ -56,7 +57,7 @@ function RecommendPage() {
               setChoice={setChoice}
             ></RecomendLifeStylePage>
           }
-        ></Route>
+        />
         <Route
           path="result"
           element={
@@ -64,7 +65,7 @@ function RecommendPage() {
               choice={choice}
             ></RecommendLifeStyleResultPage>
           }
-        ></Route>
+        />
         <Route
           path="custom"
           element={
@@ -73,7 +74,7 @@ function RecommendPage() {
               setChoice={setChoice}
             ></RecommendDetailPage>
           }
-        ></Route>
+        />
         <Route
           path="customResult"
           element={
@@ -81,7 +82,8 @@ function RecommendPage() {
               choice={choice}
             ></RecommendDetailResultPage>
           }
-        ></Route>
+        />
+        <Route path="*" element={<ErrorPopup></ErrorPopup>} />
       </Routes>
     </RecommendPageBox>
   );

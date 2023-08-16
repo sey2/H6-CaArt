@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SquareButton from './SquareButton';
 
@@ -15,16 +16,11 @@ function ErrorPopup() {
         오류가 발생했어요
       </ErrorPopupText>
       <ErrorPopupImg src="/images/error_logo_blue.svg"></ErrorPopupImg>
-      <SquareButton
-        size="l"
-        color="grey-1000"
-        bg="primary-blue"
-        onClick={() => {
-          location.reload();
-        }}
-      >
-        확인
-      </SquareButton>
+      <Link to="/">
+        <SquareButton size="l" color="grey-1000" bg="primary-blue">
+          확인
+        </SquareButton>
+      </Link>
     </ErrorPopupBox>
   );
 }

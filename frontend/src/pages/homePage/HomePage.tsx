@@ -21,12 +21,12 @@ function HomePage() {
         </TextBox>
       </TextContainer>
       <ButtonContainer>
-        <Link to="/estimate">
+        <Link to="/estimate/trim">
           <SquareButton size="m" color="grey-900" border={true}>
             직접 만들래요
           </SquareButton>
         </Link>
-        <Link to="/recommend">
+        <Link to="/recommend/age">
           <SquareButton size="m" color="primary-blue" bg="grey-1000">
             추천받기
           </SquareButton>
