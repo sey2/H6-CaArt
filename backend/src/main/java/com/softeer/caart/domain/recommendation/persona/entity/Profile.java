@@ -1,12 +1,19 @@
-package com.softeer.caart.domain.lifestyle.persona.entity;
+package com.softeer.caart.domain.recommendation.persona.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @Embeddable
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Profile {
 
 	@Column(name = "profile_image", nullable = false)

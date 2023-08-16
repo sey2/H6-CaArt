@@ -1,12 +1,12 @@
-package com.softeer.caart.domain.lifestyle.persona.service;
+package com.softeer.caart.domain.recommendation.persona.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.softeer.caart.domain.lifestyle.persona.dto.PersonaResponse;
-import com.softeer.caart.domain.lifestyle.persona.repository.PersonaRepository;
+import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
+import com.softeer.caart.domain.recommendation.persona.repository.PersonaRepository;
 
 import lombok.RequiredArgsConstructor;
 

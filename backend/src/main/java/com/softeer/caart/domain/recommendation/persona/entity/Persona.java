@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.lifestyle.persona.entity;
+package com.softeer.caart.domain.recommendation.persona.entity;
 
 import java.util.List;
 
@@ -15,12 +15,16 @@ import javax.persistence.OneToOne;
 import com.softeer.caart.domain.tag.entity.Tag;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Persona {
 
 	@Id

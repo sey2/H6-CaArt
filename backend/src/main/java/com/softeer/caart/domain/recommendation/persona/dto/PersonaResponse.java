@@ -1,8 +1,8 @@
-package com.softeer.caart.domain.lifestyle.persona.dto;
+package com.softeer.caart.domain.recommendation.persona.dto;
 
 import java.util.List;
 
-import com.softeer.caart.domain.lifestyle.persona.entity.Persona;
+import com.softeer.caart.domain.recommendation.persona.entity.Persona;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

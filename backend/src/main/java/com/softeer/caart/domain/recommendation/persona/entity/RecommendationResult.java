@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.lifestyle.persona.entity;
+package com.softeer.caart.domain.recommendation.persona.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
