@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { ErrorPopup } from '../../components/common/ErrorPopup';
-// import { Header } from '../../components/common/header/Header';
+import Header from '../../components/common/header/Header';
 import { RecommendAgePage } from './RecommendAgePage';
 import { RecommendDetailPage } from './RecommendDetailPage';
 import { RecommendDetailResultPage } from './RecommendDetailResultPage';
@@ -37,8 +37,7 @@ function RecommendPage() {
 
   return (
     <RecommendPageBox>
-      {/* 리팩토링시 Header를 라우터 밖으로 뺄 예정 */}
-      {/* <Header size="minimal" page={0}></Header> */}
+      <Header size="medium" page={0}></Header>
       <Routes>
         <Route
           path="age"

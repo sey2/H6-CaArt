@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Header } from '../../components/common/header/Header';
 import { ResultMain } from '../../components/common/result/ResultMain';
 import SquareButton from '../../components/common/SquareButton';
 import { RecommendResultCard } from '../../components/recommendPage/ageAndLifeStyle/RecommendResultCard';
@@ -13,7 +12,6 @@ function RecommendLifeStyleResultPage({
   choice.lifeStyle; //라이프스타일 id로 api요청 에정
   return (
     <RecommendLifeStyleResultPageBox>
-      <Header size="minimal" page={2}></Header>
       <RecommendLifeStyleResultPageCarImgBox>
         <RecommendResultCard></RecommendResultCard>
       </RecommendLifeStyleResultPageCarImgBox>

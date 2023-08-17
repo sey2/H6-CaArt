@@ -28,7 +28,6 @@ function HeaderDetail({
   return (
     <HeaderDetailBox>
       <HeaderMiddleLine />
-
       <OptionListBox>
         <OptionBox>
           <OptionList>
@@ -50,7 +49,6 @@ function HeaderDetail({
             </div>
           </OptionList>
         </OptionBox>
-
         <OptionBox2>
           <OptionList>
             <div className="body-regular-14 text-grey-300">
@@ -59,7 +57,7 @@ function HeaderDetail({
             <div className="body-medium-14 text-grey-100">
               {priceToString(currentEstimation.outerColor.price)}
             </div>
-          </OptionList>{' '}
+          </OptionList>
           <OptionList>
             <div className="body-regular-14 text-grey-300">
               {truncateString(currentEstimation.interiorColor.name, 6)}
@@ -69,12 +67,12 @@ function HeaderDetail({
             </div>
           </OptionList>
         </OptionBox2>
-
         <OptionBox3>{optionList}</OptionBox3>
+        {currentEstimation.options.length >= 6 && (
+          <ScrollIconBox src="/images/scroll_icon_black.svg"></ScrollIconBox>
+        )}
       </OptionListBox>
-
       <HeaderBottomLine />
-
       <TotalPriceBox>
         <img
           src="/images/dropup_icon_default.svg"
@@ -95,22 +93,24 @@ const HeaderDetailBox = styled.div`
   width: 100%;
   min-height: 202px;
   position: absolute;
-  padding-bottom: 44px;
-
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
   box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.08);
 `;
 
 const HeaderMiddleLine = styled.div`
   border-bottom: 1px solid #ebebeb;
+  width: 100%;
   height: 1px;
-  padding-top: 16px;
 `;
 
 const HeaderBottomLine = styled.div`
   border-bottom: 1px solid #ebebeb;
   height: 1px;
-  margin-left: 128px;
-  margin-right: 128px;
+  width: 1024px;
   margin-bottom: 16px;
 `;
 
@@ -119,9 +119,10 @@ const OptionBox = styled.div`
   flex-direction: column;
   width: 147px;
   height: 98px;
-  margin: 20px 0px 20px 128px;
+  margin: 20px 0px 20px 0px;
   gap: 7px;
   border-right: 1px solid #ebebeb;
+  position: relative;
 
   div {
     height: 22px;
@@ -135,7 +136,6 @@ const OptionBox2 = styled.div`
   height: 98px;
   margin: 20px 0px 20px 13px;
   gap: 7px;
-  border-right: 1px solid #ebebeb;
 
   .body-regular-14 {
     height: 22px;
@@ -145,18 +145,33 @@ const OptionBox2 = styled.div`
 const OptionBox3 = styled.div`
   display: flex;
   flex-direction: column;
-  width: 363px;
-  min-height: 98px;
-  margin: 20px 0px 20px 13px;
   gap: 7px;
+  width: 400px;
+  min-height: 98px;
+  max-height: 140px;
+  margin: 20px 0px 20px 0px;
+  padding-left: 13px;
+  border-left: 1px solid #ebebeb;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   div {
     height: 22px;
   }
 `;
 
+const ScrollIconBox = styled.img`
+  width: 24px;
+  height: 24px;
+  transform: translateY(75px);
+`;
+
 const OptionListBox = styled.div`
   display: flex;
+  width: 1024px;
+  margin: auto;
 `;
 
 const OptionList = styled.div`
@@ -170,13 +185,14 @@ const OptionList = styled.div`
 
 const TotalPriceBox = styled.div`
   display: flex;
+  justify-content: flex-end;
   gap: 4px;
-  position: absolute;
-  right: 131px;
+  width: 1024px;
+  margin: auto;
 
   img {
     cursor: pointer;
   }
 `;
 
-export { HeaderDetail };
+export default HeaderDetail;

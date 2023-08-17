@@ -1,46 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Logo } from '../../components/common/Logo';
-import SquareButton from '../../components/common/SquareButton';
 import { Link } from 'react-router-dom';
+import SquareButton from '../../components/common/SquareButton';
+import Header from '../../components/common/header/Header';
 
 function HomePage() {
   return (
-    <Wrapper>
-      <HomePageVideo autoPlay muted loop>
-        <source src="/videos/homePageVideo.mp4" type="video/mp4" />
-      </HomePageVideo>
-      <GradientTop />
-      <TextContainer>
-        <LogoBox>
-          <Logo type="home" />
-        </LogoBox>
-        <TextBox>
-          당신의 <span>라이프스타일</span>에 맞게
-          <br /> 차량을 추천해드려요
-        </TextBox>
-      </TextContainer>
-      <ButtonContainer>
-        <Link to="/estimate/trim">
-          <SquareButton size="m" color="grey-900" border={true}>
-            직접 만들래요
-          </SquareButton>
-        </Link>
-        <Link to="/recommend/age">
-          <SquareButton size="m" color="primary-blue" bg="grey-1000">
-            추천받기
-          </SquareButton>
-        </Link>
-      </ButtonContainer>
-      <GradientBottom />
-    </Wrapper>
+    <>
+      <Header size="small" page={0}></Header>
+      <Wrapper>
+        <HomePageVideo autoPlay muted loop>
+          <source src="/videos/homePageVideo.mp4" type="video/mp4" />
+        </HomePageVideo>
+        <GradientTop />
+        <TextContainer>
+          <TextBox>
+            당신의 <span>라이프스타일</span>에 맞게
+            <br /> 차량을 추천해드려요
+          </TextBox>
+        </TextContainer>
+        <ButtonContainer>
+          <Link to="/estimate/trim">
+            <SquareButton size="m" color="grey-900" border={true}>
+              직접 만들래요
+            </SquareButton>
+          </Link>
+          <Link to="/recommend/age">
+            <SquareButton size="m" color="primary-blue" bg="grey-1000">
+              추천받기
+            </SquareButton>
+          </Link>
+        </ButtonContainer>
+        <GradientBottom />
+      </Wrapper>
+    </>
   );
 }
 
 export default HomePage;
 
 const Wrapper = styled.div`
-  padding-top: 32px;
+  padding-top: 51px;
   padding-left: 128px;
 `;
 
@@ -48,12 +48,6 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 90px;
-`;
-
-const LogoBox = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
 `;
 
 const TextBox = styled.div`

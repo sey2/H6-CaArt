@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import { PageNum } from '../../components/recommendPage/ageAndLifeStyle/PageNum';
 import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
@@ -10,7 +9,6 @@ import { RecommendPageProps } from './RecommendPage';
 function RecommendAgePage({ choice, setChoice }: RecommendPageProps) {
   return (
     <ReccomendAgePageBox>
-      <Header size={'minimal'} page={0}></Header>
       <ReccomendAgePageMain>
         <ReccomendAgePageQBox>
           <div className="text-grey-0">

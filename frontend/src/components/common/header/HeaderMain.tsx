@@ -1,85 +1,96 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import SquareButton from '../SquareButton';
-import { HeaderDetail } from './HeaderDetail';
+import HeaderDetail from './HeaderDetail';
 import { EstimationContext, NameAndPrice } from '../../../util/Context';
 import { truncateString } from '../../../util/TruncateString';
 import { priceToString } from '../../../util/PriceToString';
+import { Link, useLocation } from 'react-router-dom';
+import DropDown from './DropDown';
 
-function HeaderMain({ step }: { step: number }) {
+function HeaderMain() {
   const { currentEstimation, totalPrice } = useContext(EstimationContext)!;
   const [showDetail, setShowDetail] = useState(false);
   const optionList = getOptionList(currentEstimation.options);
   const selectedClassName = 'head-medium-14 text-primary-blue';
   const unSelectedClassName = 'head-regular-14 text-grey-600';
+  const url = useLocation().pathname;
+
+  const estimateList = [
+    {
+      name: '트림',
+      link: '/estimate/trim',
+      children: ['currentEstimation.trim.name'],
+    },
+    {
+      name: '색상',
+      link: '/estimate/color',
+      children: [
+        'currentEstimation.outerColor.name',
+        'currentEstimation.interiorColor.name',
+      ],
+    },
+    {
+      name: '옵션',
+      link: '/estimate/option',
+      children: ['optionList'],
+    },
+  ];
+
+  const estimateNavList = estimateList.map((item, index) => {
+    return (
+      <TextBox key={index}>
+        <Link to={item.link}>
+          <span
+            className={
+              url === item.link ? selectedClassName : unSelectedClassName
+            }
+          >
+            {index + 1} {item.name}
+          </span>
+        </Link>
+        <span className="body-regular-14 text-grey-400">
+          {item.name === '트림' && currentEstimation.trim.name}
+          {item.name === '색상' &&
+            `${currentEstimation.outerColor.name} / ${currentEstimation.interiorColor.name}`}
+          {item.name === '옵션' && optionList}
+        </span>
+      </TextBox>
+    );
+  });
 
   return (
     <>
-      <TextListBox>
-        <TextBox>
-          <span
-            className={step === 0 ? selectedClassName : unSelectedClassName}
-            onClick={() => {}}
+      <Container>
+        <TextListBox>{estimateNavList}</TextListBox>
+        <ButtonBox>
+          <SquareButton
+            size={'xxs'}
+            color={'primary-blue'}
+            bg={'grey-1000'}
+            height={40}
+            border
+            onClick={() => {
+              setShowDetail(!showDetail);
+            }}
           >
-            1 트림
-          </span>
-          <span className="body-regular-14 text-grey-400">
-            {currentEstimation.trim.name}
-          </span>
-        </TextBox>
-        <TextBox>
-          <span
-            className={step === 1 ? selectedClassName : unSelectedClassName}
-            onClick={() => {}}
-          >
-            2 색상
-          </span>
-          <span className="body-regular-14 text-grey-400">
-            {currentEstimation.outerColor.name} /{' '}
-            {currentEstimation.interiorColor.name}
-          </span>
-        </TextBox>
-        <TextBox>
-          <span
-            className={step === 2 ? selectedClassName : unSelectedClassName}
-            onClick={() => {}}
-          >
-            3 옵션
-          </span>
-          <span className="body-regular-14 text-grey-400">{optionList}</span>
-        </TextBox>
-      </TextListBox>
-
-      <ButtonBox>
-        <button
-          onClick={() => {
-            setShowDetail(true);
-          }}
-        >
-          임시
-        </button>
-        <SquareButton
-          size={'xxs'}
-          color={'primary-blue'}
-          bg={'grey-1000'}
-          height={40}
-          border
-        >
-          요금 상세
-        </SquareButton>
-        <SquareButton
-          size={'s'}
-          color={'grey-1000'}
-          bg={'primary-blue'}
-          height={40}
-        >
-          {priceToString(totalPrice)} 견적내기
-        </SquareButton>
-      </ButtonBox>
-
-      {showDetail && (
-        <HeaderDetail setShowDetail={setShowDetail}></HeaderDetail>
-      )}
+            요금 상세
+          </SquareButton>
+          <Link to="/result">
+            <SquareButton
+              size={'s'}
+              color={'grey-1000'}
+              bg={'primary-blue'}
+              height={40}
+            >
+              {priceToString(totalPrice)} 견적내기
+            </SquareButton>
+          </Link>
+        </ButtonBox>
+      </Container>
+      <DropDown visibility={showDetail}>
+        {<HeaderDetail setShowDetail={setShowDetail}></HeaderDetail>}
+      </DropDown>
     </>
   );
 }
@@ -96,6 +107,15 @@ function getOptionList(options: NameAndPrice[]) {
   return truncateString(str.slice(0, -2), 28);
 }
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 16px;
+  width: 1024px;
+  margin: auto;
+`;
+
 const TextBox = styled.div`
   display: inline-flex;
   align-items: center;
@@ -109,16 +129,16 @@ const TextBox = styled.div`
 const TextListBox = styled.div`
   display: flex;
   gap: 22px;
-  padding-left: 128px;
   padding-top: 25px;
+
+  .head-regular-14:hover {
+    color: var(--secondary-active-blue);
+  }
 `;
 
 const ButtonBox = styled.div`
   display: flex;
   gap: 8px;
-  position: absolute;
-  top: 64px;
-  right: 128px;
 `;
 
-export { HeaderMain };
+export default HeaderMain;

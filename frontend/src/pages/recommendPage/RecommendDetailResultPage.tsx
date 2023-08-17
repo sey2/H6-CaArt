@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Header } from '../../components/common/header/Header';
 import { ResultMain } from '../../components/common/result/ResultMain';
 import SquareButton from '../../components/common/SquareButton';
 import { TagList } from '../../components/common/TagList';
@@ -14,8 +13,6 @@ function RecommendDetailResultPage({
   //choice 기반 api요청으로 데이터 가져올 예정
   return (
     <RecommendDetailResultPageBox>
-      <Header size="minimal" page={2}></Header>
-
       <RecommendDetailResultPageCarImgBox>
         <FlexBox>
           <TagList

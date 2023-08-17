@@ -1,62 +1,66 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Logo } from '../Logo';
-import { HeaderMain } from './HeaderMain';
-import { HeaderProgressBar } from './HeaderProgressBar';
+import Logo from '../Logo';
+import HeaderMain from './HeaderMain';
+import HeaderProgressBar from './HeaderProgressBar';
 
-function Header({ size, page, currentEstimateObj }: HeaderProps) {
-  const [step, setStep] = useState(page);
+type HeaderSizeProps = 'small' | 'medium' | 'large';
 
-  setStep;
-  currentEstimateObj;
+interface HeaderPrips {
+  size: HeaderSizeProps;
+  page: number;
+}
 
+function Header({ size, page }: HeaderPrips) {
+  page;
   return (
     <HeaderBox size={size}>
-      <LogoBox>
-        <Logo type={'default'}></Logo>
-      </LogoBox>
-      {size === 'minimal' && (
-        <HeaderProgressBar step={step}></HeaderProgressBar>
-      )}
-      {size !== 'minimal' && <HeaderMain step={step}></HeaderMain>}
+      <Container>
+        <LogoBox>
+          <Logo type={size === 'small' ? 'home' : 'default'}></Logo>
+        </LogoBox>
+        {size === 'medium' && <HeaderProgressBar></HeaderProgressBar>}
+        {size === 'large' && <HeaderMain></HeaderMain>}
+      </Container>
     </HeaderBox>
   );
 }
 
-const HeaderBox = styled.div<{ size: 'minimal' | 'default' }>`
+const HeaderBox = styled.div<{ size: HeaderSizeProps }>`
   width: 100%;
+  display: flex;
+  justify-content: center;
   position: sticky;
   top: 0px;
-  background: #fff;
-  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.08);
-  z-index: 1;
-  ${props => getHeaderHeight(props.size)};
+  z-index: 20;
+
+  ${props => cssHandler(props.size)};
 `;
 
-const getHeaderHeight = (size: 'minimal' | 'default') => {
+const Container = styled.div`
+  width: 1280px;
+`;
+
+const cssHandler = (size: HeaderSizeProps) => {
+  const shadow = `0px 4px 6px 0px rgba(0, 0, 0, 0.08)`;
+
   switch (size) {
-    case 'minimal':
-      return `height: 92px`;
-    case 'default':
-      return `height: 120px`;
+    case 'small':
+      return `background: transparent; height: 92px`;
+      break;
+    case 'medium':
+      return `background: var(--grey-1000); height: 92px; box-shadow: ${shadow}`;
+      break;
+    case 'large':
+      return `background: var(--grey-1000); height: 120px; box-shadow: ${shadow}`;
+      break;
   }
 };
 
 const LogoBox = styled.div`
-  padding-left: 128px;
+  width: 1024px;
   padding-top: 32px;
+  margin: auto;
 `;
 
-export interface HeaderProps {
-  size: 'minimal' | 'default';
-  page: number;
-  currentEstimateObj?: currentEstimateObjProps;
-}
-
-export interface currentEstimateObjProps {
-  trim: string;
-  color: string;
-  option: string[];
-}
-
-export { Header };
+export default Header;

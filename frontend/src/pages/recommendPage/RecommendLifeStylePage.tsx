@@ -3,7 +3,6 @@ import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import { ErrorPopup } from '../../components/common/ErrorPopup';
-import { Header } from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import { PageNum } from '../../components/recommendPage/ageAndLifeStyle/PageNum';
 import { LifeStyleCard } from '../../components/recommendPage/lifeStyleCard/LifeStyleCard';
@@ -20,9 +19,7 @@ export interface lifeStyleProps {
 function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
   const [openedModalNum, setOpenedModalNum] = useState(0);
 
-  const { data, status, error } = useFetch<lifeStyleProps[]>(
-    '/lifestyle/personas',
-  );
+  const { data, status, error } = useFetch<lifeStyleProps[]>('/personas');
   if (status === 'loading') {
     return <div>loading</div>;
   } else if (status === 'error') {
@@ -50,8 +47,6 @@ function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
 
   return (
     <RecomendLifeStylePageBox>
-      <Header size="minimal" page={1}></Header>
-
       <RecomendLifeStyleMain>
         <RecomendLifeStylePageTitle>
           <RecomendLifeStylePageTitleText className="text-grey-0">

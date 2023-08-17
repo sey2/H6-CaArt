@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { Header } from '../../components/common/header/Header';
+import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import OptionNavBar from '../../components/vehicleEstimationPage/optionEstimationPage/navBar/NavBar';
 import OptionCardList from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardList';
@@ -19,7 +19,7 @@ function OptionEstimationPage() {
 
   return (
     <OptionEstimationPageBox>
-      <Header size="default" page={2}></Header>
+      <Header size="large" page={2}></Header>
 
       <OptionNavBar
         isBasicOptionPage={isBasicOptionPage}

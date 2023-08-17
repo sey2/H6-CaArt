@@ -60,7 +60,7 @@ const ModalBox = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 30;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -74,7 +74,7 @@ const OverlayBox = styled.div`
   height: 1498px;
   position: absolute;
   background: rgba(15, 17, 20, 0.55);
-  z-index: 5;
+  z-index: 50;
 `;
 
 const WrapperBox = styled.div<{ scrollPosition?: number }>`
@@ -85,7 +85,7 @@ const WrapperBox = styled.div<{ scrollPosition?: number }>`
   top: 92px;
   left: 50%;
   transform: translate(-50%);
-  z-index: 10;
+  z-index: 60;
 `;
 
 const LifeStylePeekModalBox = styled.div`

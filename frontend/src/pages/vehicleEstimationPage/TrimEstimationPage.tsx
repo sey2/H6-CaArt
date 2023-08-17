@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Header } from '../../components/common/header/Header';
+import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import ToolTip from '../../components/common/ToolTip';
 import CompareModal from '../../components/vehicleEstimationPage/trimEstimationPage/CompareModal';
@@ -58,7 +58,7 @@ function TrimEstimationPage() {
       }
 
       <Wrapper onClick={closeModalHandler}>
-        <Header size="default" page={0} />
+        <Header size="large" page={0} />
         <Layout>
           <TrimCarImage />
           <RightBox onScroll={closeModalHandler}>

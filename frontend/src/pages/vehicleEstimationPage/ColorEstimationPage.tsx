@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ColorChangePopup from '../../components/vehicleEstimationPage/colorEstimationPage/ColorChangePopup';
-import { Header } from '../../components/common/header/Header';
+import Header from '../../components/common/header/Header';
 import LeftCarImageContainer from '../../components/vehicleEstimationPage/colorEstimationPage/LeftCarImageContainer';
 import Dropdown from '../../components/vehicleEstimationPage/colorEstimationPage/Dropdown';
 import ColorContainer from '../../components/vehicleEstimationPage/colorEstimationPage/ColorContainer';
@@ -17,7 +17,7 @@ function ColorEstimationPage() {
     <>
       {<ColorChangePopup setter={setModal} isOpen={modal}/>}
       <Wrapper>
-        <Header size="default" page={0} />
+        <Header size="large" page={0} />
         <Layout>
           <LeftCarImageContainer
             type={selectedType}
