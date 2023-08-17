@@ -52,5 +52,13 @@
     <fragment
         android:id="@+id/lifeStyleSurveyFragment"
         android:name="org.softeer_2nd.caArt.view.fragment.LifeStyleSurveyFragment"
-        android:label="LifeStyleSurveyFragment" />
+        android:label="LifeStyleSurveyFragment" >
+        <action
+            android:id="@+id/action_lifeStyleSurveyFragment_to_lifeStyleDetailSurveyFragment"
+            app:destination="@id/lifeStyleDetailSurveyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lifeStyleDetailSurveyFragment"
+        android:name="org.softeer_2nd.caArt.view.fragment.LifeStyleDetailSurveyFragment"
+        android:label="LifeStyleDetailSurveyFragment" />
 </navigation>

@@ -1,6 +1,7 @@
 package org.softeer_2nd.caArt.model.factory
 
 import org.softeer_2nd.caArt.R
+import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.dummy.OptionChangePopUpDummyItem
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.Persona
@@ -203,4 +204,15 @@ object DummyItemFactory {
             )
         }
     }
+
+    fun createDetailSurveyQuestionDummyItem(): List<SurveyQuestion> {
+        return List(3) { questionIndex ->
+            SurveyQuestion(
+                question = "$questionIndex 운전경력이 어떻게 되세요?.",
+                answerOptions = List(5) { "${it * 10}" }
+            )
+        }
+    }
+
+    fun createBudgetRangeDummyItem(): BudgetRange = BudgetRange(400, 2000, 200)
 }

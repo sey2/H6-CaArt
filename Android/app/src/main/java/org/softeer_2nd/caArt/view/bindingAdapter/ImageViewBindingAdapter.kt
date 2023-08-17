@@ -4,12 +4,13 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
+import coil.size.Scale
 
 @BindingAdapter("url")
-fun ImageView.setImageSrcWithUrl(url: String?) {
+fun ImageView.setUrl(url: String?) {
 
-    load(url){
-        scale(coil.size.Scale.FILL)
+    load(url) {
+        scale(Scale.FILL)
     }
 }
 

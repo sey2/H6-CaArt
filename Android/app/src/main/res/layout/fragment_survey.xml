@@ -23,7 +23,7 @@
 
         <variable
             name="processViewModel"
-            type="org.softeer_2nd.caArt.viewmodel.LifeStyleSurveyViewModel" />
+            type="org.softeer_2nd.caArt.viewmodel.ProcessViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

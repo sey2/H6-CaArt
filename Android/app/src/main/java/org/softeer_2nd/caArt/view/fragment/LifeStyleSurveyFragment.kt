@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
@@ -96,7 +97,6 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
             binding.rvSurveyAnswerOptionsContainer.visibility = View.GONE
             lifeStylePersonaLayoutBinding?.root?.visibility = View.VISIBLE
         }
-
     }
 
     private fun View.initPersonaContainerLayoutParams() {
