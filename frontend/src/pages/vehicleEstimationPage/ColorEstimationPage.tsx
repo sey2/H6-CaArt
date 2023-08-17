@@ -15,7 +15,7 @@ function ColorEstimationPage() {
   >('ex');
   return (
     <>
-      {<ColorChangePopup setter={setModal} isOpen={modal}/>}
+      {<ColorChangePopup setter={setModal} isOpen={modal} />}
       <Wrapper>
         <Header size="large" page={0} />
         <Layout>
@@ -29,17 +29,13 @@ function ColorEstimationPage() {
               외장 색상
             </HeadTitle>
             <ColorContainer />
-            <Dropdown
-              type="outer"
-            />
+            <Dropdown type="outer" />
             <Hr />
             <HeadTitle className="text-grey-0 head-medium-20">
               내장 색상
             </HeadTitle>
             <ColorContainer />
-            <Dropdown
-              type="inner"
-            />
+            <Dropdown type="inner" />
             <ButtonContainer className="body-medium-16">
               <Link to="/estimate/trim">
                 <SquareButton size="xs" color="grey-50" border>
@@ -78,10 +74,10 @@ const Layout = styled.div`
 
 const RightBox = styled.div`
   padding: 0px 0px 36px 51px;
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
   }

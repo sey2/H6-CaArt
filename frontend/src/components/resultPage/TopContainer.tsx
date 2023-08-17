@@ -1,20 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { ModalProps } from './modal/ShareModal';
 import ResultImage from './ResultImage';
 
-function TopContainer() {
+function TopContainer({ setter }: Pick<ModalProps, 'setter'>) {
   return (
     <Background>
-      <Logo>
-        <img src="/images/hyundai_logo_default.svg" />
-      </Logo>
+      <Link to="/">
+        <Logo>
+          <img src="/images/hyundai_logo_default.svg" />
+        </Logo>
+      </Link>
       <Flex>
         <p className="text-grey-0 head-medium-26">나만의 차가 완성되었어요!</p>
         <p className="text-grey-200 body-regular-14">
           만든 차는 저장하고 공유할 수 있어요.
         </p>
       </Flex>
-      <ResultImage />
+      <ResultImage setter={setter} />
     </Background>
   );
 }

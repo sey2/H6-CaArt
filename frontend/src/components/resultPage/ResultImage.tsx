@@ -1,13 +1,15 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { ModalProps } from "./modal/ShareModal";
 
-function ResultImage() {
+function ResultImage({setter}: Pick<ModalProps,'setter'>) {
   return (
+    <>
     <Wrapper>
       <ImageTop src="/images/temp_top_image.png" />
-      <DownloadIcon>
+      <ShareIcon onClick={()=>setter(true)}>
         <img src="/images/download_icon.svg" />
-      </DownloadIcon>
+      </ShareIcon>
       <ShadeTop src="/images/triangle.svg" />
       <ImageBottom>
         <Flex>
@@ -18,6 +20,7 @@ function ResultImage() {
         <Shade src="/images/triangle.svg" />
       </ImageBottom>
     </Wrapper>
+    </>
   );
 }
 
@@ -40,6 +43,7 @@ const ImageBottom = styled.div`
   background: var(--grey-1000);
   padding: 12px 16px 18px 16px;
   margin-top: -3px;
+  text-align: left;
 `;
 
 const Flex = styled.div`
@@ -76,7 +80,7 @@ const ShadeTop = styled.img`
   height: 88px;
 `;
 
-const DownloadIcon = styled.div`
+const ShareIcon = styled.div`
   position: absolute;
   top: 16px;
   right: 16px;

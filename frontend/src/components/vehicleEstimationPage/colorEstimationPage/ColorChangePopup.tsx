@@ -10,9 +10,9 @@ interface ModalProps {
   isOpen: boolean;
 }
 
-function ColorChangePopup({ setter,isOpen }: ModalProps) {
+function ColorChangePopup({ setter, isOpen }: ModalProps) {
   return (
-    <Overlay onClick={() => setter(false)} className={isOpen ? "active" : ''}>
+    <Overlay onClick={() => setter(false)} className={isOpen ? 'active' : ''}>
       <Wrapper onClick={e => e.stopPropagation()}>
         <X src="/images/x_icon.svg" onClick={() => setter(false)} />
         <FlexBox direction="column">

@@ -9,6 +9,7 @@ interface buttonOption {
   children: React.ReactNode;
   border?: boolean;
   onClick?: () => void;
+  className? : string;
 }
 
 function calcWidth(size: string) {
