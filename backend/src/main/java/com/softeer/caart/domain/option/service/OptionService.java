@@ -12,9 +12,10 @@ import com.softeer.caart.domain.model.Model;
 import com.softeer.caart.domain.model.exception.ModelNotFoundException;
 import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.dto.AdditionalOptionResponse;
-import com.softeer.caart.domain.option.dto.AdditionalOptionsRequest;
 import com.softeer.caart.domain.option.dto.AdditionalOptionsResponse;
 import com.softeer.caart.domain.option.dto.BasicOptionResponse;
+import com.softeer.caart.domain.option.dto.BasicOptionsResponse;
+import com.softeer.caart.domain.option.dto.OptionListRequest;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
@@ -32,27 +33,6 @@ public class OptionService {
 	private final AdditionalOptionInfoRepository additionalOptionInfoRepository;
 	private final ModelRepository modelRepository;
 
-	// FIXME : N+1
-	public AdditionalOptionsResponse getAdditionalOptions(AdditionalOptionsRequest dto) {
-		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
-				dto.getBodyTypeId(), dto.getWdId())
-			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
-		model.validateTrim();
-
-		Page<AdditionalOptionInfo> additionalOptionInfos = fetchByTagIdStatus(model.getId(), dto.getTagId(),
-			dto.getOffset(), dto.getPageSize());
-
-		return AdditionalOptionsResponse.of(additionalOptionInfos);
-	}
-
-	private Page<AdditionalOptionInfo> fetchByTagIdStatus(Long modelId, Long tagId, Integer offset, Integer pageSize) {
-		Pageable pageable = PageRequest.of(offset, pageSize);
-		if (tagId != null) {
-			return additionalOptionInfoRepository.findByModelIdAndTagId(modelId, tagId, pageable);
-		}
-		return additionalOptionInfoRepository.findByModelId(modelId, pageable);
-	}
-
 	public BasicOptionResponse getBasicOption(Long optionId) {
 		BaseOptionInfo option = baseOptionInfoRepository.findById(optionId)
 			.orElseThrow(() -> new OptionNotFoundException(OPTION_NOT_FOUND));
@@ -67,5 +47,54 @@ public class OptionService {
 		option.validateAdditionalOption();
 
 		return AdditionalOptionResponse.from(option);
+	}
+
+	// FIXME : N+1
+	public BasicOptionsResponse getBasicOptions(OptionListRequest dto) {
+		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
+				dto.getBodyTypeId(), dto.getWdId())
+			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
+		model.validateTrim();
+
+		Page<BaseOptionInfo> baseOptionInfos = fetchBasicOptionsByTagIdStatus(model.getId(), dto.getTagId(),
+			dto.getOffset(), dto.getPageSize());
+
+		return BasicOptionsResponse.from(baseOptionInfos);
+	}
+
+	private Page<BaseOptionInfo> fetchBasicOptionsByTagIdStatus(Long modelId, Long tagId, Integer offset,
+		Integer pageSize) {
+		Pageable pageable = PageRequest.of(offset, pageSize);
+		if (isTagIdEmpty(tagId)) {
+			return baseOptionInfoRepository.findByModelId(modelId, pageable);
+		}
+		return baseOptionInfoRepository.findByModelIdAndTagId(modelId, tagId, pageable);
+	}
+
+	// FIXME : N+1
+	public AdditionalOptionsResponse getAdditionalOptions(OptionListRequest dto) {
+		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
+				dto.getBodyTypeId(), dto.getWdId())
+			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
+		model.validateTrim();
+
+		Page<AdditionalOptionInfo> additionalOptionInfos = fetchAdditionalOptionsByTagIdStatus(model.getId(),
+			dto.getTagId(),
+			dto.getOffset(), dto.getPageSize());
+
+		return AdditionalOptionsResponse.from(additionalOptionInfos);
+	}
+
+	private Page<AdditionalOptionInfo> fetchAdditionalOptionsByTagIdStatus(Long modelId, Long tagId, Integer offset,
+		Integer pageSize) {
+		Pageable pageable = PageRequest.of(offset, pageSize);
+		if (isTagIdEmpty(tagId)) {
+			return additionalOptionInfoRepository.findByModelId(modelId, pageable);
+		}
+		return additionalOptionInfoRepository.findByModelIdAndTagId(modelId, tagId, pageable);
+	}
+
+	private boolean isTagIdEmpty(Long tagId) {
+		return tagId == null;
 	}
 }

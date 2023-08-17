@@ -23,7 +23,7 @@ public class AdditionalOptionsResponse {
 			.collect(Collectors.toList());
 	}
 
-	public static AdditionalOptionsResponse of(Page<AdditionalOptionInfo> page) {
+	public static AdditionalOptionsResponse from(Page<AdditionalOptionInfo> page) {
 		return new AdditionalOptionsResponse(page);
 	}
 }

@@ -12,12 +12,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class BasicOptionResponse {
+	private Long optionId;
 	private String optionName;
 	private String description;
 	private String optionImage;
 	private List<String> tags;
 
 	private BasicOptionResponse(BaseOptionInfo option) {
+		this.optionId = option.getId();
 		this.optionName = option.getName();
 		this.description = option.getDescription();
 		this.optionImage = option.getImage().getUrl();

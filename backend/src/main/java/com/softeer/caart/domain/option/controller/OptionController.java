@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.softeer.caart.domain.option.dto.AdditionalOptionResponse;
-import com.softeer.caart.domain.option.dto.AdditionalOptionsRequest;
 import com.softeer.caart.domain.option.dto.AdditionalOptionsResponse;
 import com.softeer.caart.domain.option.dto.BasicOptionResponse;
+import com.softeer.caart.domain.option.dto.BasicOptionsResponse;
+import com.softeer.caart.domain.option.dto.OptionListRequest;
 import com.softeer.caart.domain.option.service.OptionService;
 import com.softeer.caart.global.response.DataResponseDto;
 import com.softeer.caart.global.response.ResponseDto;
@@ -26,14 +27,14 @@ public class OptionController {
 
 	@Operation(summary = "해당 모델이 가질 수 있는 기본 포함 옵션 목록을 조회한다", description = "이름 순으로 정렬한다")
 	@GetMapping("/basic/list")
-	public ResponseDto getBasicOptions() {
-		return null;
+	public ResponseDto getBasicOptions(OptionListRequest dto) {
+		BasicOptionsResponse basicOptions = optionService.getBasicOptions(dto);
+		return DataResponseDto.of(basicOptions);
 	}
 
-	// TODO : RequestParam requestDto 수정
 	@Operation(summary = "모델이 가질 수 있는 추가 옵션 목록을 조회한다", description = "(현재 LeBlanc만 조회 가능 > trimId : 1) 추가 옵션은 채택률 순으로 정렬한다. 태그가 ALL인 경우 tagId 인자를 넣지 않는다.")
 	@GetMapping("/additional/list")
-	public ResponseDto getAdditionalOptions(AdditionalOptionsRequest dto) {
+	public ResponseDto getAdditionalOptions(OptionListRequest dto) {
 		AdditionalOptionsResponse additionalOptions = optionService.getAdditionalOptions(dto);
 		return DataResponseDto.of(additionalOptions);
 	}

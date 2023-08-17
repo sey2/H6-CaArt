@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class AdditionalOptionsRequest {
+public class OptionListRequest {
 	@Nullable
 	private Long tagId;
 	@NotNull
