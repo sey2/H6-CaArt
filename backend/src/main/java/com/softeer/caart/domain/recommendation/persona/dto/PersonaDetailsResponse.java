@@ -74,7 +74,7 @@ public class PersonaDetailsResponse {
 
 		private RecommendationDto(RecommendationResult recommendationResult) {
 			this.model = new ModelDto(recommendationResult.getModel());
-			this.options = recommendationResult.getRecommededOptions().stream()
+			this.options = recommendationResult.getRecommendedOptionList().stream()
 				.map(option -> new OptionDto(option.getDetails()))
 				.collect(Collectors.toList());
 		}

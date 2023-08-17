@@ -33,7 +33,7 @@ jobs:
       working-directory: ${{ env.wd }}
       run: |
         chmod +x gradlew
-        ./gradlew --debug testCoverage
+        ./gradlew testCoverage
 
     - name: Add coverage to PR
       id: jacoco

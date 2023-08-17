@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaDetailsResponse;
+import com.softeer.caart.domain.recommendation.persona.dto.PersonaRecommendationResponse;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
 import com.softeer.caart.domain.recommendation.persona.service.PersonaService;
 import com.softeer.caart.global.response.DataResponseDto;
@@ -20,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/personas")
-@Tag(name = "라이프스타일 페르소나 API", description = "페르소나의 목록과 세부 정보를 조회한다.")
+@Tag(name = "페르소나 API", description = "페르소나의 목록과 세부 정보를 조회한다.")
 public class PersonaController {
 
 	private final PersonaService personaService;
@@ -37,5 +39,12 @@ public class PersonaController {
 	public ResponseDto getPersona(@PathVariable Long personaId) {
 		PersonaDetailsResponse personaDetailsResponse = personaService.getPersona(personaId);
 		return DataResponseDto.of(personaDetailsResponse);
+	}
+
+	@GetMapping("/{personaId}/recommendation")
+	@Operation(summary = "페르소나의 추천 차량 견적을 조회한다.")
+	public ResponseDto getPersonaRecommendation(@PathVariable final Long personaId, @RequestParam final Integer age) {
+		PersonaRecommendationResponse response = personaService.getPersonaRecommendation(personaId, age);
+		return DataResponseDto.of(response);
 	}
 }

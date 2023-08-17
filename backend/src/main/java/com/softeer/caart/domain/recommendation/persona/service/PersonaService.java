@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaDetailsResponse;
+import com.softeer.caart.domain.recommendation.persona.dto.PersonaRecommendationResponse;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
 import com.softeer.caart.domain.recommendation.persona.entity.Persona;
 import com.softeer.caart.domain.recommendation.persona.exception.PersonaNotFoundException;
@@ -31,5 +32,12 @@ public class PersonaService {
 		Persona persona = personaRepository.findById(personaId)
 			.orElseThrow(() -> new PersonaNotFoundException(ResultCode.PERSONA_NOT_FOUND));
 		return PersonaDetailsResponse.from(persona);
+	}
+
+	public PersonaRecommendationResponse getPersonaRecommendation(Long personaId, Integer age) {
+		// TODO: 연령대(age)에 따른 색상 추천
+		Persona persona = personaRepository.findById(personaId)
+			.orElseThrow(() -> new PersonaNotFoundException(ResultCode.PERSONA_NOT_FOUND));
+		return PersonaRecommendationResponse.from(persona);
 	}
 }

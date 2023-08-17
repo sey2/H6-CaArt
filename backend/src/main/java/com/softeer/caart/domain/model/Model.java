@@ -22,11 +22,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -69,5 +64,9 @@ public class Model {
 
 	private boolean isTrimLeBlanc() {
 		return trim.getName().equals("Le Blanc");
+	}
+
+	public Integer calcModelPrice() {
+		return carEngine.getPrice() + wheelDrive.getPrice() + trim.getPrice();
 	}
 }

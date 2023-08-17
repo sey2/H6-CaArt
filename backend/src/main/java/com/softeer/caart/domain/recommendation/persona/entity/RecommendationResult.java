@@ -61,7 +61,17 @@ public class RecommendationResult {
 	@Column(name = "recommendation_explanation_2", nullable = false, length = 100)
 	private String secondExplanation;
 
-	public List<AdditionalOptionInfo> getRecommededOptions() {
+	public List<Color> getRecommendedColorList() {
+		return List.of(exteriorColor, interiorColor);
+	}
+
+	public List<AdditionalOptionInfo> getRecommendedOptionList() {
 		return List.of(firstOption, secondOption);
+	}
+
+	public Integer calcTotalPrice() {
+		return model.calcModelPrice()
+			+ exteriorColor.getPrice() + interiorColor.getPrice()
+			+ firstOption.getPrice() + secondOption.getPrice();
 	}
 }
