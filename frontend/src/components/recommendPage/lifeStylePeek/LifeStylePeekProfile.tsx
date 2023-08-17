@@ -1,24 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LifeStylePeekProps } from './LifeStylePeekModal';
+import replaceWonSymbol from '../../../util/ReplaceWonSymbol';
+import { LifeStyleModalProps } from './LifeStylePeekModal';
 
 function LifeStylePeekProfile({
   profile,
-}: Pick<LifeStylePeekProps, 'profile'>) {
+}: Pick<LifeStyleModalProps, 'profile'>) {
   return (
     <LifeStylePeekProfileBox>
       <LifeStylePeekProfileNameBox>
         <LifeStylePeekProfileImgBox
-          src={profile.imgSrc}
+          src={profile.image}
         ></LifeStylePeekProfileImgBox>
         <LifeStylePeekProfileTextBox>
           <div className="body-medium-16 text-grey-50">{profile.name}</div>
-          <div className="body-regular-12 text-grey-400">{profile.text}</div>
+          <div className="body-regular-12 text-grey-400">{profile.bio}</div>
         </LifeStylePeekProfileTextBox>
       </LifeStylePeekProfileNameBox>
 
       <LifeStylePeekProfileSpeekingBox className="body-medium-18 text-secondary-active-blue">
-        {profile.talk}
+        {replaceWonSymbol(profile.message)}
       </LifeStylePeekProfileSpeekingBox>
     </LifeStylePeekProfileBox>
   );

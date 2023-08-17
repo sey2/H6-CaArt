@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LifeStyleModalProps } from './LifeStylePeekModal';
 
-function LifeStylePeekForYou() {
+function LifeStylePeekForYou({
+  recommendation,
+}: Pick<LifeStyleModalProps, 'recommendation'>) {
   return (
     <LifeStylePeekForYouBox>
       <div className="head-medium-24 text-grey-0">For You</div>
@@ -9,10 +12,10 @@ function LifeStylePeekForYou() {
         <LifeStylePeekForYouImgUpperBox>
           <LifeStylePeekForYouTextBox>
             <div className="body-medium-14 text-grey-1000">
-              Le Blanc(르블랑)
+              {recommendation.model.trimName}
             </div>
             <div className="body-regular-12 text-grey-500">
-              가솔린 8인승 2WD
+              {recommendation.model.compositions}
             </div>
           </LifeStylePeekForYouTextBox>
           <LifeStylePeekForYouImgBackground
@@ -21,17 +24,19 @@ function LifeStylePeekForYou() {
           <LifeStylePeekForYouImgBackground
             greyColor={500}
           ></LifeStylePeekForYouImgBackground>
-          <img src="/images/car.png"></img>
+          <img src={recommendation.model.trimImage}></img>
         </LifeStylePeekForYouImgUpperBox>
         <LifeStylePeekForYouImgLowerBox>
           <LifeStylePeekForYouImgLowerImgBox>
-            <img src="https://picsum.photos/200/300"></img>
-            <div className="body-regular-14 text-grey-200">컴포트 2</div>
+            <img src={recommendation.options[0].optionImage}></img>
+            <div className="body-regular-14 text-grey-200">
+              {recommendation.options[0].optionName}
+            </div>
           </LifeStylePeekForYouImgLowerImgBox>
           <LifeStylePeekForYouImgLowerImgBox>
-            <img src="https://picsum.photos/200/300"></img>
+            <img src={recommendation.options[1].optionImage}></img>
             <div className="body-regular-14 text-grey-200">
-              현대 스마트 센스 1
+              {recommendation.options[1].optionName}
             </div>
           </LifeStylePeekForYouImgLowerImgBox>
         </LifeStylePeekForYouImgLowerBox>

@@ -1,34 +1,61 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useFetch } from '../../../hooks/useFetch';
 import useModal from '../../../hooks/useModal';
+import { ErrorPopup } from '../../common/ErrorPopup';
 import { LifeStylePeekForYou } from './LifeStylePeekForYou';
 import { LifeStylePeekInterview } from './LifeStylePeekInterview';
 import { LifeStylePeekProfile } from './LifeStylePeekProfile';
 import { LifeStylePeekHeader } from './LifeStylePeekTitle';
 
-export interface LifeStylePeekProps {
-  profile: {
-    imgSrc: string;
-    name: string;
-    text: string;
-    talk: string;
+export interface LifeStyleModalProps {
+  personaId: number;
+  tags: string[];
+  cover: {
+    letter: string;
+    image: string;
   };
-  tag: string[];
-  title: string;
-  imgSrc: string;
+  profile: {
+    image: string;
+    name: string;
+    bio: string;
+    message: string;
+  };
+  recommendation: {
+    model: {
+      trimImage: string;
+      trimName: string;
+      compositions: string;
+    };
+    options: {
+      optionImage: string;
+      optionName: string;
+    }[];
+  };
+  interviews: {
+    question: string;
+    answer: string;
+  }[];
 }
 
 function LifeStylePeekModal({
-  profile,
-  tag,
-  title,
-  imgSrc,
-
+  openedModalNum,
   setOpenedModalNum,
-}: LifeStylePeekProps & {
+}: {
+  openedModalNum: number;
   setOpenedModalNum: React.Dispatch<React.SetStateAction<number>>;
 }) {
   useModal();
+  const { data, status, error } = useFetch<LifeStyleModalProps>(
+    `/personas/${openedModalNum}`,
+  );
+  if (status === 'loading') {
+    return <div>loading</div>;
+  } else if (status === 'error') {
+    console.error(error);
+    return <ErrorPopup></ErrorPopup>;
+  }
+  if (data === null) return <div></div>;
 
   return (
     <ModalBox>
@@ -40,14 +67,17 @@ function LifeStylePeekModal({
       <WrapperBox>
         <LifeStylePeekModalBox>
           <LifeStylePeekHeader
-            profile={profile}
-            tag={tag}
-            title={title}
-            imgSrc={imgSrc}
+            profile={data.profile}
+            tags={data.tags}
+            cover={data.cover}
           ></LifeStylePeekHeader>
-          <LifeStylePeekProfile profile={profile}></LifeStylePeekProfile>
-          <LifeStylePeekForYou></LifeStylePeekForYou>
-          <LifeStylePeekInterview></LifeStylePeekInterview>
+          <LifeStylePeekProfile profile={data.profile}></LifeStylePeekProfile>
+          <LifeStylePeekForYou
+            recommendation={data.recommendation}
+          ></LifeStylePeekForYou>
+          <LifeStylePeekInterview
+            interviews={data.interviews}
+          ></LifeStylePeekInterview>
         </LifeStylePeekModalBox>
       </WrapperBox>
     </ModalBox>

@@ -1,21 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import replaceWonSymbol from '../../../util/ReplaceWonSymbol';
 import { TagList } from '../../common/TagList';
-import { LifeStylePeekProps } from './LifeStylePeekModal';
+import { LifeStyleModalProps } from './LifeStylePeekModal';
 
 function LifeStylePeekHeader({
   profile,
-  tag,
-  title,
-  imgSrc,
-}: LifeStylePeekProps) {
+  tags,
+  cover,
+}: Pick<LifeStyleModalProps, 'profile' | 'tags' | 'cover'>) {
   return (
-    <LifeStylePeekHeaderBox imgSrc={imgSrc}>
+    <LifeStylePeekHeaderBox>
+      <LifeStyleImgBox src={cover.image}></LifeStyleImgBox>
       <LogoBox src="/images/hyundai_logo_home.svg"></LogoBox>
       <LifeStylePeekTitleBox>
-        <TagList tagArr={tag} type={'lifeStylePeek'}></TagList>
+        <TagList tagArr={tags} type={'lifeStylePeek'}></TagList>
         <LifeStylePeekTitle className="head-medium-32 text-grey-1000">
-          {title}
+          {replaceWonSymbol(cover.letter)}
         </LifeStylePeekTitle>
         <LifeStylePeekText className="body-regular-16">{`${profile.name}씨의 라이프스타일 엿보기`}</LifeStylePeekText>
       </LifeStylePeekTitleBox>
@@ -23,7 +24,7 @@ function LifeStylePeekHeader({
   );
 }
 
-const LifeStylePeekHeaderBox = styled.div<Pick<LifeStylePeekProps, 'imgSrc'>>`
+const LifeStylePeekHeaderBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 63px;
@@ -32,14 +33,16 @@ const LifeStylePeekHeaderBox = styled.div<Pick<LifeStylePeekProps, 'imgSrc'>>`
   width: 688px;
   height: 256px;
   border-radius: 12px 12px 0px 0px;
+  overflow: hidden;
+  position: relative;
+`;
 
-  background: ${props => `linear-gradient(
-      180deg,
-      rgba(15, 17, 20, 0) 0%,
-      rgba(15, 17, 20, 0.7) 100%
-    ),
-    url(${props.imgSrc}),
-    lightgray -2px -302.825px / 104.506% 280.243% no-repeat`};
+const LifeStyleImgBox = styled.img`
+  position: absolute;
+  left: -40px;
+  top: -400px;
+  width: 120%;
+  object-fit: cover;
 `;
 
 const LogoBox = styled.img`
@@ -52,6 +55,7 @@ const LifeStylePeekTitleBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+  z-index: 1;
 `;
 
 const LifeStylePeekTitle = styled.div``;

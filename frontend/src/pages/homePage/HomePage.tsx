@@ -10,7 +10,7 @@ function HomePage() {
       <Header size="small" page={0}></Header>
       <Wrapper>
         <HomePageVideo autoPlay muted loop>
-          <source src="/videos/homePageVideo.mp4" type="video/mp4" />
+          <source src="/videos/HomePageVideo.mp4" type="video/mp4" />
         </HomePageVideo>
         <GradientTop />
         <TextContainer>

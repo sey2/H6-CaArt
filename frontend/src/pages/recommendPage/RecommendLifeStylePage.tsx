@@ -76,10 +76,7 @@ function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
 
       {openedModalNum !== 0 && (
         <LifeStylePeekModal
-          profile={modalData.profile}
-          tag={modalData.tag}
-          title={modalData.title}
-          imgSrc={modalData.imgSrc}
+          openedModalNum={openedModalNum}
           setOpenedModalNum={setOpenedModalNum}
         ></LifeStylePeekModal>
       )}
@@ -130,15 +127,3 @@ const RecomendLifeStyleCardBox = styled.div`
 `;
 
 export { RecomendLifeStylePage };
-
-const modalData = {
-  profile: {
-    imgSrc: 'https://picsum.photos/200/300',
-    name: '김현대',
-    text: '두 아이의 엄마',
-    talk: '“우리 아이들과 함께 타는 차는 항상\n안전해야 한다고 생각해요."',
-  },
-  tag: ['주행안전', '사용편의'],
-  title: '가족과 함께 타서 안전을 중시해요.',
-  imgSrc: 'https://picsum.photos/200/300',
-};

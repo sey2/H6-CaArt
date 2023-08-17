@@ -1,37 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LifeStyleModalProps } from './LifeStylePeekModal';
 
-function LifeStylePeekInterview() {
+function LifeStylePeekInterview({
+  interviews,
+}: Pick<LifeStyleModalProps, 'interviews'>) {
+  const QNAList = interviews.map((item, index) => {
+    return (
+      <LifeStylePeekQNA key={index}>
+        <LifeStylePeekQ>
+          <div className="head-meidum-16 text-primary-blue">Q.</div>
+          <div className="body-medium-16 text-grey-50">{item.question}</div>
+        </LifeStylePeekQ>
+        <LifeStylePeekA className="body-regular-14 text-secondary-active-blue">
+          {item.answer}
+        </LifeStylePeekA>
+      </LifeStylePeekQNA>
+    );
+  });
+
   return (
     <LifeStylePeekInterviewBox>
       <div className="head-medium-24 text-grey-0">Interview</div>
-      <LifeStylePeekQNABox>
-        <LifeStylePeekQNA>
-          <LifeStylePeekQ>
-            <div className="head-meidum-16 text-primary-blue">Q.</div>
-            <div className="body-medium-16 text-grey-50">
-              어떤 용도로 차를 사용하세요?
-            </div>
-          </LifeStylePeekQ>
-          <LifeStylePeekA className="body-regular-14 text-secondary-active-blue">
-            저는 차를 타고 출퇴근도 하지만 주중에 아이들 픽업하거나 마트 갈 때도
-            자주 타곤 합니다.
-          </LifeStylePeekA>
-        </LifeStylePeekQNA>
-        <LifeStylePeekQNA>
-          <LifeStylePeekQ>
-            <div className="head-meidum-16 text-primary-blue">Q.</div>
-            <div className="body-medium-16 text-grey-50">
-              차를 살 때 가장 중요하게 생각하는 부분이 뭔가요?
-            </div>
-          </LifeStylePeekQ>
-          <LifeStylePeekA className="body-regular-14 text-secondary-active-blue">
-            저는 차를 살 때 안전을 중요하게 생각해요. 가족들이 같이 타는 차라
-            항상 사고에 경각심을 갖고 있죠. 펠리세이드는 그 점에서 뒷자석
-            에어백도 터지는 모델이라 안심이 되는 편이에요.
-          </LifeStylePeekA>
-        </LifeStylePeekQNA>
-      </LifeStylePeekQNABox>
+      <LifeStylePeekQNABox>{QNAList}</LifeStylePeekQNABox>
     </LifeStylePeekInterviewBox>
   );
 }
