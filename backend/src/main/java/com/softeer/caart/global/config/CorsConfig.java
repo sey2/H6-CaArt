@@ -12,7 +12,8 @@ public class CorsConfig implements WebMvcConfigurer {
 		registry.addMapping("/**")
 			.allowedOrigins("http://api.ca-art.store",
 				"https://api.ca-art.store",
-				"http://localhost:3000")
+				"http://localhost:3000",
+				"https://ca-art.store")
 			.allowedMethods("GET", "POST")
 			.maxAge(3000);
 	}
