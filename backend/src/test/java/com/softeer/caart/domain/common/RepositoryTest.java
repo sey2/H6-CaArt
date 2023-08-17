@@ -22,5 +22,5 @@ import org.springframework.test.context.jdbc.Sql;
 public abstract class RepositoryTest {
 	@InjectSoftAssertions
 	protected SoftAssertions softly;
-
+  
 }

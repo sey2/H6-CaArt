@@ -1,7 +1,9 @@
 package com.softeer.caart.domain.option.entity;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -17,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.softeer.caart.domain.option.dto.BaseOptionResponse;
 import com.softeer.caart.domain.option.exception.InvalidOptionException;
 import com.softeer.caart.global.ResultCode;
 
@@ -79,5 +82,22 @@ public class AdditionalOptionInfo {
 		if (details.isOptionTypeBasic()) {
 			throw new InvalidOptionException(ResultCode.INVALID_ADDITIONAL_OPTION);
 		}
+	}
+
+	public List<String> getTagNames() {
+		return details.getTags().stream()
+			.map(optionTag -> optionTag.getTag().getName())
+			.sorted()
+			.collect(Collectors.toList());
+	}
+
+	public List<BaseOptionResponse> getSubOptions() {
+		if (!isOptionTypeSet()) {
+			return new ArrayList<>();
+		}
+		return subOptions.stream()
+			.map(subOptionInfo -> BaseOptionResponse.from(subOptionInfo.getDetails()))
+			.sorted(Comparator.comparing(BaseOptionResponse::getOptionName))
+			.collect(Collectors.toList());
 	}
 }

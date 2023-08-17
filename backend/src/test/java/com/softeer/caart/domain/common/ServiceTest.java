@@ -15,6 +15,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import com.softeer.caart.domain.composition.entity.BodyType;
 import com.softeer.caart.domain.composition.entity.CarEngine;
 import com.softeer.caart.domain.composition.entity.WheelDrive;
+import com.softeer.caart.domain.model.Model;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.entity.SubOptionInfo;
@@ -42,6 +43,7 @@ public class ServiceTest {
 	protected SubOptionInfo 자식옵션;
 	protected Tag 메인태그_우선순위10;
 	protected Tag 전체태그_우선순위5;
+	protected Model 추가옵션가지는_모델;
 
 	@InjectSoftAssertions
 	protected SoftAssertions softly;
@@ -56,6 +58,7 @@ public class ServiceTest {
 		initSubOptionInfo();
 		initAdditionalOptionInfo();
 		initTag();
+		initModel();
 	}
 
 	private void initCarEngine() {
@@ -194,5 +197,15 @@ public class ServiceTest {
 			.priority(5)
 			.build();
 		ReflectionTestUtils.setField(전체태그_우선순위5, "id", 2L);
+	}
+
+	private void initModel() {
+		추가옵션가지는_모델 = Model.builder()
+			.carEngine(디젤)
+			.bodyType(seven)
+			.wheelDrive(WD_2)
+			.trim(Exclusive)
+			.build();
+		ReflectionTestUtils.setField(추가옵션가지는_모델, "id", 1L);
 	}
 }

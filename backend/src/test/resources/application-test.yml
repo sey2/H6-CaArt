@@ -18,9 +18,3 @@ spring:
   h2:
     console:
       enabled: true
-
-# 로깅 설정
-logging:
-  level:
-    web: debug
-    sql: debug

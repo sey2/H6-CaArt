@@ -13,8 +13,14 @@ import javax.persistence.Table;
 
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "rel_model_base_option_info")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class AvailableOption {
 
 	@Id
