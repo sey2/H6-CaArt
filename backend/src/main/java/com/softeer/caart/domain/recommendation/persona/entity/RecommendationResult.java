@@ -1,5 +1,7 @@
 package com.softeer.caart.domain.recommendation.persona.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,17 @@ import com.softeer.caart.domain.color.entity.Color;
 import com.softeer.caart.domain.model.Model;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Builder
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class RecommendationResult {
 
 	@Id
@@ -48,4 +60,8 @@ public class RecommendationResult {
 
 	@Column(name = "recommendation_explanation_2", nullable = false, length = 100)
 	private String secondExplanation;
+
+	public List<AdditionalOptionInfo> getRecommededOptions() {
+		return List.of(firstOption, secondOption);
+	}
 }

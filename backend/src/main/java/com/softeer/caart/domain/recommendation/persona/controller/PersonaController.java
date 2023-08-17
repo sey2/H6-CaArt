@@ -3,9 +3,11 @@ package com.softeer.caart.domain.recommendation.persona.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.softeer.caart.domain.recommendation.persona.dto.PersonaDetailsResponse;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
 import com.softeer.caart.domain.recommendation.persona.service.PersonaService;
 import com.softeer.caart.global.response.DataResponseDto;
@@ -26,7 +28,14 @@ public class PersonaController {
 	@GetMapping
 	@Operation(summary = "전체 페르소나 목록을 조회한다.")
 	public ResponseDto getPersonas() {
-		List<PersonaResponse> personas = personaService.getPersonas();
-		return DataResponseDto.of(personas);
+		List<PersonaResponse> personaResponses = personaService.getPersonas();
+		return DataResponseDto.of(personaResponses);
+	}
+
+	@GetMapping("/{personaId}")
+	@Operation(summary = "아이디로 특정 페르소나를 조회한다.")
+	public ResponseDto getPersona(@PathVariable Long personaId) {
+		PersonaDetailsResponse personaDetailsResponse = personaService.getPersona(personaId);
+		return DataResponseDto.of(personaDetailsResponse);
 	}
 }

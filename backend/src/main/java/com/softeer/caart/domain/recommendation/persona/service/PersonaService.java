@@ -5,8 +5,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.softeer.caart.domain.recommendation.persona.dto.PersonaDetailsResponse;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
+import com.softeer.caart.domain.recommendation.persona.entity.Persona;
+import com.softeer.caart.domain.recommendation.persona.exception.PersonaNotFoundException;
 import com.softeer.caart.domain.recommendation.persona.repository.PersonaRepository;
+import com.softeer.caart.global.ResultCode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,5 +25,11 @@ public class PersonaService {
 			.stream()
 			.map(PersonaResponse::from)
 			.collect(Collectors.toList());
+	}
+
+	public PersonaDetailsResponse getPersona(Long personaId) {
+		Persona persona = personaRepository.findById(personaId)
+			.orElseThrow(() -> new PersonaNotFoundException(ResultCode.PERSONA_NOT_FOUND));
+		return PersonaDetailsResponse.from(persona);
 	}
 }

@@ -19,15 +19,18 @@ import com.softeer.caart.domain.model.Model;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.entity.SubOptionInfo;
+import com.softeer.caart.domain.recommendation.persona.entity.Persona;
+import com.softeer.caart.domain.recommendation.persona.entity.Profile;
+import com.softeer.caart.domain.recommendation.persona.entity.RecommendationResult;
 import com.softeer.caart.domain.tag.entity.Tag;
 import com.softeer.caart.domain.trim.entity.Trim;
 
 /**
- * 모든 엔티티는 id를 갖으며 영속화 되어있다고 생각한다.
+ * 모든 엔티티는 id를 가지며 영속화 되어있다고 생각한다.
  */
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SoftAssertionsExtension.class)
-public class ServiceTest {
+public abstract class ServiceTest {
 	protected CarEngine 디젤;
 	protected CarEngine 가솔린;
 	protected BodyType seven; // 7인승
@@ -44,6 +47,9 @@ public class ServiceTest {
 	protected Tag 메인태그_우선순위10;
 	protected Tag 전체태그_우선순위5;
 	protected Model 추가옵션가지는_모델;
+	protected Profile profile;
+	protected RecommendationResult recommendationResult;
+	protected Persona persona;
 
 	@InjectSoftAssertions
 	protected SoftAssertions softly;
@@ -59,6 +65,9 @@ public class ServiceTest {
 		initAdditionalOptionInfo();
 		initTag();
 		initModel();
+		initProfile();
+		initRecommendationResult();
+		initPersona();
 	}
 
 	private void initCarEngine() {
@@ -207,5 +216,39 @@ public class ServiceTest {
 			.trim(Exclusive)
 			.build();
 		ReflectionTestUtils.setField(추가옵션가지는_모델, "id", 1L);
+	}
+
+	private void initProfile() {
+		profile = Profile.builder()
+			.image("프로필 이미지")
+			.name("이름")
+			.bio("소개")
+			.message("한마디 문구")
+			.build();
+	}
+
+	private void initRecommendationResult() {
+		recommendationResult = RecommendationResult.builder()
+			.model(추가옵션가지는_모델)
+			.firstOption(추가옵션_세트O_기본X)
+			.secondOption(추가옵션_세트O_기본X)
+			.build();
+	}
+
+	private void initPersona() {
+		persona = Persona.builder()
+			.id(1L)
+			.profile(profile)
+			.coverLetter("대표 문구")
+			.coverImage("표지 이미지")
+			.firstQuestion("첫 번째 질문")
+			.firstAnswer("첫 번째 답변")
+			.secondQuestion("두 번째 질문")
+			.secondAnswer("두 번째 답변")
+			.recommendationMessage("추천 문구")
+			.recommendationResult(recommendationResult)
+			.firstTag(Tag.builder().name("태그1").build())
+			.secondTag(Tag.builder().name("태그2").build())
+			.build();
 	}
 }

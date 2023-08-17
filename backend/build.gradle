@@ -24,19 +24,25 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-aop' // @aspect
+    // Swagger
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
+    // Logging & Sentry
+    implementation 'com.google.code.gson:gson:2.9.0' // Gson
     implementation 'io.sentry:sentry-spring-boot-starter:6.27.0' // Sentry
     implementation 'io.sentry:sentry-logback:6.27.0' // logging
-    implementation 'org.springframework.boot:spring-boot-starter-aop' // @aspect
-
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
-    implementation 'com.google.code.gson:gson:2.9.0' // Gson
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Database
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'com.h2database:h2'
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {

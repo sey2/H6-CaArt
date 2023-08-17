@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.softeer.caart.domain.recommendation.persona.dto.PersonaDetailsResponse;
 import com.softeer.caart.domain.tag.entity.Tag;
 
 import lombok.AccessLevel;
@@ -70,5 +71,11 @@ public class Persona {
 
 	public List<String> getTagNameList() {
 		return List.of(firstTag.getName(), secondTag.getName());
+	}
+
+	public List<PersonaDetailsResponse.InterviewDto> getInterviewList() {
+		return List.of(
+			PersonaDetailsResponse.InterviewDto.builder().question(firstQuestion).answer(firstAnswer).build(),
+			PersonaDetailsResponse.InterviewDto.builder().question(secondQuestion).answer(secondAnswer).build());
 	}
 }

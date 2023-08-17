@@ -22,6 +22,7 @@ public enum ResultCode {
 	// 404
 	OPTION_NOT_FOUND(404, "존재하지 않는 옵션입니다."),
 	MODEL_NOT_FOUND(404, "존재하지 않는 모델입니다."),
+	PERSONA_NOT_FOUND(404, "존재하지 않는 페르소나입니다."),
 
 	// 405
 	METHOD_NOT_ALLOWED(405, "대상 리소스가 이 메서드를 지원하지 않습니다."),
