@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="org.softeer_2nd.caArt.view.fragment.HomeFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_carTrimChoiceFragment"
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/carTrimChoiceFragment"
-        android:name="org.softeer_2nd.caArt.view.fragment.CarTrimChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarTrimChoiceFragment"
         android:label="CarColorTrimFragment" >
         <action
             android:id="@+id/action_carTrimChoiceFragment_to_carTrimDescriptionFragment"
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/carColorChoiceFragment"
-        android:name="org.softeer_2nd.caArt.view.fragment.CarColorChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarColorChoiceFragment"
         android:label="CarColorChoiceFragment" >
         <action
             android:id="@+id/action_carColorChoiceFragment_to_carOptionChoiceFragment"
@@ -42,16 +42,16 @@
 
     <fragment
         android:id="@+id/carOptionChoiceFragment"
-        android:name="org.softeer_2nd.caArt.view.fragment.CarOptionChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarOptionChoiceFragment"
         android:label="CarOptionChoiceFragment" />
 
     <fragment
         android:id="@+id/carTrimDescriptionFragment"
-        android:name="org.softeer_2nd.caArt.view.fragment.CarTrimDescriptionFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarTrimDescriptionFragment"
         android:label="carTrimDescriptionFragment" />
     <fragment
         android:id="@+id/lifeStyleSurveyFragment"
-        android:name="org.softeer_2nd.caArt.view.fragment.LifeStyleSurveyFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleSurveyFragment"
         android:label="LifeStyleSurveyFragment" >
         <action
             android:id="@+id/action_lifeStyleSurveyFragment_to_lifeStyleDetailSurveyFragment"
@@ -59,6 +59,6 @@
     </fragment>
     <fragment
         android:id="@+id/lifeStyleDetailSurveyFragment"
-        android:name="org.softeer_2nd.caArt.view.fragment.LifeStyleDetailSurveyFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleDetailSurveyFragment"
         android:label="LifeStyleDetailSurveyFragment" />
 </navigation>

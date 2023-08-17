@@ -29,7 +29,7 @@
         
         <variable
             name="otherColorSelectionHandler"
-            type="org.softeer_2nd.caArt.view.recyclerAdapter.ColorOptionSelectionAdapter.ColorOptionSelectionViewHolder" />
+            type="org.softeer_2nd.caArt.ui.recycleradapter.ColorOptionSelectionAdapter.ColorOptionSelectionViewHolder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

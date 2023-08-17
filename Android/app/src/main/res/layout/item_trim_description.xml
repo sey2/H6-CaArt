@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp">
 
-        <org.softeer_2nd.caArt.view.custom.ExpandableView
+        <org.softeer_2nd.caArt.ui.custom.ExpandableView
             android:id="@+id/rv_trim_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,6 +162,6 @@
                     tools:text="@string/max_torque_desc" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </org.softeer_2nd.caArt.view.custom.ExpandableView>
+        </org.softeer_2nd.caArt.ui.custom.ExpandableView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

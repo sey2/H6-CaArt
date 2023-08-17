@@ -11,11 +11,11 @@
 
         <variable
             name="dialog"
-            type="org.softeer_2nd.caArt.view.dialog.CaArtDialog" />
+            type="org.softeer_2nd.caArt.ui.dialog.CaArtDialog" />
 
         <variable
             name="builder"
-            type="org.softeer_2nd.caArt.view.dialog.CaArtDialog.Builder" />
+            type="org.softeer_2nd.caArt.ui.dialog.CaArtDialog.Builder" />
 
     </data>
 

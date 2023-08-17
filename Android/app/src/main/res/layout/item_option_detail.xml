@@ -131,7 +131,7 @@
             app:layout_constraintVertical_bias="0.0"
             tools:text="초음파 센서를 통해 뒷좌석에 남아있는 승객의 움직임을 감지하여 운전자에게 경고함으로써 부주의에 의한 유아 또는 반려 동물 등의 방치 사고를 예방하는 신기술입니다." />
 
-        <org.softeer_2nd.caArt.view.custom.SelectLongButton
+        <org.softeer_2nd.caArt.ui.custom.SelectLongButton
             android:id="@+id/cb_option_detail_choice"
             style="@null"
             android:layout_width="wrap_content"
@@ -173,7 +173,7 @@
             app:layout_constraintTop_toTopOf="@+id/v_option_detail_indicator_background"
             app:layout_constraintVertical_bias="0.0" />
 
-        <org.softeer_2nd.caArt.view.custom.CircleIndicator
+        <org.softeer_2nd.caArt.ui.custom.CircleIndicator
             android:id="@+id/ci_option_detail_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
