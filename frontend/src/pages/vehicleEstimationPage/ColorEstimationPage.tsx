@@ -9,15 +9,13 @@ import SquareButton from '../../components/common/SquareButton';
 import { Link } from 'react-router-dom';
 
 function ColorEstimationPage() {
-  const [innerDDState, setInnerDDState] = useState(false);
-  const [outerDDState, setOuterDDState] = useState(false);
   const [modal, setModal] = useState(false);
   const [selectedType, setSelectedType] = useState<
     'ex' | 'in' | '360' | string
   >('ex');
   return (
     <>
-      {modal && <ColorChangePopup setter={setModal} />}
+      {<ColorChangePopup setter={setModal} isOpen={modal}/>}
       <Wrapper>
         <Header size="default" page={0} />
         <Layout>
@@ -33,10 +31,6 @@ function ColorEstimationPage() {
             <ColorContainer />
             <Dropdown
               type="outer"
-              innerColorDDSetter={setInnerDDState}
-              innerColorDDState={innerDDState}
-              outerColorDDSetter={setOuterDDState}
-              outerColorDDState={outerDDState}
             />
             <Hr />
             <HeadTitle className="text-grey-0 head-medium-20">
@@ -45,10 +39,6 @@ function ColorEstimationPage() {
             <ColorContainer />
             <Dropdown
               type="inner"
-              innerColorDDSetter={setInnerDDState}
-              innerColorDDState={innerDDState}
-              outerColorDDSetter={setOuterDDState}
-              outerColorDDState={outerDDState}
             />
             <ButtonContainer className="body-medium-16">
               <Link to="/estimate/trim">

@@ -39,7 +39,7 @@ function RerecommendModal({
               아니요
             </SquareButton>
           </div>
-          <Link to="/recommend">
+          <Link to="/recommend/age">
             <SquareButton
               size="ms"
               bg="primary-blue"

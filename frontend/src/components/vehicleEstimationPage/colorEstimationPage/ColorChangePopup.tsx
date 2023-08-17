@@ -7,11 +7,12 @@ import { Hr } from '../../common/Hr';
 
 interface ModalProps {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
-function ColorChangePopup({ setter }: ModalProps) {
+function ColorChangePopup({ setter,isOpen }: ModalProps) {
   return (
-    <Overlay onClick={() => setter(false)}>
+    <Overlay onClick={() => setter(false)} className={isOpen ? "active" : ''}>
       <Wrapper onClick={e => e.stopPropagation()}>
         <X src="/images/x_icon.svg" onClick={() => setter(false)} />
         <FlexBox direction="column">
@@ -92,6 +93,13 @@ const Overlay = styled.div`
   left: 0;
   z-index: 10;
   background: rgba(15, 17, 20, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-out;
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
 `;
 
 const Wrapper = styled.div`
