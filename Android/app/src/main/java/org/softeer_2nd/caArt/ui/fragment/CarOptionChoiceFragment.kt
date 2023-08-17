@@ -5,36 +5,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.FragmentCarOptionChoiceBinding
 import org.softeer_2nd.caArt.databinding.ItemSituationOptionsOptionBinding
-import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.ui.dialog.OptionDetailDialog
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionPreviewRecyclerAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionTagRecyclerAdapter
-import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
+import org.softeer_2nd.caArt.viewmodel.CarOptionChoiceViewModel
 
+@AndroidEntryPoint
 class CarOptionChoiceFragment : Fragment() {
     private var _binding: FragmentCarOptionChoiceBinding? = null
     private val binding get() = _binding!!
 
-    private val userChoiceViewModel by activityViewModels<UserChoiceViewModel>()
-
+    private val model:CarOptionChoiceViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        model.requestTagList()
         _binding = FragmentCarOptionChoiceBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,11 +55,8 @@ class CarOptionChoiceFragment : Fragment() {
             CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarOptionChoiceFragment()
         )
 
-        val optionTagAdapter = OptionTagRecyclerAdapter(
-            List(8) { "태그$it" }
-        ) { _, tag ->
-            binding.isSituationalTagPresent = (tag != "태그0")
-            Toast.makeText(requireContext(), tag, Toast.LENGTH_SHORT).show()
+        val optionTagAdapter = OptionTagRecyclerAdapter() { _, tag ->
+            model.selectTag(tag)
             binding.incSituationalOptions.ivSituationalTagOptionsSituationImage.addOption(
                 DummyItemFactory.createAdditionalSingleOptionItem()[0], 0.8f, 0.5f
             )
@@ -93,6 +91,15 @@ class CarOptionChoiceFragment : Fragment() {
                 }
             }
         }
+
+        model.tagList.observe(viewLifecycleOwner){
+            optionTagAdapter.setItemList(it)
+        }
+
+        model.selectedTag.observe(viewLifecycleOwner){
+            optionTagAdapter.changeSelectedItem(it)
+        }
+
     }
 
     private fun RecyclerView.initOptionPreviewContainer(adapter: OptionPreviewRecyclerAdapter) {
@@ -150,6 +157,5 @@ class CarOptionChoiceFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }

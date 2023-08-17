@@ -96,6 +96,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
             binding.rvSurveyAnswerOptionsContainer.visibility = View.GONE
             lifeStylePersonaLayoutBinding?.root?.visibility = View.VISIBLE
         }
+
     }
 
     private fun View.initPersonaContainerLayoutParams() {
