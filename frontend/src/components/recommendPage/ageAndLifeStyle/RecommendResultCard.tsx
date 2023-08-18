@@ -1,26 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LifeStyleResultProps } from '../../../pages/recommendPage/RecommendLifeStyleResultPage';
+import replaceWonSymbol from '../../../util/ReplaceWonSymbol';
 
-function RecommendResultCard() {
+function RecommendResultCard({
+  palisadeImage,
+  model,
+  recommendationCard,
+}: Pick<
+  LifeStyleResultProps,
+  'palisadeImage' | 'model' | 'recommendationCard'
+>) {
   return (
     <RecommendResultCardBox>
       <RecommendResultCardLogo src="/images/hyundai_logo_mini.svg"></RecommendResultCardLogo>
       <RecommendResultCardTitle>
         <RecommendResultCardTag className="head-medium-12 text-grey-1000">
-          <span>펠리세이드 - Le Blanc(르블랑)</span>
+          <span>{`${model.modelName} - ${model.trim}`}</span>
         </RecommendResultCardTag>
         <RecommendResultCardTitleText className="head-regular-20">
-          <span className="text-primary-blue">가족</span>
+          <span className="text-primary-blue">{recommendationCard.slogan}</span>
           <span className="text-grey-0">
-            을 생각하는 당신을 위한
+            을 위한
             <br />
-            펠리세이드
+            {model.modelName}
           </span>
         </RecommendResultCardTitleText>
       </RecommendResultCardTitle>
-      <RecommendResultCardImg src="/images/car.png"></RecommendResultCardImg>
+      <RecommendResultCardImg src={palisadeImage}></RecommendResultCardImg>
       <RecommendResultCardText className="body-medium-14 text-grey-400">
-        우리 아이들과 함께 타는 차는 항상 안전해야 한다고 생각해요
+        {replaceWonSymbol(recommendationCard.message)}
       </RecommendResultCardText>
     </RecommendResultCardBox>
   );

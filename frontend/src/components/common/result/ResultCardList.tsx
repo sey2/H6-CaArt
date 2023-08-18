@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ResultCard } from './ResultCard';
+import { EstimationContext } from '../../../util/Context';
 
 function ResultCardList() {
+  const { currentEstimation } = useContext(EstimationContext)!;
+
+  const optionResultList = currentEstimation.options.map(item => {
+    return (
+      <ResultCard
+        key={item.name}
+        title={item.name}
+        price={item.price}
+        imgSrc={item.img}
+        text={item.msg || ''}
+      ></ResultCard>
+    );
+  });
+
   return (
     <ResultCardListBox>
       <ResultCardListSetBox>
@@ -11,39 +26,30 @@ function ResultCardList() {
         </ResultCardListSetName>
         <ResultCardListSet>
           <ResultCard
-            title="외장"
-            price={0}
-            imgSrc="https://picsum.photos/200/300"
-            text="75%의 사용자"
+            title={currentEstimation.outerColor.name}
+            price={currentEstimation.outerColor.price}
+            imgSrc={currentEstimation.outerColor.img}
+            text={currentEstimation.outerColor.msg || ''}
           ></ResultCard>
           <ResultCard
-            title="외장"
-            price={0}
-            imgSrc="https://picsum.photos/200/300"
-            text="75%의 사용자"
+            title={currentEstimation.interiorColor.name}
+            price={currentEstimation.interiorColor.price}
+            imgSrc={currentEstimation.interiorColor.img}
+            text={currentEstimation.interiorColor.msg || ''}
           ></ResultCard>
         </ResultCardListSet>
       </ResultCardListSetBox>
-      <ResultCardListMiddleLine></ResultCardListMiddleLine>
-      <ResultCardListSetBox>
-        <ResultCardListSetName className="caption-regular-12 text-grey-300">
-          옵션
-        </ResultCardListSetName>
-        <ResultCardListSet>
-          <ResultCard
-            title="외장"
-            price={0}
-            imgSrc="https://picsum.photos/200/300"
-            text="75%의 사용자"
-          ></ResultCard>
-          <ResultCard
-            title="외장"
-            price={0}
-            imgSrc="https://picsum.photos/200/300"
-            text="75%의 사용자"
-          ></ResultCard>
-        </ResultCardListSet>
-      </ResultCardListSetBox>
+      {currentEstimation.options.length > 0 && (
+        <>
+          <ResultCardListMiddleLine></ResultCardListMiddleLine>
+          <ResultCardListSetBox>
+            <ResultCardListSetName className="caption-regular-12 text-grey-300">
+              옵션
+            </ResultCardListSetName>
+            <ResultCardListSet>{optionResultList}</ResultCardListSet>
+          </ResultCardListSetBox>
+        </>
+      )}
     </ResultCardListBox>
   );
 }
@@ -55,7 +61,7 @@ const ResultCardListSetBox = styled.div`
   flex-direction: column;
   gap: 6px;
   margin-top: 26px;
-  margin-bottom: 40px;
+  margin-bottom: 26px;
 `;
 
 const ResultCardListSetName = styled.div``;

@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { EstimationContext } from '../../../util/Context';
+import { priceToString } from '../../../util/PriceToString';
 
 function ResultHeader() {
+  const { currentEstimation } = useContext(EstimationContext)!;
   return (
     <ResultHeaderBox>
       <ResultHeaderUpperBox>
         <ResultHeaderCar>
           <span className="head-medium-20 text-grey-50">펠리세이드</span>
-          <span className="body-medium-18 text-grey-300">Le Blanc(르블랑)</span>
+          <span className="body-medium-18 text-grey-300">
+            {currentEstimation.trim.name}
+          </span>
         </ResultHeaderCar>
         <ResultHeaderPrice className="head-medium-16 text-grey-100">
-          43,460,000원
+          {priceToString(currentEstimation.trim.price)}
         </ResultHeaderPrice>
       </ResultHeaderUpperBox>
       <ResultHeaderLowerBox className="body-regular-14 text-grey-400">
-        가솔린 ・ 2WD ・ 8인승
+        {`${currentEstimation.engine.name} ・ ${currentEstimation.wd.name} ・ ${currentEstimation.body.name}`}
       </ResultHeaderLowerBox>
     </ResultHeaderBox>
   );

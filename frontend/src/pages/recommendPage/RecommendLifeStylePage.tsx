@@ -58,7 +58,7 @@ function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
         </RecomendLifeStylePageTitle>
         <Link to="/recommend/custom">
           <RecomendLifeStylePageExit className="body-medium-14 text-secondary-active-blue">
-            원하는 라이프사티일이 없다면?
+            원하는 라이프스타일이 없다면?
           </RecomendLifeStylePageExit>
         </Link>
         <RecomendLifeStyleCardBox>{lifeStyleList}</RecomendLifeStyleCardBox>

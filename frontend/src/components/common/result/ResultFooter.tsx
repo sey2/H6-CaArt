@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { EstimationContext } from '../../../util/Context';
+import { priceToString } from '../../../util/PriceToString';
 
-function ResultFooter() {
+function ResultFooter({ price }: { price?: number }) {
+  const { totalPrice } = useContext(EstimationContext)!;
   return (
     <ResultFooterBox>
       <span className="body-medium-16 text-grey-400">총 금액</span>
-      <span className="head-medium-24 text-grey-0">48,120,000원</span>
+      <span className="head-medium-24 text-grey-0">
+        {priceToString(price ? price : totalPrice)}
+      </span>
     </ResultFooterBox>
   );
 }

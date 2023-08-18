@@ -46,7 +46,7 @@ const cssHandler = (size: HeaderSizeProps) => {
 
   switch (size) {
     case 'small':
-      return `background: transparent; height: 92px`;
+      return `background: transparent; height: 92px; justify-content: flex-start;`;
       break;
     case 'medium':
       return `background: var(--grey-1000); height: 92px; box-shadow: ${shadow}`;

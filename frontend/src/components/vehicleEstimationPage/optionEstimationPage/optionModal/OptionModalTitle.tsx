@@ -48,6 +48,7 @@ function OptionModalTitle({
                   addOption({
                     name: option.optionName,
                     price: option.optionPrice!,
+                    img: 'https://picsum.photos/200/300',
                   });
                 }
               }}

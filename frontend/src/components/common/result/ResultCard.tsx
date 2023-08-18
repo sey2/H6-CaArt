@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { priceToString } from '../../../util/PriceToString';
 
@@ -10,6 +11,8 @@ export interface ResultCardProps {
 }
 
 function ResultCard({ title, price, imgSrc, text }: ResultCardProps) {
+  const url = useLocation().pathname;
+
   return (
     <ResultCardBox>
       <ResultCardUpper>
@@ -21,11 +24,13 @@ function ResultCard({ title, price, imgSrc, text }: ResultCardProps) {
           </span>
         </ResultCardText>
       </ResultCardUpper>
-      <ResultCardLower>
-        <span className="body-regular-14 text-secondary-active-blue">
-          {text}
-        </span>
-      </ResultCardLower>
+      {url !== '/result' && (
+        <ResultCardLower>
+          <span className="body-regular-14 text-secondary-active-blue">
+            {text}
+          </span>
+        </ResultCardLower>
+      )}
     </ResultCardBox>
   );
 }
@@ -39,6 +44,7 @@ const ResultCardBox = styled.div`
 const ResultCardUpper = styled.div`
   display: flex;
   gap: 16px;
+  width: 296px;
 `;
 
 const ResultCardImg = styled.img`
@@ -58,6 +64,7 @@ const ResultCardLower = styled.div`
   align-items: center;
   width: 296px;
   padding: 12px;
+  margin-bottom: 14px;
   border-radius: 8px;
   background: rgba(33, 151, 201, 0.1);
 `;

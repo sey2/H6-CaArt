@@ -1,29 +1,38 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { LifeStyleResultProps } from '../pages/recommendPage/RecommendLifeStyleResultPage';
 
 export interface NameAndPrice {
   name: string;
   price: number;
 }
 
+export interface NameAndPriceAndImg extends NameAndPrice {
+  img: string;
+  msg?: string;
+}
+
 export interface MyVechicle {
-  currentEstimation: {
-    engine: NameAndPrice;
-    body: NameAndPrice;
-    wd: NameAndPrice;
-    trim: NameAndPrice;
-    outerColor: NameAndPrice;
-    interiorColor: NameAndPrice;
-    options: NameAndPrice[];
-  };
+  currentEstimation: currentEstimationProps;
   totalPrice: number;
   setEngine: (engine: NameAndPrice) => void;
   setBody: (body: NameAndPrice) => void;
   setWd: (wd: NameAndPrice) => void;
   setTrim: (trim: NameAndPrice) => void;
-  setOuterColor: (outerColor: NameAndPrice) => void;
-  setInteriorColor: (interiorColor: NameAndPrice) => void;
-  addOption: (option: NameAndPrice) => void;
+  setOuterColor: (outerColor: NameAndPriceAndImg) => void;
+  setInteriorColor: (interiorColor: NameAndPriceAndImg) => void;
+  addOption: (option: NameAndPriceAndImg) => void;
   deleteOption: (option: string) => void;
+  setResult: (data: LifeStyleResultProps) => void;
+}
+
+interface currentEstimationProps {
+  engine: NameAndPrice;
+  body: NameAndPrice;
+  wd: NameAndPrice;
+  trim: NameAndPrice;
+  outerColor: NameAndPriceAndImg;
+  interiorColor: NameAndPriceAndImg;
+  options: NameAndPriceAndImg[];
 }
 
 interface Props {
@@ -34,15 +43,24 @@ const EstimationContext = createContext<MyVechicle | null>(null);
 
 const EstimationProvider = ({ children }: Props): JSX.Element => {
   const [totalPrice, setNewTotalPrice] = useState(43000000);
-  const [currentEstimation, setCurrentEstimation] = useState({
-    engine: { name: '디젤 2.2', price: 0 },
-    body: { name: '7인승', price: 0 },
-    wd: { name: '2WD', price: 0 },
-    trim: { name: '르블랑', price: 0 },
-    outerColor: { name: '빨강', price: 0 },
-    interiorColor: { name: '파랑', price: 0 },
-    options: [{ name: '컴포트2', price: 15000 }] as NameAndPrice[],
-  });
+  const [currentEstimation, setCurrentEstimation] =
+    useState<currentEstimationProps>({
+      engine: { name: '디젤 2.2', price: 0 },
+      body: { name: '7인승', price: 0 },
+      wd: { name: '2WD', price: 0 },
+      trim: { name: 'Prestige', price: 46240000 },
+      outerColor: {
+        name: '크리미 화이트 펄',
+        price: 100000,
+        img: '',
+      },
+      interiorColor: {
+        name: '쿨그레이',
+        price: 0,
+        img: '',
+      },
+      options: [] as NameAndPriceAndImg[],
+    });
 
   useEffect(() => {
     updateTotalPrice();
@@ -64,18 +82,18 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
     setCurrentEstimation({ ...currentEstimation, trim: trim });
   };
 
-  const setOuterColor = (outerColor: NameAndPrice): void => {
+  const setOuterColor = (outerColor: NameAndPriceAndImg): void => {
     setCurrentEstimation({ ...currentEstimation, outerColor: outerColor });
   };
 
-  const setInteriorColor = (interiorColor: NameAndPrice): void => {
+  const setInteriorColor = (interiorColor: NameAndPriceAndImg): void => {
     setCurrentEstimation({
       ...currentEstimation,
       interiorColor: interiorColor,
     });
   };
 
-  const addOption = (option: NameAndPrice): void => {
+  const addOption = (option: NameAndPriceAndImg): void => {
     if (
       currentEstimation.options.some(item => {
         return item.name === option.name;
@@ -94,6 +112,53 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
       return item.name !== option;
     });
     setCurrentEstimation({ ...currentEstimation, options: copyOptions });
+  };
+
+  const setResult = (data: LifeStyleResultProps): void => {
+    setCurrentEstimation({
+      engine: {
+        name: data.model.engine.engineName,
+        price: data.model.engine.enginePrice,
+      },
+      body: {
+        name: data.model.bodyType.bodyTypeName,
+        price: data.model.bodyType.bodyTypePrice,
+      },
+      wd: {
+        name: data.model.wheelDrive.wheelDriveName,
+        price: data.model.wheelDrive.wheelDrivePrice,
+      },
+      trim: {
+        name: data.model.trim.trimName,
+        price: data.model.trim.trimPrice,
+      },
+      outerColor: {
+        name: data.colors[0].colorName,
+        price: data.colors[0].colorPrice,
+        img: data.colors[0].colorImage,
+        msg: data.colors[1].recommendationMessage,
+      },
+      interiorColor: {
+        name: data.colors[1].colorName,
+        price: data.colors[1].colorPrice,
+        img: data.colors[1].colorImage,
+        msg: data.colors[1].recommendationMessage,
+      },
+      options: [
+        {
+          name: data.options[0].optionName,
+          price: data.options[0].optionPrice,
+          img: data.options[0].optionImage,
+          msg: data.options[0].recommendationMessage,
+        },
+        {
+          name: data.options[1].optionName,
+          price: data.options[1].optionPrice,
+          img: data.options[1].optionImage,
+          msg: data.options[1].recommendationMessage,
+        },
+      ],
+    });
   };
 
   const updateTotalPrice = () => {
@@ -125,6 +190,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
         setInteriorColor,
         addOption,
         deleteOption,
+        setResult,
         totalPrice,
       }}
     >

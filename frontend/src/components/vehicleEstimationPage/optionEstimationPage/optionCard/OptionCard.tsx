@@ -64,7 +64,11 @@ function OptionCard({
           if (selected) {
             deleteOption(data.name);
           } else {
-            addOption({ name: data.name, price: data.price });
+            addOption({
+              name: data.name,
+              price: data.price,
+              img: 'https://picsum.photos/200/300',
+            });
           }
         }}
       ></CircularButton>

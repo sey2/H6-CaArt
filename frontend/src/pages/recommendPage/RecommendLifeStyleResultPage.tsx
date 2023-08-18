@@ -1,19 +1,87 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { ErrorPopup } from '../../components/common/ErrorPopup';
 import { ResultMain } from '../../components/common/result/ResultMain';
 import SquareButton from '../../components/common/SquareButton';
 import { RecommendResultCard } from '../../components/recommendPage/ageAndLifeStyle/RecommendResultCard';
+import { useFetch } from '../../hooks/useFetch';
+import { EstimationContext } from '../../util/Context';
 import { RecommendPageProps } from './RecommendPage';
+
+export interface LifeStyleResultProps {
+  palisadeImage: string;
+  recommendationCard: {
+    slogan: string;
+    message: string;
+  };
+  model: {
+    modelName: string;
+    trim: {
+      trimName: string;
+      trimPrice: number;
+    };
+    engine: {
+      engineName: string;
+      enginePrice: number;
+    };
+    wheelDrive: {
+      wheelDriveName: string;
+      wheelDrivePrice: number;
+    };
+    bodyType: {
+      bodyTypeName: string;
+      bodyTypePrice: number;
+    };
+    modelPrice: number;
+  };
+  colors: {
+    colorImage: string;
+    isExterior: boolean;
+    colorName: string;
+    colorPrice: number;
+    recommendationMessage: string;
+  }[];
+  options: {
+    optionImage: string;
+    optionName: string;
+    optionPrice: number;
+    recommendationMessage: string;
+  }[];
+  totalPrice: number;
+}
 
 function RecommendLifeStyleResultPage({
   choice,
 }: Pick<RecommendPageProps, 'choice'>) {
-  choice.lifeStyle; //라이프스타일 id로 api요청 에정
+  const { setResult } = useContext(EstimationContext)!;
+
+  const { data, status, error } = useFetch<LifeStyleResultProps>(
+    `/personas/${choice.lifeStyle}/recommendation?ageId=${choice.age}`,
+  );
+
+  useEffect(() => {
+    if (data) {
+      setResult(data);
+    }
+  }, [data]);
+
+  if (status === 'loading') {
+    return <div>loading</div>;
+  } else if (status === 'error') {
+    console.error(error);
+    return <ErrorPopup></ErrorPopup>;
+  }
+  if (data === null) return <div></div>;
+
   return (
     <RecommendLifeStyleResultPageBox>
       <RecommendLifeStyleResultPageCarImgBox>
-        <RecommendResultCard></RecommendResultCard>
+        <RecommendResultCard
+          palisadeImage={data.palisadeImage}
+          model={data.model}
+          recommendationCard={data.recommendationCard}
+        ></RecommendResultCard>
       </RecommendLifeStyleResultPageCarImgBox>
       <ResultMain></ResultMain>
       <RecommendLifeStyleResultPageBtnBox>
