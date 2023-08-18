@@ -43,8 +43,8 @@ public class PersonaController {
 
 	@GetMapping("/{personaId}/recommendation")
 	@Operation(summary = "페르소나의 추천 차량 견적을 조회한다.")
-	public ResponseDto getPersonaRecommendation(@PathVariable final Long personaId, @RequestParam final Integer age) {
-		PersonaRecommendationResponse response = personaService.getPersonaRecommendation(personaId, age);
+	public ResponseDto getPersonaRecommendation(@PathVariable final Long personaId, @RequestParam final Long ageId) {
+		PersonaRecommendationResponse response = personaService.getPersonaRecommendation(personaId, ageId);
 		return DataResponseDto.of(response);
 	}
 }

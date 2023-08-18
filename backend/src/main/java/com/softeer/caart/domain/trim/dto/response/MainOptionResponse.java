@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.trim.dto;
+package com.softeer.caart.domain.trim.dto.response;
 
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.trim.entity.MainOptionOfTrim;

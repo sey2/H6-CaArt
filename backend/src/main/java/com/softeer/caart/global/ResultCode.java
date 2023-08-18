@@ -18,6 +18,7 @@ public enum ResultCode {
 	INVALID_BASIC_OPTION(400, "기본 옵션이 아닙니다."),
 	INVALID_ADDITIONAL_OPTION(400, "추가 옵션이 아닙니다."),
 	INVALID_MODEL_ID(400, "Le Blanc 트림만 선택 가능합니다."),
+	INVALID_REQUEST_PARAM(400, "잘못된 요청 파라미터입니다."),
 
 	// 404
 	OPTION_NOT_FOUND(404, "존재하지 않는 옵션입니다."),

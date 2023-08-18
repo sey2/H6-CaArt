@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.softeer.caart.domain.common.ServiceTest;
-import com.softeer.caart.domain.trim.dto.TrimResponse;
+import com.softeer.caart.domain.trim.dto.response.TrimResponse;
 import com.softeer.caart.domain.trim.repository.TrimRepository;
 
 class TrimServiceTest extends ServiceTest {

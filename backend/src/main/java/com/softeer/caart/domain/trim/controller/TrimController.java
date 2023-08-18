@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.softeer.caart.domain.trim.dto.TrimResponse;
+import com.softeer.caart.domain.trim.dto.response.TrimResponse;
 import com.softeer.caart.domain.trim.service.TrimService;
 import com.softeer.caart.global.response.DataResponseDto;
 import com.softeer.caart.global.response.ResponseDto;

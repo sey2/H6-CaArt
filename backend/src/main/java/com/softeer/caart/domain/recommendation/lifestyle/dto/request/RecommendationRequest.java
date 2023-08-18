@@ -12,20 +12,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class RecommendationRequest {
 
-	@NotNull
+	@NotNull(message = "ageId는 필수입니다.")
+	private final Long ageId;
+
+	@NotNull(message = "experienceId는 필수입니다.")
 	private final Long experienceId;
 
-	@NotNull
+	@NotNull(message = "familyId는 필수입니다.")
 	private final Long familyId;
 
-	@NotNull
+	@NotNull(message = "purposeId는 필수입니다.")
 	private final Long purposeId;
 
-	@NotNull
+	@NotNull(message = "valueId는 필수입니다.")
 	private final Long valueId;
 
-	@NotNull
-	@Min(4200)
-	@Max(6900)
+	@NotNull(message = "budget은 필수입니다.")
+	@Min(value = 4200, message = "budget의 최소 범위는 4200입니다.")
+	@Max(value = 6900, message = "budget의 최대 범위는 6900입니다.")
 	private final Integer budget;
 }

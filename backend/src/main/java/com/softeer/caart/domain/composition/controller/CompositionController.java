@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.softeer.caart.domain.composition.dto.CompositionResponse;
+import com.softeer.caart.domain.composition.dto.response.CompositionResponse;
 import com.softeer.caart.domain.composition.service.CompositionService;
 import com.softeer.caart.global.response.DataResponseDto;
 import com.softeer.caart.global.response.ResponseDto;

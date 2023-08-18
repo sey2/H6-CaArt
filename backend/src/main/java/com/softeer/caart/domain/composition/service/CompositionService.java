@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softeer.caart.domain.composition.dto.BodyTypeResponse;
-import com.softeer.caart.domain.composition.dto.CarEngineResponse;
-import com.softeer.caart.domain.composition.dto.CompositionResponse;
-import com.softeer.caart.domain.composition.dto.WheelDriveResponse;
+import com.softeer.caart.domain.composition.dto.response.BodyTypeResponse;
+import com.softeer.caart.domain.composition.dto.response.CarEngineResponse;
+import com.softeer.caart.domain.composition.dto.response.CompositionResponse;
+import com.softeer.caart.domain.composition.dto.response.WheelDriveResponse;
 import com.softeer.caart.domain.composition.repository.BodyTypeRepository;
 import com.softeer.caart.domain.composition.repository.CarEngineRepository;
 import com.softeer.caart.domain.composition.repository.WheelDriveRepository;

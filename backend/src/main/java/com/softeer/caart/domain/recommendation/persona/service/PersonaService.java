@@ -34,7 +34,7 @@ public class PersonaService {
 		return PersonaDetailsResponse.from(persona);
 	}
 
-	public PersonaRecommendationResponse getPersonaRecommendation(Long personaId, Integer age) {
+	public PersonaRecommendationResponse getPersonaRecommendation(Long personaId, Long ageId) {
 		// TODO: 연령대(age)에 따른 색상 추천
 		Persona persona = personaRepository.findById(personaId)
 			.orElseThrow(() -> new PersonaNotFoundException(ResultCode.PERSONA_NOT_FOUND));

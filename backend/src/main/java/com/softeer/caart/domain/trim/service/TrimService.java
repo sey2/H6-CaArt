@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softeer.caart.domain.trim.dto.TrimResponse;
+import com.softeer.caart.domain.trim.dto.response.TrimResponse;
 import com.softeer.caart.domain.trim.repository.TrimRepository;
 
 import lombok.RequiredArgsConstructor;

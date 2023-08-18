@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.trim.dto;
+package com.softeer.caart.domain.trim.dto.response;
 
 import java.util.Comparator;
 import java.util.List;

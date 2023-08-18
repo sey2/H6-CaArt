@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import com.softeer.caart.domain.common.ServiceTest;
-import com.softeer.caart.domain.composition.dto.CompositionResponse;
+import com.softeer.caart.domain.composition.dto.response.CompositionResponse;
 import com.softeer.caart.domain.composition.repository.BodyTypeRepository;
 import com.softeer.caart.domain.composition.repository.CarEngineRepository;
 import com.softeer.caart.domain.composition.repository.WheelDriveRepository;

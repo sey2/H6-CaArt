@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.composition.dto;
+package com.softeer.caart.domain.composition.dto.response;
 
 import com.softeer.caart.domain.composition.entity.WheelDrive;
 

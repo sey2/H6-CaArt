@@ -1,9 +1,13 @@
 package com.softeer.caart.domain.recommendation.lifestyle.dto;
 
 import com.softeer.caart.domain.color.entity.Color;
+import com.softeer.caart.domain.composition.dto.BodyTypeDto;
+import com.softeer.caart.domain.composition.dto.CarEngineDto;
+import com.softeer.caart.domain.composition.dto.WheelDriveDto;
 import com.softeer.caart.domain.model.Model;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
+import com.softeer.caart.domain.trim.dto.TrimDto;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -32,19 +36,19 @@ public class RecommendedDto {
 	@Getter
 	public static class RecommendedModelDto {
 		private final String modelName;
-		private final String trim;
-		private final String engine;
-		private final String wheelDrive;
-		private final String bodyType;
 		private final Integer modelPrice;
+		private final TrimDto trim;
+		private final CarEngineDto engine;
+		private final WheelDriveDto wheelDrive;
+		private final BodyTypeDto bodyType;
 
 		public RecommendedModelDto(Model model) {
 			this.modelName = "펠리세이드";
-			this.trim = model.getTrim().getName();
-			this.engine = model.getCarEngine().getName();
-			this.wheelDrive = model.getWheelDrive().getName();
-			this.bodyType = model.getBodyType().getName();
 			this.modelPrice = model.calcModelPrice();
+			this.trim = new TrimDto(model.getTrim());
+			this.engine = new CarEngineDto(model.getCarEngine());
+			this.wheelDrive = new WheelDriveDto(model.getWheelDrive());
+			this.bodyType = new BodyTypeDto(model.getBodyType());
 		}
 	}
 
