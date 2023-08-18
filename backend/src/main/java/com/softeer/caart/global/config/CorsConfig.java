@@ -13,7 +13,8 @@ public class CorsConfig implements WebMvcConfigurer {
 			.allowedOrigins("http://api.ca-art.store",
 				"https://api.ca-art.store",
 				"http://localhost:3000",
-				"https://ca-art.store")
+				"https://ca-art.store",
+				"http://172.16.129.50:3000")
 			.allowedMethods("GET", "POST")
 			.maxAge(3000);
 	}
