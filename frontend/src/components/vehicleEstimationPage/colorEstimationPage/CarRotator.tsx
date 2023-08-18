@@ -57,8 +57,10 @@ const BgBottom = styled.div`
 `;
 
 const Image = styled.img`
+  width: 656px;
+  height: 366px;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 53%;
   transform: translate(-50%, -50%);
 `;

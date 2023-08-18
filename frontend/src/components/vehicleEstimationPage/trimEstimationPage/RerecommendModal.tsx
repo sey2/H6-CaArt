@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import SquareButton from '../../common/SquareButton';
 import { Link } from 'react-router-dom';
-import { FlexBox } from "../../common/FlexBox";
+import { FlexBox } from '../../common/FlexBox';
 
 function RerecommendModal({
   setter,
@@ -27,7 +27,12 @@ function RerecommendModal({
         <span className="body-regular-14 text-grey-400">
           선택한 옵션들은 모두 초기화돼요.
         </span>
-        <FlexBox align="center" justify="center" gap={8} margin="32px 0px 0px 0px">
+        <FlexBox
+          align="center"
+          justify="center"
+          gap={8}
+          margin="32px 0px 0px 0px"
+        >
           <div onClick={closeModal}>
             <SquareButton
               size={'ms'}
@@ -63,7 +68,7 @@ const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 21;
   background: rgba(15, 17, 20, 0.55);
   opacity: 0;
   visibility: hidden;

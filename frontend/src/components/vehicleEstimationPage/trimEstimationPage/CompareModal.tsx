@@ -1,19 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import useModal from '../../../hooks/useModal';
-import {FlexBox, SFlex} from "../../common/FlexBox";
-import {data, commonOption} from '../../../static/data/CompareModalData'
-import { Hr } from "../../common/Hr";
+import { FlexBox, SFlex } from '../../common/FlexBox';
+import { data, commonOption } from '../../../static/data/CompareModalData';
+import { Hr } from '../../common/Hr';
 
 interface CompareModalProps {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
   isOpen: boolean;
 }
 
-function CompareModal({
-  setter,
-  isOpen,
-}: CompareModalProps) {
+function CompareModal({ setter, isOpen }: CompareModalProps) {
   function setColor(colorSet: string[]) {
     return colorSet.map(color => (
       <>
@@ -69,7 +66,14 @@ function CompareModal({
                       {setColor(trim.trimOuterColor)}
                     </FlexBox>
                     <p className="body-medium-14 text-grey-200">내장 색상</p>
-                    <FlexBox display="inline" justify="center" align="center" wrap="wrap" gap={8} height={52}>
+                    <FlexBox
+                      display="inline"
+                      justify="center"
+                      align="center"
+                      wrap="wrap"
+                      gap={8}
+                      height={52}
+                    >
                       {setInnerColor(trim.trimInnerColor)}
                     </FlexBox>
                     <Hr width={160} margin="33px 0px 33px 0px" />
@@ -78,7 +82,12 @@ function CompareModal({
                         if (item[0] === trim.trimName) {
                           return item[1].map(option => (
                             <>
-                              <Option key={option.name} direction="column" gap={8} align="center">
+                              <Option
+                                key={option.name}
+                                direction="column"
+                                gap={8}
+                                align="center"
+                              >
                                 <img src={option.imgSrc} />
                                 <InchSpan>{option.inch}</InchSpan>
                                 <NameSpan>{option.name}</NameSpan>
@@ -88,7 +97,7 @@ function CompareModal({
                         }
                       })}
                     </FlexBox>
-                    <Hr width={160} margin="33px 0px 33px 0px"/>
+                    <Hr width={160} margin="33px 0px 33px 0px" />
                     <span className="body-medium-14 text-grey-300">
                       기본 옵션
                     </span>
@@ -122,7 +131,7 @@ const Modal = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 21;
   overflow: scroll;
   opacity: 0;
   visibility: hidden;
@@ -197,7 +206,7 @@ const Option = styled(SFlex)`
     width: 54.4px;
     height: 54.4px;
   }
-`
+`;
 
 const InchSpan = styled.span`
   color: var(--secondary-active-blue);

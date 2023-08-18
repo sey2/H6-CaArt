@@ -38,10 +38,7 @@ interface GuideModalProps {
 
 type NavType = 'carEngines' | 'bodyTypes' | 'wheelDrives' | string;
 
-function EBWGuideModal({
-  setter,
-  isOpen,
-}: GuideModalProps) {
+function EBWGuideModal({ setter, isOpen }: GuideModalProps) {
   const [selectedNav, setSelectedNav] = useState<NavType>('carEngines');
   const [compositionData, setCompositionData] = useState<CompositionsData>();
   const { data } = useFetch<CompositionsData>('/compositions');
@@ -238,7 +235,7 @@ const Overlay = styled.div`
   height: 100vh;
   background: rgba(15, 17, 20, 0.55);
   position: relative;
-  z-index: 3;
+  z-index: 21;
 `;
 
 const Wrapper = styled.div`
@@ -251,7 +248,7 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 51;
 `;
 const NavBar = styled.div`
   display: flex;
@@ -326,7 +323,7 @@ const Modal = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 22;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease-out;

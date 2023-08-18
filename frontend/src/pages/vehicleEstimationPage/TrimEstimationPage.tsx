@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
@@ -35,6 +35,14 @@ function TrimEstimationPage() {
     setTooltipOpen(false);
     setOptionModalOpen(false);
   }
+  const fixedRef = useRef<HTMLDivElement | null>(null);
+  const scrollableRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (scrollableRef.current && fixedRef.current) {
+      scrollableRef.current.scrollTop = e.currentTarget.scrollTop;
+    }
+  };
 
   return (
     <>
@@ -60,8 +68,10 @@ function TrimEstimationPage() {
       <Wrapper onClick={closeModalHandler}>
         <Header size="large" page={0} />
         <Layout>
-          <TrimCarImage />
-          <RightBox onScroll={closeModalHandler}>
+          <div ref={fixedRef} onScroll={handleScroll}>
+            <TrimCarImage />
+          </div>
+          <RightBox onScroll={closeModalHandler} ref={scrollableRef}>
             <InfoText onClick={() => setInfoModalOpen(true)}>
               <img src="/images/question_icon.svg" />
               <span className="text-secondary-active-blue body-medium-14">
