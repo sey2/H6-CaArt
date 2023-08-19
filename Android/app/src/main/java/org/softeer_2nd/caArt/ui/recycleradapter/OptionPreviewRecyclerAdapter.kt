@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.ui.recycleradapter
 
+import android.annotation.SuppressLint
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -82,12 +83,20 @@ class OptionPreviewRecyclerAdapter(
         notifyItemRangeInserted(startIndex, options.size)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setOptionList(options: List<Option>) {
+        optionList.clear()
+        optionList.addAll(options)
+        notifyDataSetChanged()
+    }
+
     inner class OptionPreviewViewHolder(private val binding: ItemOptionPreviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(option: Option, position: Int) {
-            binding.url = option.url
-            binding.optionName = option.name
+            binding.ivOptionPreviewImage.clipToOutline = true
+            binding.url = option.optionImage
+            binding.optionName = option.optionName
             binding.tvOptionPreviewMore.setOnClickListener {
                 listener.onItemClicked(position, option)
             }

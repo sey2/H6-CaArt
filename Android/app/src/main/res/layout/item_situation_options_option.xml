@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:onClickListener="@{onClickListener}"
+        android:visibility="@{optionImageUrl==null?View.INVISIBLE:View.VISIBLE}"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:cardMaxElevation="0dp"
@@ -33,7 +34,8 @@
             android:id="@+id/iv_situational_options_image"
             url="@{optionImageUrl}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/iv_situational_options_select_overlap"

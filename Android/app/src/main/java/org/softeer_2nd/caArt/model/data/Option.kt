@@ -1,11 +1,13 @@
 package org.softeer_2nd.caArt.model.data
 
 data class Option(
-    val name: String,
-    val group: String? = null,
-    val price: Int,
     val description: String,
-    val isDefaultOption: Boolean,
-    val url: String,
-    val subOption: List<Option>? = null
+    val optionId: Int,
+    val optionImage: String,
+    val optionName: String,
+    val optionPrice: Long? = null,
+    val position: Position? = null,
+    val subOptions: List<Option>? = null,
+    val summary: String? = null,
+    val tags: List<String>? = null
 )

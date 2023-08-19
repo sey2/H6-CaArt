@@ -48,7 +48,9 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = OptionDetailPageAdapter(builder.optionList ?: listOf(),
+        val adapter = OptionDetailPageAdapter(
+            builder.parentOption,
+            builder.optionList?: listOf(),
             onTextIndicatorItemClickListener = { position, _ ->
                 viewPager?.setCurrentItem(position, true)
             },
@@ -103,12 +105,21 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
     }
 
     class Builder() {
+        var isDefaultOption=false
+        var parentOption:Option?=null
         var optionList: List<Option>? = null
         private var _type: Int = SINGLE_OPTION
         val type get() = _type
-        fun setOptionList(list: List<Option>) = apply {
-            _type = if (list.size == 1) SINGLE_OPTION else OPTION_GROUP
-            optionList = list
+        fun setOption(option: Option) = apply {
+            if (option.subOptions.isNullOrEmpty()){
+                _type= SINGLE_OPTION
+                optionList=listOf(option)
+
+            }else{
+                _type= OPTION_GROUP
+                parentOption=option
+                optionList=option.subOptions
+            }
         }
 
         fun build(): OptionDetailDialog = OptionDetailDialog(this)

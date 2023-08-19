@@ -2,6 +2,7 @@ package org.softeer_2nd.caArt.ui.custom
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,11 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.PopupWindow
 import androidx.core.content.ContextCompat
+import coil.load
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.LayoutDynamicOptionFloatingTooltipBinding
+import org.softeer_2nd.caArt.ui.callback.OnItemClickListener
 import org.softeer_2nd.caArt.util.dp2px
 
 class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
@@ -51,8 +54,10 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
         }
     }
 
-    fun addOption(option: Option, ratioX: Float, ratioY: Float) {
+    fun addOption(option: Option) {
 
+        val ratioX = option.position?.mobileX ?: 0f
+        val ratioY = option.position?.mobileY ?: 0f
         val floatingButton = CheckBox(context).apply {
             layoutParams = LayoutParams(28f.dp2px(context), 28f.dp2px(context))
             optionViewMap[this] = option
@@ -79,10 +84,21 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
         })
     }
 
+    fun addOptions(options: List<Option?>) {
+        for (option in options) {
+            option ?: continue
+            addOption(option)
+        }
+    }
+
     private fun showTooltip(target: View) {
         val xOffset = target.width / 2 - popupWindow.contentView.measuredWidth / 2
         val yOffset = -5
         popupWindow.showAsDropDown(target, xOffset, yOffset)
+    }
+
+    fun setImage(url: String?) {
+        imageView.load(url)
     }
 
     private fun CheckBox.initFloatingButton(option: Option) {
@@ -93,10 +109,9 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
         )
 
         binding.apply {
-            optionName = option.name
-            optionTag = "test"
-            optionPrice = option.price
-            optionImageUrl = option.url
+            optionName = option.optionName
+            optionPrice = option.optionPrice ?: 0
+            optionImageUrl = option.optionImage
         }
         setOnClickListener {
             selectedOption = optionViewMap[this]
@@ -105,7 +120,15 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
         buttonDrawable = null
     }
 
-    fun setOnMoreIconClickListener(listener: OnClickListener) {
-        binding.onMoreIconClickListener = listener
+    fun setOnMoreIconClickListener(listener: OnItemClickListener<Option>) {
+        binding.ibOptionFloatingDetail.setOnClickListener {
+            listener.onItemClicked(selectedOption)
+        }
+    }
+
+    fun clear() {
+        optionViewMap.clear()
+        viewOptionMap.clear()
+        floatingButtonList.clear()
     }
 }

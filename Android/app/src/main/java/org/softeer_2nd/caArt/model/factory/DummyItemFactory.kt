@@ -89,36 +89,46 @@ object DummyItemFactory {
         )
     }
 
-    fun createAdditionalOptionGrouopItem(): List<Option> = List(5) {
-        Option(
-            name = "option ${it + 1}",
+    fun createAdditionalOptionGrouopItem(): Option{
+        val subOption=List(5) {
+            Option(
+                optionId = it,
+                optionName = "option ${it + 1}",
+                description = "desc".repeat(50),
+                optionPrice = 999999999,
+                optionImage = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg",
+                subOptions = null
+            )
+        }
+        return Option(
+            optionId = 10,
+            optionName = "option Group",
             description = "desc".repeat(50),
-            group = "group1",
-            isDefaultOption = false,
-            price = 999999999,
-            url = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg"
+            optionPrice = 999999999,
+            optionImage = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg",
+            subOptions = subOption
         )
     }
 
     fun createAdditionalSingleOptionItem(): List<Option> = listOf<Option>(
         Option(
-            name = "option",
-            description = "desc",
-            group = null,
-            isDefaultOption = false,
-            price = 9999999,
-            url = "https://cdn.pixabay.com/photo/2023/05/05/21/00/cute-7973191_1280.jpg"
+            optionId = 10,
+            optionName = "option Group",
+            description = "desc".repeat(50),
+            optionPrice = 999999999,
+            optionImage = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg",
+            subOptions = null
         )
     )
 
     fun createDefaultSingleOptionItem(): List<Option> = listOf<Option>(
         Option(
-            name = "option",
-            description = "desc",
-            group = null,
-            isDefaultOption = true,
-            price = 0,
-            url = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg"
+            optionId = 10,
+            optionName = "option Group",
+            description = "desc".repeat(50),
+            optionPrice = null,
+            optionImage = "https://cdn.autotribune.co.kr/news/photo/202101/4849_30727_3533.jpg",
+            subOptions = null
         )
     )
 

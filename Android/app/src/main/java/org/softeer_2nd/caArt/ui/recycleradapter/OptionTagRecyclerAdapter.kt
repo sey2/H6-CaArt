@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.ui.recycleradapter
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -32,17 +33,18 @@ class OptionTagRecyclerAdapter(
     override fun getItemCount(): Int = optionTagList.size
 
     fun changeSelectedItem(optionTag: OptionTag) {
-        val new=optionTagList.indexOf(optionTag)
-        if(new<0) return
+        val new = optionTagList.indexOf(optionTag)
+        if (new < 0) return
         val old = selectedIndex
         selectedIndex = new
         notifyItemChanged(old)
         notifyItemChanged(new)
     }
 
-    fun setItemList(list:List<OptionTag>){
-        optionTagList=list
-        notifyItemRangeChanged(0,list.size)
+    @SuppressLint("NotifyDataSetChanged")
+    fun setItemList(list: List<OptionTag>) {
+        optionTagList = list
+        notifyDataSetChanged()
     }
 
     inner class OptionTagViewHolder(private val binding: ItemOptionTagBinding) :
@@ -54,9 +56,9 @@ class OptionTagRecyclerAdapter(
         private val gray100Color = ContextCompat.getColor(itemView.context, R.color.gray_100)
 
         fun bind(optionTag: OptionTag, position: Int) {
-            binding.apply{
-                tagName=optionTag.tagName
-                iconUrl=optionTag.tagIcon
+            binding.apply {
+                tagName = optionTag.tagName
+                iconUrl = optionTag.tagIcon
             }
             if (position == selectedIndex) applySelectedStyle() else applyDefaultStyle()
             binding.root.setOnClickListener {

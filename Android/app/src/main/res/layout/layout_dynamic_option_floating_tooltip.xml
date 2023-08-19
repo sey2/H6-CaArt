@@ -19,34 +19,12 @@
 
         <variable
             name="optionPrice"
-            type="Integer" />
+            type="long" />
 
         <variable
             name="optionImageUrl"
             type="String" />
-        <!--        <variable-->
-        <!--            name="option"-->
-        <!--            type="org.softeer_2nd.caArt.dataClasses.Option" />-->
 
-        <!--        <variable-->
-        <!--            name="onActivateStateChangedListener"-->
-        <!--            type="android.widget.CompoundButton.OnCheckedChangeListener" />-->
-
-        <!--        <variable-->
-        <!--            name="isActivated"-->
-        <!--            type="boolean" />-->
-
-        <!--        <variable-->
-        <!--            name="orientation"-->
-        <!--            type="Integer" />-->
-
-        <!--        <variable-->
-        <!--            name="tailXOffset"-->
-        <!--            type="float" />-->
-
-        <variable
-            name="onMoreIconClickListener"
-            type="View.OnClickListener" />
     </data>
 
     <FrameLayout
@@ -71,6 +49,7 @@
                 android:layout_height="72dp"
                 android:layout_margin="12dp"
                 android:background="@drawable/shape_rect_r8"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -131,7 +110,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:background="@color/transparent"
-                android:onClickListener="@{onMoreIconClickListener}"
                 android:padding="10dp"
                 android:rotation="270"
                 app:layout_constraintBottom_toBottomOf="parent"

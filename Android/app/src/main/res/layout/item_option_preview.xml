@@ -17,16 +17,15 @@
 
         <ImageView
             android:id="@+id/iv_option_preview_image"
+            url="@{url}"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            url="@{url}"
             android:background="@drawable/shape_rect_r4"
-            android:backgroundTint="#DFCCCC"
+            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="w,112:168"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/drawable_search_156" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_option_preview_more"

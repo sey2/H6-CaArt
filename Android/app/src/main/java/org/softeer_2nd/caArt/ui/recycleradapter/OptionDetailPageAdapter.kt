@@ -16,6 +16,7 @@ import org.softeer_2nd.caArt.util.dp2px
 import kotlin.math.max
 
 class OptionDetailPageAdapter(
+    private val parentOption: Option? = null,
     private val optionList: List<Option>,
     private val onTextIndicatorItemClickListener: OnRecyclerItemClickListener<Option>,
     private val onOptionSelectListener: OnRecyclerItemClickListener<OptionSelectEvent>,
@@ -26,7 +27,7 @@ class OptionDetailPageAdapter(
     private var displayPageIndex: Int = 0
 
     private val textIndicatorAdapter =
-        OptionDetailTextIndicatorAdapter(optionList.map { it.name }, this)
+        OptionDetailTextIndicatorAdapter(optionList.map { it.optionName }, this)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionDetailPageViewHolder {
         val binding =
@@ -80,6 +81,8 @@ class OptionDetailPageAdapter(
         fun bind(option: Option, position: Int) {
             binding.apply {
                 this.option = option
+                parentOptionName = parentOption?.optionName
+                isGroup = parentOption != null
                 onCancelButtonClickListener = onCancelButtonClickListener
                 pageIndex = position
                 pageCount = optionList.size
@@ -90,6 +93,9 @@ class OptionDetailPageAdapter(
                         OptionSelectEvent(option, isSelected)
                     )
                 }
+                isDefaultOption = (option.optionPrice == null)
+                onCancelButtonClickListener =
+                    this@OptionDetailPageAdapter.onCancelButtonClickListener
             }
         }
     }

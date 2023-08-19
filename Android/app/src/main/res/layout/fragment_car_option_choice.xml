@@ -5,7 +5,7 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="isSituationalTagPresent"
+            name="isSituationalLayoutDisplay"
             type="boolean" />
     </data>
 
@@ -96,7 +96,7 @@
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     android:paddingHorizontal="8dp"
-                    android:visibility="@{isSituationalTagPresent?View.GONE:View.VISIBLE}"
+                    android:visibility="@{isSituationalLayoutDisplay?View.GONE:View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rv_option_choice_option_tags_container" />
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:visibility="@{isSituationalTagPresent?View.VISIBLE:View.GONE}"
+                    android:visibility="@{isSituationalLayoutDisplay?View.VISIBLE:View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rv_option_choice_option_tags_container" />

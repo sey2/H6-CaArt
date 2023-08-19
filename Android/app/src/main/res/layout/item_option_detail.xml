@@ -10,14 +10,25 @@
         <variable
             name="option"
             type="org.softeer_2nd.caArt.model.data.Option" />
+        <variable
+            name="isGroup"
+            type="boolean" />
 
         <variable
             name="isBlurEffect"
-            type="Boolean" />
+            type="boolean" />
+
+        <variable
+            name="isDefaultOption"
+            type="boolean" />
 
         <variable
             name="onCancelButtonClickListener"
             type="View.OnClickListener" />
+
+        <variable
+            name="parentOptionName"
+            type="String" />
 
         <variable
             name="pageIndex"
@@ -37,7 +48,7 @@
 
         <ImageView
             android:id="@+id/iv_option_detail_image"
-            url="@{option.url}"
+            url="@{option.optionImage}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
@@ -68,10 +79,10 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/hyundaisanstextkrmedium"
-            android:text="@{option.group}"
+            android:text="@{parentOptionName}"
             android:textColor="@color/gray_400"
             android:textSize="12sp"
-            android:visibility="@{option.group==null?View.GONE:View.VISIBLE}"
+            android:visibility="@{isGroup?View.VISIBLE:View.GONE}"
             app:layout_constraintEnd_toStartOf="@+id/cb_option_detail_choice"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,11 +94,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="@{option.group==null?20f:4f}"
+            android:layout_marginTop="@{!isGroup?20f:4f}"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/hyundaisanstextkrmedium"
             android:paddingHorizontal="0.2dp"
-            android:text="@{option.name}"
+            android:text="@{option.optionName}"
             android:textColor="@color/gray_0"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/cb_option_detail_choice"
@@ -98,7 +109,7 @@
 
         <TextView
             android:id="@+id/tv_option_detail_price"
-            formattedPrice="@{option.price}"
+            formattedPrice="@{option.optionPrice}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -107,7 +118,7 @@
             android:fontFamily="@font/hyundaisanstext_medium"
             android:textColor="@color/gray_200"
             android:textSize="16sp"
-            android:visibility="@{option.isDefaultOption?View.GONE:View.VISIBLE}"
+            android:visibility="@{isDefaultOption?View.GONE:View.VISIBLE}"
             app:layout_constraintEnd_toStartOf="@+id/cb_option_detail_choice"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +154,7 @@
             android:textColor="@color/blue"
             android:textColorHighlight="@android:color/transparent"
             android:textSize="12sp"
-            android:visibility="@{option.isDefaultOption?View.GONE:View.VISIBLE}"
+            android:visibility="@{isDefaultOption?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/tv_option_detail_price"
             app:layout_constraintDimensionRatio="w,28:69"
             app:layout_constraintEnd_toEndOf="parent"
@@ -198,7 +209,7 @@
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{option.group!=null?View.VISIBLE:View.GONE}"
+            android:visibility="@{isGroup?View.VISIBLE:View.GONE}"
             app:constraint_referenced_ids="v_option_detail_indicator_background,rv_option_detail_text_indicator,ci_option_detail_indicator" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

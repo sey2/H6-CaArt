@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import org.softeer_2nd.caArt.databinding.FragmentCarTrimDescriptionBinding
 import org.softeer_2nd.caArt.ui.recycleradapter.TrimDescriptionPagerAdapter
@@ -17,7 +18,7 @@ class CarTrimDescriptionFragment() : Fragment() {
     private var _binding: FragmentCarTrimDescriptionBinding? = null
     private val binding get() = _binding!!
 
-    private val carTrimDescriptionViewModel by activityViewModels<CarTrimDescriptionViewModel>()
+    private val carTrimDescriptionViewModel by viewModels<CarTrimDescriptionViewModel>()
 
     private val userChoiceViewModel by activityViewModels<UserChoiceViewModel>()
 
@@ -49,7 +50,9 @@ class CarTrimDescriptionFragment() : Fragment() {
         }
 
         carTrimDescriptionViewModel.composition.observe(viewLifecycleOwner) {
-            (binding.vpTrimContainer.adapter as TrimDescriptionPagerAdapter).updateItems(carTrimDescriptionViewModel.composition.value!!)
+            (binding.vpTrimContainer.adapter as TrimDescriptionPagerAdapter).updateItems(
+                carTrimDescriptionViewModel.composition.value!!
+            )
         }
     }
 
