@@ -11,6 +11,7 @@ import org.softeer_2nd.caArt.ui.callback.OnTrimItemClickListener
 class TrimOptionSelectionAdapter(private val onTrimItemClickListener: OnTrimItemClickListener):
     RecyclerView.Adapter<TrimOptionSelectionAdapter.TrimOptionSelectionViewHolder>() {
     private var selectedPosition = 0
+    private var specifications = ""
     private var items = mutableListOf<Trim>()
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -31,11 +32,18 @@ class TrimOptionSelectionAdapter(private val onTrimItemClickListener: OnTrimItem
         holder.bind(currentItem)
     }
 
-    fun updateItems(newItems: List<Trim>){
+    fun updateTrimItems(newItems: List<Trim>){
         items.clear()
         items.addAll(newItems)
+        items[0].isChecked = true
         notifyDataSetChanged()
     }
+
+    fun updateSpecifications(newSpecifications: String) {
+        specifications = newSpecifications
+        notifyDataSetChanged()
+    }
+
     inner class TrimOptionSelectionViewHolder(val binding: ItemTrimSelectBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val exteriorAdapter = TrimOptionMoreDetailAdapter()
@@ -81,6 +89,7 @@ class TrimOptionSelectionAdapter(private val onTrimItemClickListener: OnTrimItem
                 trimItems = item
                 lineVisibleGone = adapterPosition == (itemCount - 1)
                 isChecked = item.isChecked
+                tvSpecifications.text = specifications
             }
 
             exteriorAdapter.updateItems(item.exteriorColors)

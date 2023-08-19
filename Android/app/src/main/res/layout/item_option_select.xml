@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="userChoiceItem"
+            type="org.softeer_2nd.caArt.model.data.UserChoice" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,13 +26,14 @@
             android:id="@+id/tv_option_detail_top"
             style="@style/BottomSheetOptionDetailTextStyle"
             android:layout_marginTop="8dp"
-            android:text="@string/default_model_name"
+            android:text="@{userChoiceItem.optionDetailTop}"
             app:layout_constraintStart_toStartOf="@id/iv_line"
             app:layout_constraintTop_toBottomOf="@id/tv_option_title" />
 
         <TextView
             android:id="@+id/tv_price_top"
             style="@style/PriceTextStyle"
+            android:text="@{userChoiceItem.priceTop}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/iv_line"
             app:layout_constraintTop_toTopOf="@+id/tv_option_detail_top" />
@@ -33,16 +41,17 @@
         <TextView
             android:id="@+id/tv_option_detail_bottom"
             style="@style/BottomSheetOptionDetailTextStyle"
+            android:text="@{userChoiceItem.optionDetailBottom}"
             android:layout_marginTop="7dp"
-            android:text="@string/seater"
             app:layout_constraintStart_toStartOf="@id/iv_line"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price_top" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_price_top"
+            tool:text="@string/seater"/>
 
         <TextView
             android:id="@+id/tv_price_bottom"
             style="@style/PriceTextStyle"
             android:layout_marginTop="4dp"
-            android:textSize="16sp"
+            android:text="@{userChoiceItem.priceBottom}"
             app:layout_constraintEnd_toEndOf="@+id/iv_line"
             app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_top" />
 

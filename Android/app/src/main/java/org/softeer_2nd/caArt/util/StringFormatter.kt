@@ -8,4 +8,7 @@ object StringFormatter {
     fun formatPriceString(price: Long): String {
         return priceFormatter.format(price)
     }
+    fun combineCarComposition(engineType: String, seatingCapacity: String, driveConfiguration: String): String {
+        return "$engineType ・ $seatingCapacity ・ $driveConfiguration"
+    }
 }

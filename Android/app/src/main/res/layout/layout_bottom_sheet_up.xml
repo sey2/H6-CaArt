@@ -1,5 +1,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="userChoiceViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -52,9 +59,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
             android:fontFamily="@font/hyundaisanstext_medium"
-            android:text="@string/le_blanc"
+            android:text="@{userChoiceViewModel.selectedTrim.trimName}"
             android:textColor="@color/gray_500"
             android:textSize="14sp"
+            tools:text="@string/le_blanc"
             app:layout_constraintStart_toStartOf="@+id/iv_line"
             app:layout_constraintTop_toBottomOf="@+id/rv_select_options" />
 
@@ -63,6 +71,7 @@
             style="@style/PriceTextStyle"
             android:layout_marginTop="32dp"
             android:textSize="18sp"
+            app:formattedPrice="@{userChoiceViewModel.totalPrice}"
             app:layout_constraintEnd_toEndOf="@+id/iv_line"
             app:layout_constraintTop_toBottomOf="@+id/rv_select_options" />
 

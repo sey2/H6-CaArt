@@ -54,3 +54,14 @@ fun View.setLayoutGravity(gravity: Int) {
     val lp = layoutParams as? FrameLayout.LayoutParams
     lp?.gravity = gravity
 }
+
+@BindingAdapter("marginTopConditionally")
+fun View.setMarginTopConditionally(isOtherColor: Boolean) {
+    val layoutParams = layoutParams as ViewGroup.MarginLayoutParams
+    if (isOtherColor) {
+        layoutParams.topMargin = 28f.dp2px(context)
+    } else {
+        layoutParams.topMargin = 0
+    }
+    this.layoutParams = layoutParams
+}

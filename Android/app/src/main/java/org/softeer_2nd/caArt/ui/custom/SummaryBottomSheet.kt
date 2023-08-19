@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,36 +13,46 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.ui.recycleradapter.BottomSheetCurrentOptionAdapter
 import org.softeer_2nd.caArt.databinding.LayoutBottomSheetBaseBinding
-import org.softeer_2nd.caArt.model.factory.DummyItemFactory
+import org.softeer_2nd.caArt.util.UserChoiceConverter
+import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
 
 class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLayout(context, attrs) {
 
-    private val bottomSheetBehavior: BottomSheetBehavior<View>
-    private val binding: LayoutBottomSheetBaseBinding
-    private var itemAdapter: BottomSheetCurrentOptionAdapter
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private lateinit var binding: LayoutBottomSheetBaseBinding
+    private val itemAdapter: BottomSheetCurrentOptionAdapter = BottomSheetCurrentOptionAdapter()
 
     init {
+        setupUI()
+        configureBottomSheetBehavior()
+        configureNavigation()
+    }
+
+    private fun setupUI() {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = LayoutBottomSheetBaseBinding.inflate(inflater, this, true)
 
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.root)
-        binding.incSlideUp.rvSelectOptions.layoutManager = LinearLayoutManager(context)
-        itemAdapter =
-            BottomSheetCurrentOptionAdapter(DummyItemFactory.createOptionSelectionDummyItems())
-        binding.incSlideUp.rvSelectOptions.adapter = itemAdapter
+        binding.incSlideUp.rvSelectOptions.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = itemAdapter
+        }
+    }
 
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                handleSlide(slideOffset)
-            }
+    private fun configureBottomSheetBehavior() {
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.root).apply {
+            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    handleSlide(slideOffset)
+                }
 
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-            }
-        })
+                override fun onStateChanged(bottomSheet: View, newState: Int) {}
+            })
+        }
+    }
 
+    private fun configureNavigation() {
         binding.incSlideDown.btnPrevious.setOnClickListener {
-            findNavController().popBackStack()
+            it.findNavController().popBackStack()
         }
     }
 
@@ -66,32 +77,86 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
         }
     }
 
-    private fun showPrevAndNextView(nextFragmentAction: NavDirections) {
-        binding.incSlideDown.flowPrvNextBtn.visibility = View.VISIBLE
-        binding.incSlideDown.btnOneNext.visibility = View.GONE
-        binding.incSlideDown.btnTwoNext.setOnClickListener {
-            findNavController().navigate(nextFragmentAction)
-        }
-    }
-
-    private fun showPrevAndEstimateView(nextFragmentAction: NavDirections) {
-        binding.incSlideDown.btnOneNext.visibility = View.GONE
-        binding.incSlideDown.flowPrvNextBtn.visibility = View.VISIBLE
-        binding.incSlideDown.btnTwoNext.apply {
-            text = "견적내기"
-            setOnClickListener {
-                findNavController().navigate(nextFragmentAction)
+    private fun showPrevAndNextView(navDirection: NavDirections) {
+        with(binding.incSlideDown) {
+            flowPrvNextBtn.visibility = View.VISIBLE
+            btnOneNext.visibility = View.GONE
+            btnTwoNext.setOnClickListener {
+                it.findNavController().navigate(navDirection)
             }
         }
     }
-    private fun showNextView(nextFragmentAction: NavDirections) {
-        binding.incSlideDown.flowPrvNextBtn.visibility = View.GONE
 
-        binding.incSlideDown.btnOneNext.apply {
-            visibility = View.VISIBLE
-            setOnClickListener {
-                findNavController().navigate(nextFragmentAction)
+    private fun showPrevAndEstimateView(navDirection: NavDirections) {
+        with(binding.incSlideDown) {
+            btnOneNext.visibility = View.GONE
+            flowPrvNextBtn.visibility = View.VISIBLE
+            btnTwoNext.apply {
+                text = "견적내기"
+                setOnClickListener {
+                    it.findNavController().navigate(navDirection)
+                }
             }
+        }
+    }
+
+    private fun showNextView(navDirection: NavDirections) {
+        with(binding.incSlideDown) {
+            flowPrvNextBtn.visibility = View.GONE
+            btnOneNext.apply {
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    it.findNavController().navigate(navDirection)
+                }
+            }
+        }
+    }
+
+    fun setViewModel(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        bindViewModel(userChoiceViewModel, lifecycleOwner)
+        observeSelectedTrim(userChoiceViewModel, lifecycleOwner)
+        observeSelectedEngine(userChoiceViewModel, lifecycleOwner)
+        observeSelectedOptions(userChoiceViewModel, lifecycleOwner)
+    }
+
+    private fun bindViewModel(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        with(binding) {
+            incSlideDown.userChoiceViewModel = userChoiceViewModel
+            incSlideDown.lifecycleOwner = lifecycleOwner
+            incSlideUp.userChoiceViewModel = userChoiceViewModel
+            incSlideUp.lifecycleOwner = lifecycleOwner
+        }
+    }
+
+    private fun observeSelectedTrim(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        userChoiceViewModel?.selectedTrim?.observe(lifecycleOwner) { trims ->
+            val selectedBodyType = userChoiceViewModel.selectedBodyType.value
+            val selectedWheelType = userChoiceViewModel.selectedWheelDrive.value
+            val selectedEngineType = userChoiceViewModel.selectedEngine.value
+
+            val updateData = selectedBodyType?.let { bodyType ->
+                UserChoiceConverter.trimToUserChoice(
+                    trims, selectedEngineType!!, bodyType, selectedWheelType!!
+                )
+            }
+            itemAdapter.updateItem(0, updateData!!)
+        }
+    }
+
+    private fun observeSelectedEngine(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        userChoiceViewModel?.selectedEngine?.observe(lifecycleOwner) { engine ->
+            val selectedEngine = userChoiceViewModel.selectedEngine.value
+
+            if (selectedEngine != null) {
+                itemAdapter.updateEngineItem(selectedEngine)
+            }
+        }
+    }
+
+    private fun observeSelectedOptions(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        userChoiceViewModel?.selectedOptions?.observe(lifecycleOwner) { options ->
+            val updateData = UserChoiceConverter.optionToUserChoice(options)
+            itemAdapter.updateItem(0, updateData)
         }
     }
 }

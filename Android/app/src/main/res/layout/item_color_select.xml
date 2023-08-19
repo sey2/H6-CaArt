@@ -26,7 +26,7 @@
         <variable
             name="optionTitle"
             type="java.lang.String" />
-        
+
         <variable
             name="otherColorSelectionHandler"
             type="org.softeer_2nd.caArt.ui.recycleradapter.ColorOptionSelectionAdapter.ColorOptionSelectionViewHolder" />
@@ -42,13 +42,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/hyundaisanstextkrbold"
             android:text="@{optionTitle}"
             android:textColor="@color/active_blue"
             android:textSize="11sp"
             android:visibility="@{isOtherColor ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toTopOf="@id/root_item"
             app:layout_constraintEnd_toEndOf="@+id/root_item"
             app:layout_constraintStart_toStartOf="@+id/root_item"
             app:layout_constraintTop_toTopOf="parent"
@@ -58,7 +56,7 @@
             android:id="@+id/root_item"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_marginTop="28dp"
+            app:marginTopConditionally="@{isOtherColor}"
             android:onClick="@{isOtherColor ? otherColorSelectionHandler::onOtherColorItemClicked : otherColorSelectionHandler::onDefaultColorItemClicked}"
             app:cardCornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"

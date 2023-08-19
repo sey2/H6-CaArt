@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="userChoiceViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
@@ -14,11 +20,12 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/hyundaisansheadkrregular"
-            android:text="@string/le_blanc"
+            android:text="@{userChoiceViewModel.selectedTrim.trimName}"
             android:textColor="@color/gray_500"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/iv_arrow"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/le_blanc"/>
 
         <Button
             android:id="@+id/btn_previous"
@@ -34,14 +41,12 @@
         <Button
             android:id="@+id/btn_one_next"
             style="@style/PrimaryButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="192dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="14dp"
             android:text="@string/next"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_price"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
@@ -61,6 +66,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="44dp"
             android:textSize="18sp"
+            android:fontFamily="@font/hyundaisansheadkrbold"
+            app:formattedPrice="@{userChoiceViewModel.totalPrice}"
             app:layout_constraintStart_toEndOf="@id/iv_arrow"
             app:layout_constraintTop_toTopOf="parent" />
 

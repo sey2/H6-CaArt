@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class WheelDrive(
     @SerializedName("wheelDriveName") override val itemName: String,
     @SerializedName("wheelDriveImage") override val imageUrl: String,
-    @SerializedName("wheelDrivePrice") val wheelDrivePrice: Int,
+    @SerializedName("wheelDrivePrice") val wheelDrivePrice: Long,
     override val description: String,
     override val summary: String
 ) : TrimDescription {

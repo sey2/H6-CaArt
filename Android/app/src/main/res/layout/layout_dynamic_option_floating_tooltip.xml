@@ -19,7 +19,7 @@
 
         <variable
             name="optionPrice"
-            type="long" />
+            type="Long" />
 
         <variable
             name="optionImageUrl"

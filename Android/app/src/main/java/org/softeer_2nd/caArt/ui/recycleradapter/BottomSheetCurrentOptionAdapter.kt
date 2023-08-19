@@ -4,14 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemOptionSelectBinding
-import org.softeer_2nd.caArt.model.dummy.OptionSelectionDummyItem
+import org.softeer_2nd.caArt.model.data.Engine
+import org.softeer_2nd.caArt.model.data.UserChoice
+import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 
-class BottomSheetCurrentOptionAdapter(private val items: List<OptionSelectionDummyItem>) :
+class BottomSheetCurrentOptionAdapter() :
     RecyclerView.Adapter<BottomSheetCurrentOptionAdapter.OptionSelectionViewHolder>() {
+        private var items: MutableList<UserChoice> = DummyItemFactory.createOptionSelectionDummyItems()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionSelectionViewHolder {
         val binding =
             ItemOptionSelectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return OptionSelectionViewHolder(binding)
     }
 
@@ -24,16 +28,30 @@ class BottomSheetCurrentOptionAdapter(private val items: List<OptionSelectionDum
         holder.bind(currentItem)
     }
 
+    fun updateItem(index: Int, newItem: UserChoice) {
+        if(items.isNotEmpty()){
+            items[index] = newItem
+            notifyItemChanged(index)
+        }
+    }
+
+    fun updateEngineItem(engine: Engine) {
+        if (items.isNotEmpty()) {
+            val engineParts = engine.itemName.split(" ")
+            if (engineParts.size > 1) {
+                val currentItemParts = items[0].optionDetailTop.split(" ").toMutableList()
+                currentItemParts[1] = engineParts[0]
+                currentItemParts[2] = engineParts[1]
+                items[0].optionDetailTop = currentItemParts.joinToString(" ")
+            }
+        }
+        notifyItemChanged(0)
+    }
+
     inner class OptionSelectionViewHolder(val binding: ItemOptionSelectBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: OptionSelectionDummyItem) {
-            binding.apply {
-                tvOptionTitle.text = item.optionTitle
-                tvOptionDetailTop.text = item.optionDetailTop
-                tvOptionDetailBottom.text = item.optionDetailBottom
-                tvPriceTop.text = item.priceTop
-                tvPriceBottom.text = item.priceBottom
-            }
+        fun bind(item: UserChoice) {
+            binding.userChoiceItem = item
         }
     }
 }
