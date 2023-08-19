@@ -8,19 +8,20 @@ import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeSt
 import { useFetch } from '../../hooks/useFetch';
 import { RecommendPageProps } from './RecommendPage';
 
-interface questionProps {
-  age: {
-    question: string;
-    keyword: string;
-    choices: {
-      id: number;
-      content: string;
-    }[];
-  };
+export interface questionProps {
+  question: string;
+  keyword: string;
+  choices: {
+    id: number;
+    content: string;
+  }[];
+}
+interface basicQuestionProps {
+  age: questionProps;
 }
 
 function RecommendAgePage({ choice, setChoice }: RecommendPageProps) {
-  const { data, status, error } = useFetch<questionProps>(
+  const { data, status, error } = useFetch<basicQuestionProps>(
     '/lifestyles/questions',
   );
   if (status === 'loading') {
@@ -36,8 +37,8 @@ function RecommendAgePage({ choice, setChoice }: RecommendPageProps) {
       <RecommendPageButton
         key={item.id}
         size={
-          data.age.choices.length % 2 == 1 &&
-          data.age.choices.length === index - 1
+          data.age.choices.length % 2 === 1 &&
+          data.age.choices.length === index + 1
             ? 'large'
             : 'small'
         }

@@ -16,7 +16,7 @@ function RecommendResultCard({
       <RecommendResultCardLogo src="/images/hyundai_logo_mini.svg"></RecommendResultCardLogo>
       <RecommendResultCardTitle>
         <RecommendResultCardTag className="head-medium-12 text-grey-1000">
-          <span>{`${model.modelName} - ${model.trim}`}</span>
+          <span>{`${model.modelName} - ${model.trim.trimName}`}</span>
         </RecommendResultCardTag>
         <RecommendResultCardTitleText className="head-regular-20">
           <span className="text-primary-blue">{recommendationCard.slogan}</span>

@@ -9,7 +9,7 @@ import { RecommendDetailResultPage } from './RecommendDetailResultPage';
 import { RecomendLifeStylePage } from './RecommendLifeStylePage';
 import { RecommendLifeStyleResultPage } from './RecommendLifeStyleResultPage';
 
-interface RecommendPageChoiceProps {
+export interface RecommendPageChoiceProps {
   age: number;
   lifeStyle: number;
   experience: number;

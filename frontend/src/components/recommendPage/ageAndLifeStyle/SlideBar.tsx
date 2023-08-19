@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { budgetProps } from '../../../pages/recommendPage/RecommendDetailPage';
 
 function SlideBar({
+  data,
   budget,
   setBudget,
 }: {
+  data: budgetProps;
   budget: number;
   setBudget: (budget: number) => void;
 }) {
@@ -15,12 +18,14 @@ function SlideBar({
   return (
     <SlideBarBox>
       <SlideBarText className="body-medium-18 text-grey-100">
-        최대 예산을 알려주세요.
+        {data.question}
       </SlideBarText>
 
       <SlidePriceResult htmlFor="budget">
         <PriceBox>
-          <span className="head-medium-24 text-grey-50">4,200</span>
+          <span className="head-medium-24 text-grey-50">
+            {data.minBudget.toLocaleString()}
+          </span>
           <span className="head-regular-24 text-grey-50">만원</span>
         </PriceBox>
         <span className="head-regular-22 text-grey-50">~</span>
@@ -35,14 +40,14 @@ function SlideBar({
       <SlideInputLeftCircle
         budget={budget}
         onClick={() => {
-          setBudget(4200);
+          setBudget(data.minBudget);
         }}
       ></SlideInputLeftCircle>
       <SlideInput
         type="range"
-        min="4200"
-        max="6900"
-        step="300"
+        min={data.minBudget}
+        max={data.maxBudget}
+        step={data.budgetUnit}
         id="budget"
         name="budget"
         value={budget}
@@ -51,8 +56,8 @@ function SlideBar({
       ></SlideInput>
 
       <SlideBottom>
-        <span className="body-regular-14 text-grey-400">4200 만원</span>
-        <span className="body-regular-14 text-grey-400">6900 만원</span>
+        <span className="body-regular-14 text-grey-400">{`${data.minBudget} 만원`}</span>
+        <span className="body-regular-14 text-grey-400">{`${data.maxBudget} 만원`}</span>
       </SlideBottom>
     </SlideBarBox>
   );

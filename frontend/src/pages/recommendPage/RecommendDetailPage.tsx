@@ -1,19 +1,99 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { ErrorPopup } from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
 import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
 import { SlideBar } from '../../components/recommendPage/ageAndLifeStyle/SlideBar';
-import { RecommendPageProps } from './RecommendPage';
+import { useFetch } from '../../hooks/useFetch';
+import { questionProps } from './RecommendAgePage';
+import { RecommendPageChoiceProps, RecommendPageProps } from './RecommendPage';
 
-export const question = [
-  ['1년 이하', '1년 이상 ~ 5년 미만', '5년 이상'],
-  ['1인', '2인', '3~4인', '5인 이상'],
-  ['출퇴근용', '레저용', '가정용', '업무용'],
-  ['디자인', '성능', '안전', '편의성'],
-];
+interface additionalQuestionProps {
+  experience: questionProps;
+  family: questionProps;
+  purpose: questionProps;
+  value: questionProps;
+  budget: budgetProps;
+}
+
+export interface budgetProps {
+  question: string;
+  keyword: string;
+  minBudget: number;
+  maxBudget: number;
+  budgetUnit: number;
+}
+
+export const question: string[][] = [[], [], [], []];
 
 function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
+  const { data, status, error } = useFetch<additionalQuestionProps>(
+    '/lifestyles/questions/additional',
+  );
+  useEffect(() => {
+    if (data) {
+      Object.keys(data).forEach((key, index) => {
+        if ('choices' in data[key as keyof additionalQuestionProps]) {
+          (
+            data[key as keyof additionalQuestionProps] as questionProps
+          ).choices.forEach((item, index2) => {
+            question[index][index2] = item.content;
+          });
+        }
+      });
+    }
+  }, [data]);
+  if (status === 'loading') {
+    return <div>loading</div>;
+  } else if (status === 'error') {
+    console.error(error);
+    return <ErrorPopup></ErrorPopup>;
+  }
+  if (data === null) return <div></div>;
+
+  const QAList = Object.keys(data).map(key => {
+    if ('choices' in data[key as keyof additionalQuestionProps]) {
+      const question = data[
+        key as keyof additionalQuestionProps
+      ] as questionProps;
+      return (
+        <RecommendDetailPageQABox key={question.keyword}>
+          <RecommendDetailPageQBox>
+            <span className="body-medium-18 text-grey-100">
+              {question.question}
+            </span>
+          </RecommendDetailPageQBox>
+          <ReccomendDetailPageABox>
+            {question.choices.map((item, index) => {
+              return (
+                <RecommendPageButton
+                  key={item.id}
+                  size={
+                    question.choices.length % 2 === 1 &&
+                    question.choices.length === index + 1
+                      ? 'large'
+                      : 'small'
+                  }
+                  selected={
+                    choice[key as keyof RecommendPageChoiceProps] == item.id
+                  }
+                  onClick={() => {
+                    const copy = { ...choice };
+                    copy[key as keyof RecommendPageChoiceProps] = item.id;
+                    setChoice(copy);
+                  }}
+                >
+                  {item.content}
+                </RecommendPageButton>
+              );
+            })}
+          </ReccomendDetailPageABox>
+        </RecommendDetailPageQABox>
+      );
+    }
+  });
+
   return (
     <RecommendDetailPageBox>
       <RecommendDetailPageMain>
@@ -27,184 +107,10 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
             당신의 라이프스타일을 반영한 차를 추천해 드릴게요.
           </div>
         </RecommendDetailPageTopQBox>
-
-        <RecommendDetailPageQABox>
-          <RecommendDetailPageQBox>
-            <span className="body-medium-18 text-grey-100">
-              운전 경력이 어떻게 되시나요?
-            </span>
-          </RecommendDetailPageQBox>
-          <ReccomendDetailPageABox>
-            <RecommendPageButton
-              size="small"
-              selected={choice.experience == 0}
-              onClick={() => {
-                setChoice({ ...choice, experience: 0 });
-              }}
-            >
-              {question[0][0]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.experience == 1}
-              onClick={() => {
-                setChoice({ ...choice, experience: 1 });
-              }}
-            >
-              {question[0][1]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="large"
-              selected={choice.experience == 2}
-              onClick={() => {
-                setChoice({ ...choice, experience: 2 });
-              }}
-            >
-              {question[0][2]}
-            </RecommendPageButton>
-          </ReccomendDetailPageABox>
-        </RecommendDetailPageQABox>
-
-        <RecommendDetailPageQABox>
-          <RecommendDetailPageQBox>
-            <span className="body-medium-18 text-grey-100">
-              가족 구성원이 몇 명인가요?
-            </span>
-          </RecommendDetailPageQBox>
-          <ReccomendDetailPageABox>
-            <RecommendPageButton
-              size="small"
-              selected={choice.family === 0}
-              onClick={() => {
-                setChoice({ ...choice, family: 0 });
-              }}
-            >
-              {question[1][0]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.family === 1}
-              onClick={() => {
-                setChoice({ ...choice, family: 1 });
-              }}
-            >
-              {question[1][1]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.family === 2}
-              onClick={() => {
-                setChoice({ ...choice, family: 2 });
-              }}
-            >
-              {question[1][2]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.family === 3}
-              onClick={() => {
-                setChoice({ ...choice, family: 3 });
-              }}
-            >
-              {question[1][3]}
-            </RecommendPageButton>
-          </ReccomendDetailPageABox>
-        </RecommendDetailPageQABox>
-
-        <RecommendDetailPageQABox>
-          <RecommendDetailPageQBox>
-            <span className="body-medium-18 text-grey-100">
-              어떤 목적으로 주로 차를 타시나요?
-            </span>
-          </RecommendDetailPageQBox>
-          <ReccomendDetailPageABox>
-            <RecommendPageButton
-              size="small"
-              selected={choice.purpose === 0}
-              onClick={() => {
-                setChoice({ ...choice, purpose: 0 });
-              }}
-            >
-              {question[2][0]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.purpose === 1}
-              onClick={() => {
-                setChoice({ ...choice, purpose: 1 });
-              }}
-            >
-              {question[2][1]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.purpose === 2}
-              onClick={() => {
-                setChoice({ ...choice, purpose: 2 });
-              }}
-            >
-              {question[2][2]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.purpose === 3}
-              onClick={() => {
-                setChoice({ ...choice, purpose: 3 });
-              }}
-            >
-              {question[2][3]}
-            </RecommendPageButton>
-          </ReccomendDetailPageABox>
-        </RecommendDetailPageQABox>
-
-        <RecommendDetailPageQABox>
-          <RecommendDetailPageQBox>
-            <span className="body-medium-18 text-grey-100">
-              자동차를 살 때 어떤 가치가 가장 중요한가요?
-            </span>
-          </RecommendDetailPageQBox>
-          <ReccomendDetailPageABox>
-            <RecommendPageButton
-              size="small"
-              selected={choice.value === 0}
-              onClick={() => {
-                setChoice({ ...choice, value: 0 });
-              }}
-            >
-              {question[3][0]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.value === 1}
-              onClick={() => {
-                setChoice({ ...choice, value: 1 });
-              }}
-            >
-              {question[3][1]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.value === 2}
-              onClick={() => {
-                setChoice({ ...choice, value: 2 });
-              }}
-            >
-              {question[3][2]}
-            </RecommendPageButton>
-            <RecommendPageButton
-              size="small"
-              selected={choice.value === 3}
-              onClick={() => {
-                setChoice({ ...choice, value: 3 });
-              }}
-            >
-              {question[3][3]}
-            </RecommendPageButton>
-          </ReccomendDetailPageABox>
-        </RecommendDetailPageQABox>
-
+        {QAList}
         <SlideBarBox>
           <SlideBar
+            data={data.budget}
             budget={choice.budget}
             setBudget={(budget: number) => {
               setChoice({ ...choice, budget: budget });
