@@ -30,7 +30,6 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
             if (builder.type == SINGLE_OPTION) width / 330 * 396 else width / 330 * 570
         dialog?.window?.setLayout(width, height)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        isCancelable = false
     }
 
     override fun onCreateView(
@@ -111,13 +110,13 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
         private var _type: Int = SINGLE_OPTION
         val type get() = _type
         fun setOption(option: Option) = apply {
+            parentOption=option
             if (option.subOptions.isNullOrEmpty()){
                 _type= SINGLE_OPTION
                 optionList=listOf(option)
 
             }else{
                 _type= OPTION_GROUP
-                parentOption=option
                 optionList=option.subOptions
             }
         }

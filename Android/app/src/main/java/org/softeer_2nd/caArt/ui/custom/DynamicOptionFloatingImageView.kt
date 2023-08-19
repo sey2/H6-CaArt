@@ -16,6 +16,7 @@ import coil.load
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.LayoutDynamicOptionFloatingTooltipBinding
+import org.softeer_2nd.caArt.ui.bindingadapter.setImageSrcWithUrl
 import org.softeer_2nd.caArt.ui.callback.OnItemClickListener
 import org.softeer_2nd.caArt.util.dp2px
 
@@ -39,7 +40,6 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
 
     private val imageView = ImageView(context).apply {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        setImageDrawable(ContextCompat.getDrawable(context, R.drawable.image_013))
         scaleType = ImageView.ScaleType.CENTER_CROP
     }
 
@@ -98,7 +98,7 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
     }
 
     fun setImage(url: String?) {
-        imageView.load(url)
+        imageView.setImageSrcWithUrl(url)
     }
 
     private fun CheckBox.initFloatingButton(option: Option) {
@@ -107,15 +107,14 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
             context,
             R.drawable.selector_option_floating_handle_background
         )
-
-        binding.apply {
-            optionName = option.optionName
-            optionPrice = option.optionPrice ?: 0
-            optionImageUrl = option.optionImage
-        }
         setOnClickListener {
             selectedOption = optionViewMap[this]
             showTooltip(this)
+            binding.apply {
+                optionName = option.optionName
+                optionPrice = option.optionPrice ?: 0
+                optionImageUrl = option.optionImage
+            }
         }
         buttonDrawable = null
     }
@@ -127,6 +126,9 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
     }
 
     fun clear() {
+        floatingButtonList.forEach {
+            removeView(it)
+        }
         optionViewMap.clear()
         viewOptionMap.clear()
         floatingButtonList.clear()

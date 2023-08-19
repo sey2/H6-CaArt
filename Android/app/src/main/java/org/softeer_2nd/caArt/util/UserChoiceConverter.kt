@@ -37,10 +37,10 @@ object UserChoiceConverter {
     fun optionToUserChoice(options: List<Option>): UserChoice {
         return UserChoice(
             "옵션",
-            options[0].name,
-            options[1].name,
-            StringFormatter.formatPriceString(options[0].price) + "원",
-            StringFormatter.formatPriceString(options[1].price) + "원",
+            options[0].optionName,
+            options[1].optionName,
+            StringFormatter.formatPriceString(options[0].optionPrice?:0) + "원",
+            StringFormatter.formatPriceString(options[1].optionPrice?:0) + "원",
         )
     }
 }

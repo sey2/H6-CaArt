@@ -23,13 +23,6 @@ object NetworkModule {
         return RetrofitClient.getRetrofit()
     }
 
-    @Singleton
-    @Provides
-    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader {
-        return ImageLoader.Builder(context)
-            .build()
-    }
-
     @Provides
     fun provideTrimApiService(retrofit: Retrofit): TrimApiService {
         return retrofit.create(TrimApiService::class.java)

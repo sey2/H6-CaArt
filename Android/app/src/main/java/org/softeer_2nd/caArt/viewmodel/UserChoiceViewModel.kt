@@ -86,7 +86,7 @@ class UserChoiceViewModel : ViewModel() {
         val prices = listOf(
             _selectedEngine.value?.enginePrice ?: 0L,
             _selectedWheelDrive.value?.wheelDrivePrice ?: 0L,
-            _selectedOptions.value?.sumOf { it.price} ?: 0L,
+            _selectedOptions.value?.sumOf { it.optionPrice?:0} ?: 0L,
             _selectedTrim.value?.trimPrice ?: 0L
         )
         return prices.sum()

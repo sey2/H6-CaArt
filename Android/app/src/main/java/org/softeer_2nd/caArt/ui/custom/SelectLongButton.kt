@@ -1,6 +1,7 @@
 package org.softeer_2nd.caArt.ui.custom
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat

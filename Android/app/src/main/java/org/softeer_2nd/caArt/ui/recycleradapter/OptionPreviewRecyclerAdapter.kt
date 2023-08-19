@@ -12,13 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.ItemOptionPreviewBinding
+import org.softeer_2nd.caArt.generated.callback.OnClickListener
 import org.softeer_2nd.caArt.ui.callback.OnRecyclerItemClickListener
 
 class OptionPreviewRecyclerAdapter(
-    private val listener: OnRecyclerItemClickListener<Option>
+    private val listener: OnRecyclerItemClickListener<Option>,
+    private val onMoreButtonClicked: View.OnClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val optionList = mutableListOf<Option>()
+
+    private var totalOptionCount = 0
+    private var isLastPage = false
 
     private val OPTION = 0
     private val SEE_MORE = 1
@@ -71,7 +76,10 @@ class OptionPreviewRecyclerAdapter(
             holder.bind(optionList[position - 1], position)
         }
         if (holder is OptionCountIndicatorViewHolder) {
-            holder.setOptionCount(optionList.size)
+            holder.setOptionCount(totalOptionCount)
+        }
+        if (holder is OptionPreviewSeeMoreViewHolder) {
+            holder.setEnable(isLastPage)
         }
     }
 
@@ -90,6 +98,16 @@ class OptionPreviewRecyclerAdapter(
         notifyDataSetChanged()
     }
 
+    fun setLastPage(isLastPage: Boolean) {
+        this.isLastPage = isLastPage
+        notifyItemRemoved(itemCount - 1)
+    }
+
+    fun setTotalOptionCount(total: Int) {
+        totalOptionCount = total
+        notifyItemChanged(0)
+    }
+
     inner class OptionPreviewViewHolder(private val binding: ItemOptionPreviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -100,11 +118,22 @@ class OptionPreviewRecyclerAdapter(
             binding.tvOptionPreviewMore.setOnClickListener {
                 listener.onItemClicked(position, option)
             }
+            binding.optionPrice = option.optionPrice ?: 0
+            binding.isDefault = option.optionPrice == null
         }
     }
 
     inner class OptionPreviewSeeMoreViewHolder(private val view: View) :
-        RecyclerView.ViewHolder(view) {}
+        RecyclerView.ViewHolder(view) {
+        init {
+            view.setOnClickListener(onMoreButtonClicked)
+        }
+
+        fun setEnable(isLastPage: Boolean) {
+            view.visibility = if (isLastPage) View.INVISIBLE else View.VISIBLE
+            view.isEnabled = !isLastPage
+        }
+    }
 
     inner class OptionCountIndicatorViewHolder(private val textView: TextView) :
         RecyclerView.ViewHolder(textView) {

@@ -73,9 +73,14 @@ class CarOptionChoiceFragment : Fragment() {
             optionTagAdapter
         )
 
-        val optionPreviewAdapter = OptionPreviewRecyclerAdapter() { _, option ->
-            showOptionDetailDialog(option)
-        }
+        val optionPreviewAdapter = OptionPreviewRecyclerAdapter(
+            { _, option ->
+                showOptionDetailDialog(option)
+            },
+            {
+                model.requestNextPage()
+            }
+        )
         binding.rvOptionPreviewContainer.initOptionPreviewContainer(optionPreviewAdapter)
 
         val situationalOptionViewOptionMap = mapOf<ItemSituationOptionsOptionBinding, Option?>(
@@ -102,10 +107,10 @@ class CarOptionChoiceFragment : Fragment() {
 
         model.selectedTag.observe(viewLifecycleOwner) {
             optionTagAdapter.changeSelectedItem(it)
+            binding.incSituationalOptions.imageUrl = it.tagImage
         }
 
         model.optionList.observe(viewLifecycleOwner) {
-            Log.d("check", it.toString())
             optionPreviewAdapter.setOptionList(it)
         }
 
@@ -121,8 +126,29 @@ class CarOptionChoiceFragment : Fragment() {
             }
         }
 
+        model.situationalOptionViewState.observe(viewLifecycleOwner) {
+            binding.incSituationalOptions.ivSituationalTagOptionsSituationImage.apply {
+                clear()
+                addOptions(it.situationalOption)
+                setImage(it.situationalImage)
+            }
+            situationalOptionViewOptionMap.keys.forEachIndexed { index, itemBinding ->
+                val option = it.situationalOption[index]
+                itemBinding.onClickListener
+                itemBinding.optionImageUrl = option?.optionImage
+            }
+        }
+
         model.displayType.observe(viewLifecycleOwner) {
             binding.isSituationalLayoutDisplay = (it == CarOptionChoiceViewModel.OPTION_IMAGE)
+        }
+
+        model.isLastPage.observe(viewLifecycleOwner) {
+            optionPreviewAdapter.setLastPage(it)
+        }
+
+        model.totalOptionCount.observe(viewLifecycleOwner) {
+            optionPreviewAdapter.setTotalOptionCount(it)
         }
 
     }
@@ -158,6 +184,7 @@ class CarOptionChoiceFragment : Fragment() {
         val optionTagMargin = 6f.dp2px(requireContext())
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         this.adapter = adapter
+        itemAnimator = null
         addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,

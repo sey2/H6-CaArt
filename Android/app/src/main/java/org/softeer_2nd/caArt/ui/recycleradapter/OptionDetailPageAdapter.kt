@@ -81,8 +81,9 @@ class OptionDetailPageAdapter(
         fun bind(option: Option, position: Int) {
             binding.apply {
                 this.option = option
+
                 parentOptionName = parentOption?.optionName
-                isGroup = parentOption != null
+                isGroup = !parentOption?.subOptions.isNullOrEmpty()
                 onCancelButtonClickListener = onCancelButtonClickListener
                 pageIndex = position
                 pageCount = optionList.size
@@ -93,11 +94,11 @@ class OptionDetailPageAdapter(
                         OptionSelectEvent(option, isSelected)
                     )
                 }
-                isDefaultOption = (option.optionPrice == null)
+                optionPrice=parentOption?.optionPrice?:0
+                isDefaultOption = (parentOption?.optionPrice == null)
                 onCancelButtonClickListener =
                     this@OptionDetailPageAdapter.onCancelButtonClickListener
             }
         }
     }
-
 }

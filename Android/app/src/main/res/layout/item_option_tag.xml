@@ -28,14 +28,14 @@
 
         <ImageView
             android:id="@+id/iv_option_tab_icon"
+            svgUrl="@{iconUrl}"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/shape_stroke_background_r16_blue"
-
+            android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_option_tag_name"

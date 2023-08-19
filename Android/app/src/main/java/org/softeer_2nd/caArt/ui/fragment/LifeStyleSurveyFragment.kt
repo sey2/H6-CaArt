@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.load
 import org.softeer_2nd.caArt.databinding.FragmentSurveyBinding
 import org.softeer_2nd.caArt.databinding.LayoutLifeStylePersonaContainerBinding
 import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
