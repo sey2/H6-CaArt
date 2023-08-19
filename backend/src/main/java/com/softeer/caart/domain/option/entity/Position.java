@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Position {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "position_id")
 	private Long id;
 
@@ -26,13 +27,12 @@ public class Position {
 	@JoinColumn(name = "additional_option_info_id", nullable = false)
 	private AdditionalOptionInfo option;
 
-	@Column(nullable = false)
-	private Double x;
+	@Column(name = "x", nullable = false)
+	private Double coordinateX;
 
-	@Column(nullable = false)
-	private Double y;
+	@Column(name = "y", nullable = false)
+	private Double coordinateY;
 
 	@Column(nullable = false)
 	private Boolean isMobile;
-
 }
