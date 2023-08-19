@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { keyframes, styled } from 'styled-components';
+import { EstimationContext } from '../../../util/Context';
 import RerecommendButton from './RerecommendButton';
 import RerecommendModal from './RerecommendModal';
 
 function TrimCarImage() {
   const [reRecommendModal, setReRecommendModal] = useState(false);
-
+  const { currentEstimation } = useContext(EstimationContext)!;
   return (
     <Wrapper>
       <RerecommendButton setter={setReRecommendModal} />
@@ -17,7 +18,7 @@ function TrimCarImage() {
       }
       <BgTop />
       <BgBottom />
-      <Image src="/images/car.png" width={646} height={366} />
+      <Image src={currentEstimation.trim.img} width={646} height={366} />
     </Wrapper>
   );
 }

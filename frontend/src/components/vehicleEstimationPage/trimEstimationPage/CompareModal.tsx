@@ -2,8 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import useModal from '../../../hooks/useModal';
 import { FlexBox, SFlex } from '../../common/FlexBox';
-import { data, commonOption } from '../../../static/data/CompareModalData';
+import { commonOption } from '../../../static/data/CompareModalData';
 import { Hr } from '../../common/Hr';
+import { Color, Trim } from './TrimCard';
+import { useFetch } from '../../../hooks/useFetch';
+import { ErrorPopup } from '../../common/ErrorPopup';
 
 interface CompareModalProps {
   setter: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,25 +14,31 @@ interface CompareModalProps {
 }
 
 function CompareModal({ setter, isOpen }: CompareModalProps) {
-  function setColor(colorSet: string[]) {
+  useModal();
+  const { data, status, error } = useFetch<Trim[]>('/trims');
+  if (status === 'loading') {
+    return <div>loading</div>;
+  } else if (status === 'error') {
+    console.error(error);
+    return <ErrorPopup></ErrorPopup>;
+  }
+  function setExteriorColor(colorSet: Color[]) {
     return colorSet.map(color => (
       <>
-        <Circle bgColor={color} />
+        <Circle src={color.colorImage} />
       </>
     ));
   }
 
-  function setInnerColor(colorSet: string[]) {
+  function setInnerColor(colorSet: Color[]) {
     return colorSet.map(color => (
       <>
-        <p key={color} className="body-regular-14 text-grey-300">
-          {color}
+        <p key={color.colorName} className="body-regular-14 text-grey-300">
+          {color.colorName}
         </p>
       </>
     ));
   }
-
-  useModal();
 
   return (
     <Modal className={isOpen ? 'active' : ''}>
@@ -41,13 +50,13 @@ function CompareModal({ setter, isOpen }: CompareModalProps) {
             <X src="/images/x_icon.svg" onClick={() => setter(false)} />
           </Header>
           <Grid>
-            {data.trimList.map(trim => (
+            {data?.map(trim => (
               <>
                 <FlexBox key={trim.trimName} direction="column" align="center">
                   <CarImage src={trim.trimImage} />
                   <FlexBox direction="column" justify="center" gap={8}>
                     <p className="body-regular-14 text-grey-300">
-                      {trim.trimInfo}
+                      {trim.trimName}
                     </p>
                     <p className="head-medium-20 text-grey-0">
                       {trim.trimName}
@@ -63,7 +72,7 @@ function CompareModal({ setter, isOpen }: CompareModalProps) {
                     </p>
                     <p className="body-medium-14 text-grey-200">외장 색상</p>
                     <FlexBox justify="center" gap={8} margin="0 0 16px 0">
-                      {setColor(trim.trimOuterColor)}
+                      {setExteriorColor(trim.exteriorColors)}
                     </FlexBox>
                     <p className="body-medium-14 text-grey-200">내장 색상</p>
                     <FlexBox
@@ -74,7 +83,7 @@ function CompareModal({ setter, isOpen }: CompareModalProps) {
                       gap={8}
                       height={52}
                     >
-                      {setInnerColor(trim.trimInnerColor)}
+                      {setInnerColor(trim.interiorColors)}
                     </FlexBox>
                     <Hr width={160} margin="33px 0px 33px 0px" />
                     <FlexBox gap={51} direction="column">
@@ -106,9 +115,11 @@ function CompareModal({ setter, isOpen }: CompareModalProps) {
                       direction="column"
                       className="text-secondary-active-blue body-regular-14"
                     >
-                      {trim.trimOption.map(option => (
+                      {trim.mainOptions.map(option => (
                         <>
-                          <span key={option.name}>{option.name}</span>
+                          <span key={option.optionName}>
+                            {option.optionName}
+                          </span>
                         </>
                       ))}
                     </FlexBox>
@@ -196,7 +207,7 @@ const X = styled.img`
 
 const CarImage = styled.img`
   width: 185px;
-  height: 83px;
+  /* height: 100px; */
   flex-shrink: 0;
   margin-bottom: 25px;
 `;
@@ -229,9 +240,8 @@ const NameSpan = styled.span`
   height: 32px;
 `;
 
-const Circle = styled.div<{ bgColor: string }>`
+const Circle = styled.img`
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: ${props => props.bgColor};
 `;

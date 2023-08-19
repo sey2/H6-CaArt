@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
 import { OptionType } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
-import { FlexBox } from "../../common/FlexBox";
+import { FlexBox } from '../../common/FlexBox';
 
 interface Option {
   optionId: number;
@@ -13,14 +13,14 @@ interface Option {
   optionImage: string;
 }
 
-interface Color {
+export interface Color {
   colorId: number;
   colorName: string;
   colorPrice: number;
   colorImage: string;
 }
 
-interface Trim {
+export interface Trim {
   trimName: string;
   description: string;
   trimImage: string;
@@ -55,6 +55,12 @@ function TrimCard({
 }: TrimCardType) {
   const { data } = useFetch<Trim[]>('/trims');
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
+  useEffect(() => {
+    const trimImg = data?.find(
+      dataName => dataName.trimName === currentEstimation.trim.name,
+    )?.trimImage;
+    setTrim({ ...currentEstimation.trim, img: trimImg! });
+  }, [data]);
 
   function handleModal(e: React.MouseEvent, option: OptionType) {
     e.stopPropagation();
@@ -137,6 +143,7 @@ function TrimCard({
                       setTrim({
                         name: trimItem.trimName,
                         price: trimItem.trimPrice,
+                        img: trimItem.trimImage,
                       });
                       handleCheckBtnClick(e);
                     }}

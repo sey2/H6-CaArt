@@ -15,7 +15,6 @@ function OptionExplainModal({
   y: number;
   isOpen: boolean;
 }) {
-  console.log('x:', x, 'y:', y);
   return (
     <Modal
       top={y}

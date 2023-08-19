@@ -17,7 +17,7 @@ export interface MyVechicle {
   setEngine: (engine: NameAndPrice) => void;
   setBody: (body: NameAndPrice) => void;
   setWd: (wd: NameAndPrice) => void;
-  setTrim: (trim: NameAndPrice) => void;
+  setTrim: (trim: NameAndPriceAndImg) => void;
   setOuterColor: (outerColor: NameAndPriceAndImg) => void;
   setInteriorColor: (interiorColor: NameAndPriceAndImg) => void;
   addOption: (option: NameAndPriceAndImg) => void;
@@ -29,7 +29,7 @@ interface currentEstimationProps {
   engine: NameAndPrice;
   body: NameAndPrice;
   wd: NameAndPrice;
-  trim: NameAndPrice;
+  trim: NameAndPriceAndImg;
   outerColor: NameAndPriceAndImg;
   interiorColor: NameAndPriceAndImg;
   options: NameAndPriceAndImg[];
@@ -48,7 +48,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
       engine: { name: '디젤 2.2', price: 0 },
       body: { name: '7인승', price: 0 },
       wd: { name: '2WD', price: 0 },
-      trim: { name: 'Prestige', price: 46240000 },
+      trim: { name: 'Exclusive', price: 38960000, img: '/images/car.png' },
       outerColor: {
         name: '크리미 화이트 펄',
         price: 100000,
@@ -78,7 +78,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
     setCurrentEstimation({ ...currentEstimation, wd: wd });
   };
 
-  const setTrim = (trim: NameAndPrice): void => {
+  const setTrim = (trim: NameAndPriceAndImg): void => {
     setCurrentEstimation({ ...currentEstimation, trim: trim });
   };
 
@@ -131,6 +131,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
       trim: {
         name: data.model.trim.trimName,
         price: data.model.trim.trimPrice,
+        img: '',
       },
       outerColor: {
         name: data.colors[0].colorName,
