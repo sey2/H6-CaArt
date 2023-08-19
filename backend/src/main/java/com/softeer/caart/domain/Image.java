@@ -14,8 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Image {
 
-	@Column(name = "image", nullable = false)
+	@Column(name = "image")
 	private String url;
+
+	public boolean isNull() {
+		return url.equals("null");
+	}
 
 	public static Image from(String url) {
 		return new Image(url);

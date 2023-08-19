@@ -32,7 +32,7 @@ class TagServiceTest extends ServiceTest {
 			.findAll(Sort.by(Sort.Direction.DESC, "priority"));
 
 		// when
-		List<TagResponse> tags = tagService.getTags();
+		List<TagResponse> tags = tagService.getBasicOptionTags();
 		TagResponse firstTag = tags.get(0);
 		TagResponse secondTag = tags.get(1);
 

@@ -19,10 +19,16 @@ import lombok.RequiredArgsConstructor;
 public class TagController {
 	private final TagService tagService;
 
-	@Operation(summary = "태그의 목록을 조회한다.", description = "태그는 priority를 기준으로 정렬한다. priority는 정렬에만 사용한다")
-	@GetMapping
-	public ResponseDto getTags() {
-		return DataResponseDto.of(tagService.getTags());
+	@Operation(summary = "기본 포함 옵션의 태그 목록을 조회한다.", description = "태그는 priority를 기준으로 정렬한다. priority는 정렬에만 사용한다")
+	@GetMapping("/basic")
+	public ResponseDto getBasicTags() {
+		return DataResponseDto.of(tagService.getBasicOptionTags());
+	}
+
+	@Operation(summary = "추가 옵션의 태그 목록을 조회한다.", description = "태그는 priority를 기준으로 정렬한다. priority는 정렬에만 사용한다")
+	@GetMapping("/additional")
+	public ResponseDto getAdditionalTags() {
+		return DataResponseDto.of(tagService.getAdditionalOptionTags());
 	}
 
 }

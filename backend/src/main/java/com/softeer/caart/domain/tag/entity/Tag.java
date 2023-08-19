@@ -39,6 +39,14 @@ public class Tag {
 	@Column(nullable = false)
 	private Integer priority;
 
+	public boolean isMainTag() {
+		return name.equals("대표");
+	}
+
+	public boolean isEntertainmentTag() {
+		return name.equals("엔터테인먼트");
+	}
+
 	@Builder
 	public Tag(String name, String imageUrl, String icon, String iconSelected, Integer priority) {
 		this.name = name;
