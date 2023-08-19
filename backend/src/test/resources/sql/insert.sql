@@ -59,10 +59,9 @@ VALUES (1, null, '추가옵션(세트).jpg',
         false, '추가 옵션(단품)'),
        (3, '자식 옵션 상세 설명', '자식옵션.jpg', false, '자식 옵션'),
        (4, '기본 옵션 상세 설명', '기본옵션.jpg', true, '기본 옵션');
-INSERT INTO additional_option_info (additional_option_info_id, badge, is_set_option, mobile_x, mobile_y, web_x,
-                                    web_y, price, summary, base_option_info_id)
-VALUES (1, 'NONE', true, 0, 0, 0, 0, 1090000, '추가 옵션(세트) 요약 설명', 1),
-       (2, 'NONE', false, 0, 0, 0, 0, 690000, '추가 옵션(단품) 요약 설명', 2);
+INSERT INTO additional_option_info (additional_option_info_id, badge, is_set_option, price, summary, base_option_info_id)
+VALUES (1, 'NONE', true, 1090000, '추가 옵션(세트) 요약 설명', 1),
+       (2, 'NONE', false, 690000, '추가 옵션(단품) 요약 설명', 2);
 INSERT INTO rel_tag_base_option_info (rel_tag_base_option_info_id, base_option_info_id, tag_id)
 VALUES (1, 1, 1),
        (2, 1, 2),

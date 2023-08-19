@@ -27,7 +27,7 @@ public class AdditionalOptionWithPositionResponse {
 		this.optionId = option.getId();
 		this.optionPrice = option.getPrice();
 		this.summary = option.getSummary();
-		this.position = option.getPosition();
+		// this.position = option.getPosition();
 		BaseOptionInfo details = option.getDetails();
 		this.optionName = details.getName();
 		this.description = details.getDescription();

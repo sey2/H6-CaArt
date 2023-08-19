@@ -1,26 +1,38 @@
 package com.softeer.caart.domain.option.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Embeddable
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Position {
 
-	@Column(nullable = false, name = "mobile_x")
-	private Double mobileX;
+	@Id
+	@GeneratedValue
+	@Column(name = "position_id")
+	private Long id;
 
-	@Column(nullable = false, name = "mobile_y")
-	private Double mobileY;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "additional_option_info_id", nullable = false)
+	private AdditionalOptionInfo option;
 
-	@Column(nullable = false, name = "web_x")
-	private Double webX;
+	@Column(nullable = false)
+	private Double x;
 
-	@Column(nullable = false, name = "web_y")
-	private Double webY;
+	@Column(nullable = false)
+	private Double y;
+
+	@Column(nullable = false)
+	private Boolean isMobile;
+
 }

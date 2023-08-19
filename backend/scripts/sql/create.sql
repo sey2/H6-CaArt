@@ -19,6 +19,7 @@ create table car_engine
 (
     car_engine_id bigint auto_increment primary key,
     name          varchar(30)  not null,
+    summary       varchar(255) not null,
     description   varchar(255) not null,
     max_power     varchar(30)  not null,
     max_torque    varchar(30)  not null,
@@ -32,6 +33,7 @@ create table body_type
 (
     body_type_id bigint auto_increment primary key,
     name         varchar(30)  not null,
+    summary      varchar(255) not null,
     description  varchar(255) not null,
     image        varchar(255) not null
 );
@@ -42,48 +44,10 @@ create table wheel_drive
 (
     wd_id       bigint auto_increment primary key,
     name        varchar(30)  not null,
+    summary     varchar(255) not null,
     description varchar(255) not null,
     price       int          not null,
     image       varchar(255) not null
-);
-
-DROP TABLE IF EXISTS base_option_info;
-
-create table base_option_info
-(
-    base_option_info_id bigint auto_increment primary key,
-    name                varchar(50)  not null,
-    description         varchar(255) not null,
-    image               varchar(255) not null,
-    is_basic            bit          not null
-);
-
-DROP TABLE IF EXISTS additional_option_info;
-
-create table additional_option_info
-(
-    additional_option_info_id bigint auto_increment primary key,
-    base_option_info_id       bigint       not null,
-    badge                     varchar(20)  not null,
-    summary                   varchar(255) null,
-    price                     int          not null,
-    is_set_option             bit          not null,
-    mobile_x                  double       not null,
-    mobile_y                  double       not null,
-    web_x                     double       not null,
-    web_y                     double       not null,
-    foreign key (base_option_info_id) references base_option_info (base_option_info_id)
-);
-
-DROP TABLE IF EXISTS sub_option_info;
-
-create table sub_option_info
-(
-    sub_option_info_id        bigint auto_increment primary key,
-    base_option_info_id       bigint not null,
-    additional_option_info_id bigint not null,
-    foreign key (base_option_info_id) references base_option_info (base_option_info_id),
-    foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
 );
 
 DROP TABLE IF EXISTS model;
@@ -101,17 +65,6 @@ create table model
     foreign key (wd_id) references wheel_drive (wd_id)
 );
 
-DROP TABLE IF EXISTS rel_model_base_option_info;
-
-create table rel_model_base_option_info
-(
-    rel_model_base_option_info_id bigint auto_increment primary key,
-    model_id                      bigint not null,
-    base_option_info_id           bigint not null,
-    foreign key (model_id) references model (model_id),
-    foreign key (base_option_info_id) references base_option_info (base_option_info_id)
-);
-
 DROP TABLE IF EXISTS color;
 
 create table color
@@ -119,8 +72,8 @@ create table color
     color_id    bigint auto_increment primary key,
     name        varchar(30)  not null,
     price       int          not null,
-    image       varchar(255) not null,
-    is_exterior bit          not null
+    is_exterior bit          not null,
+    image       varchar(255) not null
 );
 
 DROP TABLE IF EXISTS color_preview;
@@ -144,27 +97,51 @@ create table rel_trim_color
     foreign key (color_id) references color (color_id)
 );
 
-DROP TABLE IF EXISTS tag;
+DROP TABLE IF EXISTS base_option_info;
 
-create table tag
+create table base_option_info
 (
-    tag_id        bigint auto_increment primary key,
-    name          varchar(20)  not null,
-    icon          varchar(255) not null,
-    icon_selected varchar(255) not null,
-    image         varchar(255) not null,
-    priority      int          not null
+    base_option_info_id bigint auto_increment primary key,
+    name                varchar(50)  not null,
+    description         varchar(255) null,
+    image               varchar(255) not null,
+    is_basic            bit          not null
 );
 
-DROP TABLE IF EXISTS rel_tag_base_option_info;
+DROP TABLE IF EXISTS additional_option_info;
 
-create table rel_tag_base_option_info
+create table additional_option_info
 (
-    rel_tag_base_option_info_id bigint auto_increment primary key,
-    tag_id                      bigint not null,
-    base_option_info_id         bigint not null,
-    foreign key (tag_id) references tag (tag_id),
+    additional_option_info_id bigint auto_increment primary key,
+    base_option_info_id       bigint       not null,
+    badge                     varchar(30)  not null,
+    summary                   varchar(255) null,
+    price                     int          not null,
+    is_set_option             bit          not null,
     foreign key (base_option_info_id) references base_option_info (base_option_info_id)
+);
+
+DROP TABLE IF EXISTS position;
+
+create table position
+(
+    position_id               bigint not null primary key,
+    additional_option_info_id bigint not null,
+    is_mobile                 bit    not null,
+    x                         double not null,
+    y                         double not null,
+    foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
+);
+
+DROP TABLE IF EXISTS sub_option_info;
+
+create table sub_option_info
+(
+    sub_option_info_id        bigint auto_increment primary key,
+    base_option_info_id       bigint not null,
+    additional_option_info_id bigint not null,
+    foreign key (base_option_info_id) references base_option_info (base_option_info_id),
+    foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
 );
 
 DROP TABLE IF EXISTS rel_trim_base_option_info;
@@ -175,6 +152,40 @@ create table rel_trim_base_option_info
     trim_id                      bigint not null,
     base_option_info_id          bigint not null,
     foreign key (trim_id) references trim (trim_id),
+    foreign key (base_option_info_id) references base_option_info (base_option_info_id)
+);
+
+DROP TABLE IF EXISTS rel_model_base_option_info;
+
+create table rel_model_base_option_info
+(
+    rel_model_base_option_info_id bigint auto_increment primary key,
+    model_id                      bigint not null,
+    base_option_info_id           bigint not null,
+    foreign key (model_id) references model (model_id),
+    foreign key (base_option_info_id) references base_option_info (base_option_info_id)
+);
+
+DROP TABLE IF EXISTS tag;
+
+create table tag
+(
+    tag_id        bigint auto_increment primary key,
+    name          varchar(20)  not null,
+    priority      int          not null,
+    icon          varchar(255) not null,
+    icon_selected varchar(255) not null,
+    image         varchar(255) not null
+);
+
+DROP TABLE IF EXISTS rel_tag_base_option_info;
+
+create table rel_tag_base_option_info
+(
+    rel_tag_base_option_info_id bigint auto_increment primary key,
+    tag_id                      bigint not null,
+    base_option_info_id         bigint not null,
+    foreign key (tag_id) references tag (tag_id),
     foreign key (base_option_info_id) references base_option_info (base_option_info_id)
 );
 

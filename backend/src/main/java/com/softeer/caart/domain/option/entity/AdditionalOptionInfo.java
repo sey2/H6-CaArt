@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -56,21 +55,20 @@ public class AdditionalOptionInfo {
 	@Column(nullable = false)
 	private String summary;
 
-	@Embedded
-	private Position position;
+	@OneToMany(mappedBy = "option")
+	private List<Position> positions;
 
 	@OneToMany(mappedBy = "superOption")
 	private List<SubOptionInfo> subOptions = new ArrayList<>();
 
 	@Builder
 	public AdditionalOptionInfo(BaseOptionInfo details, Integer price, Boolean isSetOption, Badge badge, String summary,
-		Position position, List<SubOptionInfo> subOptions) {
+		List<SubOptionInfo> subOptions) {
 		this.details = details;
 		this.price = price;
 		this.isSetOption = isSetOption;
 		this.badge = badge;
 		this.summary = summary;
-		this.position = position;
 		this.subOptions = subOptions;
 	}
 

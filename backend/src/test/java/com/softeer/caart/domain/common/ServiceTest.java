@@ -175,7 +175,6 @@ public abstract class ServiceTest {
 			.isSetOption(true)
 			.badge(NONE)
 			.summary("추가옵션_세트O")
-			.position(null)
 			.subOptions(List.of(자식옵션))
 			.build();
 		ReflectionTestUtils.setField(추가옵션_세트O_기본X, "id", 3L);
