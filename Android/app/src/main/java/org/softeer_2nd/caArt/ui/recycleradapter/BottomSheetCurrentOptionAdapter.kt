@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemOptionSelectBinding
 import org.softeer_2nd.caArt.model.data.Engine
-import org.softeer_2nd.caArt.model.data.UserChoice
+import org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 
 class BottomSheetCurrentOptionAdapter() :
     RecyclerView.Adapter<BottomSheetCurrentOptionAdapter.OptionSelectionViewHolder>() {
-        private var items: MutableList<UserChoice> = DummyItemFactory.createOptionSelectionDummyItems()
+        private var items: MutableList<UserChoiceBottomsheetState> = DummyItemFactory.createOptionSelectionDummyItems()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionSelectionViewHolder {
         val binding =
@@ -28,7 +28,7 @@ class BottomSheetCurrentOptionAdapter() :
         holder.bind(currentItem)
     }
 
-    fun updateItem(index: Int, newItem: UserChoice) {
+    fun updateItem(index: Int, newItem: UserChoiceBottomsheetState) {
         if(items.isNotEmpty()){
             items[index] = newItem
             notifyItemChanged(index)
@@ -50,7 +50,7 @@ class BottomSheetCurrentOptionAdapter() :
 
     inner class OptionSelectionViewHolder(val binding: ItemOptionSelectBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: UserChoice) {
+        fun bind(item: UserChoiceBottomsheetState) {
             binding.userChoiceItem = item
         }
     }

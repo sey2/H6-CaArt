@@ -7,17 +7,16 @@ import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.dummy.OptionColorDummyItem
-import org.softeer_2nd.caArt.model.data.UserChoice
-import org.softeer_2nd.caArt.model.data.Choice
+import org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState
 import org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem
 
 
 object DummyItemFactory {
-    fun createOptionSelectionDummyItems(): MutableList<UserChoice> {
+    fun createOptionSelectionDummyItems(): MutableList<UserChoiceBottomsheetState> {
         return arrayListOf(
-            UserChoice("모델", "펠리세이드 디젤 2.2 2WD, Le Blanc", "7인승", "42,450,000원", ""),
-            UserChoice("색상", "외장 - 어비스 블랙펄", "내장 - 어비스 블랙펄", "-원", "-원"),
-            UserChoice("옵션", "컴포트 II", "내장 어비스 블랙펄", "1,090,000원", "790,000원"),
+            UserChoiceBottomsheetState("모델", "펠리세이드 디젤 2.2 2WD, Le Blanc", "7인승", "42,450,000원", ""),
+            UserChoiceBottomsheetState("색상", "외장 - 어비스 블랙펄", "내장 - 어비스 블랙펄", "-원", "-원"),
+            UserChoiceBottomsheetState("옵션", "컴포트 II", "내장 어비스 블랙펄", "1,090,000원", "790,000원"),
         )
     }
 

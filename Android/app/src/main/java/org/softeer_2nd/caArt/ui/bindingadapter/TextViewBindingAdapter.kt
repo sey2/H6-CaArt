@@ -2,10 +2,12 @@ package org.softeer_2nd.caArt.ui.bindingadapter
 
 import android.graphics.Typeface
 import android.text.Spannable
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -57,4 +59,28 @@ fun TextView.setHighlightText(
     }
 
     this.text = spannableString
+}
+
+@BindingAdapter("underlineText")
+fun TextView.setUnderlineText(text: String?) {
+    text?.let {
+        val spannableString = SpannableString(it)
+        spannableString.setSpan(UnderlineSpan(), 0, it.length, 0)
+        this.text = spannableString
+    }
+}
+
+@BindingAdapter("spanColorText")
+fun TextView.setSpanColorText(text: String?) {
+    text?.let {
+        val spannable = SpannableString(it)
+        val color = context.resources.getColor(R.color.active_blue, context.theme)
+        spannable.setSpan(
+            ForegroundColorSpan(color),
+            0,
+            3,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        this.text = spannable
+    }
 }

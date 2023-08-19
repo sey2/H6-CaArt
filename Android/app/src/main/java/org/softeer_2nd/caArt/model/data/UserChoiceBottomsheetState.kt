@@ -1,6 +1,6 @@
 package org.softeer_2nd.caArt.model.data
 
-data class UserChoice(
+data class UserChoiceBottomsheetState(
     var optionTitle: String,
     var optionDetailTop: String,
     var optionDetailBottom: String,

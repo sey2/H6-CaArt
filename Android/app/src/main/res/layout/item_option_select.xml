@@ -6,7 +6,7 @@
     <data>
         <variable
             name="userChoiceItem"
-            type="org.softeer_2nd.caArt.model.data.UserChoice" />
+            type="org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

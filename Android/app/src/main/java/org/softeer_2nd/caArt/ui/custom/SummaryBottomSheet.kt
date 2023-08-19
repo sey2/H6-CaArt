@@ -10,6 +10,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.ui.recycleradapter.BottomSheetCurrentOptionAdapter
 import org.softeer_2nd.caArt.databinding.LayoutBottomSheetBaseBinding
@@ -92,7 +93,7 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
             btnOneNext.visibility = View.GONE
             flowPrvNextBtn.visibility = View.VISIBLE
             btnTwoNext.apply {
-                text = "견적내기"
+                text = context.getString(R.string.estimate)
                 setOnClickListener {
                     it.findNavController().navigate(navDirection)
                 }

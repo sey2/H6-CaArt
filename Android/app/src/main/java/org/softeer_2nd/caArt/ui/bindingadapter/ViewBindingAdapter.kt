@@ -1,10 +1,14 @@
 package org.softeer_2nd.caArt.ui.bindingadapter
 
+import android.annotation.SuppressLint
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import org.softeer_2nd.caArt.util.dp2px
+import org.softeer_2nd.caArt.viewmodel.CarColorChoiceViewModel
 
 
 @BindingAdapter("android:layout_marginEnd")
@@ -65,3 +69,54 @@ fun View.setMarginTopConditionally(isOtherColor: Boolean) {
     }
     this.layoutParams = layoutParams
 }
+
+@SuppressLint("ClickableViewAccessibility")
+@BindingAdapter("onTouch", "images", "spinActive")
+fun View.setOnTouchListener(
+    viewModel: CarColorChoiceViewModel?,
+    images: LiveData<List<Int>>?,
+    spinActive: LiveData<Boolean>?
+) {
+    var downX = 0f
+    setOnTouchListener { v, event ->
+        spinActive?.value?.let { isSpinActive ->
+            images?.value?.let { imageList ->
+                viewModel?.let { vm ->
+                    if (isSpinActive) {
+                        when (event.action) {
+                            MotionEvent.ACTION_DOWN -> {
+                                downX = event.x
+                                true
+                            }
+
+                            MotionEvent.ACTION_MOVE -> {
+                                downX = handleActionMove(v, event.x, downX, imageList.size, vm)
+                                true
+                            }
+
+                            else -> false
+                        }
+                    } else false
+                }
+            }
+        } ?: false
+    }
+}
+
+private fun handleActionMove(
+    view: View,
+    moveX: Float,
+    downX: Float,
+    imageSize: Int,
+    viewModel: CarColorChoiceViewModel
+): Float {
+    val distance = downX - moveX
+    val moveIndex = (distance / view.width * imageSize).toInt()
+
+    viewModel.updateIndex(
+        (((viewModel.spinCarImageIndex.value ?: 0) + moveIndex + imageSize) % imageSize)
+    )
+
+    return moveX
+}
+

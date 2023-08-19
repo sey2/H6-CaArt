@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-            name="viewModel"
+            name="trimChoiceViewModel"
             type="org.softeer_2nd.caArt.viewmodel.CarTrimChoiceViewModel" />
 
         <variable
-            name="carImgUrl"
-            type="String" />
+            name="userViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -20,7 +23,9 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:engineBodyOptionId="@{@id/inc_engine_body_option}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toolTipVisibility="@{trimChoiceViewModel}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -55,15 +60,15 @@
                     android:layout_marginTop="37dp"
                     android:layout_marginEnd="42dp"
                     android:layout_marginBottom="37dp"
-                    android:background="@drawable/img_car_trim"
-                    android:scaleType="centerCrop"
                     android:contentDescription="@string/car_exterior_spin_image"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_car_spin_background"
-                    app:url="@{carImgUrl}"
                     app:layout_constraintDimensionRatio="w,185:375"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/iv_car_spin_background" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_car_spin_background"
+                    app:url="@{userViewModel.selectedTrim.trimImage}"
+                    tools:background="@drawable/img_car_trim" />
 
                 <TextView
                     android:id="@+id/tv_question"
@@ -72,11 +77,12 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/hyundaisanstext_bold"
-                    android:text="@string/difficult_to_choose"
                     android:textColor="@color/active_blue"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_car_spin_background" />
+                    app:layout_constraintTop_toBottomOf="@+id/iv_car_spin_background"
+                    app:underlineText="@{@string/difficult_to_choose}"
+                    tools:text="@string/difficult_to_choose" />
 
                 <ImageView
                     android:id="@+id/iv_question_mark"
@@ -102,11 +108,56 @@
                     android:id="@+id/divider"
                     android:layout_width="0dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="16dp"
                     android:background="@color/gray_800"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_tool_tip" />
+
+                <include
+                    android:id="@+id/view_tool_tip"
+                    layout="@layout/layout_bubble"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="-10dp"
+                    android:background="@drawable/shape_bubble"
+                    android:visibility="@{trimChoiceViewModel.isToolTipVisible ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/inc_engine_body_option" />
+
+                <ImageView
+                    android:id="@+id/ic_tool_tip_bulb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_bulb_32"
+                    android:visibility="@{trimChoiceViewModel.isToolTipVisible ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_tool_tip"
+                    app:layout_constraintStart_toStartOf="@+id/view_tool_tip"
+                    app:layout_constraintTop_toBottomOf="@+id/inc_engine_body_option"
+                    app:layout_constraintVertical_bias="0.66" />
+
+                <TextView
+                    android:id="@+id/tv_tool_tip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="18dp"
+                    android:fontFamily="@font/hyundaisansheadkrregular"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@{trimChoiceViewModel.trimChoiceDescription}"
+                    android:textColor="@color/gray_900"
+                    android:textSize="14sp"
+                    android:visibility="@{trimChoiceViewModel.isToolTipVisible ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_tool_tip"
+                    app:layout_constraintEnd_toEndOf="@+id/view_tool_tip"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/ic_tool_tip_bulb"
+                    app:layout_constraintTop_toBottomOf="@+id/inc_engine_body_option"
+                    app:layout_constraintVertical_bias="0.70"
+                    tools:text="디젤은 연비가 좋고, 가솔린 승차감이 더 부드럽고 조용해요" />
 
                 <TextView
                     android:id="@+id/tv_trim_title"

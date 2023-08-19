@@ -22,6 +22,11 @@ class CarTrimChoiceViewModel @Inject constructor(
     private val _composition = MutableLiveData<Compositions>()
     val composition: LiveData<Compositions> = _composition
 
+    private var _trimChoiceDescription = MutableLiveData("")
+    val trimChoiceDescription: LiveData<String> = _trimChoiceDescription
+
+    private var _isToolTipVisible = MutableLiveData(true)
+    val isToolTipVisible: LiveData<Boolean> = _isToolTipVisible
     fun getTrims() {
         viewModelScope.launch {
             _trims.value = repository.fetchTrims()
@@ -31,6 +36,15 @@ class CarTrimChoiceViewModel @Inject constructor(
     fun getCompositions() {
         viewModelScope.launch {
             _composition.value = repository.fetchComposition()
+            _trimChoiceDescription.value = composition.value?.carEngines?.get(0)?.description
         }
+    }
+
+    fun setTrimChoiceDescription(newDescription: String) {
+        _trimChoiceDescription.value = newDescription
+    }
+
+    fun setIsToolTipVisible(visibility: Boolean) {
+        _isToolTipVisible.value = visibility
     }
 }

@@ -30,7 +30,7 @@ class UserChoiceViewModel : ViewModel() {
         Trim(
             "", listOf(),
             listOf(),
-            listOf(), "", "Exclusive",38960000, false
+            listOf(), "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-2.png", "Exclusive",38960000, false
         )
     )
     val selectedTrim: LiveData<Trim> = _selectedTrim

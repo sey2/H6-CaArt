@@ -92,6 +92,8 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         binding.apply {
             incEngineBodyOption.carTrimChoiceViewModel = carTrimChoiceViewModel
             incEngineBodyOption.userChoiceViewModel = userChoiceViewModel
+            trimChoiceViewModel = this@CarTrimChoiceFragment.carTrimChoiceViewModel
+            userViewModel = userChoiceViewModel
             lifecycleOwner = viewLifecycleOwner
 
             trimSummaryBottomSheet.setViewModel(userChoiceViewModel, viewLifecycleOwner)
@@ -160,7 +162,6 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
 
     override fun onItemClicked(itemIndx: Int) {
         val selectedTrim = carTrimChoiceViewModel.trims.value?.get(itemIndx) ?: return
-        binding.carImgUrl = selectedTrim.trimImage
         userChoiceViewModel.setSelectedTrim(selectedTrim)
     }
 }

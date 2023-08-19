@@ -2,6 +2,7 @@ package org.softeer_2nd.caArt.ui.recycleradapter
 
 import android.content.Context
 import android.graphics.Typeface
+import android.text.TextUtils
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -83,18 +84,21 @@ class TrimOptionMoreDetailAdapter(
         }
 
         private val tvOptionTitle: TextView = TextView(context).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-
             textSize = TEXT_SIZE_SP
             setTextColor(ContextCompat.getColor(context, R.color.gray_100))
             typeface.let { this.typeface = typeface }
 
             if (isDefaultOption) {
+                layoutParams = LinearLayout.LayoutParams(
+                    ivMoreOption.layoutParams.width,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+
                 val params = layoutParams as LinearLayout.LayoutParams
                 params.topMargin = MARGIN_DP.dp2px(context)
+
+                maxLines = 1
+                ellipsize = TextUtils.TruncateAt.END
             }
         }
 
