@@ -1,6 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useFetch } from '../../../../hooks/useFetch';
 import { OptionNavBarProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
+import { ErrorPopup } from '../../../common/ErrorPopup';
+
+interface optionTagProps {
+  tagId: number;
+  tagName: string;
+  tagImage: string;
+  tagIcon: string;
+  tagIconSelected: string;
+  priority: number;
+}
 
 function OptionNavBarLower({
   isBasicOptionPage,
@@ -10,34 +21,49 @@ function OptionNavBarLower({
   OptionNavBarProps,
   'isBasicOptionPage' | 'optionCategory' | 'setOptionCategory'
 >) {
+  const { data: tagList, status, error } = useFetch<optionTagProps[]>('/tags');
+  if (status === 'loading') {
+    return <div>loading</div>;
+  } else if (status === 'error') {
+    console.error(error);
+    return <ErrorPopup></ErrorPopup>;
+  }
+  if (tagList === null) return <div></div>;
+
   const selectedClassName = `body-medium-14 text-primary-blue`;
   const unSelectedClassName = `body-regular-14 text-grey-400`;
-  const categoryList = isBasicOptionPage
-    ? basicCategoryArr
-    : addtionalCategoryArr;
 
-  const categoryLists = categoryList.map(item => {
+  const categoryLists = tagList.map(item => {
+    if (
+      !isBasicOptionPage &&
+      item.tagName !== '전체' &&
+      item.tagImage === 'null'
+    ) {
+      return <></>;
+    }
     return (
       <OptionNavCategoryBox
-        key={item.name}
-        className={item.name === optionCategory ? 'selected' : ''}
+        key={item.tagId}
+        className={item.tagName === optionCategory ? 'selected' : ''}
         onClick={() => {
-          setOptionCategory(item.name);
+          setOptionCategory(item.tagName);
         }}
       >
         <img
-          src={`${item.imgSrc}_${
-            item.name === optionCategory ? 'blue' : 'black'
-          }.svg`}
+          src={
+            item.tagName === optionCategory
+              ? `${item.tagIconSelected}`
+              : `${item.tagIcon}`
+          }
         ></img>
         <span
           className={
-            item.name === optionCategory
+            item.tagName === optionCategory
               ? selectedClassName
               : unSelectedClassName
           }
         >
-          {item.name}
+          {item.tagName}
         </span>
       </OptionNavCategoryBox>
     );
@@ -79,53 +105,3 @@ const OptionNavCategoryBox = styled.div`
 `;
 
 export default OptionNavBarLower;
-
-const addtionalCategoryArr = [
-  { name: '전체', imgSrc: '/images/optionCategoryIcon/category_icon_all' },
-  {
-    name: '주행안전',
-    imgSrc: '/images/optionCategoryIcon/category_icon_driving',
-  },
-  {
-    name: '사용편의',
-    imgSrc: '/images/optionCategoryIcon/category_icon_convenience',
-  },
-  {
-    name: '추위/더위',
-    imgSrc: '/images/optionCategoryIcon/category_icon_temperature',
-  },
-  {
-    name: '주차/출차',
-    imgSrc: '/images/optionCategoryIcon/category_icon_parking',
-  },
-  {
-    name: '퍼포먼스',
-    imgSrc: '/images/optionCategoryIcon/category_icon_performance',
-  },
-  { name: '스타일', imgSrc: '/images/optionCategoryIcon/category_icon_style' },
-];
-const basicCategoryArr = [
-  { name: '대표', imgSrc: '/images/optionCategoryIcon/category_icon_main' },
-  { name: '전체', imgSrc: '/images/optionCategoryIcon/category_icon_all' },
-  {
-    name: '주행안전',
-    imgSrc: '/images/optionCategoryIcon/category_icon_driving',
-  },
-  {
-    name: '사용편의',
-    imgSrc: '/images/optionCategoryIcon/category_icon_convenience',
-  },
-  {
-    name: '추위/더위',
-    imgSrc: '/images/optionCategoryIcon/category_icon_temperature',
-  },
-  {
-    name: '주차/출차',
-    imgSrc: '/images/optionCategoryIcon/category_icon_parking',
-  },
-  {
-    name: '퍼포먼스',
-    imgSrc: '/images/optionCategoryIcon/category_icon_performance',
-  },
-  { name: '스타일', imgSrc: '/images/optionCategoryIcon/category_icon_style' },
-];
