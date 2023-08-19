@@ -5,23 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewpager2.widget.ViewPager2
-import coil.ImageLoader
-import coil.decode.SvgDecoder
-import coil.load
+import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.databinding.FragmentSurveyBinding
 import org.softeer_2nd.caArt.databinding.LayoutLifeStylePersonaContainerBinding
-import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
+import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.ui.recycleradapter.LifestylePersonaSelectAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.SurveyAnswerOptionsRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.LifeStyleSurveyViewModel
 
+@AndroidEntryPoint
 class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
     override val processViewModel: LifeStyleSurveyViewModel by viewModels()
@@ -41,6 +42,8 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
         _binding = FragmentSurveyBinding.inflate(inflater, container, false)
         lifeStylePersonaLayoutBinding =
             LayoutLifeStylePersonaContainerBinding.inflate(inflater, container, false)
+        processViewModel.requestSurveyQuestion()
+        processViewModel.requestPersonaList()
         return binding.root
     }
 
@@ -52,7 +55,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
                 processViewModel.selectPersona(persona)
             },
             onLifeStylePersonaDetailSelectClickListener = { _ ->
-                //TODO 라이프 스타일 상세선택 화면으로 이동
+                findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifeStyleDetailSurveyFragment())
             },
             onLifeStylePersonaMoreClickListener = { _, persona ->
                 //TODO 라이프 스타일 엿보기 화면으로 이동
@@ -94,12 +97,11 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
         binding.pageIndex = currentProcess
         binding.questionString = data?.question
         if (!isLastProcess) {
-            surveyAdapter?.setAnswerOptionList(data?.answerOptions ?: emptyList())
+            surveyAdapter?.setAnswerOptionList(data?.choices ?: emptyList())
         } else {
             binding.rvSurveyAnswerOptionsContainer.visibility = View.GONE
             lifeStylePersonaLayoutBinding?.root?.visibility = View.VISIBLE
         }
-
     }
 
     private fun View.initPersonaContainerLayoutParams() {

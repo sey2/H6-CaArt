@@ -1,8 +1,7 @@
 package org.softeer_2nd.caArt.model.network
 
-import org.softeer_2nd.caArt.model.data.AdditionalOptionResponseDTO
-import org.softeer_2nd.caArt.model.data.DefaultOptionResponseDTO
-import org.softeer_2nd.caArt.model.data.Option
+import org.softeer_2nd.caArt.model.data.dto.AdditionalOptionResponseDTO
+import org.softeer_2nd.caArt.model.data.dto.DefaultOptionResponseDTO
 import org.softeer_2nd.caArt.model.data.OptionTag
 import retrofit2.http.GET
 import retrofit2.http.Query

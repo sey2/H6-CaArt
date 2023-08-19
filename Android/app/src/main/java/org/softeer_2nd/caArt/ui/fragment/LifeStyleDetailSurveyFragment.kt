@@ -10,13 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.Slider
+import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.databinding.FragmentSurveyBinding
 import org.softeer_2nd.caArt.databinding.LayoutDetailSurveySetBudgetBinding
-import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
+import org.softeer_2nd.caArt.model.data.SurveyQuestion
+import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.ui.recycleradapter.SurveyAnswerOptionsRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.LifeStyleDetailSurveyViewModel
 
+@AndroidEntryPoint
 class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
     override val processViewModel: LifeStyleDetailSurveyViewModel by viewModels()
@@ -35,8 +38,8 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
     ): View {
         detailSurveySetBudgetBinding =
             LayoutDetailSurveySetBudgetBinding.inflate(inflater, container, false)
-
         _binding = FragmentSurveyBinding.inflate(inflater, container, false)
+        processViewModel.requestAdditionalSurveyQuestion()
         return binding.root
     }
 
@@ -53,9 +56,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
         binding.processViewModel = processViewModel
 
-        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter().apply {
-            setAnswerOptionList(List(5) { "$it" })
-        }
+        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter()
 
         binding.rvSurveyAnswerOptionsContainer.initSurveyAnswerOptionsRecyclerView(surveyAdapter!!)
         binding.clSurveyScreenContainer.addView(detailSurveySetBudgetBinding?.root)
@@ -82,7 +83,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
         binding.pageIndex = currentProcess
         binding.questionString = data?.question
         if (!isLastProcess) {
-            surveyAdapter?.setAnswerOptionList(data?.answerOptions ?: emptyList())
+            surveyAdapter?.setAnswerOptionList(data?.choices ?: emptyList())
         } else {
             binding.rvSurveyAnswerOptionsContainer.visibility = View.GONE
             detailSurveySetBudgetBinding?.root?.visibility = View.VISIBLE

@@ -2,11 +2,21 @@ package org.softeer_2nd.caArt.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.softeer_2nd.caArt.model.data.Persona
-import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
+import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
+import org.softeer_2nd.caArt.model.repository.RecommandRepository
+import javax.inject.Inject
 
-class LifeStyleSurveyViewModel : ProcessViewModel<SurveyQuestion>() {
+@HiltViewModel
+class LifeStyleSurveyViewModel @Inject constructor(
+    val repository: RecommandRepository
+) : ProcessViewModel<SurveyQuestion>() {
 
     private val _personaList = MutableLiveData<List<Persona>>()
     val personaList: LiveData<List<Persona>> = _personaList
@@ -14,16 +24,30 @@ class LifeStyleSurveyViewModel : ProcessViewModel<SurveyQuestion>() {
     private val _selectedPersona = MutableLiveData<Persona>()
     val selectedPersona: LiveData<Persona> = _selectedPersona
 
-    init {
-        val dummy = DummyItemFactory.createSurveyQuestionDummyItem()
-        setProcessData(dummy)
-        setLastProcess(dummy.size)
-        startProcess()
-        _personaList.value = DummyItemFactory.createLifestylePersonaListDummyItem()
-    }
-
     fun selectPersona(persona: Persona) {
         _selectedPersona.value = persona
     }
 
+    fun requestSurveyQuestion() {
+        viewModelScope.launch {
+            val questions = repository.fetchLifestyleSurveyQuestions() ?: return@launch
+            withContext(Dispatchers.Main) {
+                val temp = questions.toMutableList()
+                temp.add(SurveyQuestion("페르소나 질문", "키워드", null))
+                setProcessData(temp)
+                setLastProcess(questions.size + 1)
+                startProcess()
+            }
+        }
+    }
+
+    fun requestPersonaList() {
+        viewModelScope.launch {
+            val personaList = repository.fetchPersonaList() ?: return@launch
+            withContext(Dispatchers.Main) {
+                _personaList.value = personaList
+                selectPersona(personaList[0])
+            }
+        }
+    }
 }

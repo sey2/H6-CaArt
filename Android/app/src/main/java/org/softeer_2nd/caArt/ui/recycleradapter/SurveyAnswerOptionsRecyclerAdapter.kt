@@ -6,13 +6,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.R
+import org.softeer_2nd.caArt.model.data.Choice
 import org.softeer_2nd.caArt.util.dp2px
 
 class SurveyAnswerOptionsRecyclerAdapter :
     RecyclerView.Adapter<SurveyAnswerOptionsRecyclerAdapter.SurveyAnswerOptionViewHolder>() {
 
     private var selectedAnswerOptionIndex: Int = 0
-    private var answerOptionList: List<String> = listOf()
+    private var answerOptionList: List<Choice> = listOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -37,13 +38,13 @@ class SurveyAnswerOptionsRecyclerAdapter :
 
     override fun getItemCount(): Int = answerOptionList.size
 
-    fun setAnswerOptionList(optionList: List<String>) {
+    fun setAnswerOptionList(optionList: List<Choice>) {
         answerOptionList = optionList
         notifyItemRangeChanged(0, answerOptionList.size)
     }
 
-    fun selectAnswerOption(option: String) {
-        val newIndex = answerOptionList.indexOf(option)
+    fun selectAnswerOption(choice: Choice) {
+        val newIndex = answerOptionList.indexOf(choice)
         if (newIndex == -1) return
         val oldIndex = selectedAnswerOptionIndex
         selectedAnswerOptionIndex = newIndex
@@ -71,8 +72,8 @@ class SurveyAnswerOptionsRecyclerAdapter :
             )
         }
 
-        fun bind(answerOption: String) {
-            textView.text = answerOption
+        fun bind(answerOption: Choice) {
+            textView.text = answerOption.content
             textView.setOnClickListener {
                 selectAnswerOption(answerOption)
             }

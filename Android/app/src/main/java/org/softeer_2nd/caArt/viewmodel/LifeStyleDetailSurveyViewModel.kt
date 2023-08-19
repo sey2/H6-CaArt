@@ -2,20 +2,34 @@ package org.softeer_2nd.caArt.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.softeer_2nd.caArt.model.data.BudgetRange
-import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
+import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
+import org.softeer_2nd.caArt.model.repository.CarOptionRepository
+import org.softeer_2nd.caArt.model.repository.RecommandRepository
+import javax.inject.Inject
 
-class LifeStyleDetailSurveyViewModel : ProcessViewModel<SurveyQuestion>() {
+@HiltViewModel
+class LifeStyleDetailSurveyViewModel @Inject constructor(private val repository: RecommandRepository) :
+    ProcessViewModel<SurveyQuestion>() {
 
-    private val _budgetRange = MutableLiveData<BudgetRange>()
-    val budgetRange: LiveData<BudgetRange> = _budgetRange
+    val budgetRange: LiveData<BudgetRange> = repository.budgetRange.asLiveData()
 
-    init {
-        val dummy = DummyItemFactory.createDetailSurveyQuestionDummyItem()
-        setProcessData(dummy)
-        setLastProcess(dummy.size)
-        startProcess()
-        _budgetRange.value = DummyItemFactory.createBudgetRangeDummyItem()
+    fun requestAdditionalSurveyQuestion() {
+        viewModelScope.launch {
+            val questions = repository.fetchAdditionalLifestyleSurveyQuestion() ?: return@launch
+            withContext(Dispatchers.Main) {
+                setProcessData(questions)
+                setLastProcess(questions.size)
+                startProcess()
+            }
+        }
     }
+
 }

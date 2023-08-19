@@ -5,9 +5,10 @@ import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.dummy.OptionChangePopUpDummyItem
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.Persona
-import org.softeer_2nd.caArt.model.data.event.SurveyQuestion
+import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.dummy.OptionColorDummyItem
 import org.softeer_2nd.caArt.model.data.UserChoice
+import org.softeer_2nd.caArt.model.data.Choice
 import org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem
 
 
@@ -88,8 +89,8 @@ object DummyItemFactory {
         )
     }
 
-    fun createAdditionalOptionGrouopItem(): Option{
-        val subOption=List(5) {
+    fun createAdditionalOptionGrouopItem(): Option {
+        val subOption = List(5) {
             Option(
                 optionId = it,
                 optionName = "option ${it + 1}",
@@ -198,7 +199,8 @@ object DummyItemFactory {
         return List(3) { questionIndex ->
             SurveyQuestion(
                 question = "$questionIndex 나이를 알려주세요.",
-                answerOptions = List(5) { "${it * 10}" }
+                keyword = "hello",
+                choices = List(5) { Choice("$it 살", it) }
             )
         }
     }
@@ -217,8 +219,9 @@ object DummyItemFactory {
     fun createDetailSurveyQuestionDummyItem(): List<SurveyQuestion> {
         return List(3) { questionIndex ->
             SurveyQuestion(
-                question = "$questionIndex 운전경력이 어떻게 되세요?.",
-                answerOptions = List(5) { "${it * 10}" }
+                question = "$questionIndex 나이를 알려주세요.",
+                keyword = "hello",
+                choices = List(5) { Choice("$it 살", it) }
             )
         }
     }

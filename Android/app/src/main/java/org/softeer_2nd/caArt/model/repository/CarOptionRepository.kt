@@ -1,14 +1,10 @@
 package org.softeer_2nd.caArt.model.repository
 
-import android.graphics.Path.Op
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.softeer_2nd.caArt.model.data.AdditionalOptionResponseDTO
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.OptionTag
 import org.softeer_2nd.caArt.model.network.OptionApiService
-import retrofit2.http.Query
 import javax.inject.Inject
 
 class CarOptionRepository @Inject constructor(
@@ -41,29 +37,29 @@ class CarOptionRepository @Inject constructor(
         return tagList
     }
 
-   suspend fun fetchFirstAdditionalOptionList(tagId:Int?=null):List<Option>?{
-       _isLastPage.value=false
-       pageOffset=0
+    suspend fun fetchFirstAdditionalOptionList(tagId: Int? = null): List<Option>? {
+        _isLastPage.value = false
+        pageOffset = 0
 
-       return requestAdditionalOptionList(tagId,pageOffset)
-   }
+        return requestAdditionalOptionList(tagId, pageOffset)
+    }
 
-    suspend fun fetchNextAdditionalOptionList(tagId:Int?=null):List<Option>?{
-        if(isLastPage.value)return null
-        return requestAdditionalOptionList(tagId,pageOffset)
+    suspend fun fetchNextAdditionalOptionList(tagId: Int? = null): List<Option>? {
+        if (isLastPage.value) return null
+        return requestAdditionalOptionList(tagId, pageOffset)
     }
 
     private suspend fun requestAdditionalOptionList(
-        tagId: Int?=null,
-        pageOffset:Int=0
-        ):List<Option>?{
-        val trimId=1
-        val engineId=1
-        val bodyTypeId=1
-        val wheelDriveId=1
+        tagId: Int? = null,
+        pageOffset: Int = 0
+    ): List<Option>? {
+        val trimId = 1
+        val engineId = 1
+        val bodyTypeId = 1
+        val wheelDriveId = 1
 
-        val requestResult=optionApiService.getAdditionalOptionList(
-            tagId, trimId, engineId, bodyTypeId, wheelDriveId,pageOffset,PAGE_OPTION_COUNT
+        val requestResult = optionApiService.getAdditionalOptionList(
+            tagId, trimId, engineId, bodyTypeId, wheelDriveId, pageOffset, PAGE_OPTION_COUNT
         ).data
 
         val totalOptionCount = requestResult?.totalElements
@@ -76,29 +72,29 @@ class CarOptionRepository @Inject constructor(
         return requestResult?.additionalOptions
     }
 
-    suspend fun fetchFirstDefaultOptionList(tagId:Int?=null):List<Option>?{
-        _isLastPage.value=false
-        pageOffset=0
+    suspend fun fetchFirstDefaultOptionList(tagId: Int? = null): List<Option>? {
+        _isLastPage.value = false
+        pageOffset = 0
 
-        return requestDefaultOptionList(tagId,pageOffset)
+        return requestDefaultOptionList(tagId, pageOffset)
     }
 
-    suspend fun fetchNextDefaultOptionList(tagId:Int?=null):List<Option>?{
-        if(isLastPage.value)return null
-        return requestDefaultOptionList(tagId,pageOffset)
+    suspend fun fetchNextDefaultOptionList(tagId: Int? = null): List<Option>? {
+        if (isLastPage.value) return null
+        return requestDefaultOptionList(tagId, pageOffset)
     }
 
     private suspend fun requestDefaultOptionList(
-        tagId: Int?=null,
-        pageOffset:Int=0
-    ):List<Option>?{
-        val trimId=1
-        val engineId=1
-        val bodyTypeId=1
-        val wheelDriveId=1
+        tagId: Int? = null,
+        pageOffset: Int = 0
+    ): List<Option>? {
+        val trimId = 1
+        val engineId = 1
+        val bodyTypeId = 1
+        val wheelDriveId = 1
 
-        val requestResult=optionApiService.getDefaultOptionList(
-            tagId, trimId, engineId, bodyTypeId, wheelDriveId,pageOffset,PAGE_OPTION_COUNT
+        val requestResult = optionApiService.getDefaultOptionList(
+            tagId, trimId, engineId, bodyTypeId, wheelDriveId, pageOffset, PAGE_OPTION_COUNT
         ).data
 
         val totalOptionCount = requestResult?.totalElements

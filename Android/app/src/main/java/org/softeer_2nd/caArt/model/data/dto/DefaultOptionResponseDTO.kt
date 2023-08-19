@@ -1,4 +1,6 @@
-package org.softeer_2nd.caArt.model.data
+package org.softeer_2nd.caArt.model.data.dto
+
+import org.softeer_2nd.caArt.model.data.Option
 
 data class DefaultOptionResponseDTO(
     val totalElements: Int,

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.databinding.ItemLifeStyleNoPersonaBinding
 import org.softeer_2nd.caArt.databinding.ItemLifeStylePersonaBinding
@@ -128,10 +129,8 @@ class LifestylePersonaSelectAdapter(
     inner class LifeStyleNoPersonaViewHolder(private val binding: ItemLifeStyleNoPersonaBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.btnLifeStyleNoPersonaMoreDetailSelection.setOnClickListener {
-                binding.onLifeStyleDetailSelectionBtnClickListener =
-                    onLifeStylePersonaDetailSelectClickListener
-            }
+            binding.onLifeStyleDetailSelectionBtnClickListener =
+                onLifeStylePersonaDetailSelectClickListener
         }
     }
 }
