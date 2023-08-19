@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export type tagType = 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek';
+
+export interface TagProps {
+  tag: string;
+  type: tagType;
+  selected?: boolean;
+}
+
 function Tag({ tag, type, selected }: TagProps) {
   return (
     <TagBox
@@ -8,15 +16,9 @@ function Tag({ tag, type, selected }: TagProps) {
       type={type}
       selected={selected}
     >
-      {`#${tag}`}
+      {`${type !== 'result' ? '#' : ''}${tag}`}
     </TagBox>
   );
-}
-
-export interface TagProps {
-  tag: string;
-  type: 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek';
-  selected?: boolean;
 }
 
 const TagBox = styled.li<Pick<TagProps, 'type' | 'selected'>>`
@@ -29,10 +31,7 @@ const TagBox = styled.li<Pick<TagProps, 'type' | 'selected'>>`
   ${props => cssHandler(props.type, props.selected)};
 `;
 
-const cssHandler = (
-  type: 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek',
-  selected: boolean | undefined,
-) => {
+const cssHandler = (type: tagType, selected: boolean | undefined) => {
   switch (type) {
     case 'lifeStyle':
       if (selected) {

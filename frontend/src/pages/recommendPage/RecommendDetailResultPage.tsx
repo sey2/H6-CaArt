@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ResultMain } from '../../components/common/result/ResultMain';
@@ -6,11 +6,34 @@ import SquareButton from '../../components/common/SquareButton';
 import { TagList } from '../../components/common/TagList';
 import { RecommendPageProps } from './RecommendPage';
 import { question } from './RecommendDetailPage';
+import { ErrorPopup } from '../../components/common/ErrorPopup';
+import { useFetch } from '../../hooks/useFetch';
+import { LifeStyleResultProps } from './RecommendLifeStyleResultPage';
+import { EstimationContext } from '../../util/Context';
 
 function RecommendDetailResultPage({
   choice,
 }: Pick<RecommendPageProps, 'choice'>) {
-  //choice 기반 api요청으로 데이터 가져올 예정
+  const { setResult } = useContext(EstimationContext)!;
+
+  const { data, status, error } = useFetch<LifeStyleResultProps>(
+    `/lifestyles/recommendation?ageId=${choice.age}&experienceId=${choice.experience}&familyId=${choice.family}&purposeId=${choice.purpose}&valueId=${choice.value}&budget=${choice.budget}`,
+  );
+
+  useEffect(() => {
+    if (data) {
+      setResult(data);
+    }
+  }, [data]);
+
+  if (status === 'loading') {
+    return <div>loading</div>;
+  } else if (status === 'error') {
+    console.error(error);
+    return <ErrorPopup></ErrorPopup>;
+  }
+  if (data === null) return <div></div>;
+
   return (
     <RecommendDetailResultPageBox>
       <RecommendDetailResultPageCarImgBox>
@@ -36,7 +59,9 @@ function RecommendDetailResultPage({
         </FlexBox>
       </RecommendDetailResultPageCarImgBox>
       <RecommendDetailResultPageBottomBox>
-        <RecommendDetailResultPageCarImg src="/images/car.png"></RecommendDetailResultPageCarImg>
+        <RecommendDetailResultPageCarImg
+          src={data.palisadeImage}
+        ></RecommendDetailResultPageCarImg>
       </RecommendDetailResultPageBottomBox>
 
       <ResultMain></ResultMain>
@@ -60,7 +85,6 @@ const RecommendDetailResultPageBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  g
 `;
 
 const RecommendDetailResultPageCarImgBox = styled.div`

@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Tag } from './Tag';
+import { Tag, tagType } from './Tag';
+
+interface TagListProps {
+  tagArr: string[];
+  type: tagType;
+  selected?: boolean;
+}
 
 function TagList({ tagArr, type, selected }: TagListProps) {
   const tagLists = tagArr.map(item => {
@@ -10,12 +16,6 @@ function TagList({ tagArr, type, selected }: TagListProps) {
   return <TagListBox type={type}>{tagLists}</TagListBox>;
 }
 
-interface TagListProps {
-  tagArr: string[];
-  type: 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek';
-  selected?: boolean;
-}
-
 const TagListBox = styled.ul<Pick<TagListProps, 'type'>>`
   display: flex;
   justify-content: center;
@@ -23,9 +23,7 @@ const TagListBox = styled.ul<Pick<TagListProps, 'type'>>`
   ${props => cssHandler(props.type)};
 `;
 
-const cssHandler = (
-  type: 'lifeStyle' | 'result' | 'option' | 'lifeStylePeek',
-) => {
+const cssHandler = (type: tagType) => {
   switch (type) {
     case 'lifeStyle':
     case 'option':
