@@ -4,17 +4,15 @@ import useModal from '../../../hooks/useModal';
 import { FlexBox, SFlex } from '../../common/FlexBox';
 import { commonOption } from '../../../static/data/CompareModalData';
 import { Hr } from '../../common/Hr';
+import { useModalContext } from '../../../store/ModalContext';
 import { Color, Trim } from './TrimCard';
 import { useFetch } from '../../../hooks/useFetch';
 import { ErrorPopup } from '../../common/ErrorPopup';
 
-interface CompareModalProps {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
-}
 
-function CompareModal({ setter, isOpen }: CompareModalProps) {
+function CompareModal() {
   useModal();
+    const { state, dispatch } = useModalContext();
   const { data, status, error } = useFetch<Trim[]>('/trims');
   if (status === 'loading') {
     return <div>loading</div>;
@@ -41,13 +39,16 @@ function CompareModal({ setter, isOpen }: CompareModalProps) {
   }
 
   return (
-    <Modal className={isOpen ? 'active' : ''}>
-      <Overlay onClick={() => setter(false)} />
+    <Modal isopen={state.compareModalOpen}>
+      <Overlay onClick={() => dispatch({ type: 'CLOSE_COMPARE_MODAL' })} />
       <Wrapper onClick={e => e.stopPropagation()}>
         <Wrapperbox>
           <Header className="head-medium-22 text-grey-50">
             비교하기
-            <X src="/images/x_icon.svg" onClick={() => setter(false)} />
+            <X
+              src="/images/x_icon.svg"
+              onClick={() => dispatch({ type: 'CLOSE_COMPARE_MODAL' })}
+            />
           </Header>
           <Grid>
             {data?.map(trim => (
@@ -136,7 +137,7 @@ function CompareModal({ setter, isOpen }: CompareModalProps) {
 
 export default CompareModal;
 
-const Modal = styled.div`
+const Modal = styled.div<{ isopen: boolean }>`
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -144,13 +145,11 @@ const Modal = styled.div`
   left: 0;
   z-index: 21;
   overflow: scroll;
-  opacity: 0;
+  transition: all 0.5s ease-out;
   visibility: hidden;
-  transition: opacity 0.5s ease-out;
-  &.active {
-    opacity: 1;
-    visibility: visible;
-  }
+  opacity: 0;
+  ${props => props.isopen && `visibility:visible;opacity:1;`};
+
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {

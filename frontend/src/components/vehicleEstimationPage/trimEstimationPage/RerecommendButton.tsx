@@ -1,13 +1,15 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { useModalContext } from '../../../store/ModalContext';
 
-function RerecommendButton({
-  setter,
-}: {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+function RerecommendButton() {
+  const { dispatch } = useModalContext();
   return (
-    <Button top={24} left={128} onClick={() => setter(true)}>
+    <Button
+      top={24}
+      left={128}
+      onClick={() => dispatch({ type: 'OPEN_RECOMMEND_MODAL' })}
+    >
       <img src="/images/re_recommend_icon.svg" />
       <span className="text-secondary-active-blue body-medium-14">
         다시 추천받기

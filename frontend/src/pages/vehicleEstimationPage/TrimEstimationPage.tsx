@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
@@ -10,6 +10,7 @@ import TrimCarImage from '../../components/vehicleEstimationPage/trimEstimationP
 import TrimContainer from '../../components/vehicleEstimationPage/trimEstimationPage/TrimContainer';
 import OptionExplainModal from '../../components/vehicleEstimationPage/trimEstimationPage/OptionExplainModal';
 import { Link } from 'react-router-dom';
+import { useModalContext } from '../../store/ModalContext';
 
 export interface OptionType {
   optionId: number;
@@ -19,79 +20,32 @@ export interface OptionType {
 }
 
 function TrimEstimationPage() {
-  const [infoModalOpen, setInfoModalOpen] = useState<boolean>(false);
-  const [compareModalOpen, setComapreModalOpen] = useState<boolean>(false);
-  const [tooltipOpen, setTooltipOpen] = useState<boolean>(false);
-  const [tooltipType, setTooltipType] = useState<string | undefined>('엔진');
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const [optionModalOpen, setOptionModalOpen] = useState(false);
-  const [modalOptionPosition, setModalOptionPosition] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [optionModalData, setOptionModalData] = useState<OptionType>();
+  const { dispatch } = useModalContext();
 
   function closeModalHandler() {
-    setTooltipOpen(false);
-    setOptionModalOpen(false);
+    dispatch({ type: 'CLOSE_TOOLTIP_MODAL' });
+    dispatch({ type: 'CLOSE_OPTION_MODAL' });
   }
-  const fixedRef = useRef<HTMLDivElement | null>(null);
-  const scrollableRef = useRef<HTMLDivElement | null>(null);
-
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (scrollableRef.current && fixedRef.current) {
-      scrollableRef.current.scrollTop = e.currentTarget.scrollTop;
-    }
-  };
 
   return (
     <>
-      {<EBWGuideModal setter={setInfoModalOpen} isOpen={infoModalOpen} />}
-      {<CompareModal setter={setComapreModalOpen} isOpen={compareModalOpen} />}
-      {tooltipOpen && (
-        <ToolTip
-          x={tooltipPosition.x}
-          y={tooltipPosition.y}
-          tooltipType={tooltipType}
-        />
-      )}
-      {
-        <OptionExplainModal
-          x={modalOptionPosition.x}
-          y={modalOptionPosition.y}
-          setter={setOptionModalOpen}
-          data={optionModalData}
-          isOpen={optionModalOpen}
-        />
-      }
-
+      {<EBWGuideModal />}
+      {<CompareModal />}
+      {<ToolTip />}
+      {<OptionExplainModal />}
       <Wrapper onClick={closeModalHandler}>
         <Header size="large" page={0} />
         <Layout>
-          <div ref={fixedRef} onScroll={handleScroll}>
-            <TrimCarImage />
-          </div>
-          <RightBox onScroll={closeModalHandler} ref={scrollableRef}>
-            <InfoText onClick={() => setInfoModalOpen(true)}>
+          <TrimCarImage />
+          <RightBox onScroll={closeModalHandler}>
+            <InfoText onClick={() => dispatch({ type: 'OPEN_INFO_MODAL' })}>
               <img src="/images/question_icon.svg" />
               <span className="text-secondary-active-blue body-medium-14">
                 고르기 어렵다면?
               </span>
             </InfoText>
-            <EBWContainer
-              openSetter={setTooltipOpen}
-              typeSetter={setTooltipType}
-              positionSetter={setTooltipPosition}
-            />
-            <TrimContainer
-              setter={setComapreModalOpen}
-              optionModalPositionSetter={setModalOptionPosition}
-              optionModalOpenSetter={setOptionModalOpen}
-              tooltipOpenSetter={setTooltipOpen}
-              tooltipTypeSetter={setTooltipType}
-              tooltipPositionSetter={setTooltipPosition}
-              optionSetter={setOptionModalData}
-            />
+            <EBWContainer />
+            <TrimContainer />
             <Link to="/estimate/color">
               <SquareButton size="xm" bg="primary-blue" color="grey-1000">
                 색상 선택

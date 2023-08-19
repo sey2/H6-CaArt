@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
 import { OptionType } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
+import { useModalContext } from '../../../store/ModalContext';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
 import { FlexBox } from '../../common/FlexBox';
@@ -30,31 +31,14 @@ export interface Trim {
   interiorColors: Color[];
 }
 
-interface TrimCardType {
-  trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Caligraphy' | string;
-  modalSetter: React.Dispatch<React.SetStateAction<boolean>>;
-  positionSetter: React.Dispatch<
-    React.SetStateAction<{ x: number; y: number }>
-  >;
-  tooltipOpenSetter: React.Dispatch<React.SetStateAction<boolean>>;
-  tooltipTypeSetter: React.Dispatch<React.SetStateAction<string | undefined>>;
-  tooltipPositionSetter: React.Dispatch<
-    React.SetStateAction<{ x: number; y: number }>
-  >;
-  optionSetter: React.Dispatch<React.SetStateAction<OptionType | undefined>>;
-}
-
 function TrimCard({
   trim,
-  modalSetter,
-  positionSetter,
-  tooltipOpenSetter,
-  tooltipTypeSetter,
-  tooltipPositionSetter,
-  optionSetter,
-}: TrimCardType) {
+}: {
+  trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Calligraphy' | string;
+}) {
   const { data } = useFetch<Trim[]>('/trims');
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
+  const { state, dispatch } = useModalContext();
   useEffect(() => {
     const trimImg = data?.find(
       dataName => dataName.trimName === currentEstimation.trim.name,
@@ -64,15 +48,16 @@ function TrimCard({
 
   function handleModal(e: React.MouseEvent, option: OptionType) {
     e.stopPropagation();
-    modalSetter(false);
+    dispatch({ type: 'CLOSE_OPTION_MODAL' });
     const offsetX = e.nativeEvent.offsetX;
     const clickedX = e.clientX;
     const clickedY = e.clientY;
     const x = Math.ceil(clickedX - offsetX - 150);
     const y = Math.ceil(clickedY / 2);
-    positionSetter({ x, y });
-    optionSetter(option);
-    modalSetter(true);
+    dispatch({ type: 'SET_OPTION_POSITION', position: { x: x, y: y } });
+    dispatch({ type: 'SET_OPTION_DATA', data: option });
+    dispatch({ type: 'OPEN_OPTION_MODAL' });
+    console.log(state);
   }
 
   function getOptionList(trim: string) {
@@ -107,9 +92,9 @@ function TrimCard({
     const rect = targetElement?.getBoundingClientRect() as DOMRect;
     const y = rect.x - 20;
     const x = rect.y - 100;
-    tooltipTypeSetter('트림');
-    tooltipPositionSetter({ x: x, y: y });
-    tooltipOpenSetter(true);
+    dispatch({ type: 'SET_TOOLTIP_TYPE', tooltipType: '트림' });
+    dispatch({ type: 'SET_TOOLTIP_POSITION', position: { x: x, y: y } });
+    dispatch({ type: 'OPEN_TOOLTIP_MODAL' });
   }
 
   return (

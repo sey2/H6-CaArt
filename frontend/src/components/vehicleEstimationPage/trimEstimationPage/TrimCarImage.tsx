@@ -5,15 +5,12 @@ import RerecommendButton from './RerecommendButton';
 import RerecommendModal from './RerecommendModal';
 
 function TrimCarImage() {
-  const [reRecommendModal, setReRecommendModal] = useState(false);
   const { currentEstimation } = useContext(EstimationContext)!;
   return (
     <Wrapper>
-      <RerecommendButton setter={setReRecommendModal} />
+      <RerecommendButton  />
       {
         <RerecommendModal
-          setter={setReRecommendModal}
-          isOpen={reRecommendModal}
         />
       }
       <BgTop />

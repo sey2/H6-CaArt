@@ -1,32 +1,26 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { OptionType } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
+import { useModalContext } from '../../../store/ModalContext';
 
-function OptionExplainModal({
-  x,
-  y,
-  setter,
-  data,
-  isOpen,
-}: {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  data: OptionType | undefined;
-  x: number;
-  y: number;
-  isOpen: boolean;
-}) {
+function OptionExplainModal() {
+  const { state, dispatch } = useModalContext();
   return (
     <Modal
-      top={y}
-      left={x}
+      top={state.optionModalPosition.y}
+      left={state.optionModalPosition.x}
       onClick={e => e.stopPropagation()}
-      className={isOpen ? 'active' : ''}
+      isopen={state.optionModalOpen}
     >
-      <X src="/images/x_icon.svg" onClick={() => setter(false)} />
-      <Title className="body-bold-18 text-grey-0">{data?.optionName}</Title>
-      <Image src={data?.optionImage} />
+      <X
+        src="/images/x_icon.svg"
+        onClick={() => dispatch({ type: 'CLOSE_OPTION_MODAL' })}
+      />
+      <Title className="body-bold-18 text-grey-0">
+        {state.optionModalData.optionName}
+      </Title>
+      <Image src={state.optionModalData.optionImage} />
       <Content className="body-regular-14 text-grey-200">
-        {data?.description}
+        {state.optionModalData.description}
       </Content>
       <footer className="caption-regular-12 text-grey-400">
         *사진과 설명은 참고용이며 실제 차량과는 상이할 수 있습니다.
@@ -37,7 +31,7 @@ function OptionExplainModal({
 
 export default OptionExplainModal;
 
-const Modal = styled.div<{ top: number; left: number }>`
+const Modal = styled.div<{ top: number; left: number; isopen: boolean }>`
   position: absolute;
   top: ${props => props.top}px;
   left: ${props => props.left - 160}px;
@@ -50,13 +44,10 @@ const Modal = styled.div<{ top: number; left: number }>`
   background: var(--grey-1000);
   box-shadow: 0px 4px 30px 0px rgba(142, 152, 168, 0.4);
   z-index: 10;
-  opacity: 0;
-  visibility: hidden;
   transition: opacity 0.5s ease-out;
-  &.active {
-    opacity: 1;
-    visibility: visible;
-  }
+  visibility: hidden;
+  opacity: 0;
+  ${props => props.isopen && `visibility:visible;opacity:1;`};
 `;
 const Title = styled.span`
   width: 206px;

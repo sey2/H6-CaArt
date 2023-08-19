@@ -2,20 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import EBWButton from './EBWButton';
 import { EstimationContext } from '../../../util/Context';
-import { FlexBox } from "../../common/FlexBox";
+import { FlexBox } from '../../common/FlexBox';
+import { useModalContext } from '../../../store/ModalContext';
 
-function EBWContainer({
-  openSetter,
-  typeSetter,
-  positionSetter,
-}: {
-  openSetter: React.Dispatch<React.SetStateAction<boolean>>;
-  typeSetter: React.Dispatch<React.SetStateAction<string | undefined>>;
-  positionSetter: React.Dispatch<
-    React.SetStateAction<{ x: number; y: number }>
-  >;
-}) {
+function EBWContainer() {
   const { setEngine, setBody, setWd } = useContext(EstimationContext)!;
+  const { dispatch } = useModalContext();
   function handleButtonClick(value: string, price: number) {
     switch (value) {
       case '디젤 2.2':
@@ -54,17 +46,20 @@ function EBWContainer({
     const target = e.target as HTMLElement;
     const spanElement =
       target.parentElement?.parentElement?.previousElementSibling;
-    typeSetter(spanElement?.innerHTML);
+    dispatch({
+      type: 'SET_TOOLTIP_TYPE',
+      tooltipType: spanElement?.innerHTML as string,
+    });
     const { x, y } = calcPosition(spanElement);
-    positionSetter({ x: x, y: y });
-    openSetter(true);
+    dispatch({ type: 'SET_TOOLTIP_POSITION', position: { x: x, y: y } });
+    dispatch({ type: 'OPEN_TOOLTIP_MODAL' });
   }
 
   useEffect(() => {
     const spanElement = document.querySelector('.engine');
     const { x, y } = calcPosition(spanElement);
-    positionSetter({ x: x, y: y });
-    openSetter(true);
+    dispatch({ type: 'SET_TOOLTIP_POSITION', position: { x: x, y: y } });
+    dispatch({ type: 'OPEN_TOOLTIP_MODAL' });
   }, []);
 
   return (

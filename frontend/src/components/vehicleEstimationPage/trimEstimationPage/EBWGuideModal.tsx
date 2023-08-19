@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
+import { useModalContext } from '../../../store/ModalContext';
 import { priceToString } from '../../../util/PriceToString';
 
 interface Engine {
@@ -31,17 +32,13 @@ interface CompositionsData {
   wheelDrives: WheelDrive[];
 }
 
-interface GuideModalProps {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
-}
-
 type NavType = 'carEngines' | 'bodyTypes' | 'wheelDrives' | string;
 
-function EBWGuideModal({ setter, isOpen }: GuideModalProps) {
+function EBWGuideModal() {
   const [selectedNav, setSelectedNav] = useState<NavType>('carEngines');
   const [compositionData, setCompositionData] = useState<CompositionsData>();
   const { data } = useFetch<CompositionsData>('/compositions');
+  const { state, dispatch } = useModalContext();
 
   useEffect(() => {
     setCompositionData(data as CompositionsData);
@@ -203,12 +200,11 @@ function EBWGuideModal({ setter, isOpen }: GuideModalProps) {
       </NItem>
     );
   }
-
   return (
-    <Modal className={isOpen ? 'active' : ''}>
+    <Modal isopen={state.infoModalOpen}>
       <Overlay
         onClick={() => {
-          setter(false);
+          dispatch({ type: 'CLOSE_INFO_MODAL' });
         }}
       />
       <Wrapper onClick={e => e.stopPropagation()}>
@@ -219,7 +215,10 @@ function EBWGuideModal({ setter, isOpen }: GuideModalProps) {
                 setNavItem(navName),
               )}
           </NavItem>
-          <X src="/images/x_icon.svg" onClick={() => setter(false)} />
+          <X
+            src="/images/x_icon.svg"
+            onClick={() => dispatch({ type: 'CLOSE_INFO_MODAL' })}
+          />
         </NavBar>
         <Hhr />
         <Content>{contentHandler(selectedNav)}</Content>
@@ -319,16 +318,13 @@ const SNItem = styled.span<{ value: string }>`
   cursor: pointer;
 `;
 
-const Modal = styled.div`
+const Modal = styled.div<{ isopen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   z-index: 22;
-  opacity: 0;
+  transition: all 0.5s ease-out;
   visibility: hidden;
-  transition: opacity 0.5s ease-out;
-  &.active {
-    opacity: 1;
-    visibility: visible;
-  }
+  opacity: 0;
+  ${props => props.isopen && `visibility:visible;opacity:1;`};
 `;

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import OptionButton from './button/OptionButton';
 import CarRotator from './CarRotator';
-import RerecommendButton from "../trimEstimationPage/RerecommendButton";
-import RerecommendModal from "../trimEstimationPage/RerecommendModal";
+import RerecommendButton from '../trimEstimationPage/RerecommendButton';
+import RerecommendModal from '../trimEstimationPage/RerecommendModal';
 
 interface CarContainerType {
   type: 'ex' | 'in' | '360' | string;
@@ -12,7 +12,6 @@ interface CarContainerType {
 }
 
 function LeftCarImageContainer({ type, setter, state }: CarContainerType) {
-  const [reRecommendModal, setReRecommendModal] = useState(false);
   function drawView(type: 'ex' | 'in' | '360' | string) {
     switch (type) {
       case 'ex':
@@ -49,13 +48,8 @@ function LeftCarImageContainer({ type, setter, state }: CarContainerType) {
 
   return (
     <Wrapper>
-      <RerecommendButton setter={setReRecommendModal} />
-      {
-        <RerecommendModal
-          setter={setReRecommendModal}
-          isOpen={reRecommendModal}
-        />
-      }
+      <RerecommendButton />
+      {<RerecommendModal />}
       <TypeBox>
         <OptionButton type="ex" state={state} setter={setter} />
         <OptionButton type="in" state={state} setter={setter} />

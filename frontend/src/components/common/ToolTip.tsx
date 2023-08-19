@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useModalContext } from '../../store/ModalContext';
 
 const TOOLTIP_MESSAGE = {
   엔진: '디젤은 연비가 좋고 가솔린은 승차감이 더 부드럽고 조용해요.',
@@ -13,20 +14,17 @@ function getToolTipMessage(type: string | undefined) {
   return TOOLTIP_MESSAGE[type as keyof typeof TOOLTIP_MESSAGE];
 }
 
-function ToolTip({
-  tooltipType,
-  x,
-  y,
-}: {
-  tooltipType: string | undefined;
-  x: number;
-  y: number;
-}) {
-  const text = getToolTipMessage(tooltipType);
-
+function ToolTip() {
+  const { state } = useModalContext();
+  const text = getToolTipMessage(state.tooltipType);
   return (
     <>
-      <BubbleBox top={x} left={y} onClick={e => e.stopPropagation()}>
+      <BubbleBox
+        top={state.tooltipPosition.x}
+        left={state.tooltipPosition.y}
+        onClick={e => e.stopPropagation()}
+        isopen={state.tooltipOpen}
+      >
         <img src="/images/tooltip_icon.svg" />
         <p className="body-regular-14 text-grey-900">{text}</p>
       </BubbleBox>
@@ -36,7 +34,7 @@ function ToolTip({
 
 export default ToolTip;
 
-const BubbleBox = styled.div<{ top: number; left: number }>`
+const BubbleBox = styled.div<{ top: number; left: number; isopen: boolean }>`
   position: absolute;
   display: flex;
   top: ${props => props.top}px;
@@ -50,6 +48,10 @@ const BubbleBox = styled.div<{ top: number; left: number }>`
   background-color: #2e3d51;
   color: var(--gray-900);
   z-index: 10;
+  transition: all 0.3s;
+  visibility: hidden;
+  opacity: 0;
+  ${props => props.isopen && `visibility:visible;opacity:1;`};
   ::after {
     content: '';
     position: absolute;

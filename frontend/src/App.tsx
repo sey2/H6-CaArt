@@ -6,19 +6,22 @@ import RecommendPage from './pages/recommendPage/RecommendPage';
 import VehicleEstimationPage from './pages/vehicleEstimationPage/VehicleEstimationPage';
 import ResultPage from './pages/resultPage/ResultPage';
 import { ErrorPopup } from './components/common/ErrorPopup';
+import { ModalProvider } from './store/ModalContext';
 
 function App() {
   return (
     <EstimationProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" Component={HomePage} />
-          <Route path="/recommend/*" Component={RecommendPage} />
-          <Route path="/estimate/*" Component={VehicleEstimationPage} />
-          <Route path="/result" Component={ResultPage} />
-          <Route path="*" Component={ErrorPopup} />
-        </Routes>
-      </BrowserRouter>
+      <ModalProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" Component={HomePage} />
+            <Route path="/recommend/*" Component={RecommendPage} />
+            <Route path="/estimate/*" Component={VehicleEstimationPage} />
+            <Route path="/result" Component={ResultPage} />
+            <Route path="*" Component={ErrorPopup} />
+          </Routes>
+        </BrowserRouter>
+      </ModalProvider>
     </EstimationProvider>
   );
 }

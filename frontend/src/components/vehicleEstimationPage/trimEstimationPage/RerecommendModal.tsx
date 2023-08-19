@@ -3,26 +3,25 @@ import { styled } from 'styled-components';
 import SquareButton from '../../common/SquareButton';
 import { Link } from 'react-router-dom';
 import { FlexBox } from '../../common/FlexBox';
+import { useModalContext } from '../../../store/ModalContext';
 
-function RerecommendModal({
-  setter,
-  isOpen,
-}: {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
-}) {
-  function closeModal() {
-    setter(false);
-  }
+function RerecommendModal() {
+  const { state, dispatch } = useModalContext();
 
   return (
-    <Overlay onClick={closeModal} className={isOpen ? 'active' : ''}>
+    <Overlay
+      onClick={() => dispatch({ type: 'CLOSE_RECOMMEND_MODAL' })}
+      isopen={state.recommendModalOpen}
+    >
       <Box onClick={e => e.stopPropagation()}>
         <FlexBox justify="space-between" margin="0px 0px 8px 0px">
           <span className="head-medium-22 text-grey-50">
             추천 페이지로 돌아가시겠어요?
           </span>
-          <X src="/images/x_icon.svg" onClick={closeModal} />
+          <X
+            src="/images/x_icon.svg"
+            onClick={() => dispatch({ type: 'CLOSE_RECOMMEND_MODAL' })}
+          />
         </FlexBox>
         <span className="body-regular-14 text-grey-400">
           선택한 옵션들은 모두 초기화돼요.
@@ -33,7 +32,7 @@ function RerecommendModal({
           gap={8}
           margin="32px 0px 0px 0px"
         >
-          <div onClick={closeModal}>
+          <div onClick={() => dispatch({ type: 'CLOSE_RECOMMEND_MODAL' })}>
             <SquareButton
               size={'ms'}
               bg={'grey-1000'}
@@ -62,7 +61,7 @@ function RerecommendModal({
 
 export default RerecommendModal;
 
-const Overlay = styled.div`
+const Overlay = styled.div<{ isopen: boolean }>`
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -70,13 +69,10 @@ const Overlay = styled.div`
   left: 0;
   z-index: 21;
   background: rgba(15, 17, 20, 0.55);
-  opacity: 0;
+  transition: all 0.5s ease-out;
   visibility: hidden;
-  transition: opacity 0.5s ease-out;
-  &.active {
-    opacity: 1;
-    visibility: visible;
-  }
+  opacity: 0;
+  ${props => props.isopen && `visibility:visible;opacity:1;`};
 `;
 
 const Box = styled.div`
