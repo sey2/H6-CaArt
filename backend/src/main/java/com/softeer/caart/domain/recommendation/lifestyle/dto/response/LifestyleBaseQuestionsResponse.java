@@ -2,7 +2,7 @@ package com.softeer.caart.domain.recommendation.lifestyle.dto.response;
 
 import static com.softeer.caart.domain.recommendation.lifestyle.dto.LifestyleQuestionDto.*;
 
-import com.softeer.caart.domain.recommendation.lifestyle.entity.QuestionType;
+import com.softeer.caart.domain.recommendation.lifestyle.entity.Question;
 
 import lombok.Getter;
 
@@ -11,7 +11,7 @@ public class LifestyleBaseQuestionsResponse {
 	private final QuestionDto age;
 
 	private LifestyleBaseQuestionsResponse() {
-		this.age = new QuestionDto(QuestionType.AGE);
+		this.age = new QuestionDto(Question.AGE);
 	}
 
 	public static LifestyleBaseQuestionsResponse create() {
