@@ -8,6 +8,7 @@ import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.dummy.OptionColorDummyItem
 import org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState
+import org.softeer_2nd.caArt.model.data.Answer
 import org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem
 
 
@@ -199,7 +200,7 @@ object DummyItemFactory {
             SurveyQuestion(
                 question = "$questionIndex 나이를 알려주세요.",
                 keyword = "hello",
-                choices = List(5) { Choice("$it 살", it) }
+                answers = List(5) { Answer("$it 살", "it") }
             )
         }
     }
@@ -220,7 +221,7 @@ object DummyItemFactory {
             SurveyQuestion(
                 question = "$questionIndex 나이를 알려주세요.",
                 keyword = "hello",
-                choices = List(5) { Choice("$it 살", it) }
+                answers = List(5) { Answer("$it 살", "it") }
             )
         }
     }

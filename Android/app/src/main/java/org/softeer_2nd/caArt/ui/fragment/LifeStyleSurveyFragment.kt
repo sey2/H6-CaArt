@@ -58,7 +58,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
                 findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifeStyleDetailSurveyFragment())
             },
             onLifeStylePersonaMoreClickListener = { _, persona ->
-                //TODO 라이프 스타일 엿보기 화면으로 이동
+                findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifestyleDetailFragment())
             }
         )
 
@@ -97,7 +97,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
         binding.pageIndex = currentProcess
         binding.questionString = data?.question
         if (!isLastProcess) {
-            surveyAdapter?.setAnswerOptionList(data?.choices ?: emptyList())
+            surveyAdapter?.setAnswerOptionList(data?.answers ?: emptyList())
         } else {
             binding.rvSurveyAnswerOptionsContainer.visibility = View.GONE
             lifeStylePersonaLayoutBinding?.root?.visibility = View.VISIBLE

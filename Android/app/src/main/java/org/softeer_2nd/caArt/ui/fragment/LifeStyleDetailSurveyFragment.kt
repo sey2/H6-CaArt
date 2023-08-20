@@ -83,7 +83,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
         binding.pageIndex = currentProcess
         binding.questionString = data?.question
         if (!isLastProcess) {
-            surveyAdapter?.setAnswerOptionList(data?.choices ?: emptyList())
+            surveyAdapter?.setAnswerOptionList(data?.answers ?: emptyList())
         } else {
             binding.rvSurveyAnswerOptionsContainer.visibility = View.GONE
             detailSurveySetBudgetBinding?.root?.visibility = View.VISIBLE

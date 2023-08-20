@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="80dp">
+
+            <ImageView
+                android:id="@+id/iv_lifestyle_detail_card_background"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="w,343:375"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_launcher_background" />
+
+            <ImageView
+                android:id="@+id/iv_lifestyle_detail_card_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="57dp"
+                android:layout_marginEnd="16dp"
+                android:background="#838383"
+                app:layout_constraintDimensionRatio="w,374:343"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_lifestyle_detail_card_background"
+                app:srcCompat="@drawable/image_01" />
+
+            <TextView
+                android:id="@+id/tv_lifestyle_detail_card_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="26dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:textColor="@color/gray_1000"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_lifestyle_detail_card_image"
+                app:layout_constraintStart_toStartOf="@+id/iv_lifestyle_detail_card_image"
+                tools:text="가족과 함께 타서\n안전을 중시해요." />
+
+            <TextView
+                android:id="@+id/tv_lifestyle_detail_card_tag1"
+                style="@style/RecommendedTagBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_lifestyle_detail_card_text"
+                app:layout_constraintStart_toStartOf="@+id/tv_lifestyle_detail_card_text"
+                tools:text="#주행안전" />
+
+            <TextView
+                android:id="@+id/tv_lifestyle_detail_card_tag2"
+                style="@style/RecommendedTagBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_lifestyle_detail_card_tag1"
+                app:layout_constraintStart_toEndOf="@+id/tv_lifestyle_detail_card_tag1"
+                app:layout_constraintTop_toTopOf="@+id/tv_lifestyle_detail_card_tag1"
+                tools:text="#사용편의" />
+
+            <ImageView
+                android:id="@+id/iv_lifestyle_detail_profile_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_lifestyle_detail_profile_introduction"
+                app:layout_constraintStart_toStartOf="@+id/iv_lifestyle_detail_card_image"
+                app:layout_constraintTop_toTopOf="@id/tv_lifestyle_detail_profile_name"
+                app:srcCompat="@drawable/drawable_search_156" />
+
+            <TextView
+                android:id="@+id/tv_lifestyle_detail_profile_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:textColor="@color/gray_50"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_lifestyle_detail_profile_introduction"
+                app:layout_constraintEnd_toEndOf="@+id/iv_lifestyle_detail_card_image"
+                app:layout_constraintStart_toEndOf="@+id/iv_lifestyle_detail_profile_image"
+                app:layout_constraintTop_toBottomOf="@+id/iv_lifestyle_detail_card_image"
+                tools:text="김현대" />
+
+            <TextView
+                android:id="@+id/tv_lifestyle_detail_profile_introduction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/hyundaisanstextkrregular"
+                android:textColor="@color/gray_400"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_lifestyle_detail_profile_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_lifestyle_detail_profile_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lifestyle_detail_profile_name"
+                tools:text="두 아이의 엄마" />
+
+            <TextView
+                android:id="@+id/tv_lifestyle_detail_coverletter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/shape_three_corner_rounded_background_r8"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:gravity="center"
+                android:lineSpacingExtra="7sp"
+                android:paddingHorizontal="46dp"
+                android:paddingVertical="15dp"
+                android:textColor="@color/active_blue"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lifestyle_detail_profile_introduction"
+                tools:text="“우리 아이들과 함께 타는 차는 항상 안전해야 한다고 생각해요.”" />
+
+            <TextView
+                android:id="@+id/tv_lifestyle_detail_recommand_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:text="@string/for_you"
+                android:textColor="@color/gray_50"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lifestyle_detail_coverletter" />
+
+            <include
+                android:id="@+id/inc_lifestyle_detail_recommanded"
+                layout="@layout/layout_recomannded_trim_and_option"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lifestyle_detail_recommand_title" />
+
+            <TextView
+                android:id="@+id/tv_lifestyle_detail_interview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="72dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:text="@string/interview"
+                android:textColor="@color/gray_50"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inc_lifestyle_detail_recommanded" />
+
+            <include
+                android:id="@+id/inc_lifestyle_detail_interview1"
+                layout="@layout/layout_interview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lifestyle_detail_interview_title" />
+
+            <include
+                android:id="@+id/inc_lifestyle_detail_interview2"
+                layout="@layout/layout_interview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inc_lifestyle_detail_interview1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

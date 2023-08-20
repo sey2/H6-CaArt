@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/v_recommanded_background_top"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/gray_100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_recommanded_trim_image" />
+
+        <View
+            android:id="@+id/v_recommanded_background_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:background="@color/gray_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_recommanded_background_top" />
+
+        <TextView
+            android:id="@+id/tv_recommanded_trim_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:textColor="@color/gray_1000"
+            app:layout_constraintBottom_toTopOf="@+id/tv_recommanded_trim_composition"
+            app:layout_constraintEnd_toStartOf="@+id/iv_recommanded_trim_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/v_recommanded_background_top"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@string/prestige" />
+
+        <TextView
+            android:id="@+id/tv_recommanded_trim_composition"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:textColor="@color/gray_500"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/v_recommanded_background_top"
+            app:layout_constraintEnd_toEndOf="@+id/tv_recommanded_trim_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_recommanded_trim_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recommanded_trim_name"
+            tools:text="가솔린 8인승 2WD" />
+
+        <ImageView
+            android:id="@+id/iv_recommanded_trim_image"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="-250dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/v_recommanded_background_bottom"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/image_011" />
+
+        <ImageView
+            android:id="@+id/iv_recommanded_option_image1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="w,124:187"
+            app:layout_constraintEnd_toStartOf="@+id/iv_recommanded_option_image2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_recommanded_background_bottom"
+            app:srcCompat="@drawable/img_car_interior" />
+
+        <ImageView
+            android:id="@+id/iv_recommanded_option_image2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="w,124:187"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_recommanded_option_image1"
+            app:layout_constraintTop_toBottomOf="@+id/v_recommanded_background_bottom"
+            app:srcCompat="@drawable/img_car_interior" />
+
+        <TextView
+            android:id="@+id/tv_recommanded_option_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:textColor="@color/gray_200"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_recommanded_option_image1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_recommanded_option_image2"
+            tools:text="현대 스마트 센스1" />
+
+        <TextView
+            android:id="@+id/tv_recommanded_option_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:textColor="@color/gray_200"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_recommanded_option_image1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_recommanded_option_image1"
+            tools:text="컴포트2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

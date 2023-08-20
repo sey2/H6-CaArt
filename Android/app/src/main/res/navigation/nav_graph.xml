@@ -56,9 +56,16 @@
         <action
             android:id="@+id/action_lifeStyleSurveyFragment_to_lifeStyleDetailSurveyFragment"
             app:destination="@id/lifeStyleDetailSurveyFragment" />
+        <action
+            android:id="@+id/action_lifeStyleSurveyFragment_to_lifestyleDetailFragment"
+            app:destination="@id/lifestyleDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/lifeStyleDetailSurveyFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleDetailSurveyFragment"
         android:label="LifeStyleDetailSurveyFragment" />
+    <fragment
+        android:id="@+id/lifestyleDetailFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleDetailFragment"
+        android:label="LifestyleDetailFragment" />
 </navigation>

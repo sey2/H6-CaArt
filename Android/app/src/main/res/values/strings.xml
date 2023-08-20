@@ -66,4 +66,7 @@
     <string name="peek_into_lifestyle">라이프스타일 엿보기</string>
     <string name="no_lifestyle_you_want">원하는 라이프스타일이 없다면?</string>
     <string name="select_lifestyle_detail">라이프스타일 상세 선택</string>
+    <string name="for_you">For You</string>
+    <string name="question_q">Q.</string>
+    <string name="interview">Interview</string>
 </resources>
