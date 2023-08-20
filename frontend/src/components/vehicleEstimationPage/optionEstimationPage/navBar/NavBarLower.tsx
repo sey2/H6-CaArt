@@ -21,26 +21,33 @@ function OptionNavBarLower({
   OptionNavBarProps,
   'isBasicOptionPage' | 'optionCategory' | 'setOptionCategory'
 >) {
-  const { data: tagList, status, error } = useFetch<optionTagProps[]>('/tags');
-  if (status === 'loading') {
+  const {
+    data: basicTagList,
+    status: basicStatus,
+    error: basicError,
+  } = useFetch<optionTagProps[]>('/tags/basic');
+  const {
+    data: additionalTagList,
+    status: additionaStatus,
+    error: additionaError,
+  } = useFetch<optionTagProps[]>('/tags/additional');
+  if (basicStatus === 'loading' || additionaStatus === 'loading') {
     return <div>loading</div>;
-  } else if (status === 'error') {
-    console.error(error);
+  } else if (basicStatus === 'error') {
+    console.error(basicError);
+    return <ErrorPopup></ErrorPopup>;
+  } else if (additionaStatus === 'error') {
+    console.error(additionaError);
     return <ErrorPopup></ErrorPopup>;
   }
-  if (tagList === null) return <div></div>;
+  if (basicTagList === null || additionalTagList === null) return <div></div>;
 
   const selectedClassName = `body-medium-14 text-primary-blue`;
   const unSelectedClassName = `body-regular-14 text-grey-400`;
 
-  const categoryLists = tagList.map(item => {
-    if (
-      !isBasicOptionPage &&
-      item.tagName !== '전체' &&
-      item.tagImage === 'null'
-    ) {
-      return <></>;
-    }
+  const categoryLists = (
+    isBasicOptionPage ? basicTagList : additionalTagList
+  ).map(item => {
     return (
       <OptionNavCategoryBox
         key={item.tagId}
