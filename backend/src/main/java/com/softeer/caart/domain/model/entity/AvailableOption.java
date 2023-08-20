@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.model;
+package com.softeer.caart.domain.model.entity;
 
 import static javax.persistence.FetchType.*;
 

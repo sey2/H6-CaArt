@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.softeer.caart.domain.color.entity.Color;
-import com.softeer.caart.domain.model.Model;
+import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 
 import lombok.AccessLevel;

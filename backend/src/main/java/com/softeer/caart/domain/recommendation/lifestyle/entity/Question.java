@@ -3,6 +3,7 @@ package com.softeer.caart.domain.recommendation.lifestyle.entity;
 import static com.softeer.caart.domain.recommendation.lifestyle.entity.Answer.*;
 
 import java.util.List;
+import java.util.Random;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +24,9 @@ public enum Question {
 	private final String keyword;
 	private final List<Answer> answers;
 
+	public static Answer generateAnswerFrom(Question question) {
+		List<Answer> answers = question.getAnswers();
+		int randomIdx = new Random().nextInt(answers.size());
+		return answers.get(randomIdx);
+	}
 }

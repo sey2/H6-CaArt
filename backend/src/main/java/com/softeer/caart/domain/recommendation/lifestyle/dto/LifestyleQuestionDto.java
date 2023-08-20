@@ -53,7 +53,7 @@ public class LifestyleQuestionDto {
 		private final String code;
 		private final String answer;
 
-		private AnswerDto(Answer answerType) {
+		public AnswerDto(Answer answerType) {
 			this.code = answerType.name();
 			this.answer = answerType.getAnswer();
 		}

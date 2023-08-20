@@ -15,7 +15,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import com.softeer.caart.domain.composition.entity.BodyType;
 import com.softeer.caart.domain.composition.entity.CarEngine;
 import com.softeer.caart.domain.composition.entity.WheelDrive;
-import com.softeer.caart.domain.model.Model;
+import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.entity.SubOptionInfo;

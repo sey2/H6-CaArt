@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.softeer.caart.domain.common.RepositoryTest;
-import com.softeer.caart.domain.model.Model;
+import com.softeer.caart.domain.model.entity.Model;
 
 class ModelRepositoryTest extends RepositoryTest {
 

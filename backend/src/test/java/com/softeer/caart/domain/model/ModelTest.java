@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.option.exception.InvalidOptionException;
 import com.softeer.caart.domain.trim.entity.Trim;
 import com.softeer.caart.global.ResultCode;

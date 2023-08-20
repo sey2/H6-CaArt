@@ -3,7 +3,7 @@ package com.softeer.caart.domain.recommendation.persona.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.softeer.caart.domain.model.Model;
+import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.recommendation.persona.entity.Persona;
 import com.softeer.caart.domain.recommendation.persona.entity.Profile;

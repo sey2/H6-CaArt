@@ -4,7 +4,7 @@ import com.softeer.caart.domain.color.entity.Color;
 import com.softeer.caart.domain.composition.dto.BodyTypeDto;
 import com.softeer.caart.domain.composition.dto.CarEngineDto;
 import com.softeer.caart.domain.composition.dto.WheelDriveDto;
-import com.softeer.caart.domain.model.Model;
+import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.trim.dto.TrimDto;

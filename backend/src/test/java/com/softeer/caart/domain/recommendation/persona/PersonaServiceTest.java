@@ -8,10 +8,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.softeer.caart.domain.common.ServiceTest;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaDetailsResponse;
@@ -19,7 +17,6 @@ import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
 import com.softeer.caart.domain.recommendation.persona.repository.PersonaRepository;
 import com.softeer.caart.domain.recommendation.persona.service.PersonaService;
 
-@ExtendWith(MockitoExtension.class)
 class PersonaServiceTest extends ServiceTest {
 
 	@InjectMocks

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softeer.caart.domain.model.Model;
+import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.model.exception.ModelNotFoundException;
 import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.dto.AdditionalOptionResponse;
