@@ -12,11 +12,13 @@ import com.softeer.caart.global.response.DataResponseDto;
 import com.softeer.caart.global.response.ResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/colors")
 @RequiredArgsConstructor
+@Tag(name = "색상 API", description = "트림의 외장/내장 색상 정보를 조회한다.")
 public class ColorController {
 
 	private final ColorService colorService;
