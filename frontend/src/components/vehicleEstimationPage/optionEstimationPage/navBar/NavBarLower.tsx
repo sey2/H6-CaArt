@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../../hooks/useFetch';
-import { OptionNavBarProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 import { ErrorPopup } from '../../../common/ErrorPopup';
+import { OptionNavBarProps } from './NavBar';
 
 interface optionTagProps {
   tagId: number;
@@ -21,51 +21,43 @@ function OptionNavBarLower({
   OptionNavBarProps,
   'isBasicOptionPage' | 'optionCategory' | 'setOptionCategory'
 >) {
-  const {
-    data: basicTagList,
-    status: basicStatus,
-    error: basicError,
-  } = useFetch<optionTagProps[]>('/tags/basic');
-  const {
-    data: additionalTagList,
-    status: additionaStatus,
-    error: additionaError,
-  } = useFetch<optionTagProps[]>('/tags/additional');
-  if (basicStatus === 'loading' || additionaStatus === 'loading') {
+  const { data, status, error } = useFetch<optionTagProps[]>(
+    `/tags/${isBasicOptionPage ? 'basic' : 'additional'}`,
+  );
+  if (status === 'loading') {
     return <div>loading</div>;
-  } else if (basicStatus === 'error') {
-    console.error(basicError);
-    return <ErrorPopup></ErrorPopup>;
-  } else if (additionaStatus === 'error') {
-    console.error(additionaError);
+  } else if (status === 'error') {
+    console.error(error);
     return <ErrorPopup></ErrorPopup>;
   }
-  if (basicTagList === null || additionalTagList === null) return <div></div>;
+  if (data === null) return <div></div>;
 
   const selectedClassName = `body-medium-14 text-primary-blue`;
   const unSelectedClassName = `body-regular-14 text-grey-400`;
 
-  const categoryLists = (
-    isBasicOptionPage ? basicTagList : additionalTagList
-  ).map(item => {
+  const categoryLists = data.map(item => {
     return (
       <OptionNavCategoryBox
         key={item.tagId}
-        className={item.tagName === optionCategory ? 'selected' : ''}
+        className={item.tagName === optionCategory.name ? 'selected' : ''}
         onClick={() => {
-          setOptionCategory(item.tagName);
+          setOptionCategory({
+            name: item.tagName,
+            img: item.tagImage,
+            id: item.tagId,
+          });
         }}
       >
         <img
           src={
-            item.tagName === optionCategory
+            item.tagName === optionCategory.name
               ? `${item.tagIconSelected}`
               : `${item.tagIcon}`
           }
         ></img>
         <span
           className={
-            item.tagName === optionCategory
+            item.tagName === optionCategory.name
               ? selectedClassName
               : unSelectedClassName
           }

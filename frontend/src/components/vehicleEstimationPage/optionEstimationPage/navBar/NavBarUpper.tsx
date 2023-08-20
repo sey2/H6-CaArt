@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { OptionNavBarProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
+import { OptionNavBarProps } from './NavBar';
 
 function OptionNavBarUpper({
   isBasicOptionPage,
@@ -41,7 +41,7 @@ function OptionNavBarUpper({
   ) {
     lineHandler(e);
     setIsBasicOptionPage(type === 'basic');
-    setOptionCategory(type === 'basic' ? '대표' : '전체');
+    setOptionCategory({ name: '대표', img: '', id: 0 });
   }
 
   return (

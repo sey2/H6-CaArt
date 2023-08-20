@@ -1,26 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import { priceToString } from '../../../../util/PriceToString';
+import { infoPopupBtnProps, infoPopupProps } from './OptionInfoPopupBtn';
 
 function OptionInfoPopup({
   top,
   left,
-  id,
   setOpenedModalId,
-}: {
-  top: number;
-  left: number;
-  id: number;
-  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
-}) {
+  id,
+  name,
+  img,
+  category,
+  price,
+}: Pick<infoPopupBtnProps, 'top' | 'left' | 'setOpenedModalId'> &
+  infoPopupProps) {
   return (
     <OptionInfoPopupBox top={top} left={left}>
-      <OptionInfoPopupImg src="https://picsum.photos/200/300"></OptionInfoPopupImg>
+      <OptionInfoPopupImg src={img}></OptionInfoPopupImg>
       <OptionInfoPopupText>
         <div>
-          <div className="caption-regular-12 text-grey-400">주행안전</div>
-          <div className="body-medium-16 text-grey-50">현대 스마트 센스 I</div>
+          <div className="caption-regular-12 text-grey-400">{category}</div>
+          <div className="body-medium-16 text-grey-50">{name}</div>
         </div>
-        <div className="head-medium-16">790,000원</div>
+        <div className="head-medium-16">{priceToString(price)}</div>
       </OptionInfoPopupText>
       <OptionInfoPopupIcon
         src="/images/rightArrow_icon_basic.svg"

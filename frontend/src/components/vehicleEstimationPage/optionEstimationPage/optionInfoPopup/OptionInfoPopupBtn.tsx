@@ -2,21 +2,34 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import OptionInfoPopup from './OptionInfoPopup';
 
-function OptionInfoPopupBtn({
-  top,
-  left,
-  id,
-  clickedPlusBtn,
-  setClickecPlusBtn,
-  setOpenedModalId,
-}: {
+export interface infoPopupBtnProps {
   top: number;
   left: number;
-  id: number;
   clickedPlusBtn: number;
   setClickecPlusBtn: React.Dispatch<React.SetStateAction<number>>;
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
-}) {
+}
+
+export interface infoPopupProps {
+  id: number;
+  name: string;
+  category: string;
+  img: string;
+  price: number;
+}
+
+function OptionInfoPopupBtn({
+  top,
+  left,
+  clickedPlusBtn,
+  setClickecPlusBtn,
+  setOpenedModalId,
+  id,
+  name,
+  category,
+  img,
+  price,
+}: infoPopupBtnProps & infoPopupProps) {
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -45,8 +58,12 @@ function OptionInfoPopupBtn({
         <OptionInfoPopup
           top={top}
           left={left}
-          id={id}
           setOpenedModalId={setOpenedModalId}
+          id={id}
+          name={name}
+          category={category}
+          img={img}
+          price={price}
         ></OptionInfoPopup>
       )}
     </>

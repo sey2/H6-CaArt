@@ -10,11 +10,17 @@ import OptionModal from '../../components/vehicleEstimationPage/optionEstimation
 
 function OptionEstimationPage() {
   const [isBasicOptionPage, setIsBasicOptionPage] = useState(false);
-  const [optionCategory, setOptionCategory] = useState('전체');
+  const [optionCategory, setOptionCategory] = useState({
+    name: '전체',
+    img: '',
+    id: 0,
+  });
   const [openedModalId, setOpenedModalId] = useState(0);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+    setPage(0);
   }, [isBasicOptionPage, optionCategory]);
 
   return (
@@ -28,14 +34,15 @@ function OptionEstimationPage() {
         setOptionCategory={setOptionCategory}
       ></OptionNavBar>
 
-      {!isBasicOptionPage && optionCategory === '전체' && (
+      {!isBasicOptionPage && optionCategory.name === '전체' && (
         <OptionCardList
-          options={data}
+          page={page}
+          setPage={setPage}
           type={'additionalAll'}
           setOpenedModalId={setOpenedModalId}
         ></OptionCardList>
       )}
-      {!isBasicOptionPage && optionCategory !== '전체' && (
+      {!isBasicOptionPage && optionCategory.name !== '전체' && (
         <OptionCardListAdditionalTag
           optionCategory={optionCategory}
           setOpenedModalId={setOpenedModalId}
@@ -43,7 +50,8 @@ function OptionEstimationPage() {
       )}
       {isBasicOptionPage && (
         <OptionCardList
-          options={data}
+          page={page}
+          setPage={setPage}
           type={'basic'}
           setOpenedModalId={setOpenedModalId}
         ></OptionCardList>
@@ -73,13 +81,6 @@ function OptionEstimationPage() {
   );
 }
 
-export interface OptionNavBarProps {
-  isBasicOptionPage: boolean;
-  setIsBasicOptionPage: React.Dispatch<React.SetStateAction<boolean>>;
-  optionCategory: string;
-  setOptionCategory: React.Dispatch<React.SetStateAction<string>>;
-}
-
 const OptionEstimationPageBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,141 +95,3 @@ const OptionEstimationPageBtn = styled.div`
 `;
 
 export default OptionEstimationPage;
-
-const data = [
-  {
-    id: 31,
-    name: '컴포트2',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: 'N Performance',
-    percent: 80,
-  },
-  {
-    id: 2,
-    name: '컴포트3',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: 'H Genuine Accessories',
-    percent: 35,
-  },
-  {
-    id: 3,
-    name: '컴포트4',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 65,
-  },
-  {
-    id: 4,
-    name: '컴포트5',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 5,
-    name: '컴포트6',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 6,
-    name: '컴포트7',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 7,
-    name: '컴포트8',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 8,
-    name: '컴포트9',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 9,
-    name: '컴포트10',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 10,
-    name: '컴포트11',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 11,
-    name: '컴포트12',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 12,
-    name: '컴포트13',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 13,
-    name: '컴포트14',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 14,
-    name: '컴포트15',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-  {
-    id: 15,
-    name: '컴포트16',
-    description: '편의성을 위해 구성된 세트 옵션',
-    imgSrc: 'https://picsum.photos/200/300',
-    price: 1090000,
-    badge: '',
-    percent: 35,
-  },
-];

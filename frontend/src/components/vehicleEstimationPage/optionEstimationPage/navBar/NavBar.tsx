@@ -1,8 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { OptionNavBarProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 import OptionNavBarLower from './NavBarLower';
 import OptionNavBarUpper from './NavBarUpper';
+
+export interface optionCategoryProps {
+  name: string;
+  img: string;
+  id: number;
+}
+export interface OptionNavBarProps {
+  isBasicOptionPage: boolean;
+  setIsBasicOptionPage: React.Dispatch<React.SetStateAction<boolean>>;
+  optionCategory: optionCategoryProps;
+  setOptionCategory: React.Dispatch<React.SetStateAction<optionCategoryProps>>;
+}
 
 function OptionNavBar({
   isBasicOptionPage,
