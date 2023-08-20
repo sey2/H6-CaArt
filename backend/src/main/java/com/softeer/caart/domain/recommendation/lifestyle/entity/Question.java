@@ -18,6 +18,7 @@ public enum Question {
 	VALUE("자동차를 살 때 어떤 가치가 가장 중요한가요?", "어떤 가치", List.of(DESIGN, PERFORMANCE, SAFETY, CONVENIENCE)),
 	BUDGET("최대 예산이 얼마인가요?", "최대 예산", List.of()),
 	AGE("나이를 알려주세요.", "나이", List.of(TWENTY, THIRTY, FORTY, FIFTY_OR_ABOVE)),
+	PERSONA("유사한 라이프스타일을 선택하면 차량 조합을 추천해 드려요.", "라이프스타일", List.of()),
 	;
 
 	private final String content;
@@ -26,7 +27,8 @@ public enum Question {
 
 	public static Answer generateAnswerFrom(Question question) {
 		List<Answer> answers = question.getAnswers();
-		int randomIdx = new Random().nextInt(answers.size());
+		Random random = new Random();
+		int randomIdx = random.nextInt(answers.size());
 		return answers.get(randomIdx);
 	}
 }

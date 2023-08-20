@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 import com.softeer.caart.domain.recommendation.lifestyle.entity.Question;
+import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,9 +13,9 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LifestyleQuestionDto {
-	private final static Integer MIN_BUDGET = 4200;
-	private final static Integer MAX_BUDGET = 6900;
-	private final static Integer UNIT_BUDGET = 300;
+	private static final Integer MIN_BUDGET = 4200;
+	private static final Integer MAX_BUDGET = 6900;
+	private static final Integer UNIT_BUDGET = 300;
 
 	@Getter
 	public static class QuestionDto {
@@ -45,6 +46,19 @@ public class LifestyleQuestionDto {
 			this.minBudget = MIN_BUDGET;
 			this.maxBudget = MAX_BUDGET;
 			this.budgetUnit = UNIT_BUDGET;
+		}
+	}
+
+	@Getter
+	public static class PersonaQuestionDto {
+		private final String question;
+		private final String keyword;
+		private final List<PersonaResponse> personas;
+
+		public PersonaQuestionDto(Question question, List<PersonaResponse> personas) {
+			this.question = question.getContent();
+			this.keyword = question.getKeyword();
+			this.personas = personas;
 		}
 	}
 

@@ -1,5 +1,7 @@
 package com.softeer.caart.domain.recommendation.lifestyle.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import com.softeer.caart.domain.recommendation.lifestyle.dto.response.LifestyleA
 import com.softeer.caart.domain.recommendation.lifestyle.dto.response.LifestyleBaseQuestionsResponse;
 import com.softeer.caart.domain.recommendation.lifestyle.dto.response.RecommendationResponse;
 import com.softeer.caart.domain.recommendation.lifestyle.service.LifeStyleService;
+import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
+import com.softeer.caart.domain.recommendation.persona.service.PersonaService;
 import com.softeer.caart.global.response.DataResponseDto;
 import com.softeer.caart.global.response.ResponseDto;
 
@@ -25,11 +29,13 @@ import lombok.RequiredArgsConstructor;
 public class LifeStyleController {
 
 	private final LifeStyleService lifeStyleService;
+	private final PersonaService personaService;
 
 	@GetMapping("/questions")
 	@Operation(summary = "사전 질문 목록을 조회한다.")
 	public ResponseDto getBaseQuestions() {
-		return DataResponseDto.of(LifestyleBaseQuestionsResponse.create());
+		List<PersonaResponse> personas = personaService.getPersonas();
+		return DataResponseDto.of(LifestyleBaseQuestionsResponse.from(personas));
 	}
 
 	@GetMapping("/questions/additional")

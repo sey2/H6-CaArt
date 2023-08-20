@@ -1,6 +1,5 @@
 package com.softeer.caart.domain.color.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.softeer.caart.domain.color.entity.Color;
@@ -68,20 +67,20 @@ public class ColorDto {
 
 	@Getter
 	public static class OtherTrimColorDto {
+		private final Long colorId;
+		private final String colorName;
+		private final String colorImage;
 		private final Long trimId;
 		private final String trimName;
 		private final Integer trimPrice;
-		private final List<ColorSummaryDto> colors;
 
-		public OtherTrimColorDto(Trim trim) {
+		public OtherTrimColorDto(Color color, Trim trim) {
+			this.colorId = color.getId();
+			this.colorName = color.getName();
+			this.colorImage = color.getImage().getUrl();
 			this.trimId = trim.getId();
 			this.trimName = trim.getName();
 			this.trimPrice = trim.getPrice();
-			this.colors = new ArrayList<>();
-		}
-
-		public void addColor(Color color) {
-			colors.add(new ColorDto.ColorSummaryDto(color));
 		}
 	}
 }

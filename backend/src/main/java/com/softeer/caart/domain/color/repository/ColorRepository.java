@@ -15,5 +15,5 @@ public interface ColorRepository extends JpaRepository<Color, Long> {
 		+ "join c.relationsWithTrims r "
 		+ "join fetch c.colorPreviews "
 		+ "where r.trim.id = :trimId")
-	List<Color> findColorsOfCurrentTrim(@Param("trimId") Long trimId);
+	List<Color> findColorsByTrimId(@Param("trimId") Long trimId);
 }
