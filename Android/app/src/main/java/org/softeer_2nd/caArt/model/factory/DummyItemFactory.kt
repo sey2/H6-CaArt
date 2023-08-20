@@ -5,6 +5,7 @@ import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.dummy.OptionChangePopUpDummyItem
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.Persona
+import org.softeer_2nd.caArt.model.data.ResultChoiceOption
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.dummy.OptionColorDummyItem
 import org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState
@@ -15,7 +16,13 @@ import org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem
 object DummyItemFactory {
     fun createOptionSelectionDummyItems(): MutableList<UserChoiceBottomsheetState> {
         return arrayListOf(
-            UserChoiceBottomsheetState("모델", "펠리세이드 디젤 2.2 2WD, Le Blanc", "7인승", "42,450,000원", ""),
+            UserChoiceBottomsheetState(
+                "모델",
+                "펠리세이드 디젤 2.2 2WD, Le Blanc",
+                "7인승",
+                "42,450,000원",
+                ""
+            ),
             UserChoiceBottomsheetState("색상", "외장 - 어비스 블랙펄", "내장 - 어비스 블랙펄", "-원", "-원"),
             UserChoiceBottomsheetState("옵션", "컴포트 II", "내장 어비스 블랙펄", "1,090,000원", "790,000원"),
         )
@@ -195,15 +202,15 @@ object DummyItemFactory {
         )
     }
 
-    fun createSurveyQuestionDummyItem(): List<SurveyQuestion> {
-        return List(3) { questionIndex ->
-            SurveyQuestion(
-                question = "$questionIndex 나이를 알려주세요.",
-                keyword = "hello",
-                answers = List(5) { Answer("$it 살", "it") }
-            )
-        }
-    }
+//    fun createSurveyQuestionDummyItem(): List<SurveyQuestion> {
+//        return List(3) { questionIndex ->
+//            SurveyQuestion(
+//                question = "$questionIndex 나이를 알려주세요.",
+//                keyword = "hello",
+//                choices = List(5) { Choice("$it 살", it) }
+//            )
+//        }
+//    }
 
     fun createLifestylePersonaListDummyItem(): List<Persona> {
         return List(4) {
@@ -216,15 +223,42 @@ object DummyItemFactory {
         }
     }
 
-    fun createDetailSurveyQuestionDummyItem(): List<SurveyQuestion> {
-        return List(3) { questionIndex ->
-            SurveyQuestion(
-                question = "$questionIndex 나이를 알려주세요.",
-                keyword = "hello",
-                answers = List(5) { Answer("$it 살", "it") }
-            )
-        }
-    }
+//    fun createDetailSurveyQuestionDummyItem(): List<SurveyQuestion> {
+//        return List(3) { questionIndex ->
+//            SurveyQuestion(
+//                question = "$questionIndex 나이를 알려주세요.",
+//                keyword = "hello",
+//                choices = List(5) { Choice("$it 살", it) }
+//            )
+//        }
+//    }
 
     fun createBudgetRangeDummyItem(): BudgetRange = BudgetRange(400, 2000, 200)
+
+    fun createResultOptionDummyItem(): List<ResultChoiceOption> {
+        return listOf(
+            ResultChoiceOption(
+                "색상",
+                "외장 - 크라미 화이 펄",
+                "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
+                "0원",
+                "75%의 20~30대 구매자들이 선택했어요",
+                "내장 - 인조 가죽(블랙)",
+                "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
+                "0원",
+                "75%의 20~30대 구매자들이 선택했어요"
+            ),
+            ResultChoiceOption(
+                "색상",
+                "외장 - 크라미 화이 펄",
+                "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
+                "0원",
+                "75%의 20~30대 구매자들이 선택했어요",
+                "내장 - 인조 가죽(블랙)",
+                "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
+                "0원",
+                "75%의 20~30대 구매자들이 선택했어요"
+            )
+        )
+    }
 }

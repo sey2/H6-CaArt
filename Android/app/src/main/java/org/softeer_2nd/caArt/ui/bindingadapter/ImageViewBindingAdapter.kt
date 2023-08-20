@@ -4,15 +4,18 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import coil.decode.SvgDecoder
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import org.softeer_2nd.caArt.ui.custom.DynamicOptionFloatingImageView
 import org.softeer_2nd.caArt.util.dp2px
 
 
-@BindingAdapter("url")
-fun ImageView.setImageSrcWithUrl(url: String?) {
-
+@BindingAdapter(value=["url", "cornerRadius"], requireAll = false)
+fun ImageView.setImageSrcWithUrl(url: String?, cornerRadius: Float? = null) {
     load(url) {
         scale(coil.size.Scale.FILL)
+        cornerRadius?.let {
+            transformations(RoundedCornersTransformation(it))
+        }
     }
 }
 

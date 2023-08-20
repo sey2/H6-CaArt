@@ -66,6 +66,12 @@
     <string name="peek_into_lifestyle">라이프스타일 엿보기</string>
     <string name="no_lifestyle_you_want">원하는 라이프스타일이 없다면?</string>
     <string name="select_lifestyle_detail">라이프스타일 상세 선택</string>
+    <string name="default_composition">가솔린 2.2 2WD 8인승</string>
+    <string name="pdf">PDF로 저장</string>
+    <string name="send_mail">메일로 발송</string>
+    <string name="save_my_account">내 계정에 저장하기</string>
+    <string name="car_purchase">차량 구매</string>
+    <string name="recommend_adoption_rate">75%의 20~30대 구매자들이 선택했어요</string>
     <string name="for_you">For You</string>
     <string name="question_q">Q.</string>
     <string name="interview">Interview</string>

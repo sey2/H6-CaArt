@@ -1,6 +1,7 @@
 package org.softeer_2nd.caArt.ui.bindingadapter
 
 import android.annotation.SuppressLint
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -120,3 +121,19 @@ private fun handleActionMove(
     return moveX
 }
 
+@BindingAdapter("marginTop", "trueMargin", "falseMargin", requireAll = false)
+fun View.setDynamicMarginTop(condition: Boolean, trueMarginDp: Float?, falseMarginDp: Float?) {
+    val layoutParams = layoutParams as? ViewGroup.MarginLayoutParams ?: return
+
+    val marginValue = if (condition) {
+        trueMarginDp ?: 0f
+    } else {
+        falseMarginDp ?: 0f
+    }
+
+    layoutParams.topMargin = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        marginValue,
+        resources.displayMetrics
+    ).toInt()
+}
