@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { styled } from 'styled-components';
+import { EstimationContext } from '../../util/Context';
 import { priceToString } from '../../util/PriceToString';
 import { FlexBox } from '../common/FlexBox';
 
@@ -11,6 +12,7 @@ function BuyCarContainer() {
     3: false,
   });
   const option = ['탁송', '할인/포인트', '결제방법', '면제 구분 및 등록비'];
+  const { totalPrice } = useContext(EstimationContext)!;
   return (
     <Wrapper>
       <Title className="text-grey-100 head-medium-18">차량 구매</Title>
@@ -45,7 +47,7 @@ function BuyCarContainer() {
       <Flex>
         <span className="text-grey-100 head-regular-16">차량 견적 총 금액</span>
         <span className="text-secondary-active-blue head-medium-24">
-          {priceToString(48120000)}
+          {priceToString(totalPrice)}
         </span>
       </Flex>
     </Wrapper>

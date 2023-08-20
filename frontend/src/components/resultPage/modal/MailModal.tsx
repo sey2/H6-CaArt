@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useModalContext } from '../../../store/ModalContext';
 import { FlexBox } from '../../common/FlexBox';
 import SquareButton from '../../common/SquareButton';
 
-export interface ModalProps {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
-}
-
-function MailModal({ setter, isOpen }: ModalProps) {
+function MailModal() {
+  const { state, dispatch } = useModalContext();
   const [mailInput, setMailInput] = useState<string>('');
   return (
-    <ModalBox className={isOpen ? 'active' : ''} >
-      <OverlayBox onClick={() => setter(false)}>
+    <ModalBox isopen={state.mailModalOpen}>
+      <OverlayBox onClick={() => dispatch({ type: 'CLOSE_MAIL_MODAL' })}>
         <Container onClick={e => e.stopPropagation()}>
           <FlexBox justify="space-between" margin="0 0 8px 0">
             <span className="head-medium-22 text-grey-50">
               메일 주소를 알려주세요
             </span>
-            <img src="/images/x_icon.svg" onClick={() => setter(false)} />
+            <img
+              src="/images/x_icon.svg"
+              onClick={() => dispatch({ type: 'CLOSE_MAIL_MODAL' })}
+            />
           </FlexBox>
           <div className="body-regular-14 text-grey-400">
             해당 주소로 만들어진 내 차를 보내드려요.
@@ -40,20 +40,15 @@ function MailModal({ setter, isOpen }: ModalProps) {
 
 export default MailModal;
 
-const ModalBox = styled.div`
+const ModalBox = styled.div<{ isopen: boolean }>`
   position: fixed;
-  width: 100vw;
-  height: 100vh;
   top: 0;
   left: 0;
   z-index: 3;
-  opacity: 0;
+  transition: all 0.5s ease-out;
   visibility: hidden;
-  transition: opacity 0.5s ease-out;
-  &.active {
-    opacity: 1;
-    visibility: visible;
-  }
+  opacity: 0;
+  ${props => props.isopen && `visibility:visible; opacity:1;`};
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -62,8 +57,8 @@ const ModalBox = styled.div`
 `;
 
 const OverlayBox = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
   background: rgba(15, 17, 20, 0.55);
   z-index: 5;

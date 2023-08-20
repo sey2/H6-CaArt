@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { ModalProps } from './modal/ShareModal';
 import ResultImage from './ResultImage';
 
-function TopContainer({ setter }: Pick<ModalProps, 'setter'>) {
+function TopContainer() {
   return (
     <Background>
       <Link to="/">
@@ -18,7 +17,7 @@ function TopContainer({ setter }: Pick<ModalProps, 'setter'>) {
           만든 차는 저장하고 공유할 수 있어요.
         </p>
       </Flex>
-      <ResultImage setter={setter} />
+      <ResultImage />
     </Background>
   );
 }

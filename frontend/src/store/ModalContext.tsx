@@ -15,7 +15,13 @@ type Action =
   | { type: 'SET_OPTION_POSITION'; position: { x: number; y: number } }
   | { type: 'SET_OPTION_DATA'; data: OptionType }
   | { type: 'OPEN_RECOMMEND_MODAL' }
-  | { type: 'CLOSE_RECOMMEND_MODAL' };
+  | { type: 'CLOSE_RECOMMEND_MODAL' }
+  | { type: 'OPEN_MAIL_MODAL' }
+  | { type: 'CLOSE_MAIL_MODAL' }
+  | { type: 'OPEN_SHARE_MODAL' }
+  | { type: 'CLOSE_SHARE_MODAL' }
+  | { type: 'OPEN_SAVE_MODAL' }
+  | { type: 'CLOSE_SAVE_MODAL' };
 
 interface TrimModalState {
   infoModalOpen: boolean;
@@ -27,6 +33,9 @@ interface TrimModalState {
   optionModalPosition: { x: number; y: number };
   optionModalData: OptionType;
   recommendModalOpen: boolean;
+  mailModalOpen: boolean;
+  shareModalOpen: boolean;
+  saveModalOpen: boolean;
 }
 
 const initialState: TrimModalState = {
@@ -44,6 +53,9 @@ const initialState: TrimModalState = {
     optionImage: '',
   },
   recommendModalOpen: false,
+  saveModalOpen: false,
+  mailModalOpen: false,
+  shareModalOpen: false,
 };
 
 function reducer(state: TrimModalState, action: Action): TrimModalState {
@@ -76,6 +88,18 @@ function reducer(state: TrimModalState, action: Action): TrimModalState {
       return { ...state, recommendModalOpen: true };
     case 'CLOSE_RECOMMEND_MODAL':
       return { ...state, recommendModalOpen: false };
+    case 'OPEN_SHARE_MODAL':
+      return { ...state, shareModalOpen: true };
+    case 'CLOSE_SHARE_MODAL':
+      return { ...state, shareModalOpen: false };
+    case 'OPEN_MAIL_MODAL':
+      return { ...state, mailModalOpen: true };
+    case 'CLOSE_MAIL_MODAL':
+      return { ...state, mailModalOpen: false };
+    case 'OPEN_SAVE_MODAL':
+      return { ...state, saveModalOpen: true };
+    case 'CLOSE_SAVE_MODAL':
+      return { ...state, saveModalOpen: false };
     default:
       return state;
   }

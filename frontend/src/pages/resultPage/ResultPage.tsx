@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import TopContainer from '../../components/resultPage/TopContainer';
 import { ResultMain } from '../../components/common/result/ResultMain';
 import { styled } from 'styled-components';
@@ -8,10 +8,11 @@ import { Link } from 'react-router-dom';
 import ShareModal from '../../components/resultPage/modal/ShareModal';
 import MailModal from '../../components/resultPage/modal/MailModal';
 import MakePdf from '../../util/MakePdf';
+import { useModalContext } from '../../store/ModalContext';
+import LoginModal from '../../components/resultPage/modal/LoginModal';
 
 function ResultPage() {
-  const [shareModal, setShareModal] = useState<boolean>(false);
-  const [mailModal, setMailModal] = useState<boolean>(false);
+  const { state, dispatch } = useModalContext();
   const pdf = MakePdf();
   const getPdf = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -21,46 +22,44 @@ function ResultPage() {
     window.scroll(0, 0);
   }, []);
   return (
-    <Wrapper share={shareModal} mail={mailModal}>
-      {shareModal && <ShareModal setter={setShareModal} isOpen={shareModal} />}
-      {mailModal && <MailModal setter={setMailModal} isOpen={mailModal} />}
-      <div className="pdf">
-      <TopContainer setter={setShareModal} />
-      <MainContainer>
-        <ResultMain />
-        <ButtonContainer>
-          <SquareButton size="s" color="grey-200" border>
-            내 계정에 저장
-          </SquareButton>
-          <div onClick={getPdf}>
-            <SquareButton size="s" color="grey-200" border>
-              PDF로 저장
+    <>
+      {<ShareModal />}
+      {<MailModal />}
+      {<LoginModal />}
+      <Wrapper
+        share={state.shareModalOpen}
+        mail={state.mailModalOpen}
+        save={state.saveModalOpen}
+      >
+        <div className="pdf">
+          <TopContainer />
+          <MainContainer>
+            <ResultMain />
+            <ButtonContainer className="body-medium-16 text-grey-200">
+              <Button onClick={() => dispatch({ type: 'OPEN_SAVE_MODAL' })}>
+                내 계정에 저장
+              </Button>
+              <Button onClick={getPdf}>PDF로 저장</Button>
+              <Button onClick={() => dispatch({ type: 'OPEN_MAIL_MODAL' })}>
+                내 메일로 발송
+              </Button>
+            </ButtonContainer>
+          </MainContainer>
+        </div>
+        <Hr />
+        <BuyCarContainer />
+        <ButtonContainer className="last">
+          <Link to="/estimate/option">
+            <SquareButton size="m" color="grey-50" border>
+              수정
             </SquareButton>
-          </div>
-          <SquareButton
-            size="s"
-            color="grey-200"
-            border
-            onClick={() => setMailModal(true)}
-          >
-            내 메일로 발송
+          </Link>
+          <SquareButton size="m" color="grey-1000" bg="primary-blue">
+            구매/상담
           </SquareButton>
         </ButtonContainer>
-      </MainContainer>
-      </div>
-      <Hr />
-      <BuyCarContainer />
-      <ButtonContainer className="last">
-        <Link to="/estimate/option">
-          <SquareButton size="m" color="grey-50" border>
-            수정
-          </SquareButton>
-        </Link>
-        <SquareButton size="m" color="grey-1000" bg="primary-blue">
-          구매/상담
-        </SquareButton>
-      </ButtonContainer>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 }
 
@@ -96,8 +95,23 @@ const Hr = styled.div`
   background: var(--grey-700);
 `;
 
-const Wrapper = styled.div<{ share: boolean; mail: boolean }>`
+const Wrapper = styled.div<{ share: boolean; mail: boolean; save: boolean }>`
   overflow-x: hidden;
-  ${props =>
-    props.share || props.mail ? `position:fixed;` : `position:static;`}
+  ${props => (props.share || props.mail || props.save) && `position: fixed;`}
+`;
+
+const Button = styled.div`
+  display: flex;
+  width: 168px;
+  height: 52px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--grey-600);
+  border-radius: 8px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--primary-blue);
+    color: var(--grey-1000);
+  }
 `;

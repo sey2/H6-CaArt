@@ -1,25 +1,29 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { styled } from 'styled-components';
-import { ModalProps } from "./modal/ShareModal";
+import { useModalContext } from '../../store/ModalContext';
+import { EstimationContext } from "../../util/Context";
 
-function ResultImage({setter}: Pick<ModalProps,'setter'>) {
+
+function ResultImage() {
+  const { dispatch } = useModalContext();
+  const { currentEstimation } = useContext(EstimationContext)!;
   return (
     <>
-    <Wrapper>
-      <ImageTop src="/images/temp_top_image.png" />
-      <ShareIcon onClick={()=>setter(true)}>
-        <img src="/images/download_icon.svg" />
-      </ShareIcon>
-      <ShadeTop src="/images/triangle.svg" />
-      <ImageBottom>
-        <Flex>
-          <span className="text-grey-300 body-medium-14">펠리세이드</span>
-          <Logo src="/images/hyundai_logo_default.svg" />
-        </Flex>
-        <span className="text-grey-0 head-medium-16">Le Blanc(르블랑)</span>
-        <Shade src="/images/triangle.svg" />
-      </ImageBottom>
-    </Wrapper>
+      <Wrapper>
+        <ImageTop src="/images/temp_top_image.png" />
+        <ShareIcon onClick={() => dispatch({ type: 'OPEN_SHARE_MODAL' })}>
+          <img src="/images/download_icon.svg" />
+        </ShareIcon>
+        <ShadeTop src="/images/triangle.svg" />
+        <ImageBottom>
+          <Flex>
+            <span className="text-grey-300 body-medium-14">펠리세이드</span>
+            <Logo src="/images/hyundai_logo_default.svg" />
+          </Flex>
+          <span className="text-grey-0 head-medium-16">{currentEstimation.trim.name}</span>
+          <Shade src="/images/triangle.svg" />
+        </ImageBottom>
+      </Wrapper>
     </>
   );
 }
@@ -93,4 +97,8 @@ const ShareIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s linear;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
 `;

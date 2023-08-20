@@ -1,21 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useModalContext } from "../../../store/ModalContext";
 import { FlexBox } from '../../common/FlexBox';
 import SquareButton from '../../common/SquareButton';
 
-export interface ModalProps {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
-}
 
-function ShareModal({ setter, isOpen }: ModalProps) {
+function ShareModal() {
+  const {state, dispatch} = useModalContext();
   return (
-    <ModalBox className={isOpen ? 'active' : ''}>
-      <OverlayBox onClick={() => setter(false)}>
+    <ModalBox isopen={state.shareModalOpen}>
+      <OverlayBox onClick={() => dispatch({type:'CLOSE_SHARE_MODAL'})}>
         <Container onClick={e => e.stopPropagation()}>
           <FlexBox justify="space-between" margin="0 0 8px 0">
             <span className="head-medium-22 text-grey-50">공유하기</span>
-            <img src="/images/x_icon.svg" onClick={() => setter(false)} />
+            <img src="/images/x_icon.svg" onClick={() => dispatch({type:'CLOSE_SHARE_MODAL'})} />
           </FlexBox>
           <div className="body-regular-14 text-grey-400">
             구성하신 견적이 URL로 생성되었어요.
@@ -38,7 +36,7 @@ function ShareModal({ setter, isOpen }: ModalProps) {
 
 export default ShareModal;
 
-const ModalBox = styled.div`
+const ModalBox = styled.div<{isopen:boolean}>`
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -47,11 +45,8 @@ const ModalBox = styled.div`
   z-index: 3;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease-out;
-  &.active {
-    opacity: 1;
-    visibility: visible;
-  }
+  transition: all 0.5s ease-out;
+  ${props => props.isopen && `visibility:visible; opacity:1;`};
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
