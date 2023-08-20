@@ -18,6 +18,8 @@ public class AdditionalOptionWithPositionResponse {
 	private Integer optionPrice;
 	private String description;
 	private String summary;
+	private String badge;
+	private Integer adoptionRate;
 	private Position position;
 	private String optionImage;
 	private List<String> tags;
@@ -27,7 +29,9 @@ public class AdditionalOptionWithPositionResponse {
 		this.optionId = option.getId();
 		this.optionPrice = option.getPrice();
 		this.summary = option.getSummary();
-		// this.position = option.getPosition();
+		this.badge = option.getBadgeName();
+		this.adoptionRate = 70; // FIXME
+		// this.position = option.getPosition(); // FIXME
 		BaseOptionInfo details = option.getDetails();
 		this.optionName = details.getName();
 		this.description = details.getDescription();

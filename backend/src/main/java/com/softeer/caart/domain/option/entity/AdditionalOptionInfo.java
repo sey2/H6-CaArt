@@ -98,4 +98,8 @@ public class AdditionalOptionInfo {
 			.sorted(Comparator.comparing(BaseOptionResponse::getOptionName))
 			.collect(Collectors.toList());
 	}
+
+	public String getBadgeName() {
+		return this.badge.getName();
+	}
 }
