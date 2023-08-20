@@ -14,6 +14,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,10 +29,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GlobalExceptionHandler {
 
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+	public ResponseEntity<ErrorResponseDto> handleMissingServletRequestParameterException(
+		MissingServletRequestParameterException e) {
+		log.error("handleMissingServletRequestParameterException : {}", e.getMessage());
+		final ErrorResponseDto response = ErrorResponseDto.of(ResultCode.INVALID_METHOD_ARGUMENT, e.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
+	}
+
 	@ExceptionHandler(BindException.class)
-	public ResponseEntity<ErrorListResponseDto> handleHttpMessageNotReadableException(BindException e) {
+	public ResponseEntity<ErrorListResponseDto> handleBindException(BindException e) {
 		List<String> errorMessage = convertFieldErrorMessageToString(e.getFieldErrors());
-		log.error("BindException : {}", errorMessage);
+		log.error("handleBindException : {}", errorMessage);
 		final ErrorListResponseDto response = ErrorListResponseDto.of(ResultCode.INVALID_REQUEST_PARAM, errorMessage);
 		return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
 	}
@@ -102,6 +111,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<ErrorResponseDto> handleException(Exception e) {
 		log.error("Exception : {}", e.getMessage());
+		log.error("Exception : {}", e.getClass());
 		final ErrorResponseDto response = ErrorResponseDto.from(ResultCode.INTERNAL_SERVER_ERROR);
 		return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
 	}

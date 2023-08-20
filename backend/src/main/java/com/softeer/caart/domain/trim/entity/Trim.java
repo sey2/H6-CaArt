@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.softeer.caart.domain.Image;
+import com.softeer.caart.domain.color.entity.AvailableColor;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -44,7 +45,7 @@ public class Trim {
 	private List<MainOptionOfTrim> mainOptions = new ArrayList<>();
 
 	@OneToMany(mappedBy = "trim")
-	private List<AvailableColor> colors = new ArrayList<>();
+	private List<AvailableColor> availableColors = new ArrayList<>();
 
 	@Builder
 	public Trim(String name, String description, Integer price, String imageUrl) {

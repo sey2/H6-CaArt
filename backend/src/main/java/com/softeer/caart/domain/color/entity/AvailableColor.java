@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.trim.entity;
+package com.softeer.caart.domain.color.entity;
 
 import static javax.persistence.FetchType.*;
 
@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.softeer.caart.domain.color.entity.Color;
+import com.softeer.caart.domain.trim.entity.Trim;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -35,4 +35,8 @@ public class AvailableColor {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "color_id", nullable = false)
 	private Color color;
+
+	public boolean isAvailableColorOfTrim(Long trimId) {
+		return trim.getId().equals(trimId);
+	}
 }

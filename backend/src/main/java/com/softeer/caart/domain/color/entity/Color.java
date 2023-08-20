@@ -1,11 +1,15 @@
 package com.softeer.caart.domain.color.entity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.softeer.caart.domain.Image;
 
@@ -36,6 +40,12 @@ public class Color {
 	@Embedded
 	private Image image;
 
+	@OneToMany(mappedBy = "color")
+	private List<ColorPreview> colorPreviews;
+
+	@OneToMany(mappedBy = "color")
+	private List<AvailableColor> relationsWithTrims;
+
 	@Builder
 	public Color(String name, Integer price, String imageUrl, Boolean isExterior) {
 		this.name = name;
@@ -50,5 +60,15 @@ public class Color {
 
 	public Boolean isInteriorColor() {
 		return !this.isExterior;
+	}
+
+	public List<String> getImageUrlsOfColorPreview() {
+		return colorPreviews.stream()
+			.map(colorPreview -> colorPreview.getImage().getUrl())
+			.collect(Collectors.toList());
+	}
+
+	public String getImageUrlOfFirstColorPreview() {
+		return colorPreviews.get(0).getImage().getUrl();
 	}
 }

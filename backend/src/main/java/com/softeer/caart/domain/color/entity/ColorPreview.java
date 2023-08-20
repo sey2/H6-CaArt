@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 
 import com.softeer.caart.domain.Image;
 
+import lombok.Getter;
+
+@Getter
 @Entity
 public class ColorPreview {
 

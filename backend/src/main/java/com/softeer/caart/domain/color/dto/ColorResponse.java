@@ -1,27 +1,31 @@
 package com.softeer.caart.domain.color.dto;
 
-import com.softeer.caart.domain.color.entity.Color;
+import static com.softeer.caart.domain.color.dto.ColorDto.*;
 
-import lombok.AccessLevel;
+import java.util.List;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class ColorResponse {
-	private Long colorId;
-	private String colorName;
-	private Integer colorPrice;
-	private String colorImage;
 
-	private ColorResponse(Color color) {
-		this.colorId = color.getId();
-		this.colorName = color.getName();
-		this.colorPrice = color.getPrice();
-		this.colorImage = color.getImage().getUrl();
+	private final List<ExteriorColorDto> exteriorColors;
+	private final List<OtherTrimColorDto> otherTrimExteriorColors;
+	private final List<InteriorColorDto> interiorColors;
+	private final List<OtherTrimColorDto> otherTrimInteriorColors;
+
+	private ColorResponse(
+		List<ExteriorColorDto> exteriorColors, List<OtherTrimColorDto> otherTrimExteriorColors,
+		List<InteriorColorDto> interiorColors, List<OtherTrimColorDto> otherTrimInteriorColors) {
+		this.exteriorColors = exteriorColors;
+		this.otherTrimExteriorColors = otherTrimExteriorColors;
+		this.interiorColors = interiorColors;
+		this.otherTrimInteriorColors = otherTrimInteriorColors;
 	}
 
-	public static ColorResponse from(Color color) {
-		return new ColorResponse(color);
+	public static ColorResponse of(
+		List<ExteriorColorDto> exteriorColors, List<OtherTrimColorDto> otherTrimExteriorColors,
+		List<InteriorColorDto> interiorColors, List<OtherTrimColorDto> otherTrimInteriorColors) {
+		return new ColorResponse(exteriorColors, otherTrimExteriorColors, interiorColors, otherTrimInteriorColors);
 	}
 }
