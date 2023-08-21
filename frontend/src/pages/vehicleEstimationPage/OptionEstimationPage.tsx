@@ -6,6 +6,7 @@ import SquareButton from '../../components/common/SquareButton';
 import OptionNavBar from '../../components/vehicleEstimationPage/optionEstimationPage/navBar/NavBar';
 import OptionCardList from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardList';
 import OptionCardListAdditionalTag from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardListAdditionalTag';
+import OptionCardListBasic from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardListBasic';
 import OptionModal from '../../components/vehicleEstimationPage/optionEstimationPage/optionModal/OptionModal';
 
 function OptionEstimationPage() {
@@ -49,12 +50,13 @@ function OptionEstimationPage() {
         ></OptionCardListAdditionalTag>
       )}
       {isBasicOptionPage && (
-        <OptionCardList
+        <OptionCardListBasic
+          optionCategory={optionCategory}
           page={page}
           setPage={setPage}
           type={'basic'}
           setOpenedModalId={setOpenedModalId}
-        ></OptionCardList>
+        ></OptionCardListBasic>
       )}
 
       <OptionEstimationPageBtn>

@@ -41,7 +41,11 @@ function OptionNavBarUpper({
   ) {
     lineHandler(e);
     setIsBasicOptionPage(type === 'basic');
-    setOptionCategory({ name: '대표', img: '', id: 0 });
+    if (type === 'additional') {
+      setOptionCategory({ name: '전체', img: '', id: 0 });
+    } else {
+      setOptionCategory({ name: '대표', img: '', id: 9 });
+    }
   }
 
   return (
