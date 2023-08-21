@@ -42,7 +42,7 @@ public class ColorDto {
 			this.colorImage = color.getImage().getUrl();
 			this.colorPrice = color.getPrice();
 			this.adoptionRate = 60.0;    // TODO: 채택률 계산 로직 추가
-			this.previews = color.getImageUrlsOfColorPreview();
+			this.previews = color.getImageUrlListOfColorPreview();
 		}
 	}
 
@@ -61,7 +61,7 @@ public class ColorDto {
 			this.colorImage = color.getImage().getUrl();
 			this.colorPrice = color.getPrice();
 			this.adoptionRate = 60.0;    // TODO: 채택률 계산 로직 추가
-			this.preview = color.getImageUrlOfFirstColorPreview();
+			this.preview = color.getImageUrlOfMainColorPreview();
 		}
 	}
 
@@ -73,6 +73,7 @@ public class ColorDto {
 		private final Long trimId;
 		private final String trimName;
 		private final Integer trimPrice;
+		private final String preview;
 
 		public OtherTrimColorDto(Color color, Trim trim) {
 			this.colorId = color.getId();
@@ -81,6 +82,7 @@ public class ColorDto {
 			this.trimId = trim.getId();
 			this.trimName = trim.getName();
 			this.trimPrice = trim.getPrice();
+			this.preview = color.getImageUrlOfMainColorPreview();
 		}
 	}
 }

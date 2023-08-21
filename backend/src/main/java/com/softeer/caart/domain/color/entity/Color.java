@@ -23,6 +23,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Color {
 
+	private static final int EXTERIOR_MAIN_PREVIEW_IDX = 11;
+	private static final int INTERIOR_MAIN_PREVIEW_IDX = 0;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "color_id")
@@ -62,13 +65,16 @@ public class Color {
 		return !this.isExterior;
 	}
 
-	public List<String> getImageUrlsOfColorPreview() {
+	public List<String> getImageUrlListOfColorPreview() {
 		return colorPreviews.stream()
 			.map(colorPreview -> colorPreview.getImage().getUrl())
 			.collect(Collectors.toList());
 	}
 
-	public String getImageUrlOfFirstColorPreview() {
-		return colorPreviews.get(0).getImage().getUrl();
+	public String getImageUrlOfMainColorPreview() {
+		if (isExterior) {
+			return colorPreviews.get(EXTERIOR_MAIN_PREVIEW_IDX).getImage().getUrl();
+		}
+		return colorPreviews.get(INTERIOR_MAIN_PREVIEW_IDX).getImage().getUrl();
 	}
 }

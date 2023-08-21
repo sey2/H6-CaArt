@@ -45,7 +45,8 @@ public class ColorService {
 		initOtherTrimColors(colors, otherTrimColors, otherTrimExteriorColors, otherTrimInteriorColors);
 
 		// 응답 생성
-		return ColorResponse.of(exteriorColors, otherTrimExteriorColors, interiorColors, otherTrimInteriorColors);
+		return ColorResponse.of(currentTrimId, exteriorColors, otherTrimExteriorColors,
+			interiorColors, otherTrimInteriorColors);
 	}
 
 	private Map<Trim, List<AvailableColor>> getOtherTrimColors(Long excludedTrimId) {
