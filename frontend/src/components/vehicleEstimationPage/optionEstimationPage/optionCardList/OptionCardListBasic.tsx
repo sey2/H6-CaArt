@@ -54,7 +54,7 @@ function OptionCardListBasic({
   }trimId=${trimId}&engineId=${engineId}&bodyTypeId=${bodyTypeId}&wdId=${wdId}&offset=${page}&pageSize=${pageSize}`;
   const { data, status, error } = useFetch<basicOptionListProps>(apiUrl);
   if (status === 'loading') {
-    return <div>loading</div>;
+    return <div></div>;
   } else if (status === 'error') {
     console.error(error);
     return <ErrorPopup></ErrorPopup>;

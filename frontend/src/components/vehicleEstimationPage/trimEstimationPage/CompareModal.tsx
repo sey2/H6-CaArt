@@ -9,13 +9,12 @@ import { Color, Trim } from './TrimCard';
 import { useFetch } from '../../../hooks/useFetch';
 import { ErrorPopup } from '../../common/ErrorPopup';
 
-
 function CompareModal() {
   useModal();
-    const { state, dispatch } = useModalContext();
+  const { state, dispatch } = useModalContext();
   const { data, status, error } = useFetch<Trim[]>('/trims');
   if (status === 'loading') {
-    return <div>loading</div>;
+    return <div></div>;
   } else if (status === 'error') {
     console.error(error);
     return <ErrorPopup></ErrorPopup>;

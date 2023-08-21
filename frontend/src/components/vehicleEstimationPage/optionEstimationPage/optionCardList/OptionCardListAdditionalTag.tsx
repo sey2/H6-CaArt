@@ -33,7 +33,7 @@ function OptionCardListAdditionalTag({
   const apiUrl = `/options/additional/list?tagId=${optionCategory.id}&trimId=${trimId}&engineId=${engineId}&bodyTypeId=${bodyTypeId}&wdId=${wdId}&offset=0&pageSize=${pageSize}`;
   const { data, status, error } = useFetch<additionalOptionListProps>(apiUrl);
   if (status === 'loading') {
-    return <div>loading</div>;
+    return <div></div>;
   } else if (status === 'error') {
     console.error(error);
     return <ErrorPopup></ErrorPopup>;

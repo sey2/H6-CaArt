@@ -25,7 +25,7 @@ function RecommendAgePage({ choice, setChoice }: RecommendPageProps) {
     '/lifestyles/questions',
   );
   if (status === 'loading') {
-    return <div>loading</div>;
+    return <div></div>;
   } else if (status === 'error') {
     console.error(error);
     return <ErrorPopup></ErrorPopup>;
