@@ -67,5 +67,9 @@
     <fragment
         android:id="@+id/lifestyleDetailFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleDetailFragment"
-        android:label="LifestyleDetailFragment" />
+        android:label="LifestyleDetailFragment" >
+        <argument
+            android:name="personaId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

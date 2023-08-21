@@ -4,17 +4,35 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import coil.decode.SvgDecoder
 import coil.load
+import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import org.softeer_2nd.caArt.ui.custom.DynamicOptionFloatingImageView
+import org.softeer_2nd.caArt.ui.transformation.BlurTransformation
 import org.softeer_2nd.caArt.util.dp2px
 
 
-@BindingAdapter(value=["url", "cornerRadius"], requireAll = false)
-fun ImageView.setImageSrcWithUrl(url: String?, cornerRadius: Float? = null) {
+@BindingAdapter("url", "circleCrop", "radius", "blurRadius", "blurSampling", requireAll = false)
+fun ImageView.setImageSrcWithUrl(
+    url: String?,
+    isCircleCrop: Boolean = false,
+    radius: Float? = null,
+    blurRadius: Int? = null,
+    blurSampling: Float? = null
+) {
+
     load(url) {
         scale(coil.size.Scale.FILL)
-        cornerRadius?.let {
-            transformations(RoundedCornersTransformation(it))
+        if (isCircleCrop) transformations(CircleCropTransformation())
+        if (blurRadius != null || blurSampling != null) {
+            transformations(BlurTransformation(context, blurRadius, blurSampling))
+        }
+
+        radius?.let {
+            transformations(
+                RoundedCornersTransformation(
+                    radius.dp2px(context).toFloat()
+                )
+            )
         }
     }
 }

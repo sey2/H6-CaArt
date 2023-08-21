@@ -8,7 +8,17 @@ object StringFormatter {
     fun formatPriceString(price: Long): String {
         return priceFormatter.format(price)
     }
-    fun combineCarComposition(engineType: String, seatingCapacity: String, driveConfiguration: String): String {
+
+    fun combineCarComposition(
+        engineType: String,
+        seatingCapacity: String,
+        driveConfiguration: String
+    ): String {
         return "$engineType ・ $seatingCapacity ・ $driveConfiguration"
+    }
+
+    fun replaceWebNewLine(old: String?): String? {
+        old ?: return null
+        return old.replace("\\n", "\n")
     }
 }

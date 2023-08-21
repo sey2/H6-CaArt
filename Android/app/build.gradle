@@ -73,4 +73,7 @@ dependencies {
     implementation 'io.coil-kt:coil:2.4.0'
     implementation("io.coil-kt:coil-svg:2.4.0")
 
+    //toolkit
+    implementation 'com.github.android:renderscript-intrinsics-replacement-toolkit:b6363490c3'
+
 }

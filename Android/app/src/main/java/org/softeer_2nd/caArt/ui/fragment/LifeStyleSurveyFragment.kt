@@ -58,7 +58,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
                 findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifeStyleDetailSurveyFragment())
             },
             onLifeStylePersonaMoreClickListener = { _, persona ->
-                findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifestyleDetailFragment())
+                findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifestyleDetailFragment(persona.personaId))
             }
         )
 

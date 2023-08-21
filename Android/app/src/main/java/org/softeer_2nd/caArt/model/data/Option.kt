@@ -9,5 +9,6 @@ data class Option(
     val position: Position? = null,
     val subOptions: List<Option>? = null,
     val summary: String? = null,
-    val tags: List<String>? = null
+    val tags: List<String>? = null,
+    val recommendationMessage: String? = null
 )

@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
+import org.softeer_2nd.caArt.model.data.state.LifestyleDetailState
 import org.softeer_2nd.caArt.model.network.RecommandApiService
 import javax.inject.Inject
 
@@ -14,8 +15,8 @@ class RecommandRepository @Inject constructor(
 
     private var personaList: List<Persona>? = null
 
-    private val _budgetRange= MutableStateFlow(BudgetRange(4200,6900,300))
-    val budgetRange:StateFlow<BudgetRange> = _budgetRange
+    private val _budgetRange = MutableStateFlow(BudgetRange(4200, 6900, 300))
+    val budgetRange: StateFlow<BudgetRange> = _budgetRange
 
     suspend fun fetchLifestyleSurveyQuestions(): List<SurveyQuestion>? {
         val data = service.getSurveyQuestion().data ?: return null
@@ -45,8 +46,13 @@ class RecommandRepository @Inject constructor(
             add(data.value)
             add(budgetQuestion)
         }
-        _budgetRange.value=BudgetRange(data.budget.minBudget,data.budget.maxBudget,data.budget.budgetUnit)
+        _budgetRange.value =
+            BudgetRange(data.budget.minBudget, data.budget.maxBudget, data.budget.budgetUnit)
         return questions
+    }
+
+    suspend fun fetchLifestyleDetail(personaId: Int): LifestyleDetailState? {
+        return service.getLifestyleDetail(personaId).data
     }
 
 
