@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemColorSelectBinding
 import org.softeer_2nd.caArt.ui.callback.OnOtherColorItemClickListener
-import org.softeer_2nd.caArt.model.dummy.OptionColorDummyItem
+import org.softeer_2nd.caArt.model.data.ChoiceColorItem
 
 class ColorOptionSelectionAdapter(
     private val listener: OnOtherColorItemClickListener,
-    private val items: List<OptionColorDummyItem>,
     private val isOtherColorOption: Boolean
 ) :
     RecyclerView.Adapter<ColorOptionSelectionAdapter.ColorOptionSelectionViewHolder>() {
     private var selectedPosition = -1
+
+    private var items = listOf<ChoiceColorItem>()
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -41,6 +42,11 @@ class ColorOptionSelectionAdapter(
         }
     }
 
+    fun updateItem(newItems: List<ChoiceColorItem>){
+        items = newItems
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: ColorOptionSelectionViewHolder, position: Int) {
         val currentItem = items[position]
         holder.bind(currentItem)
@@ -57,13 +63,13 @@ class ColorOptionSelectionAdapter(
             selectItem(adapterPosition)
         }
 
-        fun bind(item: OptionColorDummyItem) {
+        fun bind(item: ChoiceColorItem) {
             val selectedFlag = adapterPosition == selectedPosition
 
             binding.apply {
                 binding.otherColorSelectionHandler = this@ColorOptionSelectionViewHolder
                 selected = selectedFlag
-                backgroundRes = item.res
+                imgUrl = item.imgUrl
                 isOtherColor = this@ColorOptionSelectionAdapter.isOtherColorOption
                 inTop3 = adapterPosition <= 2
                 topTag.text = "Top ${adapterPosition + 1}"

@@ -72,55 +72,40 @@ fun View.setMarginTopConditionally(isOtherColor: Boolean) {
 }
 
 @SuppressLint("ClickableViewAccessibility")
-@BindingAdapter("onTouch", "images", "spinActive")
+@BindingAdapter("onTouch", "spinActive")
 fun View.setOnTouchListener(
     viewModel: CarColorChoiceViewModel?,
-    images: LiveData<List<Int>>?,
     spinActive: LiveData<Boolean>?
 ) {
-    var downX = 0f
-    setOnTouchListener { v, event ->
+    val downX = Array(1) { 0f }
+
+    setOnTouchListener { _, event ->
         spinActive?.value?.let { isSpinActive ->
-            images?.value?.let { imageList ->
-                viewModel?.let { vm ->
-                    if (isSpinActive) {
-                        when (event.action) {
-                            MotionEvent.ACTION_DOWN -> {
-                                downX = event.x
-                                true
-                            }
-
-                            MotionEvent.ACTION_MOVE -> {
-                                downX = handleActionMove(v, event.x, downX, imageList.size, vm)
-                                true
-                            }
-
-                            else -> false
-                        }
-                    } else false
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    downX[0] = event.x
+                    true
                 }
+
+                MotionEvent.ACTION_MOVE -> {
+                    val distance = downX[0] - event.x
+                    val threshold = width / 60.0f
+
+                    if (distance > threshold) {
+                        viewModel?.updateIndex((viewModel.spinCarImageIndex.value ?: 0) + 1)
+                        downX[0] = event.x
+                    } else if (distance < -threshold) {
+                        viewModel?.updateIndex((viewModel.spinCarImageIndex.value ?: 0) - 1)
+                        downX[0] = event.x
+                    }
+                    true
+                }
+
+                else -> false
             }
         } ?: false
     }
 }
-
-private fun handleActionMove(
-    view: View,
-    moveX: Float,
-    downX: Float,
-    imageSize: Int,
-    viewModel: CarColorChoiceViewModel
-): Float {
-    val distance = downX - moveX
-    val moveIndex = (distance / view.width * imageSize).toInt()
-
-    viewModel.updateIndex(
-        (((viewModel.spinCarImageIndex.value ?: 0) + moveIndex + imageSize) % imageSize)
-    )
-
-    return moveX
-}
-
 @BindingAdapter("marginTop", "trueMargin", "falseMargin", requireAll = false)
 fun View.setDynamicMarginTop(condition: Boolean, trueMarginDp: Float?, falseMarginDp: Float?) {
     val layoutParams = layoutParams as? ViewGroup.MarginLayoutParams ?: return

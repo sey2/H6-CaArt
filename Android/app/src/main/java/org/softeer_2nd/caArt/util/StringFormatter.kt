@@ -21,4 +21,8 @@ object StringFormatter {
         old ?: return null
         return old.replace("\\n", "\n")
     }
+
+    fun getImageUrlFromIndex(index: Int): String {
+        return String.format("%03d", index + 1)
+    }
 }

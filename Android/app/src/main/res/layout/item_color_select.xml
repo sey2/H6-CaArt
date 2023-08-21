@@ -9,23 +9,23 @@
 
         <variable
             name="selected"
-            type="java.lang.Boolean" />
+            type="Boolean" />
 
         <variable
-            name="backgroundRes"
-            type="java.lang.Integer" />
+            name="imgUrl"
+            type="String" />
 
         <variable
             name="isOtherColor"
-            type="java.lang.Boolean" />
+            type="Boolean" />
 
         <variable
             name="inTop3"
-            type="java.lang.Boolean" />
+            type="Boolean" />
 
         <variable
             name="optionTitle"
-            type="java.lang.String" />
+            type="String" />
 
         <variable
             name="otherColorSelectionHandler"
@@ -46,6 +46,8 @@
             android:text="@{optionTitle}"
             android:textColor="@color/active_blue"
             android:textSize="11sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:visibility="@{isOtherColor ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/root_item"
             app:layout_constraintStart_toStartOf="@+id/root_item"
@@ -68,7 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/select_blue_500"
-                android:imageResource="@{backgroundRes}"
+                app:url="@{imgUrl}"
+                android:scaleType="centerCrop"
                 tools:background="@drawable/img_option_color1" />
 
             <TextView

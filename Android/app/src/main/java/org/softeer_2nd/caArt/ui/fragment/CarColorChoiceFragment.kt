@@ -10,31 +10,26 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.ui.recycleradapter.ColorOptionSelectionAdapter
 import org.softeer_2nd.caArt.databinding.FragmentCarColorChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
 import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
-import org.softeer_2nd.caArt.model.factory.CarColorChoiceViewModelFactory
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.ui.callback.OnOtherColorItemClickListener
-import org.softeer_2nd.caArt.model.dummy.OptionColorDummyItem
+import org.softeer_2nd.caArt.model.data.dto.toChoiceColorItems
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionChangePopupAdapter
-import org.softeer_2nd.caArt.model.repository.CarExteriorImageRepository
 import org.softeer_2nd.caArt.viewmodel.CarColorChoiceViewModel
 import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
 
+@AndroidEntryPoint
 class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
     private var _binding: FragmentCarColorChoiceBinding? = null
     private val binding get() = _binding!!
-    private val carColorChoiceViewModel by viewModels<CarColorChoiceViewModel> {
-        CarColorChoiceViewModelFactory(
-            CarExteriorImageRepository(requireContext())
-        )
-    }
-
     private val userChoiceViewModel by activityViewModels<UserChoiceViewModel>()
+    private val carColorChoiceViewModel by viewModels<CarColorChoiceViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +37,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false)
+        carColorChoiceViewModel.getImages(1)
         return binding.root
     }
 
@@ -51,25 +47,21 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         binding.apply {
             rvInteriorColor.initializeColorOptions(
                 this@CarColorChoiceFragment,
-                DummyItemFactory.createOptionInteriorColorDummyItems(),
                 false
             )
 
             rvExteriorColor.initializeColorOptions(
                 this@CarColorChoiceFragment,
-                DummyItemFactory.createOptionExteriorColorDummyItems(),
                 false
             )
 
             incOtherExteriorColorOption.rvOtherExteriorOption.initializeColorOptions(
                 this@CarColorChoiceFragment,
-                DummyItemFactory.createOptionExteriorOtherColorDummyItems(),
                 true
             )
 
             incOtherInteriorColorOption.rvOtherExteriorOption.initializeColorOptions(
                 this@CarColorChoiceFragment,
-                DummyItemFactory.createOptionInteriorOtherColorDummyItems(),
                 true
             )
 
@@ -87,11 +79,19 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
                 getString(R.string.ask_search_other_interior_color)
         }
 
+        carColorChoiceViewModel.colorData.observe(viewLifecycleOwner) { colorData ->
+            binding.apply {
+                (rvExteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.exteriorColors.toChoiceColorItems())
+                (rvInteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.interiorColors.toChoiceColorItems())
+                (incOtherExteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(colorData.otherTrimExteriorColors.toChoiceColorItems())
+                (incOtherInteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(colorData.otherTrimInteriorColors.toChoiceColorItems())
+            }
+        }
+
     }
 
     private fun RecyclerView.initializeColorOptions(
         fragment: CarColorChoiceFragment,
-        items: List<OptionColorDummyItem>,
         isOtherColorOption: Boolean
     ) {
         if (isOtherColorOption) {
@@ -100,7 +100,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-        this.adapter = ColorOptionSelectionAdapter(fragment, items, isOtherColorOption)
+        this.adapter = ColorOptionSelectionAdapter(fragment, isOtherColorOption)
     }
 
     override fun onDestroyView() {

@@ -17,6 +17,7 @@
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -51,35 +52,34 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="12dp"
                     android:contentDescription="@string/car_exterior_spin_image"
-                    android:imageResource="@{viewModel.currentImage}"
-                    app:images="@{viewModel.images}"
-                    app:layout_constraintDimensionRatio="w,185:375"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_car_spin_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/inc_top_indicator"
                     app:onTouch="@{viewModel}"
                     app:spinActive="@{viewModel.spinActive}"
+                    app:url="@{viewModel.currentExteriorColorImage}"
                     tools:background="@drawable/img_car_exterior" />
 
                 <ImageView
                     android:id="@+id/iv_spin_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/spin_active_button"
+                    android:onClick="@{()-> viewModel.activateSpinImage()}"
                     android:visibility="@{viewModel.spinActive ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_car_spin_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/iv_car_spin"
                     app:layout_constraintTop_toTopOf="@+id/iv_car_spin_background"
-                    android:onClick="@{()-> viewModel.activateSpinImage()}"
-                    app:srcCompat="@drawable/ic_rotate_56"
-                    android:contentDescription="@string/spin_active_button" />
+                    app:srcCompat="@drawable/ic_rotate_56" />
 
                 <TextView
                     android:id="@+id/tv_exterior_color_title"
                     style="@style/TitleTextStyle"
                     android:text="@string/exterior_color"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_car_spin" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_car_spin_background" />
 
                 <TextView
                     android:id="@+id/tv_exterior_color"
@@ -91,9 +91,9 @@
                 <TextView
                     android:id="@+id/tv_exterior_buyer_selected"
                     style="@style/SelectedBuyerTextStyle"
-                    app:spanColorText="@{@string/buyer_selected}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_exterior_color_title"
+                    app:spanColorText="@{@string/buyer_selected}" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_exterior_color"
@@ -111,8 +111,8 @@
                     layout="@layout/layout_other_color_option"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/rv_exterior_color"
@@ -120,12 +120,12 @@
 
                 <ImageView
                     android:id="@+id/iv_car_interior"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:background="@drawable/img_car_interior"
                     android:contentDescription="@string/car_interior_image"
-                    app:layout_constraintDimensionRatio="w,185:375"
+                    app:url="@{viewModel._currentInteriorColorImage}"
+                    app:layout_constraintBottom_toTopOf="@id/tv_interior_color_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/inc_other_exterior_color_option" />
@@ -147,9 +147,9 @@
                 <TextView
                     android:id="@+id/tv_interior_buyer_selected"
                     style="@style/SelectedBuyerTextStyle"
-                    app:spanColorText="@{@string/buyer_selected}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_interior_color_title"
+                    app:spanColorText="@{@string/buyer_selected}" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_interior_color"
@@ -167,9 +167,9 @@
                     layout="@layout/layout_other_color_option"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="160dp"
-                    android:layout_marginTop="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/rv_interior_color"
