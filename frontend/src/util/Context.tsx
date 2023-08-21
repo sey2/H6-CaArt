@@ -14,6 +14,7 @@ export interface NameAndPriceAndImg extends NameAndPrice {
 export interface MyVechicle {
   currentEstimation: currentEstimationProps;
   totalPrice: number;
+  setAgeCode: (age: string) => void;
   setEngine: (engine: NameAndPrice) => void;
   setBody: (body: NameAndPrice) => void;
   setWd: (wd: NameAndPrice) => void;
@@ -26,6 +27,7 @@ export interface MyVechicle {
 }
 
 interface currentEstimationProps {
+  age: string;
   engine: NameAndPrice;
   body: NameAndPrice;
   wd: NameAndPrice;
@@ -45,6 +47,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
   const [totalPrice, setNewTotalPrice] = useState(43000000);
   const [currentEstimation, setCurrentEstimation] =
     useState<currentEstimationProps>({
+      age: '',
       engine: { name: '디젤 2.2', price: 0 },
       body: { name: '7인승', price: 0 },
       wd: { name: '2WD', price: 0 },
@@ -65,6 +68,10 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
   useEffect(() => {
     updateTotalPrice();
   }, [currentEstimation]);
+
+  const setAgeCode = (age: string): void => {
+    setCurrentEstimation({ ...currentEstimation, age: age });
+  };
 
   const setEngine = (engine: NameAndPrice): void => {
     setCurrentEstimation({ ...currentEstimation, engine: engine });
@@ -116,6 +123,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
 
   const setResult = (data: LifeStyleResultProps): void => {
     setCurrentEstimation({
+      age: currentEstimation.age,
       engine: {
         name: data.model.engine.engineName,
         price: data.model.engine.enginePrice,
@@ -183,6 +191,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
     <EstimationContext.Provider
       value={{
         currentEstimation,
+        setAgeCode,
         setEngine,
         setBody,
         setWd,

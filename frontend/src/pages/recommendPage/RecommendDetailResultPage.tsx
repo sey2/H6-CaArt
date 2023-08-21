@@ -17,7 +17,7 @@ function RecommendDetailResultPage({
   const { setResult } = useContext(EstimationContext)!;
 
   const { data, status, error } = useFetch<LifeStyleResultProps>(
-    `/lifestyles/recommendation?ageId=${choice.age}&experienceId=${choice.experience}&familyId=${choice.family}&purposeId=${choice.purpose}&valueId=${choice.value}&budget=${choice.budget}`,
+    `/lifestyles/recommendation?age=${choice.age.code}&experience=${choice.experience.code}&family=${choice.family.code}&purpose=${choice.purpose.code}&value=${choice.value.code}&budget=${choice.budget}`,
   );
 
   useEffect(() => {
@@ -40,10 +40,10 @@ function RecommendDetailResultPage({
         <FlexBox>
           <TagList
             tagArr={[
-              `${question[0][choice.experience]}`,
-              `${question[1][choice.family]}`,
-              `${question[2][choice.purpose]}`,
-              `${question[3][choice.value]}`,
+              `${question[0][choice.experience.id]}`,
+              `${question[1][choice.family.id]}`,
+              `${question[2][choice.purpose.id]}`,
+              `${question[3][choice.value.id]}`,
               `${choice.budget}만원`,
             ]}
             type="result"

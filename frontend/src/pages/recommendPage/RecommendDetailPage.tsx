@@ -7,7 +7,11 @@ import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeSt
 import { SlideBar } from '../../components/recommendPage/ageAndLifeStyle/SlideBar';
 import { useFetch } from '../../hooks/useFetch';
 import { questionProps } from './RecommendAgePage';
-import { RecommendPageChoiceProps, RecommendPageProps } from './RecommendPage';
+import {
+  idAndCode,
+  RecommendPageChoiceProps,
+  RecommendPageProps,
+} from './RecommendPage';
 
 interface additionalQuestionProps {
   experience: questionProps;
@@ -34,11 +38,11 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
   useEffect(() => {
     if (data) {
       Object.keys(data).forEach((key, index) => {
-        if ('choices' in data[key as keyof additionalQuestionProps]) {
+        if ('answers' in data[key as keyof additionalQuestionProps]) {
           (
             data[key as keyof additionalQuestionProps] as questionProps
-          ).choices.forEach((item, index2) => {
-            question[index][index2] = item.content;
+          ).answers.forEach((item, index2) => {
+            question[index][index2] = item.answer;
           });
         }
       });
@@ -53,7 +57,7 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
   if (data === null) return <div></div>;
 
   const QAList = Object.keys(data).map(key => {
-    if ('choices' in data[key as keyof additionalQuestionProps]) {
+    if ('answers' in data[key as keyof additionalQuestionProps]) {
       const question = data[
         key as keyof additionalQuestionProps
       ] as questionProps;
@@ -65,26 +69,32 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
             </span>
           </RecommendDetailPageQBox>
           <ReccomendDetailPageABox>
-            {question.choices.map((item, index) => {
+            {question.answers.map((item, index) => {
               return (
                 <RecommendPageButton
-                  key={item.id}
+                  key={item.code}
                   size={
-                    question.choices.length % 2 === 1 &&
-                    question.choices.length === index + 1
+                    question.answers.length % 2 === 1 &&
+                    question.answers.length === index + 1
                       ? 'large'
                       : 'small'
                   }
                   selected={
-                    choice[key as keyof RecommendPageChoiceProps] == item.id
+                    (choice[key as keyof RecommendPageChoiceProps] as idAndCode)
+                      .id === index
                   }
                   onClick={() => {
                     const copy = { ...choice };
-                    copy[key as keyof RecommendPageChoiceProps] = item.id;
+                    (
+                      copy[key as keyof RecommendPageChoiceProps] as idAndCode
+                    ).id = index;
+                    (
+                      copy[key as keyof RecommendPageChoiceProps] as idAndCode
+                    ).code = item.code;
                     setChoice(copy);
                   }}
                 >
-                  {item.content}
+                  {item.answer}
                 </RecommendPageButton>
               );
             })}
@@ -121,7 +131,7 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
         <Link
           to="/recommend/customResult"
           onClick={e => {
-            (choice.purpose === -1 || choice.value === -1) &&
+            (choice.purpose.id === -1 || choice.value.id === -1) &&
               e.preventDefault();
           }}
         >

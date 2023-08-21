@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ErrorPopup } from '../../components/common/ErrorPopup';
@@ -6,14 +6,15 @@ import SquareButton from '../../components/common/SquareButton';
 import { PageNum } from '../../components/recommendPage/ageAndLifeStyle/PageNum';
 import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
 import { useFetch } from '../../hooks/useFetch';
+import { EstimationContext } from '../../util/Context';
 import { RecommendPageProps } from './RecommendPage';
 
 export interface questionProps {
   question: string;
   keyword: string;
-  choices: {
-    id: number;
-    content: string;
+  answers: {
+    code: string;
+    answer: string;
   }[];
 }
 interface basicQuestionProps {
@@ -21,6 +22,7 @@ interface basicQuestionProps {
 }
 
 function RecommendAgePage({ choice, setChoice }: RecommendPageProps) {
+  const { setAgeCode } = useContext(EstimationContext)!;
   const { data, status, error } = useFetch<basicQuestionProps>(
     '/lifestyles/questions',
   );
@@ -32,22 +34,23 @@ function RecommendAgePage({ choice, setChoice }: RecommendPageProps) {
   }
   if (data === null) return <div></div>;
 
-  const questionList = data.age.choices.map((item, index) => {
+  const questionList = data.age.answers.map((item, index) => {
     return (
       <RecommendPageButton
-        key={item.id}
+        key={item.code}
         size={
-          data.age.choices.length % 2 === 1 &&
-          data.age.choices.length === index + 1
+          data.age.answers.length % 2 === 1 &&
+          data.age.answers.length === index + 1
             ? 'large'
             : 'small'
         }
-        selected={choice.age === item.id}
+        selected={choice.age.id === index}
         onClick={() => {
-          setChoice({ ...choice, age: item.id });
+          setChoice({ ...choice, age: { id: index, code: item.code } });
+          setAgeCode(item.code);
         }}
       >
-        {item.content}
+        {item.answer}
       </RecommendPageButton>
     );
   });

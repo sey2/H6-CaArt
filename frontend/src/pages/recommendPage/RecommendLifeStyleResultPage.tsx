@@ -57,7 +57,7 @@ function RecommendLifeStyleResultPage({
   const { setResult } = useContext(EstimationContext)!;
 
   const { data, status, error } = useFetch<LifeStyleResultProps>(
-    `/personas/${choice.lifeStyle}/recommendation?ageId=${choice.age}`,
+    `/personas/${choice.lifeStyle}/recommendation?ageId=${choice.age.id}`,
   );
 
   useEffect(() => {
