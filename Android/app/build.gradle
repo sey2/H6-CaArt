@@ -4,6 +4,8 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -15,7 +17,7 @@ android {
         minSdk 29
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "0.7.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -75,5 +77,10 @@ dependencies {
 
     //toolkit
     implementation 'com.github.android:renderscript-intrinsics-replacement-toolkit:b6363490c3'
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:32.2.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 
 }

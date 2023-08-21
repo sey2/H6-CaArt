@@ -44,7 +44,7 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         carTrimChoiceViewModel.getTrims()
         carTrimChoiceViewModel.getCompositions()
 
-        createChangePopup(false)
+        //createChangePopup(false)
         return binding.root
     }
 
