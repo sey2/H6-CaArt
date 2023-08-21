@@ -233,3 +233,28 @@ create table persona
     foreign key (tag_id_1) references tag (tag_id),
     foreign key (tag_id_2) references tag (tag_id)
 );
+
+DROP TABLE IF EXISTS purchase;
+
+create table purchase
+(
+    purchase_id       bigint not null primary key,
+    age               int    not null,
+    model_id          bigint not null,
+    exterior_color_id bigint not null,
+    interior_color_id bigint not null,
+    foreign key (model_id) references model (model_id),
+    foreign key (exterior_color_id) references color (color_id),
+    foreign key (interior_color_id) references color (color_id)
+);
+
+DROP TABLE IF EXISTS rel_purchase_additional_option;
+
+create table rel_purchase_additional_option
+(
+	rel_purchase_additional_option_id bigint not null primary key,
+	purchase_id                            bigint not null,
+	additional_option_info_id              bigint not null,
+	foreign key (purchase_id) references purchase (purchase_id),
+	foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
+);
