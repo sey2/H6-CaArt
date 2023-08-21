@@ -59,7 +59,6 @@ public class OptionService {
 		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
 				dto.getBodyTypeId(), dto.getWdId())
 			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
-		model.validateTrim();
 
 		Page<BaseOptionInfo> baseOptionInfos = fetchBasicOptionsByTagIdStatus(model.getId(), dto.getTagId(),
 			dto.getOffset(), dto.getPageSize());
@@ -81,7 +80,6 @@ public class OptionService {
 		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
 				dto.getBodyTypeId(), dto.getWdId())
 			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
-		model.validateTrim();
 
 		Page<AdditionalOptionInfo> additionalOptionInfos = fetchAdditionalOptionsByTagIdStatus(model.getId(),
 			dto.getTagId(),

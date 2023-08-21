@@ -117,24 +117,11 @@ class OptionServiceTest extends ServiceTest {
 				.isInstanceOf(ModelNotFoundException.class)
 				.hasMessage(ResultCode.MODEL_NOT_FOUND.getMessage());
 		}
-
-		@Test
-		@DisplayName("Le Blanc이 아닌 다른 트림을 선택한 경우 추가 옵션 목록을 조회할 수 없다")
-		void invalidTrim() {
-			// given, when
-			doReturn(Optional.of(추가옵션가지는_모델)).when(modelRepository)
-				.findModelByTrimIdAndCompositionsId(any(Long.class), any(Long.class), any(Long.class), any(Long.class));
-
-			// then
-			assertThatThrownBy(() -> optionService.getBasicOptions(requestDto))
-				.isInstanceOf(InvalidOptionException.class)
-				.hasMessage(ResultCode.INVALID_MODEL_ID.getMessage());
-		}
 	}
 
 	@Nested
 	class GetAdditionalOptions {
-		private final OptionListRequest requestDto = new OptionListRequest(-1L, -1L, -1L, -1L, -1L, -1, -1);
+		private final OptionListRequest requestDto = new OptionListRequest(-1L, -1L, -1L, -1L, -1L, 0, 1);
 
 		@Test
 		@DisplayName("존재하지 않는 모델에 접근하면 예외를 던진다")
@@ -147,19 +134,6 @@ class OptionServiceTest extends ServiceTest {
 			assertThatThrownBy(() -> optionService.getAdditionalOptions(requestDto))
 				.isInstanceOf(ModelNotFoundException.class)
 				.hasMessage(ResultCode.MODEL_NOT_FOUND.getMessage());
-		}
-
-		@Test
-		@DisplayName("Le Blanc이 아닌 다른 트림을 선택한 경우 추가 옵션 목록을 조회할 수 없다")
-		void invalidTrim() {
-			// given, when
-			doReturn(Optional.of(추가옵션가지는_모델)).when(modelRepository)
-				.findModelByTrimIdAndCompositionsId(any(Long.class), any(Long.class), any(Long.class), any(Long.class));
-
-			// then
-			assertThatThrownBy(() -> optionService.getAdditionalOptions(requestDto))
-				.isInstanceOf(InvalidOptionException.class)
-				.hasMessage(ResultCode.INVALID_MODEL_ID.getMessage());
 		}
 	}
 
