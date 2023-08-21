@@ -46,7 +46,7 @@ public class LifeStyleController {
 
 	@GetMapping("/recommendation")
 	@Operation(summary = "선택한 라이프스타일에 따른 추천 차량 견적을 조회한다.")
-	public ResponseDto getRecommendation(final @Valid RecommendationRequest request) {
+	public ResponseDto getRecommendation(@Valid RecommendationRequest request) {
 		RecommendationResponse response = lifeStyleService.getRecommendationByLifestyle(request);
 		return DataResponseDto.of(response);
 	}

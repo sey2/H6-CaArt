@@ -4,6 +4,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,20 +14,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class RecommendationRequest {
 
-	@NotNull(message = "ageId는 필수입니다.")
-	private final Long ageId;
+	@NotNull(message = "age는 필수입니다.")
+	private final Answer age;
 
-	@NotNull(message = "experienceId는 필수입니다.")
-	private final Long experienceId;
+	@NotNull(message = "experience는 필수입니다.")
+	private final Answer experience;
 
-	@NotNull(message = "familyId는 필수입니다.")
-	private final Long familyId;
+	@NotNull(message = "family는 필수입니다.")
+	private final Answer family;
 
-	@NotNull(message = "purposeId는 필수입니다.")
-	private final Long purposeId;
+	@NotNull(message = "purpose는 필수입니다.")
+	private final Answer purpose;
 
-	@NotNull(message = "valueId는 필수입니다.")
-	private final Long valueId;
+	@NotNull(message = "value는 필수입니다.")
+	private final Answer value;
 
 	@NotNull(message = "budget은 필수입니다.")
 	@Min(value = 4200, message = "budget의 최소 범위는 4200입니다.")

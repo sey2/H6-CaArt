@@ -8,10 +8,12 @@ import lombok.Getter;
 public class CarEngineSummaryResponse {
 	private final Long engineId;
 	private final String engineName;
+	private final Integer enginePrice;
 
 	private CarEngineSummaryResponse(CarEngine engine) {
 		this.engineId = engine.getId();
 		this.engineName = engine.getName();
+		this.enginePrice = engine.getPrice();
 	}
 
 	public static CarEngineSummaryResponse from(CarEngine engine) {

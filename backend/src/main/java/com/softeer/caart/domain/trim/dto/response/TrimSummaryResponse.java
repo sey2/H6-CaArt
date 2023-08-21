@@ -8,10 +8,12 @@ import lombok.Getter;
 public class TrimSummaryResponse {
 	final private Long trimId;
 	final private String trimName;
+	final private Integer trimPrice;
 
 	private TrimSummaryResponse(Trim trim) {
 		this.trimId = trim.getId();
 		this.trimName = trim.getName();
+		this.trimPrice = trim.getPrice();
 	}
 
 	public static TrimSummaryResponse from(Trim trim) {

@@ -1,9 +1,14 @@
 package com.softeer.caart.domain.recommendation.carmaster.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.softeer.caart.domain.recommendation.carmaster.dto.CreateSurveyRequest;
 import com.softeer.caart.domain.recommendation.carmaster.dto.SurveyResponse;
 import com.softeer.caart.domain.recommendation.carmaster.service.CarMasterService;
 import com.softeer.caart.global.response.DataResponseDto;
@@ -25,5 +30,12 @@ public class CarMasterController {
 	public ResponseDto getSurvey() {
 		SurveyResponse survey = carMasterService.getSurvey();
 		return DataResponseDto.of(survey);
+	}
+
+	@PostMapping("surveys")
+	@Operation(summary = "카마스터 설문지를 저장한다.", description = "다음 설문 버튼을 누르면 API를 호출해서 설문지를 저장한다. (기획 상 5번 반복)")
+	public ResponseDto saveSurvey(@Valid @RequestBody CreateSurveyRequest dto) {
+		carMasterService.saveSurvey(dto);
+		return ResponseDto.success();
 	}
 }

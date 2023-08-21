@@ -22,3 +22,4 @@ public class ErrorResponseDto extends ResponseDto {
 		return new ErrorResponseDto(resultCode, message);
 	}
 }
+
