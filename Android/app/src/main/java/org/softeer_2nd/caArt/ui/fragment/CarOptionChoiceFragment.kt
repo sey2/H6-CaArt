@@ -62,7 +62,7 @@ class CarOptionChoiceFragment : Fragment() {
 
         binding.bsOptionChoiceSummary.setMode(
             BottomSheetMode.PrevAndEstimate,
-            CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarOptionChoiceFragment()
+            CarOptionChoiceFragmentDirections.actionCarOptionChoiceFragmentToEstimateFragment()
         )
 
         val optionTagAdapter = OptionTagRecyclerAdapter() { _, tag ->

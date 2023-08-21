@@ -8,8 +8,11 @@ import retrofit2.http.Query
 
 interface OptionApiService {
 
-    @GET("/tags")
-    suspend fun getOptionTagList(): CaArtResponse<List<OptionTag>>
+    @GET("/tags/basic")
+    suspend fun getDefaultOptionTagList(): CaArtResponse<List<OptionTag>>
+
+    @GET("/tags/additional")
+    suspend fun getAdditionalOptionTagList(): CaArtResponse<List<OptionTag>>
 
     @GET("/options/additional/list")
     suspend fun getAdditionalOptionList(

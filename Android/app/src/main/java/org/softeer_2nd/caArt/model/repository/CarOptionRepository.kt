@@ -11,10 +11,8 @@ class CarOptionRepository @Inject constructor(
     private val optionApiService: OptionApiService
 ) {
 
-    private val tagList = mutableListOf<OptionTag>()
-    private var mainTag: OptionTag? = null
-
-    private val additionalTagList = mutableListOf<OptionTag>()
+    private var additionalTagList = emptyList<OptionTag>()
+    private var defaultTagList = emptyList<OptionTag>()
 
     private var pageOffset: Int = 0
     private val PAGE_OPTION_COUNT = 8
@@ -26,15 +24,10 @@ class CarOptionRepository @Inject constructor(
     val isLastPage: StateFlow<Boolean> = _isLastPage
 
     suspend fun fetchOptionTags(): List<OptionTag> {
-        val data = optionApiService.getOptionTagList().data
-        val tagList = data ?: listOf()
-        this.tagList.clear()
-        additionalTagList.clear()
-        this.tagList.addAll(tagList)
-        additionalTagList.addAll(tagList)
-        mainTag = tagList.find { it.tagId == 9 }
-        additionalTagList.remove(mainTag)
-        return tagList
+        additionalTagList = optionApiService.getAdditionalOptionTagList().data ?: listOf()
+        defaultTagList = optionApiService.getDefaultOptionTagList().data ?: listOf()
+
+        return defaultTagList
     }
 
     suspend fun fetchFirstAdditionalOptionList(tagId: Int? = null): List<Option>? {
@@ -109,6 +102,6 @@ class CarOptionRepository @Inject constructor(
 
     fun getAdditionalTagList() = additionalTagList
 
-    fun getTagList() = tagList
+    fun getDefaultTagList() = defaultTagList
 
 }

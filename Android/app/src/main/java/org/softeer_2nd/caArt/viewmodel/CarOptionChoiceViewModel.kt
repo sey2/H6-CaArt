@@ -118,7 +118,7 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         _tabState.value = tabState
         if (tagList.value != null) selectTag(tagList.value!![0])
 
-        if (tabState == DEFAULT_OPTION_PAGE) _tagList.value = optionRepository.getTagList()
+        if (tabState == DEFAULT_OPTION_PAGE) _tagList.value = optionRepository.getDefaultTagList()
         else _tagList.value = optionRepository.getAdditionalTagList()
 
         checkAndUpdateDisplayType()
