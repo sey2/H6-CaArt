@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<ErrorResponseDto> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
 		log.error("handleHttpMessageNotReadableException : {}", e.getRootCause().getMessage());
-		final ErrorResponseDto response = ErrorResponseDto.of(ResultCode.INVALID_JSON, e.getRootCause().getMessage());
+		final ErrorResponseDto response = ErrorResponseDto.from(ResultCode.INVALID_JSON);
 		return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
 	}
 

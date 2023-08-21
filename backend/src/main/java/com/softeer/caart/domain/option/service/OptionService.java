@@ -2,6 +2,9 @@ package com.softeer.caart.domain.option.service;
 
 import static com.softeer.caart.global.ResultCode.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,10 +15,12 @@ import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.model.exception.ModelNotFoundException;
 import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.dto.AdditionalOptionResponse;
+import com.softeer.caart.domain.option.dto.AdditionalOptionSummaryResponse;
 import com.softeer.caart.domain.option.dto.AdditionalOptionsResponse;
 import com.softeer.caart.domain.option.dto.BasicOptionResponse;
 import com.softeer.caart.domain.option.dto.BasicOptionsResponse;
 import com.softeer.caart.domain.option.dto.OptionListRequest;
+import com.softeer.caart.domain.option.dto.OptionSummaryListRequest;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
@@ -96,5 +101,17 @@ public class OptionService {
 
 	private boolean isTagIdEmpty(Long tagId) {
 		return tagId == null;
+	}
+
+	public List<AdditionalOptionSummaryResponse> getAdditionalOptionSummaries(OptionSummaryListRequest dto) {
+		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
+				dto.getBodyTypeId(), dto.getWdId())
+			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
+		List<AdditionalOptionInfo> additionalOptions = additionalOptionInfoRepository
+			.findAdditionalOptionInfosByModelId(model.getId());
+
+		return additionalOptions.stream()
+			.map(AdditionalOptionSummaryResponse::from)
+			.collect(Collectors.toList());
 	}
 }

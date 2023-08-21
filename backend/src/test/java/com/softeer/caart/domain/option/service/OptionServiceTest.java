@@ -16,6 +16,7 @@ import com.softeer.caart.domain.model.exception.ModelNotFoundException;
 import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.dto.AdditionalOptionResponse;
 import com.softeer.caart.domain.option.dto.OptionListRequest;
+import com.softeer.caart.domain.option.dto.OptionSummaryListRequest;
 import com.softeer.caart.domain.option.exception.InvalidOptionException;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
 import com.softeer.caart.domain.option.repository.AdditionalOptionInfoRepository;
@@ -159,6 +160,24 @@ class OptionServiceTest extends ServiceTest {
 			assertThatThrownBy(() -> optionService.getAdditionalOptions(requestDto))
 				.isInstanceOf(InvalidOptionException.class)
 				.hasMessage(ResultCode.INVALID_MODEL_ID.getMessage());
+		}
+	}
+
+	@Nested
+	class GetAdditionalOptionSummaries {
+		private final OptionSummaryListRequest requestDto = new OptionSummaryListRequest(-1L, -1L, -1L, -1L);
+
+		@Test
+		@DisplayName("존재하지 않는 모델에 접근하면 예외를 던진다")
+		void modelNotFound() {
+			// given, when
+			doReturn(Optional.empty()).when(modelRepository)
+				.findModelByTrimIdAndCompositionsId(any(Long.class), any(Long.class), any(Long.class), any(Long.class));
+
+			// then
+			assertThatThrownBy(() -> optionService.getAdditionalOptionSummaries(requestDto))
+				.isInstanceOf(ModelNotFoundException.class)
+				.hasMessage(ResultCode.MODEL_NOT_FOUND.getMessage());
 		}
 	}
 }

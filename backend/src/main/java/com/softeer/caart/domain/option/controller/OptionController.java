@@ -1,15 +1,19 @@
 package com.softeer.caart.domain.option.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.softeer.caart.domain.option.dto.AdditionalOptionResponse;
+import com.softeer.caart.domain.option.dto.AdditionalOptionSummaryResponse;
 import com.softeer.caart.domain.option.dto.AdditionalOptionsResponse;
 import com.softeer.caart.domain.option.dto.BasicOptionResponse;
 import com.softeer.caart.domain.option.dto.BasicOptionsResponse;
 import com.softeer.caart.domain.option.dto.OptionListRequest;
+import com.softeer.caart.domain.option.dto.OptionSummaryListRequest;
 import com.softeer.caart.domain.option.service.OptionService;
 import com.softeer.caart.global.response.DataResponseDto;
 import com.softeer.caart.global.response.ResponseDto;
@@ -21,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/options")
 @RequiredArgsConstructor
-@Tag(name = "옵션 API", description = "")
+@Tag(name = "옵션 API", description = "추가 옵션 및 기본 옵션 관련")
 public class OptionController {
 	private final OptionService optionService;
 
@@ -36,6 +40,14 @@ public class OptionController {
 	@GetMapping("/additional/list")
 	public ResponseDto getAdditionalOptions(OptionListRequest dto) {
 		AdditionalOptionsResponse additionalOptions = optionService.getAdditionalOptions(dto);
+		return DataResponseDto.of(additionalOptions);
+	}
+
+	@Operation(summary = "모델이 가질 수 있는 추가 옵션의 간단한 정보 목록을 조회한다", description = "추가옵션id와 이름만 response한다")
+	@GetMapping("/additional/summary/list")
+	public ResponseDto getAdditionalOptionsSummary(OptionSummaryListRequest dto) {
+		List<AdditionalOptionSummaryResponse> additionalOptions = optionService.getAdditionalOptionSummaries(
+			dto);
 		return DataResponseDto.of(additionalOptions);
 	}
 
