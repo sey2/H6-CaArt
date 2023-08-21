@@ -261,4 +261,8 @@ object DummyItemFactory {
             )
         )
     }
+
+    fun createOrderMoreDetailDummyItem(): List<String> {
+        return listOf("탁송", "할인/포인트", "결제방법", "면제 구분 및 등록비")
+    }
 }

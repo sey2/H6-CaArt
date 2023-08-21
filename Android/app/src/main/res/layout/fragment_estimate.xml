@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
-                android:text="나만의 차가 완성되었어요!"
+                android:text="@string/complete_my_car"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="만든 차는 저장하고 공유할 수 있어요."
+                android:text="@string/can_save_and_share_your_car"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_make_complete" />
@@ -192,7 +192,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
-                android:text="총 금액"
+                android:text="@string/total_price"
                 android:textColor="@color/gray_400"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -279,6 +279,78 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view_save_account_bottom_divider" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_order_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_car_purchase"/>
+
+            <TextView
+                android:id="@+id/tv_car_total_etimate_price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:text="@string/car_total_etimate_price_title"
+                android:textColor="@color/gray_400"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_order_detail" />
+
+            <TextView
+                android:id="@+id/tv_car_total_etimate_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="17dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:text="@string/price"
+                android:textColor="@color/active_blue"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/tv_car_total_etimate_price_title"
+                app:layout_constraintTop_toTopOf="@id/tv_car_total_etimate_price_title" />
+
+            <Button
+                android:id="@+id/btn_modify"
+                style="@style/SecondaryButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="25dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:text="@string/modify"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_purchase_consulting"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_car_total_etimate_price_title" />
+
+            <Button
+                android:id="@+id/btn_purchase_consulting"
+                style="@style/PrimaryButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="62dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="25dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:text="@string/purchase_consultant"
+                android:textColor="@color/gray_1000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_modify"
+                app:layout_constraintTop_toBottomOf="@id/tv_car_total_etimate_price_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

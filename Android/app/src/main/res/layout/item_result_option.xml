@@ -155,11 +155,11 @@
             android:id="@+id/view_divider"
             style="@style/CaArtBorderViewStyle"
             app:marginTop="@{toolTipVisible}"
-            app:trueMargin="@{96f}"
+            app:trueMargin="@{82f}"
             app:falseMargin="@{24f}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_bottom_option"
-            tools:layout_marginTop="96dp"/>
+            tools:layout_marginTop="82dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

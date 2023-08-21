@@ -43,7 +43,17 @@
     <fragment
         android:id="@+id/carOptionChoiceFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.CarOptionChoiceFragment"
-        android:label="CarOptionChoiceFragment" />
+        android:label="CarOptionChoiceFragment" >
+
+        <action
+            android:id="@+id/action_carOptionChoiceFragment_to_estimateFragment"
+            app:destination="@id/estimateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/estimateFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.EstimateFragment"
+        android:label="estimateFragment" />
 
     <fragment
         android:id="@+id/carTrimDescriptionFragment"
@@ -60,6 +70,7 @@
             android:id="@+id/action_lifeStyleSurveyFragment_to_lifestyleDetailFragment"
             app:destination="@id/lifestyleDetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/lifeStyleDetailSurveyFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleDetailSurveyFragment"
