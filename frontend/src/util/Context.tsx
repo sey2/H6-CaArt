@@ -39,11 +39,13 @@ export interface MyVechicle {
     interiorColor,
     exteriorColor,
     interiorImage,
+    type,
   }: {
     trim: NameAndPriceAndImg;
     interiorColor: NameAndPriceAndImg;
     exteriorColor: NameAndPriceAndImg;
     interiorImage: string;
+    type: string;
   }) => void;
 }
 
@@ -245,18 +247,22 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
     interiorColor,
     exteriorColor,
     interiorImage,
+    type,
   }: {
     trim: NameAndPriceAndImg;
     interiorColor: NameAndPriceAndImg;
     exteriorColor: NameAndPriceAndImg;
     interiorImage: string;
+    type: string;
   }) => {
+    const curOption = type === 'color' ? [] : [...currentEstimation.options];
     setCurrentEstimation({
       ...currentEstimation,
       trim: trim,
       interiorColor: interiorColor,
       outerColor: exteriorColor,
       trimInteriorImage: interiorImage,
+      options: curOption,
     });
   };
 

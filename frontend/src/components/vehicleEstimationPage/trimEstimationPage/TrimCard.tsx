@@ -1,47 +1,25 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { useFetch } from '../../../hooks/useFetch';
-import { OptionType } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
+import {
+  OptionType,
+  Trim,
+} from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
 import { useModalContext } from '../../../store/ModalContext';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
 import { FlexBox } from '../../common/FlexBox';
 import TrimData, { TrimDataProps } from '../../../static/data/TrimData';
 
-interface Option {
-  optionId: number;
-  optionName: string;
-  description: string;
-  optionImage: string;
-}
-
-export interface Color {
-  colorId: number;
-  colorName: string;
-  colorPrice: number;
-  colorImage: string;
-}
-
-export interface Trim {
-  trimName: string;
-  description: string;
-  trimImage: string;
-  trimPrice: number;
-  mainOptions: Option[];
-  exteriorColors: Color[];
-  interiorColors: Color[];
-}
-
 function TrimCard({
   trim,
+  data,
 }: {
   trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Calligraphy' | string;
+  data: Trim[];
 }) {
-  const { data } = useFetch<Trim[]>('/trims');
   const { currentEstimation, setTrimAndAllColor } =
     useContext(EstimationContext)!;
   const { dispatch } = useModalContext();
-  console.log(data);
 
   function handleModal(e: React.MouseEvent, option: OptionType) {
     e.stopPropagation();
@@ -49,7 +27,7 @@ function TrimCard({
     const offsetX = e.nativeEvent.offsetX;
     const clickedX = e.clientX;
     const clickedY = e.clientY;
-    const x = Math.ceil(clickedX - offsetX - 150);
+    const x = Math.ceil(clickedX - offsetX - 160);
     const y = Math.ceil(clickedY / 2);
     dispatch({ type: 'SET_OPTION_POSITION', position: { x: x, y: y } });
     dispatch({ type: 'SET_OPTION_DATA', data: option });
@@ -87,7 +65,7 @@ function TrimCard({
       checkBtn.parentElement?.parentElement?.parentElement?.firstElementChild;
     const rect = targetElement?.getBoundingClientRect() as DOMRect;
     const y = rect.x - 20;
-    const x = rect.y - 100;
+    const x = rect.y - 87;
     dispatch({ type: 'SET_TOOLTIP_TYPE', tooltipType: '트림' });
     dispatch({ type: 'SET_TOOLTIP_POSITION', position: { x: x, y: y } });
     dispatch({ type: 'OPEN_TOOLTIP_MODAL' });
@@ -112,6 +90,7 @@ function TrimCard({
         img: colorData.colorImage,
       },
       interiorImage: colorData.preview,
+      type:'trim'
     });
   }
 

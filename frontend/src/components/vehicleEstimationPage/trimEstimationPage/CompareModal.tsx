@@ -5,20 +5,13 @@ import { FlexBox, SFlex } from '../../common/FlexBox';
 import { commonOption } from '../../../static/data/CompareModalData';
 import { Hr } from '../../common/Hr';
 import { useModalContext } from '../../../store/ModalContext';
-import { Color, Trim } from './TrimCard';
-import { useFetch } from '../../../hooks/useFetch';
-import { ErrorPopup } from '../../common/ErrorPopup';
+import { Trim } from "../../../pages/vehicleEstimationPage/TrimEstimationPage";
+import { Color } from "../../../pages/vehicleEstimationPage/TrimEstimationPage";
 
-function CompareModal() {
+function CompareModal({data}:{data:Trim[]}) {
   useModal();
   const { state, dispatch } = useModalContext();
-  const { data, status, error } = useFetch<Trim[]>('/trims');
-  if (status === 'loading') {
-    return <div></div>;
-  } else if (status === 'error') {
-    console.error(error);
-    return <ErrorPopup></ErrorPopup>;
-  }
+
   function setExteriorColor(colorSet: Color[]) {
     return colorSet.map(color => (
       <>

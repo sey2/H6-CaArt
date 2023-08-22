@@ -33,10 +33,10 @@ function EBWContainer() {
     const rect = target?.getBoundingClientRect() as DOMRect;
     const y = rect.left - 20;
     let x;
-    if (target?.innerHTML === '엔진') {
-      x = rect.top - 80;
+    if (target?.innerHTML !== '엔진') {
+      x = rect.top - 88;
     } else {
-      x = rect.top - 100;
+      x = rect.top - 78;
     }
     return { x, y };
   }

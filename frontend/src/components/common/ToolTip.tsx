@@ -37,8 +37,8 @@ export default ToolTip;
 const BubbleBox = styled.div<{ top: number; left: number; isopen: boolean }>`
   position: absolute;
   display: flex;
-  top: ${props => props.top}px;
-  left: ${props => props.left}px;
+  top: ${props => props.top + 55}px;
+  left: ${props => props.left - 281}px;
   padding: 12px 14px;
   justify-content: center;
   align-items: center;
@@ -55,8 +55,8 @@ const BubbleBox = styled.div<{ top: number; left: number; isopen: boolean }>`
   ::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 20px;
+    bottom: 50%;
+    right: -18px;
     width: 0;
     height: 0;
     border: 13px solid transparent;
@@ -64,5 +64,6 @@ const BubbleBox = styled.div<{ top: number; left: number; isopen: boolean }>`
     border-bottom: 0;
     border-radius: 1px;
     margin-bottom: -6px;
+    transform: rotate(-90deg);
   }
 `;

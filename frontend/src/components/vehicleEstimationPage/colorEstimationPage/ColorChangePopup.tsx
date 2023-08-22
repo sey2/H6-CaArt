@@ -5,6 +5,9 @@ import SquareButton from '../../common/SquareButton';
 import { FlexBox } from '../../common/FlexBox';
 import { Hr } from '../../common/Hr';
 import { EstimationContext } from '../../../util/Context';
+import { TrimDataProps } from '../../../static/data/TrimData';
+import TrimData from '../../../static/data/TrimData';
+import { Link } from 'react-router-dom';
 
 export interface Trim {
   name: string;
@@ -26,8 +29,29 @@ interface ModalProps {
 }
 
 function ColorChangePopup({ setter, data }: ModalProps) {
-  const { setColorAndTrim } = useContext(EstimationContext)!;
-
+  const { setTrimAndAllColor } = useContext(EstimationContext)!;
+  function trimAndColorSetter(item: State) {
+    const colorData = TrimData[item.changeTrim.name as keyof TrimDataProps];
+    setTrimAndAllColor({
+      trim: {
+        name: item.changeTrim.name,
+        price: item.changeTrim.price,
+        img: '',
+      },
+      interiorColor: {
+        name: colorData.interiorColorName,
+        price: colorData.interiorColorPrice,
+        img: colorData.interiorColorImage,
+      },
+      exteriorColor: {
+        name: colorData.colorName,
+        price: colorData.colorPrice,
+        img: colorData.colorImage,
+      },
+      interiorImage: colorData.preview,
+      type: 'color',
+    });
+  }
   return (
     <Overlay
       onClick={() => setter({ ...data, isopen: false })}
@@ -95,30 +119,20 @@ function ColorChangePopup({ setter, data }: ModalProps) {
               아니요
             </SquareButton>
           </div>
-          <SquareButton
-            size="xxs"
-            height={40}
-            color="grey-900"
-            bg="primary-blue"
-            onClick={() => {
-              setColorAndTrim({
-                trim: {
-                  name: data.changeTrim.name,
-                  price: data.changeTrim.price,
-                  img: data.changeTrim.img,
-                },
-                color: {
-                  name: data.color.name,
-                  price: data.color.price,
-                  img: data.color.img,
-                },
-                type: data.type,
-              });
-              setter({ ...data, isopen: false });
-            }}
-          >
-            변경하기
-          </SquareButton>
+          <Link to="/estimate/trim">
+            <SquareButton
+              size="xxs"
+              height={40}
+              color="grey-900"
+              bg="primary-blue"
+              onClick={() => {
+                trimAndColorSetter(data);
+                setter({ ...data, isopen: false });
+              }}
+            >
+              변경하기
+            </SquareButton>
+          </Link>
         </FlexBox>
       </Wrapper>
     </Overlay>

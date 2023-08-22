@@ -94,8 +94,7 @@ function ColorEstimationPage() {
     return <ErrorPopup></ErrorPopup>;
   }
   if (data === null) return <div></div>;
-  console.log(data);
-  console.log(currentEstimation.trimInteriorImage);
+
   return (
     <>
       <Wrapper>
@@ -116,12 +115,14 @@ function ColorEstimationPage() {
               setter={setSelectedType}
               type={selectedType}
             />
-            <Dropdown
-              type="exterior"
-              data={data.otherTrimExteriorColors}
-              setter={setModal}
-              modaldata={modal}
-            />
+            {data.otherTrimExteriorColors.length !== 0 && (
+              <Dropdown
+                type="exterior"
+                data={data.otherTrimExteriorColors}
+                setter={setModal}
+                modaldata={modal}
+              />
+            )}
             <Hr margin="32px 0px 0px 0px" width={308} />
             <HeadTitle className="text-grey-0 head-medium-20">
               내장 색상

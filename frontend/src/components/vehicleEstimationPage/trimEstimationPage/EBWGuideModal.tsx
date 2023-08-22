@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { styled } from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
 import { useModalContext } from '../../../store/ModalContext';
 import { priceToString } from '../../../util/PriceToString';
+import { Hr } from '../../common/Hr';
 
 interface Engine {
   engineName: string;
@@ -37,11 +38,53 @@ type NavType = 'carEngines' | 'bodyTypes' | 'wheelDrives' | string;
 function EBWGuideModal() {
   const [selectedNav, setSelectedNav] = useState<NavType>('carEngines');
   const [compositionData, setCompositionData] = useState<CompositionsData>();
+  const [widthValue, setWidthValue] = useState(0);
   const { data } = useFetch<CompositionsData>('/compositions');
   const { state, dispatch } = useModalContext();
+  const lineRef = useRef<HTMLDivElement>(null);
 
+  function getValueByNavName(name: string) {
+    switch (name) {
+      case 'carEngines':
+        return 0;
+      case 'bodyTypes':
+        return 1;
+      case 'wheelDrives':
+        return 2;
+      default:
+        return 0;
+    }
+  }
+
+  function widthHandler(e: React.MouseEvent<HTMLElement>) {
+    const value = e.currentTarget.getAttribute('value') as string;
+    setWidthValue(
+      prevValue =>
+        prevValue +
+        (getValueByNavName(selectedNav) - getValueByNavName(value)) * 800,
+    );
+  }
+
+  function lineHandler(e: React.MouseEvent<HTMLSpanElement>): void {
+    if (lineRef.current) {
+      lineRef.current.style.width = `${e.currentTarget.offsetWidth}px`;
+      lineRef.current.style.left = `${e.currentTarget.offsetLeft}px`;
+      lineRef.current.style.top = `${
+        e.currentTarget.offsetTop + e.currentTarget.offsetHeight - 0.5
+      }px`;
+    }
+  }
   useEffect(() => {
     setCompositionData(data as CompositionsData);
+    if (lineRef.current) {
+      const targetDom: HTMLElement =
+        document.querySelector('.text-primary-blue')!;
+      lineRef.current.style.width = `${targetDom.offsetWidth}px`;
+      lineRef.current.style.left = `${targetDom.offsetLeft}px`;
+      lineRef.current.style.top = `${
+        targetDom.offsetTop + targetDom.offsetHeight - 0.5
+      }px`;
+    }
   }, [data]);
 
   function getEngineInfo() {
@@ -59,7 +102,7 @@ function EBWGuideModal() {
                 {item.description}
               </span>
             </InfoTop>
-            <Hr />
+            <Hr margin="12px 0px 12px 0px" />
             <InfoBottom>
               <SpanDiv>
                 <span className="head-regular-14 text-grey-400">최고출력</span>
@@ -95,7 +138,7 @@ function EBWGuideModal() {
                 {item.description}
               </span>
             </InfoTop>
-            <Hr />
+            <Hr margin="12px 0px 12px 0px" />
             <InfoBottom>
               <SpanDiv>
                 <span className="head-regular-14 text-grey-400"></span>
@@ -127,7 +170,7 @@ function EBWGuideModal() {
                 {item.description}
               </span>
             </InfoTop>
-            <Hr />
+            <Hr margin="12px 0px 12px 0px" />
             <InfoBottom>
               <SpanDiv>
                 <span className="head-regular-14 text-grey-400">가격</span>
@@ -144,17 +187,6 @@ function EBWGuideModal() {
         </Item>
       </>
     ));
-  }
-
-  function contentHandler(selected: NavType) {
-    switch (selected) {
-      case 'carEngines':
-        return getEngineInfo();
-      case 'bodyTypes':
-        return getBodyInfo();
-      case 'wheelDrives':
-        return getWdInfo();
-    }
   }
 
   function handleNavItem(e: React.MouseEvent) {
@@ -183,19 +215,19 @@ function EBWGuideModal() {
   }
 
   function setNavItem(value: string) {
-    if (value === selectedNav) {
-      return (
-        <SNItem
-          key={value}
-          value={value}
-          className="body-bold-18 text-primary-blue"
-        >
-          {translator(value)}
-        </SNItem>
-      );
-    }
     return (
-      <NItem key={value} value={value} onClick={handleNavItem}>
+      <NItem
+        key={value}
+        value={value}
+        onClick={e => {
+          widthHandler(e);
+          handleNavItem(e);
+          lineHandler(e);
+        }}
+        className={
+          value === selectedNav ? 'body-bold-18 text-primary-blue' : ''
+        }
+      >
         {translator(value)}
       </NItem>
     );
@@ -219,9 +251,14 @@ function EBWGuideModal() {
             src="/images/x_icon.svg"
             onClick={() => dispatch({ type: 'CLOSE_INFO_MODAL' })}
           />
+          <BottomLine ref={lineRef} />
         </NavBar>
-        <Hhr />
-        <Content>{contentHandler(selectedNav)}</Content>
+        <Hr />
+        <ContentWrapper widthvalue={widthValue}>
+          <Content>{getEngineInfo()}</Content>
+          <Content>{getBodyInfo()}</Content>
+          <Content>{getWdInfo()}</Content>
+        </ContentWrapper>
       </Wrapper>
     </Modal>
   );
@@ -248,6 +285,7 @@ const Wrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 51;
+  overflow: hidden;
 `;
 const NavBar = styled.div`
   display: flex;
@@ -265,6 +303,7 @@ const NavItem = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 20px;
   margin: 31px 78px 43px 40px;
 `;
@@ -281,25 +320,11 @@ const InfoTop = styled.div`
 `;
 
 const InfoBottom = styled.div`
-  display: findByLabelText;
   gap: 7px;
 `;
 
 const X = styled.img`
   cursor: pointer;
-`;
-
-const Hr = styled.hr`
-  margin: 16px 0;
-  flex-shrink: 0;
-  border-width: 1px 0 0 0;
-  border-color: var(--primary-blue-10);
-`;
-
-const Hhr = styled.hr`
-  border-color: var(--primary-blue-10);
-  flex-shrink: 0;
-  margin-top: 0;
 `;
 
 const SpanDiv = styled.div`
@@ -310,12 +335,7 @@ const SpanDiv = styled.div`
 const NItem = styled.span<{ value: string }>`
   padding: 0px 20px 9px 20px;
   cursor: pointer;
-`;
-
-const SNItem = styled.span<{ value: string }>`
-  padding: 0px 20px 9px 20px;
-  border-bottom: 2px solid var(--primary-blue);
-  cursor: pointer;
+  transition: color 0.5s;
 `;
 
 const Modal = styled.div<{ isopen: boolean }>`
@@ -327,4 +347,19 @@ const Modal = styled.div<{ isopen: boolean }>`
   visibility: hidden;
   opacity: 0;
   ${props => props.isopen && `visibility:visible;opacity:1;`};
+`;
+
+const BottomLine = styled.div`
+  position: absolute;
+  height: 2px;
+  background: var(--primary-blue);
+  transition: all 0.5s;
+`;
+
+const ContentWrapper = styled.div<{ widthvalue: number }>`
+  display: flex;
+  width: 2400px;
+  overflow: hidden;
+  transition: transform 0.5s;
+  ${props => `transform: translateX(${props.widthvalue}px);`}
 `;

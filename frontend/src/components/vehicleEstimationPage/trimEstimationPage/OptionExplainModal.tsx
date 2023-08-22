@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useModalContext } from '../../../store/ModalContext';
 
 function OptionExplainModal() {
   const { state, dispatch } = useModalContext();
+  const componentRef = useRef<HTMLDivElement>(null);
+  const [componentHeight, setComponentHeight] = useState<number>(0);
+
+  useEffect(() => {
+    if (componentRef.current) {
+      const height = componentRef.current.getBoundingClientRect().height;
+      setComponentHeight(height);
+    }
+  }, [state.optionModalPosition.y]);
   return (
     <Modal
       top={state.optionModalPosition.y}
       left={state.optionModalPosition.x}
       onClick={e => e.stopPropagation()}
       isopen={state.optionModalOpen}
+      ref={componentRef}
+      height={componentHeight}
     >
       <X
         src="/images/x_icon.svg"
@@ -31,9 +42,23 @@ function OptionExplainModal() {
 
 export default OptionExplainModal;
 
-const Modal = styled.div<{ top: number; left: number; isopen: boolean }>`
+const Modal = styled.div<{
+  top: number;
+  left: number;
+  isopen: boolean;
+  height: number;
+}>`
   position: absolute;
-  top: ${props => props.top}px;
+  top: ${props => {
+    if (props.isopen) {
+      if (props.top + props.height > window.innerHeight) {
+        return window.innerHeight - props.height - 10 + 'px';
+      }
+
+      return Math.max(130, props.top) + 'px';
+    }
+    return 0;
+  }};
   left: ${props => props.left - 160}px;
   display: flex;
   flex-direction: column;

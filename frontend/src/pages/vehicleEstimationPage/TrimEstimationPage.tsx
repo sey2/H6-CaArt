@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
@@ -11,6 +11,8 @@ import TrimContainer from '../../components/vehicleEstimationPage/trimEstimation
 import OptionExplainModal from '../../components/vehicleEstimationPage/trimEstimationPage/OptionExplainModal';
 import { Link } from 'react-router-dom';
 import { useModalContext } from '../../store/ModalContext';
+import { useFetch } from '../../hooks/useFetch';
+import { EstimationContext } from '../../util/Context';
 
 export interface OptionType {
   optionId: number;
@@ -19,18 +21,57 @@ export interface OptionType {
   optionImage: string;
 }
 
+interface Option {
+  optionId: number;
+  optionName: string;
+  description: string;
+  optionImage: string;
+}
+
+export interface Color {
+  colorId: number;
+  colorName: string;
+  colorPrice: number;
+  colorImage: string;
+}
+
+export interface Trim {
+  trimName: string;
+  description: string;
+  trimImage: string;
+  trimPrice: number;
+  mainOptions: Option[];
+  exteriorColors: Color[];
+  interiorColors: Color[];
+}
+
 function TrimEstimationPage() {
   const { dispatch } = useModalContext();
+  const { data } = useFetch<Trim[]>('/trims');
+  const { currentEstimation, setTrim } = useContext(EstimationContext)!;
 
   function closeModalHandler() {
     dispatch({ type: 'CLOSE_TOOLTIP_MODAL' });
     dispatch({ type: 'CLOSE_OPTION_MODAL' });
   }
 
+  useEffect(() => {
+    if (data) {
+      const trimImg = data.find(
+        item => item.trimName === currentEstimation.trim.name,
+      )?.trimImage as string;
+      setTrim({
+        name: currentEstimation.trim.name,
+        price: currentEstimation.trim.price,
+        img: trimImg,
+      });
+    }
+    dispatch({ type: 'SET_TOOLTIP_TYPE', tooltipType: '엔진' });
+  }, [data]);
   return (
     <>
       {<EBWGuideModal />}
-      {<CompareModal />}
+      {<CompareModal data={data as Trim[]} />}
       {<ToolTip />}
       {<OptionExplainModal />}
       <Wrapper onClick={closeModalHandler}>
@@ -45,7 +86,7 @@ function TrimEstimationPage() {
               </span>
             </InfoText>
             <EBWContainer />
-            <TrimContainer />
+            <TrimContainer data={data as Trim[]} />
             <Link to="/estimate/color">
               <SquareButton size="xm" bg="primary-blue" color="grey-1000">
                 색상 선택
