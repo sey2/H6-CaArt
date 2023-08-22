@@ -4,10 +4,10 @@ data class ResultChoiceOption(
     val optionTitle: String,
     val topOptionTitle: String,
     val topOptionImgUrl: String,
-    val topOptionPrice: String,
+    val topOptionPrice: Long?,
     val topOptionToolTipText: String = "",
     val bottomOptionTitle: String,
     val bottomOptionImgUrl: String,
-    val bottomOptionPrice: String,
+    val bottomOptionPrice: Long?,
     val bottomOptionToolTipText: String = ""
 )

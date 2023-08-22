@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.softeer_2nd.caArt.model.data.Answer
 import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.repository.RecommendRepository
@@ -23,6 +24,15 @@ class LifeStyleSurveyViewModel @Inject constructor(
     private val _selectedPersona = MutableLiveData<Persona>()
     val selectedPersona: LiveData<Persona> = _selectedPersona
 
+    private val _selectedAnswer = MutableLiveData<Answer>()
+    val selectedAnswer: LiveData<Answer> = _selectedAnswer
+
+    private lateinit var selectedAnswerList: MutableList<Answer?>
+
+    val selectedAgeAnswer: Answer? get() = if (selectedAnswerList.isNotEmpty()) selectedAnswerList[0] else null
+
+    val selectedPersonaId: Int? get() = selectedPersona.value?.personaId
+
     fun selectPersona(persona: Persona) {
         _selectedPersona.value = persona
     }
@@ -31,11 +41,12 @@ class LifeStyleSurveyViewModel @Inject constructor(
         viewModelScope.launch {
             val questions = repository.fetchLifestyleSurveyQuestions() ?: return@launch
             withContext(Dispatchers.Main) {
-                val temp = questions.toMutableList()
-                temp.add(SurveyQuestion("페르소나 질문", "키워드", null))
-                setProcessData(temp)
-                setLastProcess(questions.size + 1)
+                setProcessData(questions)
+                setLastProcess(questions.size)
                 startProcess()
+                selectedAnswerList = MutableList(questions.size) { null }
+                if (questions.isNotEmpty() && !questions[0].answers.isNullOrEmpty())
+                    selectAnswer(questions[0].answers!![0])
             }
         }
     }
@@ -49,4 +60,12 @@ class LifeStyleSurveyViewModel @Inject constructor(
             }
         }
     }
+
+    fun selectAnswer(selectedAnswer: Answer) {
+        _selectedAnswer.value = selectedAnswer
+        if (selectedAnswerList.size > currentProcessIndex) {
+            selectedAnswerList[currentProcessIndex] = selectedAnswer
+        }
+    }
+
 }

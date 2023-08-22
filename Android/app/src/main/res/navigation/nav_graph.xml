@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_carTrimChoiceFragment"
             app:destination="@id/carTrimChoiceFragment" />
@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/carTrimChoiceFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.CarTrimChoiceFragment"
-        android:label="CarColorTrimFragment" >
+        android:label="CarColorTrimFragment">
         <action
             android:id="@+id/action_carTrimChoiceFragment_to_carTrimDescriptionFragment"
             app:destination="@id/carTrimDescriptionFragment" />
@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/carColorChoiceFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.CarColorChoiceFragment"
-        android:label="CarColorChoiceFragment" >
+        android:label="CarColorChoiceFragment">
         <action
             android:id="@+id/action_carColorChoiceFragment_to_carOptionChoiceFragment"
             app:destination="@id/carOptionChoiceFragment" />
@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/carOptionChoiceFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.CarOptionChoiceFragment"
-        android:label="CarOptionChoiceFragment" >
+        android:label="CarOptionChoiceFragment">
 
         <action
             android:id="@+id/action_carOptionChoiceFragment_to_estimateFragment"
@@ -62,7 +62,7 @@
     <fragment
         android:id="@+id/lifeStyleSurveyFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleSurveyFragment"
-        android:label="LifeStyleSurveyFragment" >
+        android:label="LifeStyleSurveyFragment">
         <action
             android:id="@+id/action_lifeStyleSurveyFragment_to_lifeStyleDetailSurveyFragment"
             app:destination="@id/lifeStyleDetailSurveyFragment" />
@@ -71,21 +71,66 @@
             app:destination="@id/lifestyleDetailFragment" />
         <action
             android:id="@+id/action_lifeStyleSurveyFragment_to_recommendCompleteFragment"
-            app:destination="@id/recommendCompleteFragment" />
+            app:destination="@id/recommendCompleteFragment">
+            <argument
+                android:name="eperience"
+                android:defaultValue="@null"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="family"
+                android:defaultValue="@null"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="purpose"
+                android:defaultValue="@null"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="value"
+                android:defaultValue="@null"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="budget"
+                android:defaultValue="6900"
+                app:argType="integer" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/lifeStyleDetailSurveyFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleDetailSurveyFragment"
-        android:label="LifeStyleDetailSurveyFragment" >
+        android:label="LifeStyleDetailSurveyFragment">
         <action
             android:id="@+id/action_lifeStyleDetailSurveyFragment_to_recommendCompleteFragment"
-            app:destination="@id/recommendCompleteFragment" />
+            app:destination="@id/recommendCompleteFragment">
+            <argument
+                android:name="budget"
+                app:argType="integer" />
+            <argument
+                android:name="eperience"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="family"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="purpose"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="value"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/lifestyleDetailFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleDetailFragment"
-        android:label="LifestyleDetailFragment" >
+        android:label="LifestyleDetailFragment">
         <argument
             android:name="personaId"
             app:argType="integer" />
@@ -93,5 +138,37 @@
     <fragment
         android:id="@+id/recommendCompleteFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.RecommendCompleteFragment"
-        android:label="RecommendCompleteFragment" />
+        android:label="RecommendCompleteFragment">
+        <argument
+            android:name="age"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer" />
+        <argument
+            android:name="personaId"
+            android:defaultValue="1"
+            app:argType="integer" />
+        <argument
+            android:name="eperience"
+            android:defaultValue="@null"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer"
+            app:nullable="true" />
+        <argument
+            android:name="family"
+            android:defaultValue="@null"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer"
+            app:nullable="true" />
+        <argument
+            android:name="purpose"
+            android:defaultValue="@null"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer"
+            app:nullable="true" />
+        <argument
+            android:name="value"
+            android:defaultValue="@null"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer"
+            app:nullable="true" />
+        <argument
+            android:name="budget"
+            android:defaultValue="6900"
+            app:argType="integer" />
+    </fragment>
 </navigation>

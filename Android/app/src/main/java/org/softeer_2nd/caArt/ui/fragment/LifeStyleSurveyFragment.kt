@@ -74,7 +74,9 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
         binding.processViewModel = processViewModel
 
-        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter()
+        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter { selectedAnswer ->
+            processViewModel.selectAnswer(selectedAnswer!!)
+        }
 
         binding.rvSurveyAnswerOptionsContainer.initSurveyAnswerOptionsRecyclerView(surveyAdapter!!)
 
@@ -85,6 +87,10 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
         processViewModel.selectedPersona.observe(viewLifecycleOwner) {
             personaAdapter.selectItem(it)
+        }
+
+        processViewModel.selectedAnswer.observe(viewLifecycleOwner) {
+            surveyAdapter?.selectAnswerOption(it)
         }
     }
 
@@ -140,7 +146,17 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
     }
 
     override fun onProcessFinished() {
-        findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToRecommendCompleteFragment())
+        if (processViewModel.selectedAgeAnswer != null && processViewModel.selectedPersonaId != null) {
+            findNavController().navigate(
+                LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToRecommendCompleteFragment(
+                    age = processViewModel.selectedAgeAnswer!!,
+                    personaId = processViewModel.selectedPersonaId!!,
+                )
+            )
+        }
+//        findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToRecommendCompleteFragment(
+//         model
+//        ))
     }
 
     private fun ViewPager2.initLifeStylePersonaContainer(adapter: LifestylePersonaSelectAdapter) {

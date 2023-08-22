@@ -7,9 +7,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.Answer
+import org.softeer_2nd.caArt.ui.callback.OnItemClickListener
 import org.softeer_2nd.caArt.util.dp2px
 
-class SurveyAnswerOptionsRecyclerAdapter :
+class SurveyAnswerOptionsRecyclerAdapter(private val itemSelectListener:OnItemClickListener<Answer>) :
     RecyclerView.Adapter<SurveyAnswerOptionsRecyclerAdapter.SurveyAnswerOptionViewHolder>() {
 
     private var selectedAnswerOptionIndex: Int = 0
@@ -74,8 +75,11 @@ class SurveyAnswerOptionsRecyclerAdapter :
 
         fun bind(answerOption: Answer) {
             textView.text = answerOption.answer
+//            textView.setOnClickListener {
+//                selectAnswerOption(answerOption)
+//            }
             textView.setOnClickListener {
-                selectAnswerOption(answerOption)
+                itemSelectListener.onItemClicked(answerOption)
             }
 
         }

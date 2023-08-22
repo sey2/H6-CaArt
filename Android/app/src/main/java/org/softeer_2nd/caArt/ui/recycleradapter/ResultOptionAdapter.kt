@@ -1,12 +1,13 @@
 package org.softeer_2nd.caArt.ui.recycleradapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemResultOptionBinding
 import org.softeer_2nd.caArt.model.data.ResultChoiceOption
 
-class ResultOptionAdapter(private val items: List<ResultChoiceOption>, val isToolTipVisible: Boolean) :
+class ResultOptionAdapter(private var items: List<ResultChoiceOption>, val isToolTipVisible: Boolean) :
     RecyclerView.Adapter<ResultOptionAdapter.ResultOptionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultOptionViewHolder {
@@ -21,6 +22,12 @@ class ResultOptionAdapter(private val items: List<ResultChoiceOption>, val isToo
     }
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setItems(items:List<ResultChoiceOption>){
+        this.items=items
+        notifyDataSetChanged()
     }
 
     inner class ResultOptionViewHolder(val binding: ItemResultOptionBinding) :

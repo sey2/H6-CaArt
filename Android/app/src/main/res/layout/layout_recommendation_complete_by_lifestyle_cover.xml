@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="org.softeer_2nd.caArt.util.StringFormatter" />
+
+        <variable
+            name="card"
+            type="org.softeer_2nd.caArt.model.data.state.RecommendationCardState" />
+
+        <variable
+            name="model"
+            type="org.softeer_2nd.caArt.model.data.state.Model" />
+
+        <variable
+            name="carImage"
+            type="String" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,6 +64,7 @@
                 android:fontFamily="@font/hyundaisanstextkrmedium"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
+                android:text="@{model.modelName+` - `+model.trim.trimName}"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +82,7 @@
                 android:fontFamily="@font/hyundaisansheadkrregular"
                 android:gravity="center"
                 android:lineSpacingExtra="7sp"
+                android:text="@{card.slogan}"
                 android:textColor="@color/gray_0"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -74,14 +94,14 @@
                 android:id="@+id/iv_recommendation_complete_by_lifestyle_cover_car_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginEnd="-100dp"
+                android:layout_marginEnd="-150dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="300:200"
+                app:layout_constraintDimensionRatio="496:246"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_recommendation_complete_by_lifestyle_cover_title"
-                app:srcCompat="@drawable/image_060" />
+                app:url="@{carImage}" />
 
             <TextView
                 android:id="@+id/tv_recommendation_complete_by_lifestyle_cover_letter"
@@ -96,6 +116,7 @@
                 android:lineSpacingExtra="7sp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
+                android:text="@{StringFormatter.INSTANCE.replaceWebNewLine(card.message)}"
                 android:textColor="@color/gray_400"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

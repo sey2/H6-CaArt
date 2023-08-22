@@ -2,15 +2,20 @@ package org.softeer_2nd.caArt.model.repository
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.softeer_2nd.caArt.model.data.Answer
 import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.data.state.LifestyleDetailState
-import org.softeer_2nd.caArt.model.network.RecommandApiService
+import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
+import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO.Companion.toState
+import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
+import org.softeer_2nd.caArt.model.network.RecommendApiService
 import javax.inject.Inject
+import kotlin.math.exp
 
 class RecommendRepository @Inject constructor(
-    private val service: RecommandApiService
+    private val service: RecommendApiService
 ) {
 
     private var personaList: List<Persona>? = null
@@ -20,7 +25,7 @@ class RecommendRepository @Inject constructor(
 
     suspend fun fetchLifestyleSurveyQuestions(): List<SurveyQuestion>? {
         val data = service.getSurveyQuestion().data ?: return null
-        return listOf(data.age)
+        return listOf(data.age, data.persona)
     }
 
     suspend fun fetchPersonaList(): List<Persona>? {
@@ -55,5 +60,32 @@ class RecommendRepository @Inject constructor(
         return service.getLifestyleDetail(personaId).data
     }
 
+    suspend fun fetchRecommendResult(personaId: Int, age: String): RecommendCompleteResultState? {
+
+        //TODO 서버 변경 이후 ageId->ageCode로변경
+        val data = service.getRecommendationResultByLifestyle(personaId, 2).data
+        return data?.toState()
+    }
+
+    suspend fun fetchRecommendResult(
+        age: String,
+        experience: String,
+        family: String,
+        purpose: String,
+        value: String,
+        budget: Int
+    ): RecommendCompleteResultState? {
+
+        val data = service.getRecommendationResultByAdditionalQuestions(
+            age = age,
+            experience = experience,
+            family = family,
+            purpose = purpose,
+            value = value,
+            budget = budget
+        ).data
+
+        return data?.toState()
+    }
 
 }

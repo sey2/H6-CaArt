@@ -57,7 +57,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
         binding.processViewModel = processViewModel
 
-        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter()
+        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter(){}
 
         binding.rvSurveyAnswerOptionsContainer.initSurveyAnswerOptionsRecyclerView(surveyAdapter!!)
         binding.clSurveyScreenContainer.addView(detailSurveySetBudgetBinding?.root)
@@ -93,7 +93,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
     }
 
     override fun onProcessFinished() {
-        findNavController().navigate(LifeStyleDetailSurveyFragmentDirections.actionLifeStyleDetailSurveyFragmentToRecommendCompleteFragment())
+        //findNavController().navigate(LifeStyleDetailSurveyFragmentDirections.actionLifeStyleDetailSurveyFragmentToRecommendCompleteFragment())
     }
 
     private fun RecyclerView.initSurveyAnswerOptionsRecyclerView(adapter: SurveyAnswerOptionsRecyclerAdapter) {

@@ -181,22 +181,22 @@ object DummyItemFactory {
                 "색상",
                 "외장 - 크라미 화이 펄",
                 "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
-                "0원",
+                0,
                 "75%의 20~30대 구매자들이 선택했어요",
                 "내장 - 인조 가죽(블랙)",
                 "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
-                "0원",
+                0,
                 "75%의 20~30대 구매자들이 선택했어요"
             ),
             ResultChoiceOption(
                 "색상",
                 "외장 - 크라미 화이 펄",
                 "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
-                "0원",
+                0,
                 "75%의 20~30대 구매자들이 선택했어요",
                 "내장 - 인조 가죽(블랙)",
                 "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
-                "0원",
+                0,
                 "75%의 20~30대 구매자들이 선택했어요"
             )
         )

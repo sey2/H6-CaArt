@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="model"
+            type="org.softeer_2nd.caArt.model.data.state.Model" />
+
+        <variable
+            name="carImage"
+            type="String" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -36,7 +47,7 @@
             app:layout_constraintDimensionRatio="w,214:454"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/v_recommendation_complete_by_additional_question_cover_bottom_background"
-            app:srcCompat="@drawable/image_060" />
+            url="@{carImage}"/>
 
         <TextView
             android:id="@+id/tv_recommendation_complete_by_additional_question_cover_title"

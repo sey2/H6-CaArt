@@ -6,7 +6,8 @@ data class BodyType(
     @SerializedName("bodyTypeName") override val itemName: String,
     @SerializedName("bodyTypeImage") override val imageUrl: String,
     override val description: String,
-    override val summary: String
+    override val summary: String,
+    @SerializedName("bodyTypePrice") val bodyTypePrice: Long? = null,
 ) : TrimDescription {
     override val maxPower: String? get() = null
     override val maxTorque: String? get() = null
