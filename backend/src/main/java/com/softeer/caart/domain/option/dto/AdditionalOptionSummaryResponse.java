@@ -11,11 +11,13 @@ import lombok.NoArgsConstructor;
 public class AdditionalOptionSummaryResponse {
 	private Long optionId;
 	private String optionName;
+	private Integer optionPrice;
 
 	// FIXME : N+1
 	private AdditionalOptionSummaryResponse(AdditionalOptionInfo option) {
 		this.optionId = option.getId();
 		this.optionName = option.getDetails().getName();
+		this.optionPrice = option.getPrice();
 	}
 
 	public static AdditionalOptionSummaryResponse from(AdditionalOptionInfo option) {
