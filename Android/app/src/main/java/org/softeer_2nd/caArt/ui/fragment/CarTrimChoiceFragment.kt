@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.databinding.FragmentCarTrimChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
-import org.softeer_2nd.caArt.model.dummy.OptionChangePopItem
+import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
 import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.ui.callback.OnTrimItemClickListener
@@ -145,7 +145,7 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         return if (bottomOptionVisible) "지금 변경하시면 선택한 색상과 옵션이 해제돼요" else "지금 변경하시면 선택한 색상이 해제돼요."
     }
 
-    private fun RecyclerView.setupOptionChangeAdapter(items: List<OptionChangePopItem>) {
+    private fun RecyclerView.setupOptionChangeAdapter(items: List<OptionChangePopUpItem>) {
         layoutManager = LinearLayoutManager(context)
         adapter = OptionChangePopupAdapter(items)
     }

@@ -17,31 +17,41 @@ import javax.inject.Inject
 class CarColorChoiceViewModel @Inject constructor(
     val imageRepository: CarColorImageRepository
 ) : ViewModel() {
+    val BASE_PATH = "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/outside/"
+
     private val _colorData = MutableLiveData<ColorData>()
     val colorData: LiveData<ColorData> = _colorData
 
-    private val _spinCarImageIndex = MutableLiveData<Int>(1)
+    private val _spinCarImageIndex = MutableLiveData<Int>(0)
     val spinCarImageIndex: LiveData<Int> = _spinCarImageIndex
 
     private val _spinActive = MutableLiveData<Boolean>(false)
     val spinActive: LiveData<Boolean> = _spinActive
 
     val currentExteriorColorImage =
-        MediatorLiveData<String>("https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/outside/gray/image_001.png")
+        MediatorLiveData<String>("https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/outside/abyss/image_001.png")
 
-    private val currentInteriorColorImage = MutableLiveData<String>("")
-    val _currentInteriorColorImage: LiveData<String> = currentInteriorColorImage
+    private val _currentInteriorColorImage = MutableLiveData<String>("")
+    val currentInteriorColorImage: LiveData<String> = _currentInteriorColorImage
+
+    private val _currentExteriorUrls = MutableLiveData<List<String>>()
+    val currentExteriorUrls: LiveData<List<String>>  = _currentExteriorUrls
 
     init {
         currentExteriorColorImage.addSource(spinCarImageIndex) { index ->
-            val imageUrl = "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/outside/abyss/image_${StringFormatter.getImageUrlFromIndex(index)}.png"
-            currentExteriorColorImage.value = imageUrl
+            val urls = _currentExteriorUrls.value
+            if (urls != null && index in urls.indices) {
+                val color = StringFormatter.extractColorFromUrl(urls[index])
+                val imageUrl = "$BASE_PATH$color/image_${StringFormatter.getImageUrlFromIndex(index)}.png"
+                currentExteriorColorImage.value = imageUrl
+            }
         }
     }
     fun getImages(trimId: Int) {
         viewModelScope.launch {
             _colorData.value = imageRepository.fetchColorList(trimId)
-            currentInteriorColorImage.value = colorData.value!!.interiorColors[0].preview
+            _currentInteriorColorImage.value = colorData.value!!.interiorColors[0].preview
+            _currentExteriorUrls.value = colorData.value!!.exteriorColors[0].previews
         }
     }
 
@@ -57,5 +67,11 @@ class CarColorChoiceViewModel @Inject constructor(
     fun activateSpinImage() {
         _spinActive.value = true
     }
+
+    fun updateCurrentImageUrl(index: Int) {
+        _currentExteriorUrls.value = colorData.value!!.exteriorColors[index].previews
+        _spinCarImageIndex.value = 0
+    }
+
 
 }

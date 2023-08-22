@@ -13,6 +13,12 @@ data class InteriorColor(
 
 fun List<InteriorColor>.toChoiceColorItems(): List<ChoiceColorItem> {
     return this.map { color ->
-        ChoiceColorItem("", color.colorName, color.colorPrice, imgUrl = color.colorImage, false)
+        ChoiceColorItem(
+            "",
+            color.colorName,
+            color.colorPrice,
+            imgUrl = color.colorImage,
+            false
+        )
     }
 }

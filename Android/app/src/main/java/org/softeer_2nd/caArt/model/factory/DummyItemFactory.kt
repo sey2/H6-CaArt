@@ -2,10 +2,10 @@ package org.softeer_2nd.caArt.model.factory
 
 import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.data.Option
+import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
 import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.ResultChoiceOption
 import org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState
-import org.softeer_2nd.caArt.model.dummy.OptionChangePopItem
 import org.softeer_2nd.caArt.model.dummy.TrimDescriptionDummyItem
 
 
@@ -23,16 +23,17 @@ object DummyItemFactory {
             UserChoiceBottomsheetState("옵션", "컴포트 II", "내장 어비스 블랙펄", "1,090,000원", "790,000원"),
         )
     }
-    fun createInteriorColorOptionChangeDummyItems(): List<OptionChangePopItem> {
+
+    fun createInteriorColorOptionChangeDummyItems(): List<OptionChangePopUpItem> {
         return arrayListOf(
-            OptionChangePopItem("인조 가죽 블랙(블랙)", "0원")
+            OptionChangePopUpItem("인조 가죽 블랙(블랙)", "0원")
         )
     }
 
-    fun createDefaultOptionChangeDummyItems(): List<OptionChangePopItem> {
+    fun createDefaultOptionChangeDummyItems(): List<OptionChangePopUpItem> {
         return arrayListOf(
-            OptionChangePopItem("주차 보조 시스템", "400,000원"),
-            OptionChangePopItem("컴포트 II", "400,000원")
+            OptionChangePopUpItem("주차 보조 시스템", "400,000원"),
+            OptionChangePopUpItem("컴포트 II", "400,000원")
         )
     }
 
@@ -181,22 +182,22 @@ object DummyItemFactory {
                 "색상",
                 "외장 - 크라미 화이 펄",
                 "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
-                0,
+                "0원",
                 "75%의 20~30대 구매자들이 선택했어요",
                 "내장 - 인조 가죽(블랙)",
                 "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
-                0,
+                "0원",
                 "75%의 20~30대 구매자들이 선택했어요"
             ),
             ResultChoiceOption(
                 "색상",
                 "외장 - 크라미 화이 펄",
                 "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
-                0,
+                "0원",
                 "75%의 20~30대 구매자들이 선택했어요",
                 "내장 - 인조 가죽(블랙)",
                 "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/14.png",
-                0,
+                "0원",
                 "75%의 20~30대 구매자들이 선택했어요"
             )
         )

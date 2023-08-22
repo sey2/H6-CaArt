@@ -7,21 +7,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.ui.recycleradapter.ColorOptionSelectionAdapter
 import org.softeer_2nd.caArt.databinding.FragmentCarColorChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
 import org.softeer_2nd.caArt.model.data.ChoiceColorItem
-import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
-import org.softeer_2nd.caArt.ui.callback.OnOtherColorItemClickListener
+import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
 import org.softeer_2nd.caArt.model.data.dto.toChoiceColorItems
-import org.softeer_2nd.caArt.model.dummy.OptionChangePopItem
+import org.softeer_2nd.caArt.ui.callback.OnOtherColorItemClickListener
+import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionChangePopupAdapter
+import org.softeer_2nd.caArt.util.CoilUtils
 import org.softeer_2nd.caArt.util.StringFormatter.setFormattedPrice
 import org.softeer_2nd.caArt.viewmodel.CarColorChoiceViewModel
 import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
@@ -73,19 +78,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
                 getString(R.string.ask_search_other_interior_color)
         }
 
-        carColorChoiceViewModel.colorData.observe(viewLifecycleOwner) { colorData ->
-            binding.apply {
-                (rvExteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.exteriorColors.toChoiceColorItems())
-                (rvInteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.interiorColors.toChoiceColorItems())
-                (incOtherExteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(
-                    colorData.otherTrimExteriorColors.toChoiceColorItems()
-                )
-                (incOtherInteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(
-                    colorData.otherTrimInteriorColors.toChoiceColorItems()
-                )
-            }
-        }
-
+        setupObservers()
     }
 
     private fun RecyclerView.initializeColorOptions(
@@ -105,7 +98,6 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         super.onDestroyView()
         _binding = null
     }
-
     override fun onItemClicked(
         item: ChoiceColorItem,
         isOtherColor: Boolean,
@@ -119,11 +111,13 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
                 val interiorColor = carColorChoiceViewModel.colorData.value?.interiorColors!![index]
                 userChoiceViewModel.setInteriorColor(interiorColor)
             }
+            carColorChoiceViewModel.updateCurrentImageUrl(index)
             return
         }
 
         createDialog(item.tag, item.colorName, item.colorPrice, item.trimName)
     }
+
 
     private fun createDialog(
         changeOptionTitle: String,
@@ -144,7 +138,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
 
             rvTop.setupOptionAdapter(
                 listOf(
-                    OptionChangePopItem(
+                    OptionChangePopUpItem(
                         curTrim.trimName,
                         curTrim.trimPrice.setFormattedPrice()
                     )
@@ -152,7 +146,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
             )
             rvBottom.setupOptionAdapter(
                 listOf(
-                    OptionChangePopItem(
+                    OptionChangePopUpItem(
                         trimName,
                         changeColorPrice.setFormattedPrice()
                     )
@@ -169,8 +163,38 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         }
     }
 
-    private fun RecyclerView.setupOptionAdapter(items: List<OptionChangePopItem>) {
+    private fun RecyclerView.setupOptionAdapter(items: List<OptionChangePopUpItem>) {
         layoutManager = LinearLayoutManager(context)
         adapter = OptionChangePopupAdapter(items)
+    }
+
+    private fun setupObservers() {
+        carColorChoiceViewModel.colorData.observe(viewLifecycleOwner) { colorData ->
+            binding.apply {
+                (rvExteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.exteriorColors.toChoiceColorItems())
+                (rvInteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.interiorColors.toChoiceColorItems())
+                (incOtherExteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(
+                    colorData.otherTrimExteriorColors.toChoiceColorItems()
+                )
+                (incOtherInteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(
+                    colorData.otherTrimInteriorColors.toChoiceColorItems()
+                )
+            }
+
+            // download exteriror Color
+            carColorChoiceViewModel.currentExteriorUrls.observe(viewLifecycleOwner) { urls ->
+                CoilUtils.imageLoader.memoryCache?.clear()
+                lifecycleScope.launch {
+                    urls.forEach { url ->
+                        val request = ImageRequest.Builder(requireContext())
+                            .data(url)
+                            .memoryCachePolicy(CachePolicy.ENABLED)
+                            .diskCachePolicy(CachePolicy.ENABLED)
+                            .build()
+                        CoilUtils.imageLoader.enqueue(request)
+                    }
+                }
+            }
+        }
     }
 }
