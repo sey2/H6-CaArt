@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { FlexBox } from "../../../common/FlexBox";
+import { FlexBox } from '../../../common/FlexBox';
 
 type ButtonType = 'ex' | 'in' | '360' | string;
 
@@ -10,17 +10,16 @@ interface OptionButtonProps {
   setter: React.Dispatch<React.SetStateAction<ButtonType>>;
 }
 
-function OptionButton({
-  type,
-  state,
-  setter,
-}: OptionButtonProps) {
+function OptionButton({ type, state, setter }: OptionButtonProps) {
   function returnByType(type: string) {
     switch (type) {
       case 'ex':
         return (
           <>
-            <FlexBox gap={16} align="center" width={96}
+            <FlexBox
+              gap={16}
+              align="center"
+              width={96}
               onClick={() => {
                 setter(type);
               }}
@@ -33,7 +32,10 @@ function OptionButton({
       case 'in':
         return (
           <>
-            <FlexBox gap={16} align="center" width={96}
+            <FlexBox
+              gap={16}
+              align="center"
+              width={96}
               onClick={() => {
                 setter(type);
               }}
@@ -46,7 +48,10 @@ function OptionButton({
       case '360':
         return (
           <>
-            <FlexBox gap={16} align="center" width={96}
+            <FlexBox
+              gap={16}
+              align="center"
+              width={96}
               onClick={() => {
                 setter(type);
               }}
@@ -58,7 +63,6 @@ function OptionButton({
         );
     }
   }
-  console.log(state)
 
   function getButtonType(type: string) {
     return (
@@ -79,7 +83,7 @@ export default OptionButton;
 
 const Box = styled.div<{ type: string; selected: string }>`
   transition: width 0.1s linear;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
   width: 52px;
   height: 52px;
   overflow: hidden;

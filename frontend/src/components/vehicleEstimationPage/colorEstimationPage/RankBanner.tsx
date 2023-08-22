@@ -1,10 +1,10 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-function RankBanner({ rank }: { rank: number }) {
+function RankBanner({ text }: { text: string }) {
   return (
     <Box>
-      <span className="text-grey-1000 body-medium-12">Top {rank}</span>
+      <span className="text-grey-1000 body-medium-12">{text}</span>
     </Box>
   );
 }

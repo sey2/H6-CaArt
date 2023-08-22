@@ -1,28 +1,51 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { styled } from 'styled-components';
 import { priceToString } from '../../../util/PriceToString';
 import SquareButton from '../../common/SquareButton';
 import { FlexBox } from '../../common/FlexBox';
 import { Hr } from '../../common/Hr';
+import { EstimationContext } from '../../../util/Context';
 
-interface ModalProps {
-  setter: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen: boolean;
+export interface Trim {
+  name: string;
+  price: number;
+  img: string;
 }
 
-function ColorChangePopup({ setter, isOpen }: ModalProps) {
+export interface State {
+  isopen: boolean;
+  nowTrim: Trim;
+  changeTrim: Trim;
+  color: Trim;
+  type: string;
+}
+
+interface ModalProps {
+  setter: React.Dispatch<React.SetStateAction<State>>;
+  data: State;
+}
+
+function ColorChangePopup({ setter, data }: ModalProps) {
+  const { setColorAndTrim } = useContext(EstimationContext)!;
+
   return (
-    <Overlay onClick={() => setter(false)} className={isOpen ? 'active' : ''}>
+    <Overlay
+      onClick={() => setter({ ...data, isopen: false })}
+      className={data.isopen ? 'active' : ''}
+    >
       <Wrapper onClick={e => e.stopPropagation()}>
-        <X src="/images/x_icon.svg" onClick={() => setter(false)} />
+        <X
+          src="/images/x_icon.svg"
+          onClick={() => setter({ ...data, isopen: false })}
+        />
         <FlexBox direction="column">
           <Title className="text-grey-50 head-medium-22">
-            Calligraphy 트림으로
+            {data.changeTrim.name} 트림으로
             <br />
             변경하시겠어요?
           </Title>
           <span className="text-grey-400 body-regular-14">
-            인조가죽 (블랙) 색상은 트림 변경 후 선택할 수 있어요.
+            {data.color.name} 색상은 트림 변경 후 선택할 수 있어요.
           </span>
           <SubTitle className="text-secondary-active-blue body-medium-16">
             현재 트림
@@ -30,10 +53,10 @@ function ColorChangePopup({ setter, isOpen }: ModalProps) {
           <Hr margin="7px 0px 0px 0px" />
           <FlexBox justify="space-between">
             <TrimName className="text-grey-100 body-regular-16">
-              Le Blanc (르블랑)
+              {data.nowTrim.name}
             </TrimName>
             <TrimPrice className="text-grey-100 body-medium-16">
-              {priceToString(40400000)}
+              {priceToString(data.nowTrim.price)}
             </TrimPrice>
           </FlexBox>
           <SubTitle className="text-secondary-active-blue body-medium-16">
@@ -42,10 +65,10 @@ function ColorChangePopup({ setter, isOpen }: ModalProps) {
           <Hr margin="7px 0px 0px 0px" />
           <FlexBox justify="space-between">
             <TrimName className="text-grey-100 body-regular-16">
-              Calligraphy
+              {data.changeTrim.name}
             </TrimName>
             <TrimPrice className="text-grey-100 body-medium-16">
-              {priceToString(52540000)}
+              {priceToString(data.changeTrim.price)}
             </TrimPrice>
           </FlexBox>
           <Hr margin="68px 0px 13px 0px" color="grey-500" />
@@ -54,7 +77,10 @@ function ColorChangePopup({ setter, isOpen }: ModalProps) {
               변경 금액
             </span>
             <span className="text-grey-0 head-medium-18">
-              + {priceToString(12100000)}
+              +
+              {priceToString(
+                Math.abs(data.changeTrim.price - data.nowTrim.price),
+              )}
             </span>
           </FlexBox>
         </FlexBox>
@@ -64,7 +90,7 @@ function ColorChangePopup({ setter, isOpen }: ModalProps) {
           align="center"
           margin="33px 0px 0px 0px"
         >
-          <div onClick={() => setter(false)}>
+          <div onClick={() => setter({ ...data, isopen: false })}>
             <SquareButton size="xxs" height={40} color="grey-400" border>
               아니요
             </SquareButton>
@@ -74,6 +100,22 @@ function ColorChangePopup({ setter, isOpen }: ModalProps) {
             height={40}
             color="grey-900"
             bg="primary-blue"
+            onClick={() => {
+              setColorAndTrim({
+                trim: {
+                  name: data.changeTrim.name,
+                  price: data.changeTrim.price,
+                  img: data.changeTrim.img,
+                },
+                color: {
+                  name: data.color.name,
+                  price: data.color.price,
+                  img: data.color.img,
+                },
+                type: data.type,
+              });
+              setter({ ...data, isopen: false });
+            }}
           >
             변경하기
           </SquareButton>

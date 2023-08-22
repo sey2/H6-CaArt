@@ -19,11 +19,32 @@ export interface MyVechicle {
   setBody: (body: NameAndPrice) => void;
   setWd: (wd: NameAndPrice) => void;
   setTrim: (trim: NameAndPriceAndImg) => void;
+  setTrimInteriorImage: (img: string) => void;
   setOuterColor: (outerColor: NameAndPriceAndImg) => void;
   setInteriorColor: (interiorColor: NameAndPriceAndImg) => void;
   addOption: (option: NameAndPriceAndImg) => void;
   deleteOption: (option: string) => void;
   setResult: (data: LifeStyleResultProps) => void;
+  setColorAndTrim: ({
+    trim,
+    color,
+    type,
+  }: {
+    trim: NameAndPriceAndImg;
+    color: NameAndPriceAndImg;
+    type: string;
+  }) => void;
+  setTrimAndAllColor: ({
+    trim,
+    interiorColor,
+    exteriorColor,
+    interiorImage,
+  }: {
+    trim: NameAndPriceAndImg;
+    interiorColor: NameAndPriceAndImg;
+    exteriorColor: NameAndPriceAndImg;
+    interiorImage: string;
+  }) => void;
 }
 
 interface currentEstimationProps {
@@ -32,6 +53,7 @@ interface currentEstimationProps {
   body: NameAndPrice;
   wd: NameAndPrice;
   trim: NameAndPriceAndImg;
+  trimInteriorImage: string;
   outerColor: NameAndPriceAndImg;
   interiorColor: NameAndPriceAndImg;
   options: NameAndPriceAndImg[];
@@ -51,14 +73,15 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
       engine: { name: '디젤 2.2', price: 0 },
       body: { name: '7인승', price: 0 },
       wd: { name: '2WD', price: 0 },
-      trim: { name: 'Exclusive', price: 38960000, img: '/images/car.png' },
+      trim: { name: 'Le Blanc', price: 41980000, img: '/images/car.png' },
+      trimInteriorImage: '',
       outerColor: {
         name: '크리미 화이트 펄',
         price: 100000,
         img: '',
       },
       interiorColor: {
-        name: '쿨그레이',
+        name: '퀄팅 천연(블랙)',
         price: 0,
         img: '',
       },
@@ -141,6 +164,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
         price: data.model.trim.trimPrice,
         img: '',
       },
+      trimInteriorImage: '',
       outerColor: {
         name: data.colors[0].colorName,
         price: data.colors[0].colorPrice,
@@ -187,6 +211,55 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
     setNewTotalPrice(tempPrice);
   };
 
+  const setTrimInteriorImage = (img: string) => {
+    setCurrentEstimation({ ...currentEstimation, trimInteriorImage: img });
+  };
+
+  const setColorAndTrim = ({
+    trim,
+    color,
+    type,
+  }: {
+    trim: NameAndPriceAndImg;
+    color: NameAndPriceAndImg;
+    type: string;
+  }) => {
+    if (type === 'exterior') {
+      setCurrentEstimation({
+        ...currentEstimation,
+        trim: trim,
+        outerColor: color,
+      });
+    } else if (type === 'interior') {
+      setCurrentEstimation({
+        ...currentEstimation,
+        trim: { ...currentEstimation.trim, name: trim.name, price: trim.price },
+        trimInteriorImage: trim.img,
+        interiorColor: color,
+      });
+    }
+  };
+
+  const setTrimAndAllColor = ({
+    trim,
+    interiorColor,
+    exteriorColor,
+    interiorImage,
+  }: {
+    trim: NameAndPriceAndImg;
+    interiorColor: NameAndPriceAndImg;
+    exteriorColor: NameAndPriceAndImg;
+    interiorImage: string;
+  }) => {
+    setCurrentEstimation({
+      ...currentEstimation,
+      trim: trim,
+      interiorColor: interiorColor,
+      outerColor: exteriorColor,
+      trimInteriorImage: interiorImage,
+    });
+  };
+
   return (
     <EstimationContext.Provider
       value={{
@@ -202,6 +275,9 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
         deleteOption,
         setResult,
         totalPrice,
+        setColorAndTrim,
+        setTrimInteriorImage,
+        setTrimAndAllColor,
       }}
     >
       {children}

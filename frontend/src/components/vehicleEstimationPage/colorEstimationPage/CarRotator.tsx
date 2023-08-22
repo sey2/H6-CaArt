@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { styled } from 'styled-components';
+import { ExteriorColor } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
+import { EstimationContext } from '../../../util/Context';
 
-function CarRotator() {
+function CarRotator({ data }: { data: ExteriorColor[] }) {
+  const { currentEstimation } = useContext(EstimationContext)!;
   const [image, setImage] = useState(1);
   const [prevX, setPrevX] = useState(0);
   const [start, setStart] = useState(false);
+  const [baseUrl, setBaseUrl] = useState('');
   const startSwipe = (event: React.MouseEvent) => {
     if (start) {
       setPrevX(event.clientX);
@@ -18,7 +22,14 @@ function CarRotator() {
       }
     }
   };
-
+  useEffect(() => {
+    if (data) {
+      const nowItem = data.find(
+        item => item.colorName === currentEstimation.outerColor.name,
+      );
+      setBaseUrl(nowItem?.previews[0] as string);
+    }
+  }, [currentEstimation.outerColor.name]);
   return (
     <ImageContainer
       onMouseDown={() => setStart(true)}
@@ -28,9 +39,10 @@ function CarRotator() {
       <BgTop />
       <BgBottom />
       <Image
-        src={`/images/A2B/${String(image).padStart(3, '0')}.png`}
+        src={`${baseUrl.slice(0, -7)}${String(image).padStart(3, '0')}.png`}
         onMouseMove={startSwipe}
       />
+      <RotateCircle src="/images/rotate_circle.png" />
     </ImageContainer>
   );
 }
@@ -61,6 +73,15 @@ const Image = styled.img`
   height: 366px;
   position: absolute;
   top: 50%;
-  left: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+`;
+
+const RotateCircle = styled.img`
+  z-index: 1;
+  position: absolute;
+  top: 63%;
+  left: 50%;
   transform: translate(-50%, -50%);
 `;

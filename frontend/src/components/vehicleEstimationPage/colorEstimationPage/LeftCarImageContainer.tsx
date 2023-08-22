@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import OptionButton from './button/OptionButton';
 import CarRotator from './CarRotator';
 import RerecommendButton from '../trimEstimationPage/RerecommendButton';
 import RerecommendModal from '../trimEstimationPage/RerecommendModal';
+import { EstimationContext } from '../../../util/Context';
+import { ExteriorColor } from "../../../pages/vehicleEstimationPage/ColorEstimationPage";
 
 interface CarContainerType {
   type: 'ex' | 'in' | '360' | string;
   state: 'ex' | 'in' | '360' | string;
   setter: React.Dispatch<React.SetStateAction<'ex' | 'in' | '360' | string>>;
+  data: ExteriorColor[];
 }
 
-function LeftCarImageContainer({ type, setter, state }: CarContainerType) {
+function LeftCarImageContainer({ type, setter, state,data }: CarContainerType) {
+  const { currentEstimation } = useContext(EstimationContext)!;
   function drawView(type: 'ex' | 'in' | '360' | string) {
     switch (type) {
       case 'ex':
@@ -29,7 +33,7 @@ function LeftCarImageContainer({ type, setter, state }: CarContainerType) {
       <>
         <BgTop />
         <BgBottom />
-        <Image src="/images/car.png" width={646} height={366} />
+        <Image src={currentEstimation.trim.img} width={646} height={366} />
       </>
     );
   }
@@ -37,13 +41,17 @@ function LeftCarImageContainer({ type, setter, state }: CarContainerType) {
   function inView() {
     return (
       <>
-        <Image src="/images/inner_temp.png" width="100%" height="100%" />
+        <Image
+          src={currentEstimation.trimInteriorImage}
+          width="100%"
+          height="100%"
+        />
       </>
     );
   }
 
   function rotateView() {
-    return <CarRotator />;
+    return <CarRotator data={data}/>;
   }
 
   return (

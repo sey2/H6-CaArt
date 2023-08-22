@@ -1,22 +1,48 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { styled } from 'styled-components';
 import ColorButton from './button/ColorButton';
-import ColorChangePopup from './ColorChangePopup';
+import ColorChangePopup, { State } from './ColorChangePopup';
 import useDetectClose from '../../../hooks/useDetectClose';
+import { Trim } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
+import { EstimationContext } from '../../../util/Context';
 
 interface Dropdown {
-  type: 'inner' | 'outer';
+  type: 'interior' | 'exterior';
+  data: Trim[];
+  setter: React.Dispatch<React.SetStateAction<State>>;
+  modaldata: State;
 }
 
-function Dropdown(props: Dropdown) {
-  const [modal, setModal] = useState<boolean>(false);
+function Dropdown({ type, data, setter, modaldata }: Dropdown) {
+  const { currentEstimation } = useContext(EstimationContext)!;
   const [dropdownOpen, dropdownRef, dropdownHandler] = useDetectClose(false);
+  function setModalData(item: Trim) {
+    setter({
+      isopen: true,
+      nowTrim: {
+        name: currentEstimation.trim.name,
+        price: currentEstimation.trim.price,
+        img: currentEstimation.trim.img,
+      },
+      changeTrim: {
+        name: item.trimName,
+        price: item.trimPrice,
+        img: item.preview,
+      },
+      color: {
+        name: item.colorName,
+        price: 0,
+        img: item.colorImage,
+      },
+      type: type,
+    });
+  }
 
   function getDropdown(type: string) {
-    const colorText = type === 'outer' ? '외장' : '내장';
+    const colorText = type === 'exterior' ? '외장' : '내장';
     return (
       <>
-        {<ColorChangePopup setter={setModal} isOpen={modal} />}
+        {<ColorChangePopup setter={setter} data={modaldata} />}
         <DropdownBox isDown={dropdownOpen}>
           <Header onClick={dropdownHandler} ref={dropdownRef}>
             <span className="text-primary-blue body-medium-14">
@@ -31,40 +57,48 @@ function Dropdown(props: Dropdown) {
             isActive={dropdownOpen}
             onClick={e => e.stopPropagation()}
           >
-            <ColorListItem onClick={() => setModal(true)}>
-              <span className="text-secondary-active-blue body-bold-11">
-                Caligraphy
-              </span>
-              <ColorButton src="/images/temp_color.svg" />
-              <span className="text-grey-100 caption-regular-12">
-                로버스트 에메랄드 펄
-              </span>
-            </ColorListItem>
+            {data.map(item => {
+              return (
+                <>
+                  <ColorListItem onClick={() => setModalData(item)}>
+                    <span className="text-secondary-active-blue body-bold-11">
+                      {item.trimName}
+                    </span>
+                    <ColorButton src={item.colorImage} />
+                    <span className="text-grey-100 caption-regular-12">
+                      {item.colorName}
+                    </span>
+                  </ColorListItem>
+                </>
+              );
+            })}
           </ColorListContainer>
         </DropdownBox>
       </>
     );
   }
 
-  return getDropdown(props.type);
+  return getDropdown(type);
 }
 
 export default Dropdown;
 
 const DropdownBox = styled.div<{ isDown: boolean }>`
   width: 308px;
-  padding: 11px 16px 11px 16px;
-  transition: height 0.3s linear;
-  height: ${props => (props.isDown ? '300px' : '44px')};
+  padding: 11px 16px 32px 16px;
+  transition: max-height 0.3s linear;
+  max-height: ${props => (props.isDown ? '500px' : '30px')};
   border-radius: 4px;
   border: 1px solid var(--primary-blue);
+  ${props => !props.isDown && `overflow:hidden;`}
 `;
 
 const ColorListContainer = styled.div<{ isActive: boolean }>`
   margin-top: 12px;
+  display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  transition: opacity 0.5s linear, visibility 0.1s 0.1s; 
+  transition: opacity 0.5s linear, visibility 0.1s 0.1s;
   visibility: ${props => (props.isActive ? 'visible' : 'hidden')};
   opacity: ${props => (props.isActive ? 1 : 0)};
 `;

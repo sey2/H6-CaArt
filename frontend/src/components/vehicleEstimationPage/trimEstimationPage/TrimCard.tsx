@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
 import { OptionType } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
@@ -6,6 +6,7 @@ import { useModalContext } from '../../../store/ModalContext';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
 import { FlexBox } from '../../common/FlexBox';
+import TrimData, { TrimDataProps } from '../../../static/data/TrimData';
 
 interface Option {
   optionId: number;
@@ -37,14 +38,10 @@ function TrimCard({
   trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Calligraphy' | string;
 }) {
   const { data } = useFetch<Trim[]>('/trims');
-  const { currentEstimation, setTrim } = useContext(EstimationContext)!;
-  const { state, dispatch } = useModalContext();
-  useEffect(() => {
-    const trimImg = data?.find(
-      dataName => dataName.trimName === currentEstimation.trim.name,
-    )?.trimImage;
-    setTrim({ ...currentEstimation.trim, img: trimImg! });
-  }, [data]);
+  const { currentEstimation, setTrimAndAllColor } =
+    useContext(EstimationContext)!;
+  const { dispatch } = useModalContext();
+  console.log(data);
 
   function handleModal(e: React.MouseEvent, option: OptionType) {
     e.stopPropagation();
@@ -57,7 +54,6 @@ function TrimCard({
     dispatch({ type: 'SET_OPTION_POSITION', position: { x: x, y: y } });
     dispatch({ type: 'SET_OPTION_DATA', data: option });
     dispatch({ type: 'OPEN_OPTION_MODAL' });
-    console.log(state);
   }
 
   function getOptionList(trim: string) {
@@ -97,6 +93,28 @@ function TrimCard({
     dispatch({ type: 'OPEN_TOOLTIP_MODAL' });
   }
 
+  function trimAndColorSetter(item: Trim) {
+    const colorData = TrimData[item.trimName as keyof TrimDataProps];
+    setTrimAndAllColor({
+      trim: {
+        name: item.trimName,
+        price: item.trimPrice,
+        img: item.trimImage,
+      },
+      interiorColor: {
+        name: colorData.interiorColorName,
+        price: colorData.interiorColorPrice,
+        img: colorData.interiorColorImage,
+      },
+      exteriorColor: {
+        name: colorData.colorName,
+        price: colorData.colorPrice,
+        img: colorData.colorImage,
+      },
+      interiorImage: colorData.preview,
+    });
+  }
+
   return (
     <>
       <Wrapper>
@@ -125,11 +143,7 @@ function TrimCard({
                         : '/images/check_circle_grey_bold.svg'
                     }
                     onClick={e => {
-                      setTrim({
-                        name: trimItem.trimName,
-                        price: trimItem.trimPrice,
-                        img: trimItem.trimImage,
-                      });
+                      trimAndColorSetter(trimItem);
                       handleCheckBtnClick(e);
                     }}
                   />
