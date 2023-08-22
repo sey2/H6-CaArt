@@ -1,7 +1,10 @@
 package org.softeer_2nd.caArt.model.repository
 
+import android.util.Log
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 import org.softeer_2nd.caArt.model.data.Answer
 import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.data.Persona
@@ -60,11 +63,11 @@ class RecommendRepository @Inject constructor(
         return service.getLifestyleDetail(personaId).data
     }
 
-    suspend fun fetchRecommendResult(personaId: Int, age: String): RecommendCompleteResultState? {
+    suspend fun fetchRecommendResult(personaId: Int, age: String): RecommendCompleteResultDTO? {
 
         //TODO 서버 변경 이후 ageId->ageCode로변경
         val data = service.getRecommendationResultByLifestyle(personaId, 2).data
-        return data?.toState()
+        return data
     }
 
     suspend fun fetchRecommendResult(
@@ -84,7 +87,6 @@ class RecommendRepository @Inject constructor(
             value = value,
             budget = budget
         ).data
-
         return data?.toState()
     }
 

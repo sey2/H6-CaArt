@@ -5,12 +5,15 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.softeer_2nd.caArt.model.data.BodyType
+import org.softeer_2nd.caArt.model.data.ChoiceColorItem.Companion.toExteriorColor
+import org.softeer_2nd.caArt.model.data.ChoiceColorItem.Companion.toInteriorColor
 import org.softeer_2nd.caArt.model.data.Engine
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.Trim
 import org.softeer_2nd.caArt.model.data.WheelDrive
 import org.softeer_2nd.caArt.model.data.dto.ExteriorColor
 import org.softeer_2nd.caArt.model.data.dto.InteriorColor
+import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
 
 
 class UserChoiceViewModel : ViewModel() {
@@ -115,6 +118,24 @@ class UserChoiceViewModel : ViewModel() {
             _selectedTrim.value?.trimPrice ?: 0L
         )
         return prices.sum()
+    }
+
+    fun setRecommendData(data: RecommendCompleteResultDTO) {
+
+        data.model.let {
+            setSelectedBodyType(it.bodyType)
+            setSelectedEngine(it.engine)
+            setSelectedWheelDrive(it.wheelDrive)
+            setSelectedTrim(it.trim)
+        }
+
+        setSelectedOptions(data.options)
+
+        data.colors.let {
+            setInteriorColor(it[0].toInteriorColor())
+            setExteriorColor(it[1].toExteriorColor())
+        }
+
     }
 
 }

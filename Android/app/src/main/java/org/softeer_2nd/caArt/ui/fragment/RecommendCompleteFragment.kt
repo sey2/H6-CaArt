@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,6 +19,7 @@ import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.ui.recycleradapter.ResultOptionAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.UserSelectedAnswerChipRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.RecommendCompleteViewModel
+import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
 
 @AndroidEntryPoint
 class RecommendCompleteFragment : Fragment() {
@@ -28,6 +30,8 @@ class RecommendCompleteFragment : Fragment() {
     private val recommendCompleteViewModel: RecommendCompleteViewModel by viewModels()
 
     private val args: RecommendCompleteFragmentArgs by navArgs()
+
+    private val userChoiceViewModel: UserChoiceViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,6 +71,14 @@ class RecommendCompleteFragment : Fragment() {
             false
         )
 
+        binding.btnRecommendCompleteGoCustom.setOnClickListener {
+            findNavController().navigate(RecommendCompleteFragmentDirections.actionRecommendCompleteFragmentToCarTrimChoiceFragment())
+        }
+
+        binding.btnRecommendCompleteGoEstimate.setOnClickListener {
+            findNavController().navigate(RecommendCompleteFragmentDirections.actionRecommendCompleteFragmentToEstimateFragment())
+        }
+
         recommendCompleteViewModel.resultState.observe(viewLifecycleOwner) {
             binding.setBinding(it)
             optionAdapter.setItems(it.resultOptions)
@@ -79,6 +91,7 @@ class RecommendCompleteFragment : Fragment() {
                 false
             )
         }
+
     }
 
     fun RecyclerView.setup(
@@ -96,6 +109,15 @@ class RecommendCompleteFragment : Fragment() {
         model = state.model
         carImage = state.palisadeImage
         totalPrice = state.totalPrice
+    }
+
+    override fun onPause() {
+        super.onPause()
+        recommendCompleteViewModel.recommendResultData?.let {
+            userChoiceViewModel.setRecommendData(
+                it
+            )
+        }
     }
 
     override fun onDestroyView() {

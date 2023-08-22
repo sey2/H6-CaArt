@@ -173,6 +173,12 @@
             android:name="budget"
             android:defaultValue="6900"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_recommendCompleteFragment_to_carTrimChoiceFragment"
+            app:destination="@id/carTrimChoiceFragment" />
+        <action
+            android:id="@+id/action_recommendCompleteFragment_to_estimateFragment"
+            app:destination="@id/estimateFragment" />
     </fragment>
     <fragment
         android:id="@+id/carBuildingLoadingFragment"

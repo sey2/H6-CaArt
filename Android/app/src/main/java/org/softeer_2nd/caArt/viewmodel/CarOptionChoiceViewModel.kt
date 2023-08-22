@@ -44,8 +44,9 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
     private val _situationalOptions = MutableLiveData<List<Option?>>()
     val situationalOptions: LiveData<List<Option?>> = _situationalOptions
 
-    private val _situationalOptionViewState =MutableLiveData<SituationalOptionViewState>()
-    val situationalOptionViewState:LiveData<SituationalOptionViewState> = _situationalOptionViewState
+    private val _situationalOptionViewState = MutableLiveData<SituationalOptionViewState>()
+    val situationalOptionViewState: LiveData<SituationalOptionViewState> =
+        _situationalOptionViewState
 
     private val _tabState = MutableLiveData<Int>(ADDITIONAL_OPTION_PAGE)
     val tabState: LiveData<Int> = _tabState
@@ -83,7 +84,7 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         tagId: Int?,
     ) {
         viewModelScope.launch {
-            val optionList = optionRepository.fetchFirstAdditionalOptionList(tagId)?:return@launch
+            val optionList = optionRepository.fetchFirstAdditionalOptionList(tagId) ?: return@launch
             withContext(Dispatchers.Main) {
                 if (displayType.value == OPTION_LIST) {
                     _optionList.value = optionList
@@ -94,8 +95,8 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
                     for (i in 0 until min(optionList.size, SITUATIONAL_OPTION_MAX)) {
                         situationOptionList[i] = optionList[i]
                     }
-                    _situationalOptionViewState.value=SituationalOptionViewState(
-                        selectedTag.value?.tagImage?:"",
+                    _situationalOptionViewState.value = SituationalOptionViewState(
+                        selectedTag.value?.tagImage ?: "",
                         situationOptionList.toList(),
                     )
                 }
@@ -107,7 +108,7 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         tagId: Int?
     ) {
         viewModelScope.launch {
-            val optionList = optionRepository.fetchFirstDefaultOptionList(tagId)?:return@launch
+            val optionList = optionRepository.fetchFirstDefaultOptionList(tagId) ?: return@launch
             withContext(Dispatchers.Main) {
                 _optionList.value = optionList
             }
@@ -138,8 +139,10 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
                 val additionalList =
-                    if (tabState.value == ADDITIONAL_OPTION_PAGE) optionRepository.fetchNextAdditionalOptionList(tagId)?:return@withContext
-                    else optionRepository.fetchNextDefaultOptionList(tagId)?:return@withContext
+                    if (tabState.value == ADDITIONAL_OPTION_PAGE) optionRepository.fetchNextAdditionalOptionList(
+                        tagId
+                    ) ?: return@withContext
+                    else optionRepository.fetchNextDefaultOptionList(tagId) ?: return@withContext
                 val updateList = optionList.value?.toMutableList() ?: mutableListOf()
                 updateList.addAll(additionalList)
                 _optionList.value = updateList

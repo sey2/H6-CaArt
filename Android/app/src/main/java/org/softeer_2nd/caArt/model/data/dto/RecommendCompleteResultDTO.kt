@@ -2,6 +2,7 @@ package org.softeer_2nd.caArt.model.data.dto
 
 import org.softeer_2nd.caArt.CaArtApplication
 import org.softeer_2nd.caArt.R
+import org.softeer_2nd.caArt.model.data.ChoiceColorItem
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.ResultChoiceOption
 import org.softeer_2nd.caArt.model.data.state.Model
@@ -9,7 +10,7 @@ import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
 import org.softeer_2nd.caArt.model.data.state.RecommendationCardState
 
 data class RecommendCompleteResultDTO(
-    val colors: List<Any>,
+    val colors: List<ChoiceColorItem>,
     val model: Model,
     val options: List<Option>,
     val palisadeImage: String,
