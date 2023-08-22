@@ -2,7 +2,7 @@
     <string name="app_name">Android</string>
     <string name="exterior_color">외장 색상</string>
     <string name="interior_color">내장 색상</string>
-    <string name="buyer_selected">75%의 구매자가 선택한</string>
+    <string name="buyer_selected">%의 구매자가 선택한</string>
     <string name="lifestyle_vehicle_recommendation">당신의 라이프스타일에 맞게 차량을 추천해드려요.</string>
     <string name="prompt_exit_car_builder">내 차 만들기를 종료하시겠어요?</string>
     <string name="option_reset_message">선택한 옵션들은 모두 초기화 됩니다.</string>
@@ -81,6 +81,11 @@
     <string name="complete_my_car">나만의 차가 완성되었어요!</string>
     <string name="can_save_and_share_your_car">만든 차는 저장하고 공유할 수 있어요.</string>
     <string name="purchase_consultant">구매/상담</string>
+    <string name="current_trim">현재 트림</string>
+    <string name="change_trim">변경 트림</string>
+    <string name="trim_change_popup_message">트림으로 변경 하시겠어요?</string>
+    <string name="infomation_change_color_popup">색상은 트림 변경 후 선택할 수 있어요.</string>
+    <string name="change">변경하기</string>
     <string name="its_question_based_recommendation_car">질문에 기반한 추천 차량이에요</string>
     <string name="car_masters_recommended_it">전국의 Car master 분들이 엄선하여 추천했어요</string>
     <string name="custom">커스텀하기</string>

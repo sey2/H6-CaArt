@@ -70,17 +70,20 @@ fun TextView.setUnderlineText(text: String?) {
     }
 }
 
-@BindingAdapter("spanColorText")
-fun TextView.setSpanColorText(text: String?) {
-    text?.let {
-        val spannable = SpannableString(it)
+@BindingAdapter("spanPercentage", "spanText")
+fun TextView.setSpanColorText(percentage: Int?, text: String?) {
+    if (percentage != null && text != null) {
+        val fullText = "$percentage$text"
+        val spannable = SpannableString(fullText)
         val color = context.resources.getColor(R.color.active_blue, context.theme)
+
         spannable.setSpan(
             ForegroundColorSpan(color),
             0,
-            3,
+            percentage.toString().length + 1,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+
         this.text = spannable
     }
 }

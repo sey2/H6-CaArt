@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.databinding.ItemOptionChangePopupBinding
-import org.softeer_2nd.caArt.model.dummy.OptionChangePopUpDummyItem
+import org.softeer_2nd.caArt.model.dummy.OptionChangePopItem
 
-class OptionChangePopupAdapter(private val items: List<OptionChangePopUpDummyItem>) :
+class OptionChangePopupAdapter(private val items: List<OptionChangePopItem>) :
     RecyclerView.Adapter<OptionChangePopupAdapter.OptionChangePopupViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionChangePopupViewHolder {
@@ -25,7 +25,7 @@ class OptionChangePopupAdapter(private val items: List<OptionChangePopUpDummyIte
 
     inner class OptionChangePopupViewHolder(val binding: ItemOptionChangePopupBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: OptionChangePopUpDummyItem) {
+        fun bind(item: OptionChangePopItem) {
             binding.apply {
                 tvCurrentOption.text = item.optionName
                 tvChangePrice.text = item.optionPrice

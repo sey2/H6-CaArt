@@ -4,9 +4,10 @@ import org.softeer_2nd.caArt.model.data.BodyType
 import org.softeer_2nd.caArt.model.data.Engine
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.Trim
-import org.softeer_2nd.caArt.model.data.TrimItemColor
 import org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState
 import org.softeer_2nd.caArt.model.data.WheelDrive
+import org.softeer_2nd.caArt.model.data.dto.ExteriorColor
+import org.softeer_2nd.caArt.model.data.dto.InteriorColor
 
 object UserChoiceConverter {
     fun trimToUserChoice(
@@ -24,11 +25,11 @@ object UserChoiceConverter {
         )
     }
 
-    fun colorToUserChoice(exteriorColor: TrimItemColor, interiorColor: TrimItemColor): UserChoiceBottomsheetState {
+    fun colorToUserChoice(exteriorColor: ExteriorColor, interiorColor: InteriorColor): UserChoiceBottomsheetState {
         return UserChoiceBottomsheetState(
             "색상",
-            exteriorColor.colorName,
-            interiorColor.colorName,
+            "외장 - ${exteriorColor.colorName}",
+            "내장 - ${interiorColor.colorName}",
             "-원",
             "-원"
         )

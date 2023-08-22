@@ -16,11 +16,13 @@ import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.ui.recycleradapter.ColorOptionSelectionAdapter
 import org.softeer_2nd.caArt.databinding.FragmentCarColorChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
+import org.softeer_2nd.caArt.model.data.ChoiceColorItem
 import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
-import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.ui.callback.OnOtherColorItemClickListener
 import org.softeer_2nd.caArt.model.data.dto.toChoiceColorItems
+import org.softeer_2nd.caArt.model.dummy.OptionChangePopItem
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionChangePopupAdapter
+import org.softeer_2nd.caArt.util.StringFormatter.setFormattedPrice
 import org.softeer_2nd.caArt.viewmodel.CarColorChoiceViewModel
 import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
 
@@ -45,33 +47,25 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            rvInteriorColor.initializeColorOptions(
-                this@CarColorChoiceFragment,
-                false
-            )
-
-            rvExteriorColor.initializeColorOptions(
-                this@CarColorChoiceFragment,
-                false
-            )
-
-            incOtherExteriorColorOption.rvOtherExteriorOption.initializeColorOptions(
-                this@CarColorChoiceFragment,
-                true
-            )
-
-            incOtherInteriorColorOption.rvOtherExteriorOption.initializeColorOptions(
-                this@CarColorChoiceFragment,
-                true
-            )
-
-            this.viewModel = this@CarColorChoiceFragment.carColorChoiceViewModel
-            lifecycleOwner = viewLifecycleOwner
+            listOf(
+                rvExteriorColor to false,
+                rvInteriorColor to false,
+                incOtherExteriorColorOption.rvOtherExteriorOption to true,
+                incOtherInteriorColorOption.rvOtherExteriorOption to true
+            ).forEach { (recyclerView, isOther) ->
+                recyclerView.initializeColorOptions(this@CarColorChoiceFragment, isOther)
+            }
 
             colorSummryBottomSheet.setMode(
                 BottomSheetMode.PrevAndNext,
                 CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarOptionChoiceFragment()
             )
+
+            colorSummryBottomSheet.setViewModel(userChoiceViewModel, viewLifecycleOwner)
+
+            this.viewModel = carColorChoiceViewModel
+            this.userViewModel = userChoiceViewModel
+            lifecycleOwner = viewLifecycleOwner
 
             incOtherExteriorColorOption.handleText =
                 getString(R.string.ask_search_other_exterior_color)
@@ -83,8 +77,12 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
             binding.apply {
                 (rvExteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.exteriorColors.toChoiceColorItems())
                 (rvInteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.interiorColors.toChoiceColorItems())
-                (incOtherExteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(colorData.otherTrimExteriorColors.toChoiceColorItems())
-                (incOtherInteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(colorData.otherTrimInteriorColors.toChoiceColorItems())
+                (incOtherExteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(
+                    colorData.otherTrimExteriorColors.toChoiceColorItems()
+                )
+                (incOtherInteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(
+                    colorData.otherTrimInteriorColors.toChoiceColorItems()
+                )
             }
         }
 
@@ -108,37 +106,71 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         _binding = null
     }
 
-    override fun onItemClicked(changeOptionTitle: String) {
-        val layoutInflater = LayoutInflater.from(requireContext())
-        val dialogContent = LayoutChangePopupBinding.inflate(layoutInflater).apply {
-            topOptionTitle = "현재 트림"
-            bottomOptionTitle = "변경 트림"
-            showGuidePrice = true
-            guideChangePrice = "+ 12,100,000원"
+    override fun onItemClicked(
+        item: ChoiceColorItem,
+        isOtherColor: Boolean,
+        index: Int,
+    ) {
+        if (!isOtherColor) {
+            if (item.isExteriorColor) {
+                val exteriorColor = carColorChoiceViewModel.colorData.value?.exteriorColors!![index]
+                userChoiceViewModel.setExteriorColor(exteriorColor)
+            } else {
+                val interiorColor = carColorChoiceViewModel.colorData.value?.interiorColors!![index]
+                userChoiceViewModel.setInteriorColor(interiorColor)
+            }
+            return
         }
 
-        val topOptionAdapter =
-            OptionChangePopupAdapter(DummyItemFactory.createCurrentTrimOptionDummyItems())
-        val bottomOptionAdapter =
-            OptionChangePopupAdapter(DummyItemFactory.createChangeTrimOptionDummyItems())
-
-        dialogContent.rvTop.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = topOptionAdapter
-        }
-
-        dialogContent.rvBottom.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = bottomOptionAdapter
-        }
-
-        CaArtDialog.Builder(requireContext())
-            .setTitle("$changeOptionTitle 트림으로 변경\n하시겠어요?")
-            .setDescription("인조가죽 (블랙) 색상은 트림 변경 후 선택할 수 있어요.")
-            .setDialogContentView(dialogContent.root)
-            .setPositiveButton(text = "변경하기", listener = {})
-            .build()
-            .show(childFragmentManager, "colorOptionChangePopup")
+        createDialog(item.tag, item.colorName, item.colorPrice, item.trimName)
     }
 
+    private fun createDialog(
+        changeOptionTitle: String,
+        changeColorName: String,
+        changeColorPrice: Long,
+        trimName: String
+    ) {
+        val curTrim = userChoiceViewModel.selectedTrim.value ?: return
+        val sub = changeColorPrice - curTrim.trimPrice
+        val formattedSub = if (sub > 0) "+ ${sub.setFormattedPrice()}" else sub.setFormattedPrice()
+
+        LayoutChangePopupBinding.inflate(LayoutInflater.from(requireContext())).apply {
+            bottomOptionVisible = true
+            topOptionTitle = getString(R.string.current_trim)
+            bottomOptionTitle = getString(R.string.change_trim)
+            showGuidePrice = true
+            guideChangePrice = formattedSub
+
+            rvTop.setupOptionAdapter(
+                listOf(
+                    OptionChangePopItem(
+                        curTrim.trimName,
+                        curTrim.trimPrice.setFormattedPrice()
+                    )
+                )
+            )
+            rvBottom.setupOptionAdapter(
+                listOf(
+                    OptionChangePopItem(
+                        trimName,
+                        changeColorPrice.setFormattedPrice()
+                    )
+                )
+            )
+
+            CaArtDialog.Builder(requireContext())
+                .setTitle("$changeOptionTitle ${getString(R.string.trim_change_popup_message)}")
+                .setDescription("$changeColorName ${getString(R.string.infomation_change_color_popup)}")
+                .setDialogContentView(root)
+                .setPositiveButton(text = getString(R.string.change), listener = {})
+                .build()
+                .show(childFragmentManager, "colorOptionChangePopup")
+        }
+    }
+
+    private fun RecyclerView.setupOptionAdapter(items: List<OptionChangePopItem>) {
+        layoutManager = LinearLayoutManager(context)
+        adapter = OptionChangePopupAdapter(items)
+    }
 }

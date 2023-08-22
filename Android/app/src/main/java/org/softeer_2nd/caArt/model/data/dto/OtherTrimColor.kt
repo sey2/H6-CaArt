@@ -8,14 +8,18 @@ data class OtherTrimColor(
     val colorImage: String,
     val trimId: Int,
     val trimName: String,
-    val trimPrice: Int
+    val trimPrice: Long
 )
 
 fun List<OtherTrimColor>.toChoiceColorItems(): List<ChoiceColorItem> {
     return this.map { otherTrimColor ->
         ChoiceColorItem(
-            tag = otherTrimColor.colorName,
-            imgUrl = otherTrimColor.colorImage
+            tag = otherTrimColor.trimName,
+            colorName = otherTrimColor.colorName,
+            colorPrice = otherTrimColor.trimPrice,
+            imgUrl = otherTrimColor.colorImage,
+            false,
+            otherTrimColor.trimName
         )
     }
 }

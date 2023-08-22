@@ -6,13 +6,13 @@ data class InteriorColor(
     val colorId: Int,
     val colorName: String,
     val colorImage: String,
-    val colorPrice: Int,
+    val colorPrice: Long,
     val adoptionRate: Int,
     val preview: String
 )
 
 fun List<InteriorColor>.toChoiceColorItems(): List<ChoiceColorItem> {
     return this.map { color ->
-        ChoiceColorItem(imgUrl = color.colorImage)
+        ChoiceColorItem("", color.colorName, color.colorPrice, imgUrl = color.colorImage, false)
     }
 }

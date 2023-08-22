@@ -17,10 +17,11 @@
         <TextView
             android:id="@+id/tv_option_title"
             style="@style/BottomSheetTitleTextStyle"
-            android:text="@string/model"
             android:textSize="14sp"
+            android:text="@{userChoiceItem.optionTitle}"
             app:layout_constraintStart_toStartOf="@id/iv_line"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="@string/model"/>
 
         <TextView
             android:id="@+id/tv_option_detail_top"

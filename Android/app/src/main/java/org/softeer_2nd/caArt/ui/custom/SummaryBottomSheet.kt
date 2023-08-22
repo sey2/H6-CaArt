@@ -117,6 +117,7 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
         bindViewModel(userChoiceViewModel, lifecycleOwner)
         observeSelectedTrim(userChoiceViewModel, lifecycleOwner)
         observeSelectedEngine(userChoiceViewModel, lifecycleOwner)
+        observeSelectedColors(userChoiceViewModel, lifecycleOwner)
         observeSelectedOptions(userChoiceViewModel, lifecycleOwner)
     }
 
@@ -153,11 +154,25 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
             }
         }
     }
+    private fun observeSelectedColors(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        val colorObserver = {
+            val selectedExteriorColor = userChoiceViewModel?.selectedExteriorColor?.value
+            val selectedInteriorColor = userChoiceViewModel?.selectedInteriorColor?.value
 
+            if (selectedExteriorColor != null && selectedInteriorColor != null) {
+                itemAdapter.updateItem(
+                    1, UserChoiceConverter.colorToUserChoice(selectedExteriorColor, selectedInteriorColor)
+                )
+            }
+        }
+
+        userChoiceViewModel?.selectedExteriorColor?.observe(lifecycleOwner) { colorObserver.invoke() }
+        userChoiceViewModel?.selectedInteriorColor?.observe(lifecycleOwner) { colorObserver.invoke() }
+    }
     private fun observeSelectedOptions(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
         userChoiceViewModel?.selectedOptions?.observe(lifecycleOwner) { options ->
             val updateData = UserChoiceConverter.optionToUserChoice(options)
-            itemAdapter.updateItem(0, updateData)
+            itemAdapter.updateItem(2, updateData)
         }
     }
 }

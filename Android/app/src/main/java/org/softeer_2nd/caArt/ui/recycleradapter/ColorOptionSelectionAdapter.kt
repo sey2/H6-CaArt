@@ -10,10 +10,10 @@ import org.softeer_2nd.caArt.model.data.ChoiceColorItem
 
 class ColorOptionSelectionAdapter(
     private val listener: OnOtherColorItemClickListener,
-    private val isOtherColorOption: Boolean
+    private val isOtherColorOption: Boolean,
+    private var selectedPosition: Int = 0
 ) :
     RecyclerView.Adapter<ColorOptionSelectionAdapter.ColorOptionSelectionViewHolder>() {
-    private var selectedPosition = -1
 
     private var items = listOf<ChoiceColorItem>()
     override fun onCreateViewHolder(
@@ -42,7 +42,7 @@ class ColorOptionSelectionAdapter(
         }
     }
 
-    fun updateItem(newItems: List<ChoiceColorItem>){
+    fun updateItem(newItems: List<ChoiceColorItem>) {
         items = newItems
         notifyDataSetChanged()
     }
@@ -56,10 +56,30 @@ class ColorOptionSelectionAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun onOtherColorItemClicked(view: View) {
-            listener.onItemClicked(items[adapterPosition].tag)
+            listener.onItemClicked(
+                ChoiceColorItem(
+                    items[adapterPosition].tag,
+                    items[adapterPosition].colorName,
+                    items[adapterPosition].colorPrice,
+                    isExteriorColor = items[adapterPosition].isExteriorColor,
+                    trimName = items[adapterPosition].trimName
+                ),
+                isOtherColor = true,
+                adapterPosition,
+            )
         }
 
         fun onDefaultColorItemClicked(view: View) {
+            listener.onItemClicked(
+                ChoiceColorItem(
+                    items[adapterPosition].tag,
+                    items[adapterPosition].colorName,
+                    items[adapterPosition].colorPrice,
+                    isExteriorColor = items[adapterPosition].isExteriorColor,
+                ),
+                isOtherColor = false,
+                adapterPosition
+            )
             selectItem(adapterPosition)
         }
 
@@ -68,7 +88,7 @@ class ColorOptionSelectionAdapter(
 
             binding.apply {
                 binding.otherColorSelectionHandler = this@ColorOptionSelectionViewHolder
-                selected = selectedFlag
+                selected = selectedFlag && !isOtherColorOption
                 imgUrl = item.imgUrl
                 isOtherColor = this@ColorOptionSelectionAdapter.isOtherColorOption
                 inTop3 = adapterPosition <= 2
