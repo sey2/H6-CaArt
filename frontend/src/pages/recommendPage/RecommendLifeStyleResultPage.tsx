@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useFetch } from '../../hooks/useFetch';
+import { EstimationContext } from '../../util/Context';
 import { ErrorPopup } from '../../components/common/ErrorPopup';
 import { ResultMain } from '../../components/common/result/ResultMain';
 import SquareButton from '../../components/common/SquareButton';
-import { RecommendResultCard } from '../../components/recommendPage/ageAndLifeStyle/RecommendResultCard';
-import { useFetch } from '../../hooks/useFetch';
-import { EstimationContext } from '../../util/Context';
+import RecommendResultCard from '../../components/recommendPage/ageAndLifeStyle/RecommendResultCard';
 import { RecommendPageProps } from './RecommendPage';
 
 export interface LifeStyleResultProps {
@@ -123,4 +123,4 @@ const RecommendLifeStyleResultPageBtnBox = styled.div`
   margin-bottom: 36px;
 `;
 
-export { RecommendLifeStyleResultPage };
+export default RecommendLifeStyleResultPage;

@@ -96,4 +96,4 @@ const LifeStylePeekForYouImgLowerImgBox = styled.div`
   gap: 12px;
 `;
 
-export { LifeStylePeekForYou };
+export default LifeStylePeekForYou;

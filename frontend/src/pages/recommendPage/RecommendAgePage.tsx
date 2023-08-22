@@ -1,22 +1,14 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
-import SquareButton from '../../components/common/SquareButton';
-import { PageNum } from '../../components/recommendPage/ageAndLifeStyle/PageNum';
-import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
+import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import { EstimationContext } from '../../util/Context';
-import { RecommendPageProps } from './RecommendPage';
+import { ErrorPopup } from '../../components/common/ErrorPopup';
+import SquareButton from '../../components/common/SquareButton';
+import PageNum from '../../components/recommendPage/ageAndLifeStyle/PageNum';
+import RecommendPageButton from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
+import { questionProps, RecommendPageProps } from './RecommendPage';
 
-export interface questionProps {
-  question: string;
-  keyword: string;
-  answers: {
-    code: string;
-    answer: string;
-  }[];
-}
 interface basicQuestionProps {
   age: questionProps;
 }
@@ -86,8 +78,8 @@ const ReccomendAgePageBox = styled.div`
 
 const ReccomendAgePageMain = styled.div`
   width: 608px;
-  height: 740px;
   margin-top: 48px;
+  margin-bottom: 36px;
 `;
 
 const ReccomendAgePageQBox = styled.div`
@@ -104,4 +96,4 @@ const ReccomendAgePageABox = styled.div`
   margin-bottom: 424px;
 `;
 
-export { RecommendAgePage };
+export default RecommendAgePage;

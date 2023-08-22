@@ -17,7 +17,6 @@ function LifeStylePeekProfile({
           <div className="body-regular-12 text-grey-400">{profile.bio}</div>
         </LifeStylePeekProfileTextBox>
       </LifeStylePeekProfileNameBox>
-
       <LifeStylePeekProfileSpeekingBox className="body-medium-18 text-secondary-active-blue">
         {replaceWonSymbol(profile.message)}
       </LifeStylePeekProfileSpeekingBox>
@@ -60,4 +59,4 @@ const LifeStylePeekProfileSpeekingBox = styled.div`
   background: rgba(33, 151, 201, 0.1);
 `;
 
-export { LifeStylePeekProfile };
+export default LifeStylePeekProfile;

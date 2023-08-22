@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { styled } from 'styled-components';
 import { ErrorPopup } from '../../components/common/ErrorPopup';
 import Header from '../../components/common/header/Header';
-import { RecommendAgePage } from './RecommendAgePage';
-import { RecommendDetailPage } from './RecommendDetailPage';
-import { RecommendDetailResultPage } from './RecommendDetailResultPage';
-import { RecomendLifeStylePage } from './RecommendLifeStylePage';
-import { RecommendLifeStyleResultPage } from './RecommendLifeStyleResultPage';
+import RecommendAgePage from './RecommendAgePage';
+import RecommendDetailPage from './RecommendDetailPage';
+import RecommendDetailResultPage from './RecommendDetailResultPage';
+import RecomendLifeStylePage from './RecommendLifeStylePage';
+import RecommendLifeStyleResultPage from './RecommendLifeStyleResultPage';
 
 export interface RecommendPageChoiceProps {
   age: idAndCode;
@@ -27,6 +26,15 @@ export interface idAndCode {
 export interface RecommendPageProps {
   choice: RecommendPageChoiceProps;
   setChoice: React.Dispatch<React.SetStateAction<RecommendPageChoiceProps>>;
+}
+
+export interface questionProps {
+  question: string;
+  keyword: string;
+  answers: {
+    code: string;
+    answer: string;
+  }[];
 }
 
 function RecommendPage() {
@@ -56,7 +64,7 @@ function RecommendPage() {
   });
 
   return (
-    <RecommendPageBox>
+    <>
       <Header size="medium" page={0}></Header>
       <Routes>
         <Route
@@ -104,10 +112,8 @@ function RecommendPage() {
         />
         <Route path="*" element={<ErrorPopup></ErrorPopup>} />
       </Routes>
-    </RecommendPageBox>
+    </>
   );
 }
-
-const RecommendPageBox = styled.div``;
 
 export default RecommendPage;

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
 import useModal from '../../../hooks/useModal';
 import { ErrorPopup } from '../../common/ErrorPopup';
-import { LifeStylePeekForYou } from './LifeStylePeekForYou';
-import { LifeStylePeekInterview } from './LifeStylePeekInterview';
-import { LifeStylePeekProfile } from './LifeStylePeekProfile';
-import { LifeStylePeekHeader } from './LifeStylePeekTitle';
+import LifeStylePeekForYou from './LifeStylePeekForYou';
+import LifeStylePeekInterview from './LifeStylePeekInterview';
+import LifeStylePeekProfile from './LifeStylePeekProfile';
+import LifeStylePeekHeader from './LifeStylePeekTitle';
 
 export interface LifeStyleModalProps {
   personaId: number;
@@ -129,4 +129,4 @@ const LifeStylePeekModalBox = styled.div`
   background: var(--grey-1000);
 `;
 
-export { LifeStylePeekModal };
+export default LifeStylePeekModal;

@@ -114,4 +114,4 @@ const RecommendResultCardText = styled.div`
   }
 `;
 
-export { RecommendResultCard };
+export default RecommendResultCard;

@@ -7,6 +7,9 @@ function ErrorPopup() {
   useEffect(() => {
     document.body.style.cssText = `
       background: rgba(15,17,20,0.55);`;
+    return () => {
+      document.body.style.cssText = ``;
+    };
   }, []);
 
   return (

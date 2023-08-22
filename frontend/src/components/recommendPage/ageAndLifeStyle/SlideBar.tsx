@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { budgetProps } from '../../../pages/recommendPage/RecommendDetailPage';
 
@@ -11,16 +11,18 @@ function SlideBar({
   budget: number;
   setBudget: (budget: number) => void;
 }) {
-  function rangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setBudget(parseInt(event.target.value));
-  }
+  const rangeHandler = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBudget(parseInt(event.target.value));
+    },
+    [],
+  );
 
   return (
     <SlideBarBox>
       <SlideBarText className="body-medium-18 text-grey-100">
         {data.question}
       </SlideBarText>
-
       <SlidePriceResult htmlFor="budget">
         <PriceBox>
           <span className="head-medium-24 text-grey-50">
@@ -36,7 +38,6 @@ function SlideBar({
           <span className="head-regular-24 text-grey-50">만원</span>
         </PriceBox>
       </SlidePriceResult>
-
       <SlideInputLeftCircle
         budget={budget}
         onClick={() => {
@@ -54,7 +55,6 @@ function SlideBar({
         budget={budget}
         onChange={rangeHandler}
       ></SlideInput>
-
       <SlideBottom>
         <span className="body-regular-14 text-grey-400">{`${data.minBudget} 만원`}</span>
         <span className="body-regular-14 text-grey-400">{`${data.maxBudget} 만원`}</span>
@@ -125,4 +125,4 @@ const SlideBottom = styled.div`
   justify-content: space-between;
 `;
 
-export { SlideBar };
+export default SlideBar;

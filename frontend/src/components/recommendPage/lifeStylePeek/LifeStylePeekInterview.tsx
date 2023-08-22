@@ -60,4 +60,4 @@ const LifeStylePeekA = styled.div`
   background: rgba(33, 151, 201, 0.1);
 `;
 
-export { LifeStylePeekInterview };
+export default LifeStylePeekInterview;

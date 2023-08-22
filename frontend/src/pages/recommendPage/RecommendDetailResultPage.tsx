@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useFetch } from '../../hooks/useFetch';
+import { EstimationContext } from '../../util/Context';
+import { ErrorPopup } from '../../components/common/ErrorPopup';
 import { ResultMain } from '../../components/common/result/ResultMain';
 import SquareButton from '../../components/common/SquareButton';
 import { TagList } from '../../components/common/TagList';
-import { RecommendPageProps } from './RecommendPage';
 import { question } from './RecommendDetailPage';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
-import { useFetch } from '../../hooks/useFetch';
 import { LifeStyleResultProps } from './RecommendLifeStyleResultPage';
-import { EstimationContext } from '../../util/Context';
+import { RecommendPageProps } from './RecommendPage';
 
 function RecommendDetailResultPage({
   choice,
@@ -26,6 +26,16 @@ function RecommendDetailResultPage({
     }
   }, [data]);
 
+  const tagList = useMemo(() => {
+    return [
+      `${question[0][choice.experience.id]}`,
+      `${question[1][choice.family.id]}`,
+      `${question[2][choice.purpose.id]}`,
+      `${question[3][choice.value.id]}`,
+      `${choice.budget}만원`,
+    ];
+  }, [choice]);
+
   if (status === 'loading') {
     return <div></div>;
   } else if (status === 'error') {
@@ -38,16 +48,7 @@ function RecommendDetailResultPage({
     <RecommendDetailResultPageBox>
       <RecommendDetailResultPageCarImgBox>
         <FlexBox>
-          <TagList
-            tagArr={[
-              `${question[0][choice.experience.id]}`,
-              `${question[1][choice.family.id]}`,
-              `${question[2][choice.purpose.id]}`,
-              `${question[3][choice.value.id]}`,
-              `${choice.budget}만원`,
-            ]}
-            type="result"
-          ></TagList>
+          <TagList tagArr={tagList} type="result"></TagList>
           <RecommendDetailResultPageCarTextBox>
             <span className="head-medium-26 text-grey-0">
               질문에 기반한 추천 차량이에요.
@@ -123,10 +124,9 @@ const RecommendDetailResultPageBottomBox = styled.div`
 
 const RecommendDetailResultPageCarImg = styled.img`
   position: absolute;
-  top: -217px;
+  top: -180px;
   right: 10%;
   width: 538px;
-  height: 334px;
 `;
 
 const RecommendDetailResultPageBtnBox = styled.div`
@@ -136,4 +136,4 @@ const RecommendDetailResultPageBtnBox = styled.div`
   margin-bottom: 36px;
 `;
 
-export { RecommendDetailResultPage };
+export default RecommendDetailResultPage;

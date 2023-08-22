@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import { ErrorPopup } from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
-import { PageNum } from '../../components/recommendPage/ageAndLifeStyle/PageNum';
-import { LifeStyleCard } from '../../components/recommendPage/lifeStyleCard/LifeStyleCard';
-import { LifeStylePeekModal } from '../../components/recommendPage/lifeStylePeek/LifeStylePeekModal';
+import PageNum from '../../components/recommendPage/ageAndLifeStyle/PageNum';
+import LifeStyleCard from '../../components/recommendPage/lifeStyleCard/LifeStyleCard';
+import LifeStylePeekModal from '../../components/recommendPage/lifeStylePeek/LifeStylePeekModal';
 import { RecommendPageProps } from './RecommendPage';
 
 export interface lifeStyleProps {
@@ -49,11 +49,15 @@ function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
     <RecomendLifeStylePageBox>
       <RecomendLifeStyleMain>
         <RecomendLifeStylePageTitle>
-          <RecomendLifeStylePageTitleText className="text-grey-0">
+          <div className="text-grey-0">
             <span className="head-regular-22">유사한 </span>
             <span className="head-medium-22">라이프스타일</span>
-            <span className="head-regular-22">{`을 선택하면\n차량 조합을 추천해 드려요.`}</span>
-          </RecomendLifeStylePageTitleText>
+            <span className="head-regular-22">
+              을 선택하면
+              <br />
+              차량 조합을 추천해 드려요.
+            </span>
+          </div>
           <PageNum>2/2</PageNum>
         </RecomendLifeStylePageTitle>
         <Link to="/recommend/custom">
@@ -68,7 +72,12 @@ function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
             choice.lifeStyle === 0 && e.preventDefault();
           }}
         >
-          <SquareButton size="xl" color="grey-1000" bg="primary-blue">
+          <SquareButton
+            size="xl"
+            color="grey-1000"
+            bg="primary-blue"
+            disabled={choice.lifeStyle === 0}
+          >
             선택 완료
           </SquareButton>
         </Link>
@@ -92,8 +101,8 @@ const RecomendLifeStylePageBox = styled.div`
 
 const RecomendLifeStyleMain = styled.div`
   width: 608px;
-  height: 740px;
   margin-top: 48px;
+  margin-bottom: 36px;
 `;
 
 const RecomendLifeStylePageTitle = styled.div`
@@ -101,12 +110,6 @@ const RecomendLifeStylePageTitle = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
-`;
-
-const RecomendLifeStylePageTitleText = styled.div`
-  span {
-    white-space: pre-wrap;
-  }
 `;
 
 const RecomendLifeStylePageExit = styled.div`
@@ -126,4 +129,4 @@ const RecomendLifeStyleCardBox = styled.div`
   margin-bottom: 40px;
 `;
 
-export { RecomendLifeStylePage };
+export default RecomendLifeStylePage;

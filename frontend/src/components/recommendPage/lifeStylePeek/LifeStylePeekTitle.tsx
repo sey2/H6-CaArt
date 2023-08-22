@@ -48,6 +48,7 @@ const LifeStyleImgBox = styled.img`
 const LogoBox = styled.img`
   width: 129px;
   height: 14px;
+  z-index: 1;
 `;
 
 const LifeStylePeekTitleBox = styled.div`
@@ -64,4 +65,4 @@ const LifeStylePeekText = styled.div`
   color: rgba(255, 255, 255, 0.7);
 `;
 
-export { LifeStylePeekHeader };
+export default LifeStylePeekHeader;

@@ -17,4 +17,4 @@ const PageNumBox = styled.div`
   background: var(--grey-900);
 `;
 
-export { PageNum };
+export default PageNum;

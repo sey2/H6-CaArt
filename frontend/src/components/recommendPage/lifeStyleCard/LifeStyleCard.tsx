@@ -4,6 +4,16 @@ import replaceWonSymbol from '../../../util/ReplaceWonSymbol';
 import CheckButton from '../../common/CheckButton';
 import { TagList } from '../../common/TagList';
 
+interface LifeStyleCardProps {
+  id: number;
+  tag: string[];
+  text: string;
+  imgSrc: string;
+  selected?: boolean;
+  setOpenedModalNum: React.Dispatch<React.SetStateAction<number>>;
+  setLifeStyle: (id: number) => void;
+}
+
 function LifeStyleCard({
   id,
   tag,
@@ -12,54 +22,44 @@ function LifeStyleCard({
   selected,
   setOpenedModalNum,
   setLifeStyle,
-}: LifeStyleCardProps &
-  LifeStyleSelectedProps & {
-    setOpenedModalNum: React.Dispatch<React.SetStateAction<number>>;
-  } & { setLifeStyle: (id: number) => void }) {
+}: LifeStyleCardProps) {
   return (
     <LifeStyleCardBox selected={selected}>
-      <LifeStyleImgBox src={imgSrc} selected={selected}></LifeStyleImgBox>
       <LifeStyleInnerBox>
-        <TagList tagArr={tag} type={'lifeStyle'} selected={selected}></TagList>
-        <LifeStyleTextBox selected={selected}>
-          <div className="body-medium-18 text-primary-blue">
+        <UpperBox
+          onClick={() => {
+            setLifeStyle(id);
+          }}
+        >
+          <LifeStyleImgBox src={imgSrc} selected={selected}></LifeStyleImgBox>
+          <TagList
+            tagArr={tag}
+            type={'lifeStyle'}
+            selected={selected}
+          ></TagList>
+          <LifeStyleTextBox
+            selected={selected}
+            className="body-medium-18 text-primary-blue"
+          >
             {replaceWonSymbol(text)}
-          </div>
-          <ClickDivBox
-            onClick={() => {
-              setLifeStyle(id);
-            }}
-          >
             <CheckButton selected={selected}></CheckButton>
-          </ClickDivBox>
-        </LifeStyleTextBox>
-        <LifeStylePeekBox>
-          <ClickDivBox
-            className="body-medium-14 text-grey-200"
-            onClick={() => {
-              setOpenedModalNum(id);
-            }}
-          >
+          </LifeStyleTextBox>
+        </UpperBox>
+        <LowerBox
+          onClick={() => {
+            setOpenedModalNum(id);
+          }}
+        >
+          <LifeStylePeekBox className="body-medium-14 text-grey-200">
             라이프스타일 엿보기
-          </ClickDivBox>
-        </LifeStylePeekBox>
+          </LifeStylePeekBox>
+        </LowerBox>
       </LifeStyleInnerBox>
     </LifeStyleCardBox>
   );
 }
 
-interface LifeStyleCardProps {
-  id: number;
-  tag: string[];
-  text: string;
-  imgSrc: string;
-}
-
-interface LifeStyleSelectedProps {
-  selected?: boolean;
-}
-
-const LifeStyleCardBox = styled.div<LifeStyleSelectedProps>`
+const LifeStyleCardBox = styled.div<Pick<LifeStyleCardProps, 'selected'>>`
   display: flex;
   align-items: flex-start;
   position: relative;
@@ -68,10 +68,17 @@ const LifeStyleCardBox = styled.div<LifeStyleSelectedProps>`
   border-radius: 8px;
   background: ${props =>
     props.selected ? `var(--grey-1000)` : `var(--primary-blue-10)`};
-  border: ${props => (props.selected ? `1.5px solid var(--primary-blue)` : ``)};
+  border: ${props =>
+    props.selected
+      ? `1.5px solid var(--primary-blue)`
+      : `1.5px solid transparent`};
+
+  &:hover {
+    border: 1.5px solid var(--primary-blue);
+  }
 `;
 
-const LifeStyleImgBox = styled.img<LifeStyleSelectedProps>`
+const LifeStyleImgBox = styled.img<Pick<LifeStyleCardProps, 'selected'>>`
   position: absolute;
   top: -40px;
   left: 188px;
@@ -82,37 +89,45 @@ const LifeStyleImgBox = styled.img<LifeStyleSelectedProps>`
     props.selected
       ? `1.5px solid var(--primary-blue)`
       : `1.5px solid var(--primary-blue-10)`};
+  cursor: pointer;
 `;
 
 const LifeStyleInnerBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 20px 20px 16px 20px;
 `;
 
-const LifeStyleTextBox = styled.div<LifeStyleSelectedProps>`
+const UpperBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 20px 0px 20px;
+  cursor: pointer;
+`;
+
+const LowerBox = styled.div`
+  width: 296px;
+  padding: 10px 20px 16px 20px;
+  cursor: pointer;
+`;
+
+const LifeStyleTextBox = styled.div<Pick<LifeStyleCardProps, 'selected'>>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 256px;
   padding-top: 10px;
   padding-bottom: 20px;
-  margin-bottom: 10px;
   border-bottom: ${props =>
     props.selected ? `1px solid var(--grey-700)` : `1px solid var(--grey-900)`};
-
-  div {
-    white-space: pre-wrap;
-  }
-`;
-
-const ClickDivBox = styled.div`
-  cursor: pointer;
+  white-space: pre-wrap;
 `;
 
 const LifeStylePeekBox = styled.div`
-  padding-left: 73px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export { LifeStyleCard };
+export default LifeStyleCard;

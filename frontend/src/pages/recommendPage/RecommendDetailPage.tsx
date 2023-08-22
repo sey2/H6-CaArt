@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useFetch } from '../../hooks/useFetch';
 import { ErrorPopup } from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
-import { RecommendPageButton } from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
-import { SlideBar } from '../../components/recommendPage/ageAndLifeStyle/SlideBar';
-import { useFetch } from '../../hooks/useFetch';
-import { questionProps } from './RecommendAgePage';
+import RecommendPageButton from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
+import SlideBar from '../../components/recommendPage/ageAndLifeStyle/SlideBar';
 import {
   idAndCode,
+  questionProps,
   RecommendPageChoiceProps,
   RecommendPageProps,
 } from './RecommendPage';
@@ -63,11 +63,11 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
       ] as questionProps;
       return (
         <RecommendDetailPageQABox key={question.keyword}>
-          <RecommendDetailPageQBox>
+          <div>
             <span className="body-medium-18 text-grey-100">
               {question.question}
             </span>
-          </RecommendDetailPageQBox>
+          </div>
           <ReccomendDetailPageABox>
             {question.answers.map((item, index) => {
               return (
@@ -127,7 +127,6 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
             }}
           ></SlideBar>
         </SlideBarBox>
-
         <Link
           to="/recommend/customResult"
           onClick={e => {
@@ -135,7 +134,12 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
               e.preventDefault();
           }}
         >
-          <SquareButton size="xl" color="grey-1000" bg="primary-blue">
+          <SquareButton
+            size="xl"
+            color="grey-1000"
+            bg="primary-blue"
+            disabled={choice.purpose.id === -1 || choice.value.id === -1}
+          >
             완료
           </SquareButton>
         </Link>
@@ -152,8 +156,8 @@ const RecommendDetailPageBox = styled.div`
 
 const RecommendDetailPageMain = styled.div`
   width: 608px;
-  height: 740px;
   margin-top: 48px;
+  margin-bottom: 36px;
 `;
 
 const RecommendDetailPageTopQBox = styled.div`
@@ -170,8 +174,6 @@ const RecommendDetailPageQABox = styled.div`
   gap: 18px;
 `;
 
-const RecommendDetailPageQBox = styled.div``;
-
 const ReccomendDetailPageABox = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -183,4 +185,4 @@ const SlideBarBox = styled.div`
   margin-bottom: 88px;
 `;
 
-export { RecommendDetailPage };
+export default RecommendDetailPage;
