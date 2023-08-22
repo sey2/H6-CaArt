@@ -8,11 +8,9 @@ interface OptionCardTagProps {
 
 function OptionCardTag({ type, tag }: OptionCardTagProps) {
   return (
-    <>
-      <OptionCardTagBox type={type}>
-        <span className="body-medium-12 text-grey-1000">{tag}</span>
-      </OptionCardTagBox>
-    </>
+    <OptionCardTagBox type={type}>
+      <span className="body-medium-12 text-grey-1000">{tag}</span>
+    </OptionCardTagBox>
   );
 }
 

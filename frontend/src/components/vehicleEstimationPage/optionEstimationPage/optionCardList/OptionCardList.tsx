@@ -1,29 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import OptionCard, { OptionCardType } from '../optionCard/OptionCard';
 import { EstimationContext } from '../../../../util/Context';
-import { ErrorPopup } from '../../../common/ErrorPopup';
 import { useFetch } from '../../../../hooks/useFetch';
+import OptionCard from '../optionCard/OptionCard';
+import { ErrorPopup } from '../../../common/ErrorPopup';
+import OptionInfoPopupBtn from '../optionInfoPopup/OptionInfoPopupBtn';
+import { OptionComponentProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
+import OptionCardListButton from './OptionCardListButton';
 
-interface OptionCardListProps {
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  type: OptionCardType;
+export interface OptionCardListProps {
   setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }
 
-interface AdditionalOption {
+export interface AdditionalOptionListProps {
+  totalElements: number;
+  totalPages: number;
+  additionalOptions: OptionProps[];
+}
+
+export interface basicOptionListProps {
+  totalElements: number;
+  totalPages: number;
+  baseOptions: OptionProps[];
+}
+
+interface OptionProps {
   optionId: number;
   optionName: string;
-  optionPrice: number;
   description: string;
-  summary: string;
-  badge: null | 'string';
-  adoptionRate: number;
-  position: null;
   optionImage: string;
   tags: string[];
-  subOptions: SubOption[];
+  optionPrice?: number;
+  summary?: string;
+  badge?: 'string';
+  adoptionRate?: number;
+  position?: null;
+  subOptions?: SubOption[];
 }
 
 interface SubOption {
@@ -32,34 +44,55 @@ interface SubOption {
   optionImage: string;
 }
 
-export interface additionalOptionListProps {
-  totalElements: number;
-  totalPages: number;
-  additionalOptions: AdditionalOption[];
-}
-
 function OptionCardList({
-  page,
-  setPage,
-  type,
+  optionCategory,
+  setOptionCategory,
   setOpenedModalId,
-}: OptionCardListProps) {
+}: OptionComponentProps & OptionCardListProps) {
   const { currentEstimation } = useContext(EstimationContext)!;
-  const trimId = 1;
-  // const trimID =
-  //   currentEstimation.trim === 'Exclusive'
-  //     ? 1
-  //     : currentEstimation.trim === 'Le Blanc'
-  //     ? 2
-  //     : currentEstimation.trim === 'Prestige'
-  //     ? 3
-  //     : 4;
-  const engineId = currentEstimation.engine.name === '디젤 2.2' ? 1 : 2;
-  const bodyTypeId = currentEstimation.engine.name === '7인승' ? 1 : 2;
-  const wdId = currentEstimation.engine.name === '2WD' ? 1 : 2;
-  const pageSize = 8;
-  const apiUrl = `/options/additional/list?trimId=${trimId}&engineId=${engineId}&bodyTypeId=${bodyTypeId}&wdId=${wdId}&offset=${page}&pageSize=${pageSize}`;
-  const { data, status, error } = useFetch<additionalOptionListProps>(apiUrl);
+  const [clickedPlusBtn, setClickecPlusBtn] = useState(-1);
+
+  const idMapping = useCallback(() => {
+    const trimId =
+      currentEstimation.trim.name === 'Exclusive'
+        ? 2
+        : currentEstimation.trim.name === 'Le Blanc'
+        ? 1
+        : currentEstimation.trim.name === 'Prestige'
+        ? 3
+        : 4;
+    const engineId = currentEstimation.engine.name === '디젤 2.2' ? 1 : 2;
+    const bodyTypeId = currentEstimation.body.name === '7인승' ? 1 : 2;
+    const wdId = currentEstimation.wd.name === '2WD' ? 1 : 2;
+
+    return {
+      trimId,
+      engineId,
+      bodyTypeId,
+      wdId,
+    };
+  }, [
+    currentEstimation.trim,
+    currentEstimation.engine,
+    currentEstimation.body,
+    currentEstimation.wd,
+  ]);
+
+  const { trimId, engineId, bodyTypeId, wdId } = useMemo(() => {
+    return idMapping();
+  }, [idMapping]);
+
+  const pageSize = optionCategory.isBasic ? 12 : 8;
+  const apiUrl = `/options/${
+    optionCategory.isBasic ? 'basic' : 'additional'
+  }/list?${
+    optionCategory.name !== '전체' ? `tagId=${optionCategory.id}&` : ``
+  }trimId=${trimId}&engineId=${engineId}&bodyTypeId=${bodyTypeId}&wdId=${wdId}&offset=${
+    optionCategory.page
+  }&pageSize=${pageSize}`;
+  const { data, status, error } = useFetch<
+    AdditionalOptionListProps | basicOptionListProps
+  >(apiUrl);
   if (status === 'loading') {
     return <div></div>;
   } else if (status === 'error') {
@@ -67,89 +100,114 @@ function OptionCardList({
     return <ErrorPopup></ErrorPopup>;
   }
   if (data === null) return <div></div>;
-
   const maxPageNum = data.totalPages;
 
-  const optionCardListShow = data.additionalOptions.map(item => {
+  const options =
+    'baseOptions' in data ? data.baseOptions : data.additionalOptions;
+
+  const optionCardListShow = options.map(item => {
     const optionData = {
       id: item.optionId,
       name: item.optionName,
-      description: item.summary,
+      description: item.summary || item.description,
       imgSrc: item.optionImage,
-      price: item.optionPrice,
+      price: item.optionPrice || 0,
       badge: item.badge || '',
-      percent: item.adoptionRate,
+      percent: item.adoptionRate || 0,
     };
 
+    const isSelected = currentEstimation.options.some(
+      option => option.name === item.optionName,
+    );
+
     return (
-      <OptionCard
-        key={item.optionId}
-        data={optionData}
-        type={type}
-        selected={
-          currentEstimation.options.findIndex(
-            option => option.name === item.optionName,
-          ) !== -1
-        }
-        setOpenedModalId={setOpenedModalId}
-      ></OptionCard>
+      <>
+        <OptionCard
+          key={item.optionId}
+          data={optionData}
+          optionCategory={optionCategory}
+          selected={isSelected}
+          setOpenedModalId={setOpenedModalId}
+        ></OptionCard>
+        {!optionCategory.isBasic && optionCategory.name !== '전체' && (
+          <OptionInfoPopupBtn
+            key={item.optionId}
+            top={item.position || item.optionId * 10}
+            left={item.position || item.optionId * 10}
+            clickedPlusBtn={clickedPlusBtn}
+            setClickecPlusBtn={setClickecPlusBtn}
+            setOpenedModalId={setOpenedModalId}
+            id={item.optionId}
+            name={item.optionName}
+            category={optionCategory.name}
+            img={item.optionImage}
+            price={item.optionPrice || 0}
+          ></OptionInfoPopupBtn>
+        )}
+      </>
     );
   });
 
-  const OptionMoveBtnList = () => {
-    const buttons = [];
-    const btnStartIndex = Math.floor(page / 5) * 5;
-    const btnEndIndex = Math.min(btnStartIndex + 4, maxPageNum);
-    for (let i = btnStartIndex; i < btnEndIndex; i++) {
-      buttons.push(
-        <OptionCardPageMoveBtn
-          key={i}
-          index={i}
-          page={page}
-          onClick={() => setPage(i)}
-        >
-          {i + 1}
-        </OptionCardPageMoveBtn>,
-      );
-    }
-    return buttons;
-  };
+  function movePage(i: number) {
+    setOptionCategory({ ...optionCategory, page: i });
+  }
 
-  const OptionMoveBtn = (
-    <OptionCardPageMoveBtnBox>
-      <img
-        src="/images/leftArrow_icon_basic.svg"
-        onClick={() => {
-          setPage(page === 0 ? 0 : page - 1);
-        }}
-      ></img>
-      <div className="btn_list">{OptionMoveBtnList()}</div>
-      <img
-        src="/images/rightArrow_icon_basic.svg"
-        onClick={() => {
-          setPage(page === maxPageNum - 1 ? maxPageNum - 1 : page + 1);
-        }}
-      ></img>
-    </OptionCardPageMoveBtnBox>
-  );
+  function moveBack() {
+    setOptionCategory({
+      ...optionCategory,
+      page: optionCategory.page === 0 ? 0 : optionCategory.page - 1,
+    });
+  }
 
-  return (
-    <OptionCardListAdditionalAllBox>
-      <TotalOptionNumber>
-        <span className="body-medium-16 text-grey-300">전체</span>
-        <span className="body-medium-16 text-secondary-active-blue">
-          {data.totalElements}
-        </span>
-      </TotalOptionNumber>
-      <OptionCardListBox>{optionCardListShow}</OptionCardListBox>
-      {maxPageNum > 1 && OptionMoveBtn}
-    </OptionCardListAdditionalAllBox>
-  );
+  function moveForward() {
+    setOptionCategory({
+      ...optionCategory,
+      page:
+        optionCategory.page === maxPageNum - 1
+          ? maxPageNum - 1
+          : optionCategory.page + 1,
+    });
+  }
+
+  if (optionCategory.isBasic || optionCategory.name === '전체') {
+    return (
+      <OptionCardListAdditionalAllBox>
+        <TotalOptionNumber>
+          <span className="body-medium-16 text-grey-300">전체</span>
+          <span className="body-medium-16 text-secondary-active-blue">
+            {data.totalElements}
+          </span>
+        </TotalOptionNumber>
+        <OptionCardListBox>{optionCardListShow}</OptionCardListBox>
+        {maxPageNum > 1 &&
+          OptionCardListButton({
+            page: optionCategory.page,
+            maxPage: maxPageNum,
+            movePage: movePage,
+            moveBack: moveBack,
+            moveForward: moveForward,
+          })}
+      </OptionCardListAdditionalAllBox>
+    );
+  } else {
+    return (
+      <OptionCardListAdditionalTagBox>
+        <OptionCardListAdditionalTagImg
+          src={optionCategory.img}
+        ></OptionCardListAdditionalTagImg>
+        <OptionCardListBox>{optionCardListShow}</OptionCardListBox>
+        <OptionCardListAdditionalTagCaption className="caption-regular-12 text-grey-500">
+          *상기 이미지는 이해를 돕기 위한 이미지로 실제 옵션 사진은 상세보기에서
+          확인해주세요.
+        </OptionCardListAdditionalTagCaption>
+      </OptionCardListAdditionalTagBox>
+    );
+  }
 }
 
 const OptionCardListAdditionalAllBox = styled.div`
   display: flex;
-  width: 100%;
+  width: 1024px;
   flex-direction: column;
 `;
 
@@ -158,7 +216,6 @@ const OptionCardListBox = styled.div`
   align-items: flex-start;
   gap: 16px;
   flex-wrap: wrap;
-  margin-left: 128px;
 
   > div {
     margin-bottom: 44px;
@@ -169,36 +226,25 @@ const TotalOptionNumber = styled.div`
   display: flex;
   margin-top: 19px;
   margin-bottom: 16px;
-  margin-left: 128px;
   gap: 5px;
 `;
 
-const OptionCardPageMoveBtnBox = styled.div`
+const OptionCardListAdditionalTagBox = styled.div`
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 20px;
-
-  .btn_list {
-    display: flex;
-  }
-
-  img {
-    cursor: pointer;
-  }
+  flex-direction: column;
+  width: 1024px;
+  margin-top: 24px;
 `;
 
-const OptionCardPageMoveBtn = styled.div<{ index: number; page: number }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: ${props =>
-    props.page == props.index ? `var(--grey-700)` : ` var(--grey-1000)`};
-  cursor: pointer;
+const OptionCardListAdditionalTagImg = styled.img`
+  width: 1024px;
+  height: 490px;
+  margin-bottom: 40px;
 `;
 
-export default OptionCardList;
+const OptionCardListAdditionalTagCaption = styled.div`
+  display: flex;
+`;
+
+export default React.memo(OptionCardList);

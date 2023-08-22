@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../../hooks/useFetch';
+import { OptionComponentProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 import { ErrorPopup } from '../../../common/ErrorPopup';
-import { OptionNavBarProps } from './NavBar';
 
 interface optionTagProps {
   tagId: number;
@@ -14,15 +14,14 @@ interface optionTagProps {
 }
 
 function OptionNavBarLower({
-  isBasicOptionPage,
   optionCategory,
   setOptionCategory,
-}: Pick<
-  OptionNavBarProps,
-  'isBasicOptionPage' | 'optionCategory' | 'setOptionCategory'
->) {
+}: OptionComponentProps) {
+  const selectedClassName = `body-medium-14 text-primary-blue`;
+  const unSelectedClassName = `body-regular-14 text-grey-400`;
+
   const { data, status, error } = useFetch<optionTagProps[]>(
-    `/tags/${isBasicOptionPage ? 'basic' : 'additional'}`,
+    `/tags/${optionCategory.isBasic ? 'basic' : 'additional'}`,
   );
   if (status === 'loading') {
     return <div></div>;
@@ -32,36 +31,25 @@ function OptionNavBarLower({
   }
   if (data === null) return <div></div>;
 
-  const selectedClassName = `body-medium-14 text-primary-blue`;
-  const unSelectedClassName = `body-regular-14 text-grey-400`;
-
   const categoryLists = data.map(item => {
+    const isSelected = item.tagName === optionCategory.name;
+
     return (
       <OptionNavCategoryBox
         key={item.tagId}
-        className={item.tagName === optionCategory.name ? 'selected' : ''}
+        isSelected={isSelected}
         onClick={() => {
           setOptionCategory({
+            isBasic: optionCategory.isBasic,
             name: item.tagName,
             img: item.tagImage,
             id: item.tagId,
+            page: 0,
           });
         }}
       >
-        <img
-          src={
-            item.tagName === optionCategory.name
-              ? `${item.tagIconSelected}`
-              : `${item.tagIcon}`
-          }
-        ></img>
-        <span
-          className={
-            item.tagName === optionCategory.name
-              ? selectedClassName
-              : unSelectedClassName
-          }
-        >
+        <img src={isSelected ? item.tagIconSelected : item.tagIcon}></img>
+        <span className={isSelected ? selectedClassName : unSelectedClassName}>
           {item.tagName}
         </span>
       </OptionNavCategoryBox>
@@ -74,11 +62,12 @@ function OptionNavBarLower({
 const OptionNavBarLowerBox = styled.div`
   display: flex;
   gap: 8px;
+  width: 1024px;
   padding-top: 14px;
-  padding-left: 128px;
+  margin: auto;
 `;
 
-const OptionNavCategoryBox = styled.div`
+const OptionNavCategoryBox = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -86,9 +75,9 @@ const OptionNavCategoryBox = styled.div`
   border-radius: 4px;
   cursor: pointer;
   background: ${props =>
-    props.className === 'selected' ? `var(--grey-1000)` : 'var(--grey-800)'};
+    props.isSelected ? `var(--grey-1000)` : 'var(--grey-800)'};
   border: ${props =>
-    props.className === 'selected'
+    props.isSelected
       ? `1.5px solid var(--primary-blue)`
       : `1.5px solid transparent`};
   transition: all 0.5s;

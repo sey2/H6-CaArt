@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import styled from 'styled-components';
 import CircularButton from '../../../common/CircularButton';
 import OptionCardTag from './OptionCardTag';
@@ -6,45 +6,55 @@ import OptionCardGuide from './OptionCardGuide';
 import { priceToString } from '../../../../util/PriceToString';
 import { truncateString } from '../../../../util/TruncateString';
 import { EstimationContext } from '../../../../util/Context';
+import { OptionCategoryProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 
 export type OptionCardType = 'additionalAll' | 'additionalTag' | 'basic';
 
-export interface OptionCardProps {
-  id: number;
-  name: string;
-  description: string;
-  imgSrc: string;
-  price: number;
-  badge: string;
-  percent: number;
+interface OptionCardProps {
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    imgSrc: string;
+    price: number;
+    badge: string;
+    percent: number;
+  };
+  selected?: boolean;
+  optionCategory: OptionCategoryProps;
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function OptionCard({
   data,
   selected,
-  type,
+  optionCategory,
   setOpenedModalId,
-}: {
-  data: OptionCardProps;
-  selected?: boolean;
-  type: OptionCardType;
-  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
-}) {
+}: OptionCardProps) {
   const { addOption, deleteOption } = useContext(EstimationContext)!;
 
+  const clickHandler = useCallback(() => {
+    if (selected) {
+      deleteOption(data.name);
+    } else {
+      addOption({
+        name: data.name,
+        price: data.price,
+        img: data.imgSrc,
+      });
+    }
+  }, [addOption, deleteOption, data]);
+
   const optionCardBasicInfo = (
-    <OptionCardDetailTitleBox>
-      <span className="head-medium-16 text-grey-0">
-        {truncateString(data.name, 11)}
-      </span>
-      <OptionCardDetailTextBox className="body-regular-14 text-secondary-active-blue">
-        <span
-          onClick={() => {
-            setOpenedModalId(data.id);
-          }}
-        >
-          더 알아보기
-        </span>
+    <OptionCardDetailTitleBox className="head-medium-16 text-grey-0">
+      {truncateString(data.name, 11)}
+      <OptionCardDetailTextBox
+        className="body-regular-14 text-secondary-active-blue"
+        onClick={() => {
+          setOpenedModalId(data.id);
+        }}
+      >
+        더 알아보기
         <img src="/images/rightArrow_icon_blue.svg"></img>
       </OptionCardDetailTextBox>
     </OptionCardDetailTitleBox>
@@ -60,17 +70,7 @@ function OptionCard({
       </OptionCardDetailPrice>
       <CircularButton
         selected={selected}
-        onClick={() => {
-          if (selected) {
-            deleteOption(data.name);
-          } else {
-            addOption({
-              name: data.name,
-              price: data.price,
-              img: 'https://picsum.photos/200/300',
-            });
-          }
-        }}
+        onClick={clickHandler}
       ></CircularButton>
     </>
   );
@@ -94,13 +94,14 @@ function OptionCard({
     <OptionCardBox>
       <OptionCardImg src={data.imgSrc}></OptionCardImg>
       <OptionCardDetailBox>
-        <>
-          {optionCardBasicInfo}
-          {type !== 'basic' && optionCardAdditionalInfo}
-        </>
+        {optionCardBasicInfo}
+        {!optionCategory.isBasic && optionCardAdditionalInfo}
       </OptionCardDetailBox>
       {data.badge && optionCardBadge}
-      {data.percent >= 60 && type === 'additionalAll' && optionCardGuide}
+      {data.percent >= 60 &&
+        !optionCategory.isBasic &&
+        optionCategory.name === '전체' &&
+        optionCardGuide}
     </OptionCardBox>
   );
 }
@@ -139,14 +140,11 @@ const OptionCardDetailTitleBox = styled.div`
 const OptionCardDetailTextBox = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   img {
     width: 16px;
     height: 16px;
-  }
-
-  span {
-    cursor: pointer;
   }
 `;
 

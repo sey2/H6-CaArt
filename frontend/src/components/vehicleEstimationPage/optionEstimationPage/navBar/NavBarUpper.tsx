@@ -1,81 +1,95 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { OptionNavBarProps } from './NavBar';
+import { OptionComponentProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 
 function OptionNavBarUpper({
-  isBasicOptionPage,
-  setIsBasicOptionPage,
+  optionCategory,
   setOptionCategory,
-}: Pick<
-  OptionNavBarProps,
-  'isBasicOptionPage' | 'setIsBasicOptionPage' | 'setOptionCategory'
->) {
+}: OptionComponentProps) {
   const selectedClassName = `head-medium-20 text-grey-200`;
   const unSelectedClassName = `head-medium-20 text-grey-600`;
+
   const lineRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  const updateLine = useCallback((target: HTMLElement) => {
     if (lineRef.current) {
-      const targetDom: HTMLElement = document.querySelector('.head-medium-20')!;
-      lineRef.current.style.width = `${targetDom.offsetWidth}px`;
-      lineRef.current.style.left = `${targetDom.offsetLeft}px`;
+      lineRef.current.style.width = `${target.offsetWidth}px`;
+      lineRef.current.style.left = `${target.offsetLeft}px`;
       lineRef.current.style.top = `${
-        targetDom.offsetTop + targetDom.offsetHeight - 0.5
+        target.offsetTop + target.offsetHeight - 0.5
       }px`;
     }
   }, []);
 
-  function lineHandler(e: React.MouseEvent<HTMLSpanElement>): void {
+  useEffect(() => {
     if (lineRef.current) {
-      lineRef.current.style.width = `${e.currentTarget.offsetWidth}px`;
-      lineRef.current.style.left = `${e.currentTarget.offsetLeft}px`;
-      lineRef.current.style.top = `${
-        e.currentTarget.offsetTop + e.currentTarget.offsetHeight - 0.5
-      }px`;
+      const target: HTMLElement = document.querySelector('.head-medium-20')!;
+      updateLine(target);
     }
-  }
+  }, [updateLine]);
 
-  function clickHandler(
-    e: React.MouseEvent<HTMLSpanElement>,
-    type: 'additional' | 'basic',
-  ) {
-    lineHandler(e);
-    setIsBasicOptionPage(type === 'basic');
-    if (type === 'additional') {
-      setOptionCategory({ name: '전체', img: '', id: 0 });
-    } else {
-      setOptionCategory({ name: '대표', img: '', id: 9 });
-    }
-  }
+  const lineHandler = useCallback(
+    (e: React.MouseEvent<HTMLSpanElement>) => {
+      if (lineRef.current) {
+        const target = e.currentTarget;
+        updateLine(target);
+      }
+    },
+    [updateLine],
+  );
+
+  const clickHandler = useCallback(
+    (e: React.MouseEvent<HTMLSpanElement>, type: 'additional' | 'basic') => {
+      lineHandler(e);
+      setOptionCategory({
+        isBasic: type === 'basic',
+        name: type === 'additional' ? '전체' : '대표',
+        img: '',
+        id: type === 'additional' ? 0 : 9,
+        page: 0,
+      });
+    },
+    [lineHandler, setOptionCategory],
+  );
 
   return (
-    <OptionNavBarUpperBox>
-      <span
-        className={!isBasicOptionPage ? selectedClassName : unSelectedClassName}
-        onClick={e => {
-          clickHandler(e, 'additional');
-        }}
-      >
-        추가 옵션
-      </span>
-      <span
-        className={isBasicOptionPage ? selectedClassName : unSelectedClassName}
-        onClick={e => {
-          clickHandler(e, 'basic');
-        }}
-      >
-        기본 포함 옵션
-      </span>
-      <NavBottomLine ref={lineRef}></NavBottomLine>
-    </OptionNavBarUpperBox>
+    <Container>
+      <OptionNavBarUpperBox>
+        <span
+          className={
+            optionCategory.isBasic ? unSelectedClassName : selectedClassName
+          }
+          onClick={e => {
+            clickHandler(e, 'additional');
+          }}
+        >
+          추가 옵션
+        </span>
+        <span
+          className={
+            optionCategory.isBasic ? selectedClassName : unSelectedClassName
+          }
+          onClick={e => {
+            clickHandler(e, 'basic');
+          }}
+        >
+          기본 포함 옵션
+        </span>
+        <NavBottomLine ref={lineRef}></NavBottomLine>
+      </OptionNavBarUpperBox>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  border-bottom: 1px solid var(--grey-700);
+`;
 
 const OptionNavBarUpperBox = styled.div`
   display: flex;
   gap: 40px;
-  padding-left: 132px;
-  border-bottom: 1px solid var(--grey-700);
+  width: 1024px;
+  margin: auto;
 
   span {
     padding-bottom: 8px;
@@ -95,4 +109,4 @@ const NavBottomLine = styled.div`
   transition: all 0.5s;
 `;
 
-export default OptionNavBarUpper;
+export default React.memo(OptionNavBarUpper);
