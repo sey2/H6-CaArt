@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.databinding.FragmentRecommendCompleteBinding
-import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
 import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.ui.recycleradapter.ResultOptionAdapter
+import org.softeer_2nd.caArt.ui.recycleradapter.UserSelectedAnswerChipRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.RecommendCompleteViewModel
 
 @AndroidEntryPoint
@@ -32,8 +34,24 @@ class RecommendCompleteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        recommendCompleteViewModel.requestRecommendCompleteResult(args.personaId, args.age.code)
+        val fromAdditionalSurvey =
+            (findNavController().previousBackStackEntry?.destination?.id == R.id.lifeStyleDetailSurveyFragment)
+        if (!fromAdditionalSurvey) {
+            recommendCompleteViewModel.requestRecommendCompleteResult(args.personaId, args.age.code)
+        } else {
+            with(args) {
+                recommendCompleteViewModel.requestRecommendCompleteResultByAdditionalQuestions(
+                    age = age,
+                    experience = experience,
+                    family = family,
+                    purpose = purpose,
+                    value = value,
+                    budget = budget
+                )
+            }
+        }
         _binding = FragmentRecommendCompleteBinding.inflate(inflater, container, false)
+        binding.isCarmasterRecommend = fromAdditionalSurvey
         return binding.root
     }
 
@@ -52,6 +70,14 @@ class RecommendCompleteFragment : Fragment() {
         recommendCompleteViewModel.resultState.observe(viewLifecycleOwner) {
             binding.setBinding(it)
             optionAdapter.setItems(it.resultOptions)
+        }
+
+        recommendCompleteViewModel.answerList.observe(viewLifecycleOwner) {
+            binding.incRecommendCompleteByAdditionalQuestionCover.rvRecommendationCompleteByAdditionalQuestionUserAnswersContainer.setup(
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
+                UserSelectedAnswerChipRecyclerAdapter(it),
+                false
+            )
         }
     }
 

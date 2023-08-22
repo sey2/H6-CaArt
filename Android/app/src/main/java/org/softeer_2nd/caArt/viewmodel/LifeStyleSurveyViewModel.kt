@@ -43,12 +43,16 @@ class LifeStyleSurveyViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 setProcessData(questions)
                 setLastProcess(questions.size)
-                startProcess()
                 selectedAnswerList = MutableList(questions.size) { null }
-                if (questions.isNotEmpty() && !questions[0].answers.isNullOrEmpty())
-                    selectAnswer(questions[0].answers!![0])
+                startProcess()
             }
         }
+    }
+
+    override fun next() {
+        super.next()
+        if (processData.isNotEmpty() && !processData[currentProcessIndex].answers.isNullOrEmpty())
+            selectAnswer(processData[0].answers!![0])
     }
 
     fun requestPersonaList() {

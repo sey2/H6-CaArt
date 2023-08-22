@@ -73,7 +73,7 @@
             android:id="@+id/action_lifeStyleSurveyFragment_to_recommendCompleteFragment"
             app:destination="@id/recommendCompleteFragment">
             <argument
-                android:name="eperience"
+                android:name="experience"
                 android:defaultValue="@null"
                 app:argType="org.softeer_2nd.caArt.model.data.Answer"
                 app:nullable="true" />
@@ -110,7 +110,7 @@
                 android:name="budget"
                 app:argType="integer" />
             <argument
-                android:name="eperience"
+                android:name="experience"
                 app:argType="org.softeer_2nd.caArt.model.data.Answer"
                 app:nullable="true" />
             <argument
@@ -126,6 +126,9 @@
                 app:argType="org.softeer_2nd.caArt.model.data.Answer"
                 app:nullable="true" />
         </action>
+        <argument
+            android:name="age"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer" />
     </fragment>
     <fragment
         android:id="@+id/lifestyleDetailFragment"
@@ -147,7 +150,7 @@
             android:defaultValue="1"
             app:argType="integer" />
         <argument
-            android:name="eperience"
+            android:name="experience"
             android:defaultValue="@null"
             app:argType="org.softeer_2nd.caArt.model.data.Answer"
             app:nullable="true" />

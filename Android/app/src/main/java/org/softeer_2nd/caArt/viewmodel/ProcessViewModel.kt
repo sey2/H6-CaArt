@@ -76,4 +76,5 @@ abstract class ProcessViewModel<PROCESS_DATA_TYPE> : ViewModel() {
         processData.addAll(list)
     }
 
+
 }

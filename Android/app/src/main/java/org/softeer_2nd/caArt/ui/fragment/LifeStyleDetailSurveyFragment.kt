@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.Slider
@@ -31,6 +32,8 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
     private var surveyAdapter: SurveyAnswerOptionsRecyclerAdapter? = null
 
     private var detailSurveySetBudgetBinding: LayoutDetailSurveySetBudgetBinding? = null
+
+    private val args: LifeStyleDetailSurveyFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +60,9 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
         binding.processViewModel = processViewModel
 
-        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter(){}
+        surveyAdapter = SurveyAnswerOptionsRecyclerAdapter() {
+            it?.let { processViewModel.selectAnswer(it) }
+        }
 
         binding.rvSurveyAnswerOptionsContainer.initSurveyAnswerOptionsRecyclerView(surveyAdapter!!)
         binding.clSurveyScreenContainer.addView(detailSurveySetBudgetBinding?.root)
@@ -69,6 +74,10 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
                 step = it.step
                 selectPrice = it.max
             }
+        }
+
+        processViewModel.selectedAnswer.observe(viewLifecycleOwner) {
+            surveyAdapter?.selectAnswerOption(it)
         }
     }
 
@@ -88,12 +97,20 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
         } else {
             binding.rvSurveyAnswerOptionsContainer.visibility = View.GONE
             detailSurveySetBudgetBinding?.root?.visibility = View.VISIBLE
-
         }
     }
 
     override fun onProcessFinished() {
-        //findNavController().navigate(LifeStyleDetailSurveyFragmentDirections.actionLifeStyleDetailSurveyFragmentToRecommendCompleteFragment())
+        findNavController().navigate(
+            LifeStyleDetailSurveyFragmentDirections.actionLifeStyleDetailSurveyFragmentToRecommendCompleteFragment(
+                age = args.age,
+                budget = processViewModel.budgetRange.value?.max?.toInt() ?: 6900,
+                experience = processViewModel.selectedExperienceAnswer,
+                family = processViewModel.selectedFamilyAnswer,
+                purpose = processViewModel.selectedPurposeAnswer,
+                value = processViewModel.selectedValueAnswer
+            )
+        )
     }
 
     private fun RecyclerView.initSurveyAnswerOptionsRecyclerView(adapter: SurveyAnswerOptionsRecyclerAdapter) {

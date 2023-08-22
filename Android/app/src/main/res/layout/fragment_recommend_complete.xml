@@ -6,6 +6,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="isCarmasterRecommend"
+            type="boolean" />
+
         <variable
             name="model"
             type="org.softeer_2nd.caArt.model.data.state.Model" />
@@ -46,7 +52,7 @@
                     layout="@layout/layout_recommendation_complete_by_lifestyle_cover"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="@{isCarmasterRecommend?View.GONE:View.VISIBLE}"
                     bind:carImage="@{carImage}"
                     bind:card="@{recommendationCard}"
                     bind:model="@{model}" />
@@ -56,7 +62,8 @@
                     layout="@layout/layout_recommendation_complete_by_additional_question_cover"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    bind:carImage="@{carImage}"/>
+                    android:visibility="@{isCarmasterRecommend?View.VISIBLE:View.GONE}"
+                    bind:carImage="@{carImage}" />
             </FrameLayout>
 
             <TextView

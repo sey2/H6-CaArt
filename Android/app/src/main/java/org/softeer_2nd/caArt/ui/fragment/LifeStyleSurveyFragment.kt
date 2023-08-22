@@ -55,7 +55,13 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
                 processViewModel.selectPersona(persona)
             },
             onLifeStylePersonaDetailSelectClickListener = { _ ->
-                findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifeStyleDetailSurveyFragment())
+                processViewModel.selectedAgeAnswer?.let {
+                    findNavController().navigate(
+                        LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifeStyleDetailSurveyFragment(
+                            it
+                        )
+                    )
+                }
             },
             onLifeStylePersonaMoreClickListener = { _, persona ->
                 findNavController().navigate(
@@ -154,9 +160,6 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
                 )
             )
         }
-//        findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToRecommendCompleteFragment(
-//         model
-//        ))
     }
 
     private fun ViewPager2.initLifeStylePersonaContainer(adapter: LifestylePersonaSelectAdapter) {
