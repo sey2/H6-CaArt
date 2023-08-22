@@ -1,7 +1,6 @@
 package org.softeer_2nd.caArt.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,13 +9,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
-import org.softeer_2nd.caArt.model.factory.DummyItemFactory
-import org.softeer_2nd.caArt.model.repository.CarOptionRepository
-import org.softeer_2nd.caArt.model.repository.RecommandRepository
+import org.softeer_2nd.caArt.model.repository.RecommendRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class LifeStyleDetailSurveyViewModel @Inject constructor(private val repository: RecommandRepository) :
+class LifeStyleDetailSurveyViewModel @Inject constructor(private val repository: RecommendRepository) :
     ProcessViewModel<SurveyQuestion>() {
 
     val budgetRange: LiveData<BudgetRange> = repository.budgetRange.asLiveData()

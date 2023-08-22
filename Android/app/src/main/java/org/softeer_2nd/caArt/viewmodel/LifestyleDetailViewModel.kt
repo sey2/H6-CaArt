@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.softeer_2nd.caArt.model.data.state.LifestyleDetailState
-import org.softeer_2nd.caArt.model.repository.RecommandRepository
+import org.softeer_2nd.caArt.model.repository.RecommendRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class LifestyleDetailViewModel @Inject constructor(private val repository: RecommandRepository) :
+class LifestyleDetailViewModel @Inject constructor(private val repository: RecommendRepository) :
     ViewModel() {
 
     private val _lifestyleDetailState = MutableLiveData<LifestyleDetailState>()

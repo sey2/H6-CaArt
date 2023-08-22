@@ -19,6 +19,10 @@ abstract class ProcessFragment<PROCESS_DATA_TYPE> : Fragment() {
         processViewModel.processChangeEvent.observe(viewLifecycleOwner) {
             onProcessChanged(it.currentProcess, it.isLastProcess, it.data)
         }
+
+        processViewModel.processFinishEvent.observe(viewLifecycleOwner) {
+            if (it) onProcessFinished()
+        }
     }
 
     abstract fun onLastProcessChanged(lastProcess: Int)
@@ -28,4 +32,6 @@ abstract class ProcessFragment<PROCESS_DATA_TYPE> : Fragment() {
         isLastProcess: Boolean,
         data: PROCESS_DATA_TYPE?
     )
+
+    abstract fun onProcessFinished()
 }

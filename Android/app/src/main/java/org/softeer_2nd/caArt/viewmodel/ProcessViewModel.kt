@@ -11,6 +11,7 @@ abstract class ProcessViewModel<PROCESS_DATA_TYPE> : ViewModel() {
 
     protected val _lastProcess = MutableLiveData<Int>()
     val lastProcess: LiveData<Int> = _lastProcess
+    private val lastProcessIndex get() = (_lastProcess.value ?: Int.MAX_VALUE) - 1
 
     private var _currentProcessIndex = -1
     val currentProcessIndex get() = _currentProcessIndex
@@ -21,15 +22,22 @@ abstract class ProcessViewModel<PROCESS_DATA_TYPE> : ViewModel() {
 
     protected val processData = mutableListOf<PROCESS_DATA_TYPE>()
 
+    protected val _processFinishEvent = MutableLiveData<Boolean>()
+    val processFinishEvent: LiveData<Boolean> = _processFinishEvent
+
     protected fun setLastProcess(lastProcess: Int) {
         _lastProcess.value = lastProcess
     }
 
     protected fun startProcess() {
-        next()
+        if (processFinishEvent.value == null) next()
     }
 
     open fun next() {
+        if (currentProcessIndex == lastProcessIndex) {
+            _processFinishEvent.value = true
+            _processFinishEvent.value = false
+        }
         val next = min(processData.lastIndex, currentProcessIndex + 1)
         _currentProcessIndex = next
         val data =

@@ -33,4 +33,6 @@
     <color name="transparent_gray">#B8ACB8C8</color>
     <color name="transparent_black">#00111111</color>
     <color name="black_a80">#CC000000</color>
+    <color name="white_a40">#66FFFFFF</color>
+    <color name="white_gray">#F1F4F7</color>
 </resources>

@@ -9,7 +9,7 @@ import org.softeer_2nd.caArt.model.data.state.LifestyleDetailState
 import org.softeer_2nd.caArt.model.network.RecommandApiService
 import javax.inject.Inject
 
-class RecommandRepository @Inject constructor(
+class RecommendRepository @Inject constructor(
     private val service: RecommandApiService
 ) {
 

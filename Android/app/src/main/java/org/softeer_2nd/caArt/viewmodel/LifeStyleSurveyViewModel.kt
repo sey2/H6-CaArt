@@ -9,13 +9,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
-import org.softeer_2nd.caArt.model.factory.DummyItemFactory
-import org.softeer_2nd.caArt.model.repository.RecommandRepository
+import org.softeer_2nd.caArt.model.repository.RecommendRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class LifeStyleSurveyViewModel @Inject constructor(
-    val repository: RecommandRepository
+    val repository: RecommendRepository
 ) : ProcessViewModel<SurveyQuestion>() {
 
     private val _personaList = MutableLiveData<List<Persona>>()

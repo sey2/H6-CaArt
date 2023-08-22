@@ -58,7 +58,11 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
                 findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifeStyleDetailSurveyFragment())
             },
             onLifeStylePersonaMoreClickListener = { _, persona ->
-                findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifestyleDetailFragment(persona.personaId))
+                findNavController().navigate(
+                    LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifestyleDetailFragment(
+                        persona.personaId
+                    )
+                )
             }
         )
 
@@ -82,7 +86,6 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
         processViewModel.selectedPersona.observe(viewLifecycleOwner) {
             personaAdapter.selectItem(it)
         }
-
     }
 
     override fun onLastProcessChanged(lastProcess: Int) {
@@ -134,6 +137,10 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
                     12f.dp2px(context)
             }
         })
+    }
+
+    override fun onProcessFinished() {
+        findNavController().navigate(LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToRecommendCompleteFragment())
     }
 
     private fun ViewPager2.initLifeStylePersonaContainer(adapter: LifestylePersonaSelectAdapter) {

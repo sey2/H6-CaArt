@@ -69,12 +69,19 @@
         <action
             android:id="@+id/action_lifeStyleSurveyFragment_to_lifestyleDetailFragment"
             app:destination="@id/lifestyleDetailFragment" />
+        <action
+            android:id="@+id/action_lifeStyleSurveyFragment_to_recommendCompleteFragment"
+            app:destination="@id/recommendCompleteFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/lifeStyleDetailSurveyFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleDetailSurveyFragment"
-        android:label="LifeStyleDetailSurveyFragment" />
+        android:label="LifeStyleDetailSurveyFragment" >
+        <action
+            android:id="@+id/action_lifeStyleDetailSurveyFragment_to_recommendCompleteFragment"
+            app:destination="@id/recommendCompleteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/lifestyleDetailFragment"
         android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleDetailFragment"
@@ -83,4 +90,8 @@
             android:name="personaId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/recommendCompleteFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.RecommendCompleteFragment"
+        android:label="RecommendCompleteFragment" />
 </navigation>

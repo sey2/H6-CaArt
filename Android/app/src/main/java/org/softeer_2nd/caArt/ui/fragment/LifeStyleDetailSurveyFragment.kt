@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.Slider
@@ -87,7 +88,12 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
         } else {
             binding.rvSurveyAnswerOptionsContainer.visibility = View.GONE
             detailSurveySetBudgetBinding?.root?.visibility = View.VISIBLE
+
         }
+    }
+
+    override fun onProcessFinished() {
+        findNavController().navigate(LifeStyleDetailSurveyFragmentDirections.actionLifeStyleDetailSurveyFragmentToRecommendCompleteFragment())
     }
 
     private fun RecyclerView.initSurveyAnswerOptionsRecyclerView(adapter: SurveyAnswerOptionsRecyclerAdapter) {
@@ -104,7 +110,6 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
                     12f.dp2px(context)
             }
         })
-
     }
 
     private fun View.initDetailSurveySetBudgetBindingLayout() {

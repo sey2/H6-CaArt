@@ -24,6 +24,7 @@
         <variable
             name="processViewModel"
             type="org.softeer_2nd.caArt.viewmodel.ProcessViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,11 +55,11 @@
             android:layout_marginTop="72dp"
             android:clipToPadding="false"
             android:paddingBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_survey_next_process"
+            app:layout_constraintBottom_toTopOf="@id/btn_survey_next_process"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_survey_question"
+            app:layout_constraintTop_toBottomOf="@id/tv_survey_question"
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
@@ -93,11 +94,11 @@
             android:text="@{questionString}"
             android:textColor="@color/gray_0"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/tv_survey_progress_text_indicator"
+            app:layout_constraintEnd_toStartOf="@id/tv_survey_progress_text_indicator"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pb_survey_progress_indicator"
+            app:layout_constraintTop_toBottomOf="@id/pb_survey_progress_indicator"
             tools:text="나이를 알려주세요." />
 
         <TextView
@@ -111,11 +112,11 @@
             android:text="@{Integer.toString(pageIndex)+'/'+Integer.toString(pageCount)}"
             android:textColor="@color/gray_400"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_survey_question"
+            app:layout_constraintBottom_toBottomOf="@id/tv_survey_question"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_survey_question"
-            app:layout_constraintTop_toTopOf="@+id/tv_survey_question"
+            app:layout_constraintStart_toEndOf="@id/tv_survey_question"
+            app:layout_constraintTop_toTopOf="@id/tv_survey_question"
             tools:text="1/2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

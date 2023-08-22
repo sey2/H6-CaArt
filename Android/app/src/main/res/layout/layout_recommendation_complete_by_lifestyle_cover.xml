@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_recommendation_complete_by_lifestyle_cover_background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_recommendation_complete_by_lifestyle_cover_card_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginBottom="46dp"
+            android:background="@drawable/shape_recommendation_complete_by_lifestyle_cover_card_background"
+            android:clipChildren="true"
+            android:paddingBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/iv_recommendation_complete_by_lifestyle_cover_hyundai_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_hyundai_logo_28"
+                app:tint="@color/blue" />
+
+            <TextView
+                android:id="@+id/tv_recommendation_complete_by_lifestyle_cover_trim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/shape_round_end_text_background_blue"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/iv_recommendation_complete_by_lifestyle_cover_car_image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="펠리세이드 - Prestige" />
+
+            <TextView
+                android:id="@+id/tv_recommendation_complete_by_lifestyle_cover_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="42dp"
+                android:fontFamily="@font/hyundaisansheadkrregular"
+                android:gravity="center"
+                android:lineSpacingExtra="7sp"
+                android:textColor="@color/gray_0"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recommendation_complete_by_lifestyle_cover_trim"
+                tools:text="가족을 생각하는 당신을 위한 펠리세이드" />
+
+            <ImageView
+                android:id="@+id/iv_recommendation_complete_by_lifestyle_cover_car_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginEnd="-100dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="300:200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recommendation_complete_by_lifestyle_cover_title"
+                app:srcCompat="@drawable/image_060" />
+
+            <TextView
+                android:id="@+id/tv_recommendation_complete_by_lifestyle_cover_letter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="22dp"
+                android:background="@drawable/shape_rect_r8"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/hyundaisansheadkrregular"
+                android:lineSpacingExtra="7sp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:textColor="@color/gray_400"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_recommendation_complete_by_lifestyle_cover_car_image"
+                tools:text="우리 아이들과 함께 타는 차는 항상 안전해야 한다고 생각해요" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

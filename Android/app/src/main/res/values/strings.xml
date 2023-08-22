@@ -81,4 +81,7 @@
     <string name="complete_my_car">나만의 차가 완성되었어요!</string>
     <string name="can_save_and_share_your_car">만든 차는 저장하고 공유할 수 있어요.</string>
     <string name="purchase_consultant">구매/상담</string>
+    <string name="its_question_based_recommendation_car">질문에 기반한 추천 차량이에요</string>
+    <string name="car_masters_recommended_it">전국의 Car master 분들이 엄선하여 추천했어요</string>
+    <string name="custom">커스텀하기</string>
 </resources>
