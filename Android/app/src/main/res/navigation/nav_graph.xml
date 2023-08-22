@@ -12,9 +12,6 @@
             android:id="@+id/action_homeFragment_to_carTrimChoiceFragment"
             app:destination="@id/carTrimChoiceFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_carOptionChoiceFragment"
-            app:destination="@id/carOptionChoiceFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_lifeStyleSurveyFragment"
             app:destination="@id/lifeStyleSurveyFragment" />
     </fragment>
@@ -48,6 +45,9 @@
         <action
             android:id="@+id/action_carOptionChoiceFragment_to_estimateFragment"
             app:destination="@id/estimateFragment" />
+        <action
+            android:id="@+id/action_carOptionChoiceFragment_to_carBuildingLoadingFragment"
+            app:destination="@id/carBuildingLoadingFragment" />
     </fragment>
 
     <fragment
@@ -170,5 +170,18 @@
             android:name="budget"
             android:defaultValue="6900"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/carBuildingLoadingFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarBuildingLoadingFragment"
+        android:label="CarBuildingLoadingFragment">
+        <action
+            android:id="@+id/action_carBuildingLoadingFragment_to_estimateFragment"
+            app:destination="@id/estimateFragment"
+            app:popUpTo="@id/carOptionChoiceFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="loadingDuration"
+            app:argType="long" />
     </fragment>
 </navigation>

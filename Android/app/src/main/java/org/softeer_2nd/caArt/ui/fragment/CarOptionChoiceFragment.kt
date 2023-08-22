@@ -20,6 +20,7 @@ import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.FragmentCarOptionChoiceBinding
 import org.softeer_2nd.caArt.databinding.ItemSituationOptionsOptionBinding
 import org.softeer_2nd.caArt.ui.dialog.OptionDetailDialog
+import org.softeer_2nd.caArt.ui.fragment.CarBuildingLoadingFragment.Companion.DEFAULT_LOADING_DURATION
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionPreviewRecyclerAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionTagRecyclerAdapter
@@ -27,6 +28,7 @@ import org.softeer_2nd.caArt.viewmodel.CarOptionChoiceViewModel
 
 @AndroidEntryPoint
 class CarOptionChoiceFragment : Fragment() {
+
     private var _binding: FragmentCarOptionChoiceBinding? = null
     private val binding get() = _binding!!
 
@@ -56,13 +58,14 @@ class CarOptionChoiceFragment : Fragment() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-
             }
         })
 
         binding.bsOptionChoiceSummary.setMode(
             BottomSheetMode.PrevAndEstimate,
-            CarOptionChoiceFragmentDirections.actionCarOptionChoiceFragmentToEstimateFragment()
+            CarOptionChoiceFragmentDirections.actionCarOptionChoiceFragmentToCarBuildingLoadingFragment(
+                DEFAULT_LOADING_DURATION
+            )
         )
 
         val optionTagAdapter = OptionTagRecyclerAdapter() { _, tag ->
