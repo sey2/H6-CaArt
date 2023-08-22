@@ -3,19 +3,21 @@ import styled from 'styled-components';
 import { priceToString } from '../../../../util/PriceToString';
 import CircularButton from '../../../common/CircularButton';
 import { EstimationContext } from '../../../../util/Context';
-import { OptionProps } from './OptionModal';
+import { OptionProps } from '../optionCardList/OptionCardList';
+
+interface OptionModalTitleProps {
+  option: OptionProps;
+  optionNum: number;
+  selected?: boolean;
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
+}
 
 function OptionModalTitle({
   option,
   optionNum,
   selected,
   setOpenedModalId,
-}: {
-  option: OptionProps;
-  optionNum: number;
-  selected?: boolean;
-  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
-}) {
+}: OptionModalTitleProps) {
   const { addOption, deleteOption } = useContext(EstimationContext)!;
   const isSetOption = option.subOptions && option.subOptions.length !== 0;
 
@@ -48,7 +50,7 @@ function OptionModalTitle({
                   addOption({
                     name: option.optionName,
                     price: option.optionPrice!,
-                    img: 'https://picsum.photos/200/300',
+                    img: option.optionImage,
                   });
                 }
               }}

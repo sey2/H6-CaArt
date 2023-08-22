@@ -33,7 +33,7 @@ function OptionCard({
 }: OptionCardProps) {
   const { addOption, deleteOption } = useContext(EstimationContext)!;
 
-  const clickHandler = useCallback(() => {
+  const selectButtonClickHandler = useCallback(() => {
     if (selected) {
       deleteOption(data.name);
     } else {
@@ -70,7 +70,7 @@ function OptionCard({
       </OptionCardDetailPrice>
       <CircularButton
         selected={selected}
-        onClick={clickHandler}
+        onClick={selectButtonClickHandler}
       ></CircularButton>
     </>
   );

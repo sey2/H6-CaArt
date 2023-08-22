@@ -1,43 +1,21 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import OptionInfoPopup from './OptionInfoPopup';
-
-export interface infoPopupBtnProps {
-  top: number;
-  left: number;
-  clickedPlusBtn: number;
-  setClickecPlusBtn: React.Dispatch<React.SetStateAction<number>>;
-  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export interface infoPopupProps {
-  id: number;
-  name: string;
-  category: string;
-  img: string;
-  price: number;
-}
+import OptionInfoPopup, { InfoPopupProps } from './OptionInfoPopup';
 
 function OptionInfoPopupBtn({
-  top,
-  left,
+  option,
   clickedPlusBtn,
   setClickecPlusBtn,
   setOpenedModalId,
-  id,
-  name,
-  category,
-  img,
-  price,
-}: infoPopupBtnProps & infoPopupProps) {
+}: InfoPopupProps) {
   const [isHover, setIsHover] = useState(false);
 
   return (
     <>
       <OptionInfoPopupBtnBox
-        top={top}
-        left={left}
-        selected={clickedPlusBtn === id || isHover}
+        top={option.top}
+        left={option.left}
+        selected={clickedPlusBtn === option.id || isHover}
         onMouseEnter={() => {
           setIsHover(true);
         }}
@@ -45,8 +23,8 @@ function OptionInfoPopupBtn({
           setIsHover(false);
         }}
         onClick={() => {
-          if (id !== clickedPlusBtn) {
-            setClickecPlusBtn(id);
+          if (option.id !== clickedPlusBtn) {
+            setClickecPlusBtn(option.id);
           } else {
             setClickecPlusBtn(-1);
           }
@@ -54,16 +32,10 @@ function OptionInfoPopupBtn({
       >
         <img src="/images/plus_icon_white.svg"></img>
       </OptionInfoPopupBtnBox>
-      {(clickedPlusBtn === id || isHover) && (
+      {(clickedPlusBtn === option.id || isHover) && (
         <OptionInfoPopup
-          top={top}
-          left={left}
+          option={option}
           setOpenedModalId={setOpenedModalId}
-          id={id}
-          name={name}
-          category={category}
-          img={img}
-          price={price}
         ></OptionInfoPopup>
       )}
     </>

@@ -32,12 +32,12 @@ function OptionNavBarLower({
   if (data === null) return <div></div>;
 
   const categoryLists = data.map(item => {
-    const isSelected = item.tagName === optionCategory.name;
+    const $isSelected = item.tagName === optionCategory.name;
 
     return (
       <OptionNavCategoryBox
-        key={item.tagId}
-        isSelected={isSelected}
+        key={item.tagName}
+        $isSelected={$isSelected}
         onClick={() => {
           setOptionCategory({
             isBasic: optionCategory.isBasic,
@@ -48,8 +48,8 @@ function OptionNavBarLower({
           });
         }}
       >
-        <img src={isSelected ? item.tagIconSelected : item.tagIcon}></img>
-        <span className={isSelected ? selectedClassName : unSelectedClassName}>
+        <img src={$isSelected ? item.tagIconSelected : item.tagIcon}></img>
+        <span className={$isSelected ? selectedClassName : unSelectedClassName}>
           {item.tagName}
         </span>
       </OptionNavCategoryBox>
@@ -67,7 +67,7 @@ const OptionNavBarLowerBox = styled.div`
   margin: auto;
 `;
 
-const OptionNavCategoryBox = styled.div<{ isSelected: boolean }>`
+const OptionNavCategoryBox = styled.div<{ $isSelected: boolean }>`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -75,9 +75,9 @@ const OptionNavCategoryBox = styled.div<{ isSelected: boolean }>`
   border-radius: 4px;
   cursor: pointer;
   background: ${props =>
-    props.isSelected ? `var(--grey-1000)` : 'var(--grey-800)'};
+    props.$isSelected ? `var(--grey-1000)` : 'var(--grey-800)'};
   border: ${props =>
-    props.isSelected
+    props.$isSelected
       ? `1.5px solid var(--primary-blue)`
       : `1.5px solid transparent`};
   transition: all 0.5s;

@@ -4,17 +4,13 @@ import { styled } from 'styled-components';
 interface OptionCardListButtonProps {
   page: number;
   maxPage: number;
-  movePage: (i: number) => void;
-  moveBack: () => void;
-  moveForward: () => void;
+  pageMoveHandler: (page: 'right' | 'left' | number) => void;
 }
 
 function OptionCardListButton({
   page,
   maxPage,
-  movePage,
-  moveBack,
-  moveForward,
+  pageMoveHandler,
 }: OptionCardListButtonProps) {
   const OptionMoveBtnList = () => {
     const buttons = [];
@@ -23,10 +19,10 @@ function OptionCardListButton({
     for (let i = btnStartIndex; i < btnEndIndex; i++) {
       buttons.push(
         <OptionCardPageMoveBtn
-          key={i}
-          current={i === page}
+          key={i * 111}
+          $current={i === page}
           onClick={() => {
-            movePage(i);
+            pageMoveHandler(i);
           }}
         >
           {i + 1}
@@ -38,9 +34,19 @@ function OptionCardListButton({
 
   return (
     <OptionCardPageMoveBtnBox>
-      <img src="/images/leftArrow_icon_basic.svg" onClick={moveBack}></img>
+      <img
+        src="/images/leftArrow_icon_basic.svg"
+        onClick={() => {
+          pageMoveHandler('left');
+        }}
+      ></img>
       <div className="btn_list">{OptionMoveBtnList()}</div>
-      <img src="/images/rightArrow_icon_basic.svg" onClick={moveForward}></img>
+      <img
+        src="/images/rightArrow_icon_basic.svg"
+        onClick={() => {
+          pageMoveHandler('right');
+        }}
+      ></img>
     </OptionCardPageMoveBtnBox>
   );
 }
@@ -61,7 +67,7 @@ const OptionCardPageMoveBtnBox = styled.div`
   }
 `;
 
-const OptionCardPageMoveBtn = styled.div<{ current: boolean }>`
+const OptionCardPageMoveBtn = styled.div<{ $current: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +75,7 @@ const OptionCardPageMoveBtn = styled.div<{ current: boolean }>`
   height: 36px;
   border-radius: 50%;
   background: ${props =>
-    props.current ? `var(--grey-700)` : ` var(--grey-1000)`};
+    props.$current ? `var(--grey-700)` : ` var(--grey-1000)`};
   cursor: pointer;
 `;
 

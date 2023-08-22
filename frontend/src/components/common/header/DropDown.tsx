@@ -28,7 +28,7 @@ function DropDown({
   return (
     <Container
       className={visibility ? 'down' : 'up'}
-      visibilityAnimation={visibilityAnimation}
+      $visibilityAnimation={visibilityAnimation}
     >
       {visibilityAnimation && children}
     </Container>
@@ -55,12 +55,12 @@ const moveUp = keyframes`
   }
 `;
 
-const Container = styled.div<{ visibilityAnimation: boolean }>`
+const Container = styled.div<{ $visibilityAnimation: boolean }>`
   overflow: hidden;
   position: absolute;
   width: 100vw;
   left: 0px;
-  height: ${props => (props.visibilityAnimation ? '258px' : '0px')};
+  height: ${props => (props.$visibilityAnimation ? '258px' : '0px')};
 
   &.down > div {
     animation: ${moveDown} 0.5s;

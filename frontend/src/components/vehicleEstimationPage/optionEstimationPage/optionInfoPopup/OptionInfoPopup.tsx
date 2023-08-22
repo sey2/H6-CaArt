@@ -1,33 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
 import { priceToString } from '../../../../util/PriceToString';
-import { infoPopupBtnProps, infoPopupProps } from './OptionInfoPopupBtn';
+import { truncateString } from '../../../../util/TruncateString';
+
+export interface InfoPopupProps {
+  option: {
+    top: number;
+    left: number;
+    id: number;
+    name: string;
+    img: string;
+    category: string;
+    price: number;
+  };
+  clickedPlusBtn: number;
+  setClickecPlusBtn: React.Dispatch<React.SetStateAction<number>>;
+  setOpenedModalId: React.Dispatch<React.SetStateAction<number>>;
+}
 
 function OptionInfoPopup({
-  top,
-  left,
+  option,
   setOpenedModalId,
-  id,
-  name,
-  img,
-  category,
-  price,
-}: Pick<infoPopupBtnProps, 'top' | 'left' | 'setOpenedModalId'> &
-  infoPopupProps) {
+}: Pick<InfoPopupProps, 'option' | 'setOpenedModalId'>) {
   return (
-    <OptionInfoPopupBox top={top} left={left}>
-      <OptionInfoPopupImg src={img}></OptionInfoPopupImg>
+    <OptionInfoPopupBox top={option.top} left={option.left}>
+      <OptionInfoPopupImg src={option.img}></OptionInfoPopupImg>
       <OptionInfoPopupText>
         <div>
-          <div className="caption-regular-12 text-grey-400">{category}</div>
-          <div className="body-medium-16 text-grey-50">{name}</div>
+          <div className="caption-regular-12 text-grey-400">
+            {option.category}
+          </div>
+          <div className="body-medium-16 text-grey-50">
+            {truncateString(option.name, 12)}
+          </div>
         </div>
-        <div className="head-medium-16">{priceToString(price)}</div>
+        <div className="head-medium-16">{priceToString(option.price)}</div>
       </OptionInfoPopupText>
       <OptionInfoPopupIcon
         src="/images/rightArrow_icon_basic.svg"
         onClick={() => {
-          setOpenedModalId(id);
+          setOpenedModalId(option.id);
         }}
       ></OptionInfoPopupIcon>
     </OptionInfoPopupBox>

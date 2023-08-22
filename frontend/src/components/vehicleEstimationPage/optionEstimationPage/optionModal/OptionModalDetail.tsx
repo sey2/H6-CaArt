@@ -1,24 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import { truncateString } from '../../../../util/TruncateString';
-import { SubOptionProps } from './OptionModal';
+import { SubOptionProps } from '../optionCardList/OptionCardList';
+
+interface OptionModalDetailProps {
+  options: SubOptionProps[];
+  optionNum: number;
+  setOptionNum: React.Dispatch<React.SetStateAction<number>>;
+}
 
 function OptionModalDetail({
   options,
   optionNum,
   setOptionNum,
-}: {
-  options: SubOptionProps[];
-  optionNum: number;
-  setOptionNum: React.Dispatch<React.SetStateAction<number>>;
-}) {
+}: OptionModalDetailProps) {
   const selectedClassName = 'body-medium-14 text-secondary-active-blue';
   const basicClassName = 'body-regular-14 text-grey-400';
 
   const detailNameList = options.map((item, index) => {
     return (
       <span
-        key={index}
+        key={index * 100}
         className={index === optionNum ? selectedClassName : basicClassName}
         onClick={() => {
           setOptionNum(index);
@@ -32,7 +34,7 @@ function OptionModalDetail({
   const detailBtnList = options.map((item, index) => {
     return (
       <OptionModalDetailBtn
-        key={index}
+        key={index * 1000}
         selected={index === optionNum}
         onClick={() => {
           setOptionNum(index);

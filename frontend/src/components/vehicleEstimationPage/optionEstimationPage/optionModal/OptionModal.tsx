@@ -1,28 +1,13 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import { useFetch } from '../../../../hooks/useFetch';
+import useModal from '../../../../hooks/useModal';
+import { EstimationContext } from '../../../../util/Context';
+import { ErrorPopup } from '../../../common/ErrorPopup';
 import { TagList } from '../../../common/TagList';
+import { OptionProps, SubOptionProps } from '../optionCardList/OptionCardList';
 import OptionModalDetail from './OptionModalDetail';
 import OptionModalTitle from './OptionModalTitle';
-import { EstimationContext } from '../../../../util/Context';
-import useModal from '../../../../hooks/useModal';
-import { useFetch } from '../../../../hooks/useFetch';
-import { ErrorPopup } from '../../../common/ErrorPopup';
-
-export interface SubOptionProps {
-  optionName: string;
-  description: string;
-  optionImage: string;
-}
-
-export interface OptionProps {
-  optionName: string;
-  description: string | null;
-  optionImage: string;
-  tags: string[];
-  optionId?: number;
-  optionPrice?: number;
-  subOptions?: SubOptionProps[];
-}
 
 function OptionModal({
   isBasicOptionPage,
@@ -56,7 +41,7 @@ function OptionModal({
   ) {
     if (data !== null) {
       return (
-        <OptionModalBox key={item.optionName} selected={selected}>
+        <OptionModalBox key={item.description} selected={selected}>
           <OptionModalTagImgBox>
             <OptionModalImgBox src={item.optionImage}></OptionModalImgBox>
             <OptionModalTagList>
@@ -141,7 +126,7 @@ const ModalBox = styled.div`
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 23;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -154,7 +139,7 @@ const OverlayBox = styled.div`
   height: 100vh;
   position: absolute;
   background: rgba(15, 17, 20, 0.55);
-  z-index: 5;
+  z-index: 25;
 `;
 
 const WrapperBox = styled.div`
@@ -165,7 +150,7 @@ const WrapperBox = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 30;
 `;
 
 const OptionModalBox = styled.div<{ selected: boolean }>`

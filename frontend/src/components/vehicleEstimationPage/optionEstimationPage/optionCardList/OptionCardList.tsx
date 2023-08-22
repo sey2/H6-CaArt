@@ -24,7 +24,7 @@ export interface basicOptionListProps {
   baseOptions: OptionProps[];
 }
 
-interface OptionProps {
+export interface OptionProps {
   optionId: number;
   optionName: string;
   description: string;
@@ -35,10 +35,10 @@ interface OptionProps {
   badge?: 'string';
   adoptionRate?: number;
   position?: null;
-  subOptions?: SubOption[];
+  subOptions?: SubOptionProps[];
 }
 
-interface SubOption {
+export interface SubOptionProps {
   optionName: string;
   description: string;
   optionImage: string;
@@ -116,57 +116,59 @@ function OptionCardList({
       percent: item.adoptionRate || 0,
     };
 
-    const isSelected = currentEstimation.options.some(
+    const popupData = {
+      top: item.position || item.optionId * 10,
+      left: item.position || item.optionId * 10,
+      id: item.optionId,
+      name: item.optionName,
+      img: item.optionImage,
+      category: optionCategory.name,
+      price: item.optionPrice || 0,
+    };
+
+    const $isSelected = currentEstimation.options.some(
       option => option.name === item.optionName,
     );
 
     return (
       <>
         <OptionCard
-          key={item.optionId}
+          key={`${item.optionId}1${item.optionName}`}
           data={optionData}
           optionCategory={optionCategory}
-          selected={isSelected}
+          selected={$isSelected}
           setOpenedModalId={setOpenedModalId}
         ></OptionCard>
         {!optionCategory.isBasic && optionCategory.name !== '전체' && (
           <OptionInfoPopupBtn
-            key={item.optionId}
-            top={item.position || item.optionId * 10}
-            left={item.position || item.optionId * 10}
+            key={`${item.optionId}2${item.optionName}`}
+            option={popupData}
             clickedPlusBtn={clickedPlusBtn}
             setClickecPlusBtn={setClickecPlusBtn}
             setOpenedModalId={setOpenedModalId}
-            id={item.optionId}
-            name={item.optionName}
-            category={optionCategory.name}
-            img={item.optionImage}
-            price={item.optionPrice || 0}
           ></OptionInfoPopupBtn>
         )}
       </>
     );
   });
 
-  function movePage(i: number) {
-    setOptionCategory({ ...optionCategory, page: i });
-  }
-
-  function moveBack() {
-    setOptionCategory({
-      ...optionCategory,
-      page: optionCategory.page === 0 ? 0 : optionCategory.page - 1,
-    });
-  }
-
-  function moveForward() {
-    setOptionCategory({
-      ...optionCategory,
-      page:
-        optionCategory.page === maxPageNum - 1
-          ? maxPageNum - 1
-          : optionCategory.page + 1,
-    });
+  function pageMoveHandler(page: 'right' | 'left' | number) {
+    if (page === 'left') {
+      setOptionCategory({
+        ...optionCategory,
+        page: optionCategory.page === 0 ? 0 : optionCategory.page - 1,
+      });
+    } else if (page === 'right') {
+      setOptionCategory({
+        ...optionCategory,
+        page:
+          optionCategory.page === maxPageNum - 1
+            ? maxPageNum - 1
+            : optionCategory.page + 1,
+      });
+    } else {
+      setOptionCategory({ ...optionCategory, page: page });
+    }
   }
 
   if (optionCategory.isBasic || optionCategory.name === '전체') {
@@ -183,9 +185,7 @@ function OptionCardList({
           OptionCardListButton({
             page: optionCategory.page,
             maxPage: maxPageNum,
-            movePage: movePage,
-            moveBack: moveBack,
-            moveForward: moveForward,
+            pageMoveHandler: pageMoveHandler,
           })}
       </OptionCardListAdditionalAllBox>
     );
