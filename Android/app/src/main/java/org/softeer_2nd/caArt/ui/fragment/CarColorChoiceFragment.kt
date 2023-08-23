@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import coil.request.CachePolicy
-import coil.request.ImageRequest
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.ui.recycleradapter.ColorOptionSelectionAdapter
@@ -22,11 +19,11 @@ import org.softeer_2nd.caArt.databinding.FragmentCarColorChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
 import org.softeer_2nd.caArt.model.data.ChoiceColorItem
 import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
+import org.softeer_2nd.caArt.model.data.dto.InteriorColor
 import org.softeer_2nd.caArt.model.data.dto.toChoiceColorItems
 import org.softeer_2nd.caArt.ui.callback.OnOtherColorItemClickListener
 import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionChangePopupAdapter
-import org.softeer_2nd.caArt.util.CoilUtils
 import org.softeer_2nd.caArt.util.StringFormatter.setFormattedPrice
 import org.softeer_2nd.caArt.viewmodel.CarColorChoiceViewModel
 import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
@@ -44,7 +41,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false)
-        carColorChoiceViewModel.getImages(1)
+        carColorChoiceViewModel.getImages(userChoiceViewModel.selectedTrimIndex.value!!)
         return binding.root
     }
 
@@ -52,13 +49,19 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
+            binding.incTopColorChoiceIndicator.currentIndex = 1
+
             listOf(
-                rvExteriorColor to false,
-                rvInteriorColor to false,
-                incOtherExteriorColorOption.rvOtherExteriorOption to true,
-                incOtherInteriorColorOption.rvOtherExteriorOption to true
-            ).forEach { (recyclerView, isOther) ->
-                recyclerView.initializeColorOptions(this@CarColorChoiceFragment, isOther)
+                Triple(rvExteriorColor, false, true),
+                Triple(rvInteriorColor, false, false),
+                Triple(incOtherExteriorColorOption.rvOtherExteriorOption, true, true),
+                Triple(incOtherInteriorColorOption.rvOtherExteriorOption, true, false)
+            ).forEach { (recyclerView, isOther, isExteriorColor) ->
+                recyclerView.initializeColorOptions(
+                    this@CarColorChoiceFragment,
+                    isOther,
+                    isExteriorColor
+                )
             }
 
             colorSummryBottomSheet.setMode(
@@ -82,8 +85,9 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
     }
 
     private fun RecyclerView.initializeColorOptions(
-        fragment: CarColorChoiceFragment,
-        isOtherColorOption: Boolean
+        listener: OnOtherColorItemClickListener,
+        isOtherColorOption: Boolean,
+        isExteriorColor: Boolean
     ) {
         if (isOtherColorOption) {
             this.layoutManager = StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)
@@ -91,42 +95,43 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
             this.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-        this.adapter = ColorOptionSelectionAdapter(fragment, isOtherColorOption)
+        this.adapter = ColorOptionSelectionAdapter(
+            listener,
+            isOtherColorOption,
+            isExteriorColor = isExteriorColor
+        )
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     override fun onItemClicked(
         item: ChoiceColorItem,
         isOtherColor: Boolean,
+        isExteriorColor: Boolean,
         index: Int,
     ) {
         if (!isOtherColor) {
-            if (item.isExteriorColor) {
+            if (isExteriorColor) {
                 val exteriorColor = carColorChoiceViewModel.colorData.value?.exteriorColors!![index]
-                userChoiceViewModel.setExteriorColor(exteriorColor)
+                userChoiceViewModel.setSelectedExteriorColor(exteriorColor)
+                carColorChoiceViewModel.updateCurrentExteriorUrls(index)
             } else {
                 val interiorColor = carColorChoiceViewModel.colorData.value?.interiorColors!![index]
-                userChoiceViewModel.setInteriorColor(interiorColor)
+                userChoiceViewModel.setSelectedInteriorColor(interiorColor)
             }
-            carColorChoiceViewModel.updateCurrentImageUrl(index)
             return
         }
 
-        createDialog(item.tag, item.colorName, item.colorPrice, item.trimName)
+        createDialog(item, index, isExteriorColor)
     }
 
 
-    private fun createDialog(
-        changeOptionTitle: String,
-        changeColorName: String,
-        changeColorPrice: Long,
-        trimName: String
-    ) {
+    private fun createDialog(changeItem: ChoiceColorItem, index: Int, isExteriorColor: Boolean) {
         val curTrim = userChoiceViewModel.selectedTrim.value ?: return
-        val sub = changeColorPrice - curTrim.trimPrice
+        val sub = changeItem.trimPrice - curTrim.trimPrice
         val formattedSub = if (sub > 0) "+ ${sub.setFormattedPrice()}" else sub.setFormattedPrice()
 
         LayoutChangePopupBinding.inflate(LayoutInflater.from(requireContext())).apply {
@@ -147,17 +152,38 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
             rvBottom.setupOptionAdapter(
                 listOf(
                     OptionChangePopUpItem(
-                        trimName,
-                        changeColorPrice.setFormattedPrice()
+                        changeItem.trimName,
+                        changeItem.trimPrice.setFormattedPrice()
                     )
                 )
             )
 
             CaArtDialog.Builder(requireContext())
-                .setTitle("$changeOptionTitle ${getString(R.string.trim_change_popup_message)}")
-                .setDescription("$changeColorName ${getString(R.string.infomation_change_color_popup)}")
+                .setTitle("${changeItem.tag} ${getString(R.string.trim_change_popup_message)}")
+                .setDescription("${changeItem.colorName} ${getString(R.string.infomation_change_color_popup)}")
                 .setDialogContentView(root)
-                .setPositiveButton(text = getString(R.string.change), listener = {})
+                .setPositiveButton(text = getString(R.string.change), listener = {
+
+                    userChoiceViewModel.setSelectedTrimIndex(changeItem.trimId)
+                    val userChoiceTrim = userChoiceViewModel.selectedTrim.value
+                    userChoiceTrim!!.trimName = changeItem.trimName
+                    userChoiceTrim.trimPrice = changeItem.trimPrice
+                    userChoiceViewModel.setSelectedTrim(userChoiceTrim)
+
+                    if (!isExteriorColor) {
+                        userChoiceViewModel.setSelectedInteriorColor(
+                            InteriorColor(
+                                index,
+                                changeItem.colorName,
+                                changeItem.imgUrl,
+                                0,
+                                0,
+                                changeItem.preview
+                            )
+                        )
+                    }
+                    findNavController().navigate(CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarTrimChoiceFragment())
+                })
                 .build()
                 .show(childFragmentManager, "colorOptionChangePopup")
         }
@@ -171,29 +197,31 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
     private fun setupObservers() {
         carColorChoiceViewModel.colorData.observe(viewLifecycleOwner) { colorData ->
             binding.apply {
-                (rvExteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.exteriorColors.toChoiceColorItems())
-                (rvInteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(colorData.interiorColors.toChoiceColorItems())
+                val (matchedExteriorIndex, matchedInteriorIndex) = userChoiceViewModel.findMatchedIndices(colorData)
+
+                val exteriorColor =
+                    carColorChoiceViewModel.colorData.value?.exteriorColors!![matchedExteriorIndex]
+                userChoiceViewModel.setSelectedExteriorColor(exteriorColor)
+                carColorChoiceViewModel.updateCurrentExteriorUrls(matchedExteriorIndex)
+
+                userChoiceViewModel.setSelectedInteriorColor(carColorChoiceViewModel.colorData.value?.interiorColors!![matchedInteriorIndex])
+
+                (rvExteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(
+                    colorData.exteriorColors.toChoiceColorItems(),
+                    matchedExteriorIndex,
+                    matchedInteriorIndex
+                )
+                (rvInteriorColor.adapter as ColorOptionSelectionAdapter).updateItem(
+                    colorData.interiorColors.toChoiceColorItems(),
+                    matchedInteriorIndex,
+                    matchedInteriorIndex
+                )
                 (incOtherExteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(
                     colorData.otherTrimExteriorColors.toChoiceColorItems()
                 )
                 (incOtherInteriorColorOption.rvOtherExteriorOption.adapter as ColorOptionSelectionAdapter).updateItem(
                     colorData.otherTrimInteriorColors.toChoiceColorItems()
                 )
-            }
-
-            // download exteriror Color
-            carColorChoiceViewModel.currentExteriorUrls.observe(viewLifecycleOwner) { urls ->
-                CoilUtils.imageLoader.memoryCache?.clear()
-                lifecycleScope.launch {
-                    urls.forEach { url ->
-                        val request = ImageRequest.Builder(requireContext())
-                            .data(url)
-                            .memoryCachePolicy(CachePolicy.ENABLED)
-                            .diskCachePolicy(CachePolicy.ENABLED)
-                            .build()
-                        CoilUtils.imageLoader.enqueue(request)
-                    }
-                }
             }
         }
     }

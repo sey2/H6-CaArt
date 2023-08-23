@@ -79,33 +79,34 @@ fun View.setOnTouchListener(
 ) {
     val downX = Array(1) { 0f }
 
+    if (spinActive?.value == false) return
+
     setOnTouchListener { _, event ->
-        spinActive?.value?.let { isSpinActive ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    downX[0] = event.x
-                    true
-                }
-
-                MotionEvent.ACTION_MOVE -> {
-                    val distance = downX[0] - event.x
-                    val threshold = width / 60.0f
-
-                    if (distance > threshold) {
-                        viewModel?.updateIndex((viewModel.spinCarImageIndex.value ?: 0) + 1)
-                        downX[0] = event.x
-                    } else if (distance < -threshold) {
-                        viewModel?.updateIndex((viewModel.spinCarImageIndex.value ?: 0) - 1)
-                        downX[0] = event.x
-                    }
-                    true
-                }
-
-                else -> false
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                downX[0] = event.x
+                true
             }
-        } ?: false
+
+            MotionEvent.ACTION_MOVE -> {
+                val distance = downX[0] - event.x
+                val threshold = width / 60.0f
+
+                if (distance > threshold) {
+                    viewModel?.updateIndex((viewModel.spinCarImageIndex.value ?: 0) + 1)
+                    downX[0] = event.x
+                } else if (distance < -threshold) {
+                    viewModel?.updateIndex((viewModel.spinCarImageIndex.value ?: 0) - 1)
+                    downX[0] = event.x
+                }
+                true
+            }
+
+            else -> false
+        }
     }
 }
+
 @BindingAdapter("marginTop", "trueMargin", "falseMargin", requireAll = false)
 fun View.setDynamicMarginTop(condition: Boolean, trueMarginDp: Float?, falseMarginDp: Float?) {
     val layoutParams = layoutParams as? ViewGroup.MarginLayoutParams ?: return

@@ -36,4 +36,9 @@ object StringFormatter {
         val matchResult = regex.find(url)
         return matchResult?.groupValues?.get(1) ?: ""
     }
+
+    fun String.extractExteriorPreviewBaseUrl(): String? {
+        val regex = Regex("(https://[^/]+/preview/outside/)")
+        return regex.find(this)?.value
+    }
 }

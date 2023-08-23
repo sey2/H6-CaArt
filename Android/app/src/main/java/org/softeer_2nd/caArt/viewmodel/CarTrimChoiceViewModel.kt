@@ -27,6 +27,7 @@ class CarTrimChoiceViewModel @Inject constructor(
 
     private var _isToolTipVisible = MutableLiveData(true)
     val isToolTipVisible: LiveData<Boolean> = _isToolTipVisible
+
     fun getTrims() {
         viewModelScope.launch {
             _trims.value = repository.fetchTrims()

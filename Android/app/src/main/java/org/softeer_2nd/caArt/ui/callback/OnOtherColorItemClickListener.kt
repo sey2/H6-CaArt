@@ -6,6 +6,7 @@ interface OnOtherColorItemClickListener {
     fun onItemClicked(
         item: ChoiceColorItem,
         isOtherColor: Boolean,
+        isExteriorColor: Boolean,
         index: Int,
     )
 }

@@ -11,6 +11,7 @@ import org.softeer_2nd.caArt.model.data.Engine
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.Trim
 import org.softeer_2nd.caArt.model.data.WheelDrive
+import org.softeer_2nd.caArt.model.data.dto.ColorData
 import org.softeer_2nd.caArt.model.data.dto.ExteriorColor
 import org.softeer_2nd.caArt.model.data.dto.InteriorColor
 import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
@@ -30,6 +31,9 @@ class UserChoiceViewModel : ViewModel() {
     // TODO: 초기 값 설정
     private val _selectedOptions = MutableLiveData<List<Option>>()
     val selectedOptions: LiveData<List<Option>> = _selectedOptions
+
+    private val _selectedTrimIndex = MutableLiveData<Int>(1)
+    val selectedTrimIndex: LiveData<Int> = _selectedTrimIndex
 
     private val _selectedTrim = MutableLiveData(
         Trim(
@@ -102,12 +106,16 @@ class UserChoiceViewModel : ViewModel() {
         _selectedTrim.value = trim
     }
 
-    fun setExteriorColor(color: ExteriorColor) {
+    fun setSelectedExteriorColor(color: ExteriorColor) {
         _selectedExteriorColor.value = color
     }
 
-    fun setInteriorColor(color: InteriorColor) {
+    fun setSelectedInteriorColor(color: InteriorColor) {
         _selectedInteriorColor.value = color
+    }
+
+    fun setSelectedTrimIndex(index: Int) {
+        _selectedTrimIndex.value = index
     }
 
     private fun calculateTotalPrice(): Long {
@@ -120,6 +128,18 @@ class UserChoiceViewModel : ViewModel() {
         return prices.sum()
     }
 
+     fun findMatchedIndices(colorData: ColorData): Pair<Int, Int> {
+        val matchedExteriorIndex =
+            colorData.exteriorColors.indexOfFirst { it.colorName == selectedExteriorColor.value?.colorName }
+        val matchedInteriorIndex =
+            colorData.interiorColors.indexOfFirst { it.colorName == selectedInteriorColor.value?.colorName }
+
+        return Pair(
+            matchedExteriorIndex.takeIf { it != -1 } ?: 0,
+            matchedInteriorIndex.takeIf { it != -1 } ?: 0
+        )
+    }
+     
     fun setRecommendData(data: RecommendCompleteResultDTO) {
 
         data.model.let {
@@ -137,5 +157,4 @@ class UserChoiceViewModel : ViewModel() {
         }
 
     }
-
 }

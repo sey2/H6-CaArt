@@ -30,6 +30,8 @@ fun ImageView.setImageSrcWithUrl(
             transformations(BlurTransformation(context, blurRadius, blurSampling))
         }
 
+        crossfade(true)
+
         radius?.let {
             transformations(
                 RoundedCornersTransformation(

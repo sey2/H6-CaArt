@@ -17,8 +17,7 @@ fun List<ExteriorColor>.toChoiceColorItems(): List<ChoiceColorItem> {
             "",
             exteriorColor.colorName,
             exteriorColor.colorPrice,
-            imgUrl = exteriorColor.colorImage,
-            true
+            imgUrl = exteriorColor.colorImage
         )
     }
 }

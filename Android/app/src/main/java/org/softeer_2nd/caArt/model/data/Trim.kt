@@ -6,7 +6,7 @@ data class Trim(
     val interiorColors: List<TrimItemColor>,
     val mainOptions: List<TrimMainItem>,
     val trimImage: String,
-    val trimName: String,
-    val trimPrice: Long,
+    var trimName: String,
+    var trimPrice: Long,
     var isChecked: Boolean = false
 )

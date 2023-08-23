@@ -47,7 +47,6 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         //createChangePopup(false)
         return binding.root
     }
-
     private fun setupObservers() {
         carTrimChoiceViewModel.trims.observe(viewLifecycleOwner) { trims ->
             (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateTrimItems(trims)
@@ -62,7 +61,7 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
             (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateSpecifications(str)
         }
 
-        userChoiceViewModel.selectedBodyType.observe(viewLifecycleOwner) { bodyType  ->
+        userChoiceViewModel.selectedBodyType.observe(viewLifecycleOwner) { bodyType ->
             val str = StringFormatter.combineCarComposition(
                 userChoiceViewModel.selectedEngine.value!!.itemName,
                 bodyType.itemName,
@@ -72,13 +71,19 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         }
 
 
-        userChoiceViewModel.selectedWheelDrive.observe(viewLifecycleOwner) { wheelDrive  ->
+        userChoiceViewModel.selectedWheelDrive.observe(viewLifecycleOwner) { wheelDrive ->
             val str = StringFormatter.combineCarComposition(
                 userChoiceViewModel.selectedEngine.value!!.itemName,
                 userChoiceViewModel.selectedBodyType.value!!.itemName,
                 wheelDrive.itemName
             )
             (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateSpecifications(str)
+        }
+
+        userChoiceViewModel.selectedTrimIndex.observe(viewLifecycleOwner) { index ->
+            carTrimChoiceViewModel.trims.value?.let { trims ->
+                userChoiceViewModel.setSelectedTrim(trims[index-1])
+            }
         }
     }
 
@@ -111,7 +116,10 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
     private fun setupRecyclerView() {
         binding.rvTrim.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = TrimOptionSelectionAdapter(this@CarTrimChoiceFragment)
+            adapter = TrimOptionSelectionAdapter(
+                this@CarTrimChoiceFragment,
+                (userChoiceViewModel.selectedTrimIndex.value?: 1) - 1
+            )
             itemAnimator = null
         }
     }
@@ -163,5 +171,6 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
     override fun onItemClicked(itemIndx: Int) {
         val selectedTrim = carTrimChoiceViewModel.trims.value?.get(itemIndx) ?: return
         userChoiceViewModel.setSelectedTrim(selectedTrim)
+        userChoiceViewModel.setSelectedTrimIndex(itemIndx + 1)
     }
 }

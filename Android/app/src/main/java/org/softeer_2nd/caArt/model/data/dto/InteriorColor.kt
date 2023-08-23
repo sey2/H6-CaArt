@@ -17,8 +17,7 @@ fun List<InteriorColor>.toChoiceColorItems(): List<ChoiceColorItem> {
             "",
             color.colorName,
             color.colorPrice,
-            imgUrl = color.colorImage,
-            false
+            imgUrl = color.colorImage
         )
     }
 }

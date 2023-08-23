@@ -11,7 +11,9 @@ import org.softeer_2nd.caArt.model.data.ChoiceColorItem
 class ColorOptionSelectionAdapter(
     private val listener: OnOtherColorItemClickListener,
     private val isOtherColorOption: Boolean,
-    private var selectedPosition: Int = 0
+    private var selectedExteriorPosition: Int = 0,
+    private var selectedInteriorPosition: Int = 0,
+    private var isExteriorColor: Boolean = true
 ) :
     RecyclerView.Adapter<ColorOptionSelectionAdapter.ColorOptionSelectionViewHolder>() {
 
@@ -30,8 +32,18 @@ class ColorOptionSelectionAdapter(
     }
 
     fun selectItem(position: Int) {
-        val previousSelected = selectedPosition
-        selectedPosition = position
+        val previousSelected: Int
+        val selectedPosition: Int
+
+        if (isExteriorColor) {
+            previousSelected = selectedExteriorPosition
+            selectedExteriorPosition = position
+            selectedPosition = selectedExteriorPosition
+        } else {
+            previousSelected = selectedInteriorPosition
+            selectedInteriorPosition = position
+            selectedPosition = selectedInteriorPosition
+        }
 
         if (previousSelected in 0 until itemCount) {
             notifyItemChanged(previousSelected)
@@ -42,8 +54,14 @@ class ColorOptionSelectionAdapter(
         }
     }
 
-    fun updateItem(newItems: List<ChoiceColorItem>) {
+    fun updateItem(
+        newItems: List<ChoiceColorItem>,
+        selectedExteriorIndex: Int = 0,
+        selectedInteriorIndex: Int = 0
+    ) {
         items = newItems
+        selectedExteriorPosition = selectedExteriorIndex
+        selectedInteriorPosition = selectedInteriorIndex
         notifyDataSetChanged()
     }
 
@@ -60,11 +78,13 @@ class ColorOptionSelectionAdapter(
                 ChoiceColorItem(
                     items[adapterPosition].tag,
                     items[adapterPosition].colorName,
-                    items[adapterPosition].colorPrice,
-                    isExteriorColor = items[adapterPosition].isExteriorColor,
-                    trimName = items[adapterPosition].trimName
+                    items[adapterPosition].trimPrice,
+                    trimName = items[adapterPosition].trimName,
+                    trimId = items[adapterPosition].trimId,
+                    preview = items[adapterPosition].preview
                 ),
                 isOtherColor = true,
+                isExteriorColor,
                 adapterPosition,
             )
         }
@@ -74,17 +94,17 @@ class ColorOptionSelectionAdapter(
                 ChoiceColorItem(
                     items[adapterPosition].tag,
                     items[adapterPosition].colorName,
-                    items[adapterPosition].colorPrice,
-                    isExteriorColor = items[adapterPosition].isExteriorColor,
+                    items[adapterPosition].trimPrice,
                 ),
                 isOtherColor = false,
+                isExteriorColor,
                 adapterPosition
             )
             selectItem(adapterPosition)
         }
 
         fun bind(item: ChoiceColorItem) {
-            val selectedFlag = adapterPosition == selectedPosition
+            val selectedFlag = adapterPosition == if(isExteriorColor) selectedExteriorPosition else selectedInteriorPosition
 
             binding.apply {
                 binding.otherColorSelectionHandler = this@ColorOptionSelectionViewHolder

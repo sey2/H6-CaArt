@@ -6,10 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.softeer_2nd.caArt.model.data.dto.ColorData
 import org.softeer_2nd.caArt.model.repository.CarColorImageRepository
+import org.softeer_2nd.caArt.util.CoilUtils
 import org.softeer_2nd.caArt.util.StringFormatter
+import org.softeer_2nd.caArt.util.StringFormatter.extractExteriorPreviewBaseUrl
 import javax.inject.Inject
 
 
@@ -17,7 +21,6 @@ import javax.inject.Inject
 class CarColorChoiceViewModel @Inject constructor(
     val imageRepository: CarColorImageRepository
 ) : ViewModel() {
-    val BASE_PATH = "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/outside/"
 
     private val _colorData = MutableLiveData<ColorData>()
     val colorData: LiveData<ColorData> = _colorData
@@ -28,30 +31,33 @@ class CarColorChoiceViewModel @Inject constructor(
     private val _spinActive = MutableLiveData<Boolean>(false)
     val spinActive: LiveData<Boolean> = _spinActive
 
-    val currentExteriorColorImage =
-        MediatorLiveData<String>("https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/outside/abyss/image_001.png")
+    val currentExteriorColorImage = MediatorLiveData<String>()
 
-    private val _currentInteriorColorImage = MutableLiveData<String>("")
-    val currentInteriorColorImage: LiveData<String> = _currentInteriorColorImage
-
-    private val _currentExteriorUrls = MutableLiveData<List<String>>()
-    val currentExteriorUrls: LiveData<List<String>>  = _currentExteriorUrls
+    private val _currentExteriorUrls = MutableStateFlow<List<String>?>(null)
+    val currentExteriorUrls: Flow<List<String>?> = _currentExteriorUrls
 
     init {
         currentExteriorColorImage.addSource(spinCarImageIndex) { index ->
             val urls = _currentExteriorUrls.value
+
             if (urls != null && index in urls.indices) {
                 val color = StringFormatter.extractColorFromUrl(urls[index])
-                val imageUrl = "$BASE_PATH$color/image_${StringFormatter.getImageUrlFromIndex(index)}.png"
+                val baseUrl = urls[index].extractExteriorPreviewBaseUrl()
+                val imageUrl = "${baseUrl}$color/image_${StringFormatter.getImageUrlFromIndex(index)}.png"
                 currentExteriorColorImage.value = imageUrl
             }
         }
+
+        viewModelScope.launch {
+            currentExteriorUrls.collect { urls ->
+                imageRepository.preloadExteriorImages(urls)
+            }
+        }
     }
+
     fun getImages(trimId: Int) {
         viewModelScope.launch {
             _colorData.value = imageRepository.fetchColorList(trimId)
-            _currentInteriorColorImage.value = colorData.value!!.interiorColors[0].preview
-            _currentExteriorUrls.value = colorData.value!!.exteriorColors[0].previews
         }
     }
 
@@ -68,10 +74,8 @@ class CarColorChoiceViewModel @Inject constructor(
         _spinActive.value = true
     }
 
-    fun updateCurrentImageUrl(index: Int) {
-        _currentExteriorUrls.value = colorData.value!!.exteriorColors[index].previews
+    fun updateCurrentExteriorUrls(index: Int) {
+        _currentExteriorUrls.value = colorData.value?.exteriorColors?.get(index)?.previews
         _spinCarImageIndex.value = 0
     }
-
-
 }
