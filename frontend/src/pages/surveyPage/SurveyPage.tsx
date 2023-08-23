@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
+import ErrorPopup from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
 import { useFetch } from '../../hooks/useFetch';
 import { priceToString } from '../../util/PriceToString';
@@ -496,7 +496,7 @@ function SurveyPage() {
           color="grey-1000"
           bg="primary-blue"
           onClick={usePost}
-          disabled={
+          $disabled={
             !optionSelectActive ||
             answer.additionalOptionId1 === 0 ||
             answer.additionalOptionId2 === 0 ||
