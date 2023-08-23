@@ -69,7 +69,7 @@ function HeaderMain() {
             color={'primary-blue'}
             bg={'grey-1000'}
             height={40}
-            border
+            $border
             onClick={() => {
               setShowDetail(!showDetail);
             }}

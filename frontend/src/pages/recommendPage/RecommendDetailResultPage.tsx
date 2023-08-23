@@ -68,7 +68,7 @@ function RecommendDetailResultPage({
       <ResultMain></ResultMain>
       <RecommendDetailResultPageBtnBox>
         <Link to="/estimate/trim">
-          <SquareButton size="m" color="grey-50" bg="grey-1000" border>
+          <SquareButton size="m" color="grey-50" bg="grey-1000" $border>
             커스텀하기
           </SquareButton>
         </Link>

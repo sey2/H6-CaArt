@@ -7,7 +7,7 @@ function OptionEstimationPageButton() {
   return (
     <OptionEstimationPageBtn>
       <Link to="/estimate/color">
-        <SquareButton size="m" color="grey-50" bg="grey-1000" border>
+        <SquareButton size="m" color="grey-50" bg="grey-1000" $border>
           색상 선택
         </SquareButton>
       </Link>

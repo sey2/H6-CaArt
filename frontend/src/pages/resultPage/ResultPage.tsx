@@ -50,7 +50,7 @@ function ResultPage() {
         <BuyCarContainer />
         <ButtonContainer className="last">
           <Link to="/estimate/option">
-            <SquareButton size="m" color="grey-50" border>
+            <SquareButton size="m" color="grey-50" $border>
               수정
             </SquareButton>
           </Link>

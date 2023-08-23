@@ -21,7 +21,7 @@ function HomePage() {
         </TextContainer>
         <ButtonContainer>
           <Link to="/estimate/trim">
-            <SquareButton size="m" color="grey-900" border={true}>
+            <SquareButton size="m" color="grey-900" $border={true}>
               직접 만들래요
             </SquareButton>
           </Link>

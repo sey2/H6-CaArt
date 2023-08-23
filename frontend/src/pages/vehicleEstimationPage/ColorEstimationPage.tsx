@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import LeftCarImageContainer from '../../components/vehicleEstimationPage/colorEstimationPage/LeftCarImageContainer';
@@ -62,7 +62,7 @@ function ColorEstimationPage() {
         return 4;
     }
   }
-  const { currentEstimation } = useContext(EstimationContext)!;
+  const { currentEstimation, setTrim } = useContext(EstimationContext)!;
   const { data, status, error } = useFetch<CarData>(
     `/colors?trimId=${getTrimId(currentEstimation.trim.name)}`,
   );
@@ -85,6 +85,19 @@ function ColorEstimationPage() {
     },
     type: 'exterior',
   });
+
+  useEffect(() => {
+    if (data) {
+      const imgData = data.exteriorColors.find(
+        item => item.colorName === currentEstimation.outerColor.name,
+      );
+      console.log(imgData);
+      setTrim({
+        ...currentEstimation.trim,
+        img: imgData?.previews[11] as string,
+      });
+    }
+  }, [data]);
 
   const [selectedType, setSelectedType] = useState<SelectedType>('ex');
   if (status === 'loading') {
@@ -139,7 +152,7 @@ function ColorEstimationPage() {
             />
             <ButtonContainer className="body-medium-16">
               <Link to="/estimate/trim">
-                <SquareButton size="xs" color="grey-50" border>
+                <SquareButton size="xs" color="grey-50" $border>
                   트림 선택
                 </SquareButton>
               </Link>
@@ -148,7 +161,7 @@ function ColorEstimationPage() {
                   size="xs"
                   color="grey-1000"
                   bg="primary-blue"
-                  border
+                  $border
                 >
                   옵션 선택
                 </SquareButton>

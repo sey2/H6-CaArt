@@ -56,18 +56,14 @@ function TrimEstimationPage() {
   }
 
   useEffect(() => {
-    if (data) {
-      const trimImg = data.find(
-        item => item.trimName === currentEstimation.trim.name,
-      )?.trimImage as string;
-      setTrim({
-        name: currentEstimation.trim.name,
-        price: currentEstimation.trim.price,
-        img: trimImg,
-      });
-    }
+    setTrim({
+      name: currentEstimation.trim.name,
+      price: currentEstimation.trim.price,
+      img: currentEstimation.trim.img,
+    });
+
     dispatch({ type: 'SET_TOOLTIP_TYPE', tooltipType: '엔진' });
-  }, [data]);
+  }, []);
   return (
     <>
       {<EBWGuideModal />}

@@ -6,6 +6,7 @@ export interface TrimProps {
   interiorColorImage: string;
   interiorColorPrice: number;
   preview: string;
+  trimImage: string;
 }
 
 export interface TrimDataProps {
@@ -25,7 +26,8 @@ const TrimData:TrimDataProps = {
     interiorColorImage:
       'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/interior/7.png',
     interiorColorPrice: 0,
-    preview: "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/9.png"
+    preview: "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/9.png",
+    trimImage: "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-2.png",
   },
   'Le Blanc': {
     colorName: '크리미 화이트 펄',
@@ -36,7 +38,9 @@ const TrimData:TrimDataProps = {
     interiorColorImage:
       'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/interior/17.png',
     interiorColorPrice: 0,
-    preview:"https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/17-preview.png"
+    preview:"https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/17-preview.png",
+    trimImage: "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-1.png",
+
   },
   Prestige: {
     colorName: '문라이프 블루 펄',
@@ -47,7 +51,9 @@ const TrimData:TrimDataProps = {
     interiorColorImage:
       'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/interior/3.png',
     interiorColorPrice: 0,
-    preview:"https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/10.png"
+    preview:"https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/10.png",
+    trimImage: "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-3.png",
+
   },
   Calligraphy: {
     colorName: '가이아 브라운 펄',
@@ -58,7 +64,9 @@ const TrimData:TrimDataProps = {
     interiorColorImage:
       'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/interior/6.png',
     interiorColorPrice: 0,
-    preview:"https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/14.png"
+    preview:"https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/14.png",
+    trimImage: "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-4.png",
+
   },
 };
 

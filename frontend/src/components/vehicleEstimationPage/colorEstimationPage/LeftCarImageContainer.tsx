@@ -7,16 +7,18 @@ import RerecommendModal from '../trimEstimationPage/RerecommendModal';
 import { EstimationContext } from '../../../util/Context';
 import { ExteriorColor } from "../../../pages/vehicleEstimationPage/ColorEstimationPage";
 
+type ViewOptionType = 'ex' | 'in' | '360' | string;
+
 interface CarContainerType {
-  type: 'ex' | 'in' | '360' | string;
-  state: 'ex' | 'in' | '360' | string;
-  setter: React.Dispatch<React.SetStateAction<'ex' | 'in' | '360' | string>>;
+  type: ViewOptionType;
+  state: ViewOptionType;
+  setter: React.Dispatch<React.SetStateAction<ViewOptionType>>;
   data: ExteriorColor[];
 }
 
 function LeftCarImageContainer({ type, setter, state,data }: CarContainerType) {
   const { currentEstimation } = useContext(EstimationContext)!;
-  function drawView(type: 'ex' | 'in' | '360' | string) {
+  function drawView(type: ViewOptionType) {
     switch (type) {
       case 'ex':
         return exView();

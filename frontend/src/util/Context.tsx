@@ -75,7 +75,11 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
       engine: { name: '디젤 2.2', price: 0 },
       body: { name: '7인승', price: 0 },
       wd: { name: '2WD', price: 0 },
-      trim: { name: 'Le Blanc', price: 41980000, img: '/images/car.png' },
+      trim: {
+        name: 'Le Blanc',
+        price: 41980000,
+        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-1.png',
+      },
       trimInteriorImage: '',
       outerColor: {
         name: '크리미 화이트 펄',

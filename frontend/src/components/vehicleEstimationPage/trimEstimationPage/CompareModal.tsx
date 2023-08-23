@@ -5,17 +5,17 @@ import { FlexBox, SFlex } from '../../common/FlexBox';
 import { commonOption } from '../../../static/data/CompareModalData';
 import { Hr } from '../../common/Hr';
 import { useModalContext } from '../../../store/ModalContext';
-import { Trim } from "../../../pages/vehicleEstimationPage/TrimEstimationPage";
-import { Color } from "../../../pages/vehicleEstimationPage/TrimEstimationPage";
+import { Trim } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
+import { Color } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
 
-function CompareModal({data}:{data:Trim[]}) {
+function CompareModal({ data }: { data: Trim[] }) {
   useModal();
   const { state, dispatch } = useModalContext();
 
   function setExteriorColor(colorSet: Color[]) {
     return colorSet.map(color => (
       <>
-        <Circle src={color.colorImage} />
+        <Circle key={`${color.colorName}`} src={color.colorImage} />
       </>
     ));
   }
@@ -31,7 +31,7 @@ function CompareModal({data}:{data:Trim[]}) {
   }
 
   return (
-    <Modal isopen={state.compareModalOpen}>
+    <Modal $isopen={state.compareModalOpen}>
       <Overlay onClick={() => dispatch({ type: 'CLOSE_COMPARE_MODAL' })} />
       <Wrapper onClick={e => e.stopPropagation()}>
         <Wrapperbox>
@@ -129,7 +129,7 @@ function CompareModal({data}:{data:Trim[]}) {
 
 export default CompareModal;
 
-const Modal = styled.div<{ isopen: boolean }>`
+const Modal = styled.div<{ $isopen: boolean }>`
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -140,7 +140,7 @@ const Modal = styled.div<{ isopen: boolean }>`
   transition: all 0.5s ease-out;
   visibility: hidden;
   opacity: 0;
-  ${props => props.isopen && `visibility:visible;opacity:1;`};
+  ${props => props.$isopen && `visibility:visible;opacity:1;`};
 
   -ms-overflow-style: none;
   scrollbar-width: none;

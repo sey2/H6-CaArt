@@ -1,17 +1,17 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import SquareButton from '../../common/SquareButton';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FlexBox } from '../../common/FlexBox';
 import { useModalContext } from '../../../store/ModalContext';
 
 function RerecommendModal() {
   const { state, dispatch } = useModalContext();
-
+  const navigate = useNavigate();
   return (
     <Overlay
       onClick={() => dispatch({ type: 'CLOSE_RECOMMEND_MODAL' })}
-      isopen={state.recommendModalOpen}
+      $isopen={state.recommendModalOpen}
     >
       <Box onClick={e => e.stopPropagation()}>
         <FlexBox justify="space-between" margin="0px 0px 8px 0px">
@@ -38,21 +38,23 @@ function RerecommendModal() {
               bg={'grey-1000'}
               color={'grey-50'}
               height={46}
-              border
+              $border
             >
               아니요
             </SquareButton>
           </div>
-          <Link to="/recommend/age">
-            <SquareButton
-              size="ms"
-              bg="primary-blue"
-              color="grey-1000"
-              height={46}
-            >
-              추천받기
-            </SquareButton>
-          </Link>
+          <SquareButton
+            size="ms"
+            bg="primary-blue"
+            color="grey-1000"
+            height={46}
+            onClick={() => {
+              dispatch({ type: 'CLOSE_RECOMMEND_MODAL' });
+              navigate('/recommend/age');
+            }}
+          >
+            추천받기
+          </SquareButton>
         </FlexBox>
       </Box>
     </Overlay>
@@ -61,7 +63,7 @@ function RerecommendModal() {
 
 export default RerecommendModal;
 
-const Overlay = styled.div<{ isopen: boolean }>`
+const Overlay = styled.div<{ $isopen: boolean }>`
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -72,7 +74,7 @@ const Overlay = styled.div<{ isopen: boolean }>`
   transition: all 0.5s ease-out;
   visibility: hidden;
   opacity: 0;
-  ${props => props.isopen && `visibility:visible;opacity:1;`};
+  ${props => props.$isopen && `visibility:visible;opacity:1;`};
 `;
 
 const Box = styled.div`

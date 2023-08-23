@@ -29,7 +29,7 @@ function LoginModal() {
               color="grey-50"
               className="body-medium-16"
               size="mms"
-              border
+              $border
               onClick={() => dispatch({ type: 'CLOSE_SAVE_MODAL' })}
             >
               아니요

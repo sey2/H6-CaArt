@@ -17,7 +17,7 @@ function Dropdown({ type, data, setter, modaldata }: Dropdown) {
   const { currentEstimation } = useContext(EstimationContext)!;
   const [dropdownOpen, dropdownRef, dropdownHandler] = useDetectClose(false);
   function setModalData(item: Trim) {
-    setter({
+    const nowModalData = {
       isopen: true,
       nowTrim: {
         name: currentEstimation.trim.name,
@@ -35,7 +35,8 @@ function Dropdown({ type, data, setter, modaldata }: Dropdown) {
         img: item.colorImage,
       },
       type: type,
-    });
+    };
+    setter(nowModalData);
   }
 
   function getDropdown(type: string) {
@@ -43,7 +44,7 @@ function Dropdown({ type, data, setter, modaldata }: Dropdown) {
     return (
       <>
         {<ColorChangePopup setter={setter} data={modaldata} />}
-        <DropdownBox isDown={dropdownOpen}>
+        <DropdownBox $isDown={dropdownOpen}>
           <Header onClick={dropdownHandler} ref={dropdownRef}>
             <span className="text-primary-blue body-medium-14">
               다른 {colorText} 색상을 찾고 있나요?
@@ -54,7 +55,7 @@ function Dropdown({ type, data, setter, modaldata }: Dropdown) {
             />
           </Header>
           <ColorListContainer
-            isActive={dropdownOpen}
+            $isActive={dropdownOpen}
             onClick={e => e.stopPropagation()}
           >
             {data.map(item => {
@@ -83,24 +84,24 @@ function Dropdown({ type, data, setter, modaldata }: Dropdown) {
 
 export default Dropdown;
 
-const DropdownBox = styled.div<{ isDown: boolean }>`
+const DropdownBox = styled.div<{ $isDown: boolean }>`
   width: 308px;
   padding: 11px 16px 32px 16px;
   transition: max-height 0.3s linear;
-  max-height: ${props => (props.isDown ? '500px' : '30px')};
+  max-height: ${props => (props.$isDown ? '500px' : '30px')};
   border-radius: 4px;
   border: 1px solid var(--primary-blue);
-  ${props => !props.isDown && `overflow:hidden;`}
+  ${props => !props.$isDown && `overflow:hidden;`}
 `;
 
-const ColorListContainer = styled.div<{ isActive: boolean }>`
+const ColorListContainer = styled.div<{ $isActive: boolean }>`
   margin-top: 12px;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   transition: opacity 0.5s linear, visibility 0.1s 0.1s;
-  visibility: ${props => (props.isActive ? 'visible' : 'hidden')};
-  opacity: ${props => (props.isActive ? 1 : 0)};
+  visibility: ${props => (props.$isActive ? 'visible' : 'hidden')};
+  opacity: ${props => (props.$isActive ? 1 : 0)};
 `;
 
 const Header = styled.div`

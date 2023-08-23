@@ -23,7 +23,7 @@ function ToolTip() {
         top={state.tooltipPosition.x}
         left={state.tooltipPosition.y}
         onClick={e => e.stopPropagation()}
-        isopen={state.tooltipOpen}
+        $isopen={state.tooltipOpen}
       >
         <img src="/images/tooltip_icon.svg" />
         <p className="body-regular-14 text-grey-900">{text}</p>
@@ -34,7 +34,7 @@ function ToolTip() {
 
 export default ToolTip;
 
-const BubbleBox = styled.div<{ top: number; left: number; isopen: boolean }>`
+const BubbleBox = styled.div<{ top: number; left: number; $isopen: boolean }>`
   position: absolute;
   display: flex;
   top: ${props => props.top + 55}px;
@@ -51,7 +51,7 @@ const BubbleBox = styled.div<{ top: number; left: number; isopen: boolean }>`
   transition: all 0.3s;
   visibility: hidden;
   opacity: 0;
-  ${props => props.isopen && `visibility:visible;opacity:1;`};
+  ${props => props.$isopen && `visibility:visible;opacity:1;`};
   ::after {
     content: '';
     position: absolute;

@@ -217,7 +217,7 @@ function EBWGuideModal() {
   function setNavItem(value: string) {
     return (
       <NItem
-        key={value}
+        key={`${value}nav`}
         value={value}
         onClick={e => {
           widthHandler(e);
@@ -233,7 +233,7 @@ function EBWGuideModal() {
     );
   }
   return (
-    <Modal isopen={state.infoModalOpen}>
+    <Modal $isopen={state.infoModalOpen}>
       <Overlay
         onClick={() => {
           dispatch({ type: 'CLOSE_INFO_MODAL' });
@@ -255,9 +255,9 @@ function EBWGuideModal() {
         </NavBar>
         <Hr />
         <ContentWrapper widthvalue={widthValue}>
-          <Content>{getEngineInfo()}</Content>
-          <Content>{getBodyInfo()}</Content>
-          <Content>{getWdInfo()}</Content>
+          <Content key="engine">{getEngineInfo()}</Content>
+          <Content key="body">{getBodyInfo()}</Content>
+          <Content key="wd">{getWdInfo()}</Content>
         </ContentWrapper>
       </Wrapper>
     </Modal>
@@ -338,7 +338,7 @@ const NItem = styled.span<{ value: string }>`
   transition: color 0.5s;
 `;
 
-const Modal = styled.div<{ isopen: boolean }>`
+const Modal = styled.div<{ $isopen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -346,7 +346,7 @@ const Modal = styled.div<{ isopen: boolean }>`
   transition: all 0.5s ease-out;
   visibility: hidden;
   opacity: 0;
-  ${props => props.isopen && `visibility:visible;opacity:1;`};
+  ${props => props.$isopen && `visibility:visible;opacity:1;`};
 `;
 
 const BottomLine = styled.div`

@@ -18,15 +18,13 @@ function InteriorColorContainer({
 }) {
   const { currentEstimation, setColorAndTrim, setTrimInteriorImage } =
     useContext(EstimationContext)!;
-  function getAdoptionRate(): number {
-    data.forEach(item => {
-      if (item.colorName === currentEstimation.outerColor.name) {
-        return item.adoptionRate;
-      }
-    });
-    return 0;
-  }
-  const [adoptionRate, setAdoptionRate] = useState(getAdoptionRate());
+    function getAdoptionRate() {
+      const nowData = data.find(
+        item => item.colorName === currentEstimation.interiorColor.name,
+      );
+      return nowData?.adoptionRate as number;
+    }
+    const [adoptionRate, setAdoptionRate] = useState(getAdoptionRate());
   const [selectedColorName, setSelectedColorName] = useState(
     currentEstimation.interiorColor.name,
   );

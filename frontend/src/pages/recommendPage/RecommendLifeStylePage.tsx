@@ -76,7 +76,7 @@ function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
             size="xl"
             color="grey-1000"
             bg="primary-blue"
-            disabled={choice.lifeStyle === 0}
+            $disabled={choice.lifeStyle === 0}
           >
             선택 완료
           </SquareButton>

@@ -13,10 +13,10 @@ interface buttonOption {
     | 'grey-50';
   bg?: 'grey-1000' | 'primary-blue';
   children: React.ReactNode;
-  border?: boolean;
+  $border?: boolean;
   onClick?: () => void;
   className?: string;
-  disabled?: boolean;
+  $disabled?: boolean;
 }
 
 function calcWidth(size: string) {
@@ -53,10 +53,10 @@ function SquareButton(props: buttonOption) {
       size={props.size}
       color={props.color}
       bg={props.bg}
-      border={props.border}
+      $border={props.$border}
       height={props.height}
       onClick={props.onClick}
-      disabled={props.disabled}
+      $disabled={props.$disabled}
     >
       {props.children}
     </Button>
@@ -77,7 +77,7 @@ const Button = styled.button<buttonOption>`
   color: var(--${props => props.color});
   background-color: ${props =>
     props.bg !== undefined ? `var(--${props.bg})` : 'transparent'};
-  ${props => props.border && `border: 1px solid var(--grey-600)`};
-  opacity: ${props => (props.disabled ? '0.6' : '1')};
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
+  ${props => props.$border && `border: 1px solid var(--grey-600)`};
+  opacity: ${props => (props.$disabled ? '0.6' : '1')};
+  cursor: ${props => (props.$disabled ? 'not-allowed' : 'pointer')};
 `;

@@ -18,7 +18,7 @@ function OptionExplainModal() {
       top={state.optionModalPosition.y}
       left={state.optionModalPosition.x}
       onClick={e => e.stopPropagation()}
-      isopen={state.optionModalOpen}
+      $isopen={state.optionModalOpen}
       ref={componentRef}
       height={componentHeight}
     >
@@ -45,12 +45,12 @@ export default OptionExplainModal;
 const Modal = styled.div<{
   top: number;
   left: number;
-  isopen: boolean;
+  $isopen: boolean;
   height: number;
 }>`
   position: absolute;
   top: ${props => {
-    if (props.isopen) {
+    if (props.$isopen) {
       if (props.top + props.height > window.innerHeight) {
         return window.innerHeight - props.height - 10 + 'px';
       }
@@ -72,7 +72,7 @@ const Modal = styled.div<{
   transition: opacity 0.5s ease-out;
   visibility: hidden;
   opacity: 0;
-  ${props => props.isopen && `visibility:visible;opacity:1;`};
+  ${props => props.$isopen && `visibility:visible;opacity:1;`};
 `;
 const Title = styled.span`
   width: 206px;

@@ -30,25 +30,54 @@ interface ModalProps {
 
 function ColorChangePopup({ setter, data }: ModalProps) {
   const { setTrimAndAllColor } = useContext(EstimationContext)!;
+  function formatNumberWithSign(prev: number, next: number) {
+    const answer = next - prev;
+    if (answer > 0) {
+      return '+ ' + priceToString(answer);
+    } else {
+      return '- ' + priceToString(Math.abs(answer));
+    }
+  }
   function trimAndColorSetter(item: State) {
     const colorData = TrimData[item.changeTrim.name as keyof TrimDataProps];
+
+    const trimImg =
+      item.type === 'exterior' ? item.changeTrim.img : colorData.trimImage;
+    const interColor =
+      item.type === 'exterior'
+        ? {
+            name: colorData.interiorColorName,
+            price: colorData.interiorColorPrice,
+            img: colorData.interiorColorImage,
+          }
+        : {
+            name: item.color.name,
+            price: item.color.price,
+            img: item.color.img,
+          };
+    const outerColor =
+      item.type === 'exterior'
+        ? {
+            name: item.color.name,
+            price: item.color.price,
+            img: item.color.img,
+          }
+        : {
+            name: colorData.colorName,
+            price: colorData.colorPrice,
+            img: colorData.colorImage,
+          };
+    const interImage =
+      item.type === 'exterior' ? colorData.preview : item.changeTrim.img;
     setTrimAndAllColor({
       trim: {
         name: item.changeTrim.name,
         price: item.changeTrim.price,
-        img: '',
+        img: trimImg,
       },
-      interiorColor: {
-        name: colorData.interiorColorName,
-        price: colorData.interiorColorPrice,
-        img: colorData.interiorColorImage,
-      },
-      exteriorColor: {
-        name: colorData.colorName,
-        price: colorData.colorPrice,
-        img: colorData.colorImage,
-      },
-      interiorImage: colorData.preview,
+      interiorColor: interColor,
+      exteriorColor: outerColor,
+      interiorImage: interImage,
       type: 'color',
     });
   }
@@ -101,10 +130,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
               변경 금액
             </span>
             <span className="text-grey-0 head-medium-18">
-              +
-              {priceToString(
-                Math.abs(data.changeTrim.price - data.nowTrim.price),
-              )}
+              {formatNumberWithSign(data.nowTrim.price, data.changeTrim.price)}
             </span>
           </FlexBox>
         </FlexBox>
@@ -115,7 +141,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
           margin="33px 0px 0px 0px"
         >
           <div onClick={() => setter({ ...data, isopen: false })}>
-            <SquareButton size="xxs" height={40} color="grey-400" border>
+            <SquareButton size="xxs" height={40} color="grey-400" $border>
               아니요
             </SquareButton>
           </div>

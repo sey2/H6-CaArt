@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Trim } from "../../../pages/vehicleEstimationPage/TrimEstimationPage";
+import { Trim } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
 import { useModalContext } from '../../../store/ModalContext';
 import TrimCard from './TrimCard';
 
-function TrimContainer({data}:{data:Trim[]}) {
+function TrimContainer({ data }: { data: Trim[] }) {
   const trimList = ['Exclusive', 'Le Blanc', 'Prestige', 'Calligraphy'];
   const { dispatch } = useModalContext();
 
   function setTrimCard(trimLists: string[]) {
     return trimLists.map((trim, index) => (
       <>
-        <TrimCard key={index} trim={trim} data={data}/>
-        {index !== trimLists.length && <Hr />}
+        <TrimCard key={`${trim}${index}`} trim={trim} data={data} />
+        {index !== trimLists.length && <Hr key={`${index}${trim}`} />}
       </>
     ));
   }

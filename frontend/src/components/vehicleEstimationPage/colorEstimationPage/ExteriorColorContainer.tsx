@@ -21,13 +21,11 @@ function ExteriorColorContainer({
 }: ExteriorColorContainerProps) {
   const { currentEstimation, setColorAndTrim, setTrim } =
     useContext(EstimationContext)!;
-  function getAdoptionRate(): number {
-    data.forEach(item => {
-      if (item.colorName === currentEstimation.outerColor.name) {
-        return item.adoptionRate;
-      }
-    });
-    return 0;
+  function getAdoptionRate() {
+    const nowData = data.find(
+      item => item.colorName === currentEstimation.outerColor.name,
+    );
+    return nowData?.adoptionRate as number;
   }
   const [adoptionRate, setAdoptionRate] = useState(0);
   const [selectedColorName, setSelectedName] = useState(

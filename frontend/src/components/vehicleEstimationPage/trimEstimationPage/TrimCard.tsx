@@ -90,7 +90,7 @@ function TrimCard({
         img: colorData.colorImage,
       },
       interiorImage: colorData.preview,
-      type:'trim'
+      type: 'trim',
     });
   }
 
@@ -100,7 +100,7 @@ function TrimCard({
         {data?.map(trimItem => {
           if (trimItem.trimName === trim)
             return (
-              <>
+              <div key={trimItem.description}>
                 <Head>
                   <FlexBox align="center" gap={8}>
                     <span className="text-grey-300 body-medium-14">
@@ -141,7 +141,7 @@ function TrimCard({
                     {getOptionList(trim)}
                   </OptionList>
                 </OptionBox>
-              </>
+              </div>
             );
         })}
       </Wrapper>
