@@ -2,20 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <import type="android.view.View"/>
-        <variable
-            name="url"
-            type="String" />
-        <variable
-            name="optionName"
-            type="String" />
-        <variable
-            name="optionPrice"
-            type="long" />
+
+        <import type="android.view.View" />
+
         <variable
             name="isDefault"
             type="boolean" />
+
+        <variable
+            name="option"
+            type="org.softeer_2nd.caArt.model.data.Option" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +22,7 @@
 
         <ImageView
             android:id="@+id/iv_option_preview_image"
-            url="@{url}"
+            url="@{option.optionImage}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/shape_rect_r4"
@@ -62,7 +60,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/hyundaisanshead_medium"
             android:maxLines="1"
-            android:text="@{optionName}"
+            android:text="@{option.optionName}"
             android:textColor="@color/gray_0"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +70,7 @@
 
         <TextView
             android:id="@+id/tv_option_preview_option_price"
-            formattedPrice="@{optionPrice}"
+            formattedPrice="@{option.optionPrice}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/hyundaisanstextkrmedium"
@@ -104,6 +102,44 @@
             android:layout_height="wrap_content"
             android:visibility="@{isDefault?View.GONE:View.VISIBLE}"
             app:constraint_referenced_ids="tv_option_preview_option_price,sb_option_preview_option_select" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_option_adoption_background_r4"
+            android:backgroundTint="@{option.badge.equals(@string/n_performance)?@color/badge_red:@color/badge_blue}"
+            android:fontFamily="@font/hyundaisanstextkrbold"
+            android:gravity="center"
+            android:minHeight="24dp"
+            android:paddingHorizontal="6dp"
+            android:text="@{option.badge}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="@{option.badge==null?View.GONE:View.VISIBLE}"
+            app:layout_constraintDimensionRatio="w,24:127"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/iv_option_preview_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="H Genuine Accessories" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_adaptionRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_option_badge_background_r4"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:gravity="center"
+            android:minHeight="34dp"
+            android:paddingHorizontal="8dp"
+            android:text="@{Integer.toString(option.adoptionRate)+`%의 사용자가 선택`}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="@{option.adoptionRate==null?View.GONE:View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_option_preview_image"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="65% 의 사용자가 선택" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -35,4 +35,6 @@
     <color name="black_a80">#CC000000</color>
     <color name="white_a40">#66FFFFFF</color>
     <color name="white_gray">#F1F4F7</color>
+    <color name="badge_blue">#558AC7</color>
+    <color name="badge_red">#AE4747</color>
 </resources>

@@ -10,5 +10,7 @@ data class Option(
     val subOptions: List<Option>? = null,
     val summary: String? = null,
     val tags: List<String>? = null,
-    val recommendationMessage: String? = null
+    val recommendationMessage: String? = null,
+    val badge: String? = null,
+    val adoptionRate: Int? = null,
 )

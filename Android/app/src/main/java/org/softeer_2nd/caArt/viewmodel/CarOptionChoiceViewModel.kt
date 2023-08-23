@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +10,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.softeer_2nd.caArt.model.data.MutableSetLiveData
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.OptionTag
+import org.softeer_2nd.caArt.model.data.state.SelectState
 import org.softeer_2nd.caArt.model.data.state.SituationalOptionViewState
 import org.softeer_2nd.caArt.model.repository.CarOptionRepository
 import javax.inject.Inject
@@ -38,11 +41,11 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
     private val _selectedTag = MutableLiveData<OptionTag>()
     val selectedTag: LiveData<OptionTag> = _selectedTag
 
-    private val _optionList = MutableLiveData<List<Option>>()
-    val optionList: LiveData<List<Option>> = _optionList
+    private val _optionListWithSelectStage = MutableLiveData<List<SelectState<Option>>>()
+    val optionListWithSelectState: LiveData<List<SelectState<Option>>> = _optionListWithSelectStage
 
-    private val _situationalOptions = MutableLiveData<List<Option?>>()
-    val situationalOptions: LiveData<List<Option?>> = _situationalOptions
+    private var optionList = listOf<Option>()
+    private var situationalOptionList = listOf<Option?>()
 
     private val _situationalOptionViewState = MutableLiveData<SituationalOptionViewState>()
     val situationalOptionViewState: LiveData<SituationalOptionViewState> =
@@ -54,8 +57,17 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
     private val _displayType = MutableLiveData<Int>(OPTION_LIST)
     val displayType: LiveData<Int> = _displayType
 
+    private val _optionSelectEvent = MutableLiveData<SelectState<Int>>()
+    val optionSelectEvent: LiveData<SelectState<Int>> = _optionSelectEvent
+
+    private val _situationalOptionSelectEvent = MutableLiveData<SelectState<Int>>()
+    val situationalOptionSelectEvent: LiveData<SelectState<Int>> = _situationalOptionSelectEvent
+
     val totalOptionCount = optionRepository.totalOptionCount.asLiveData()
     val isLastPage = optionRepository.isLastPage.asLiveData()
+
+    private val _selectedOptionSet = MutableSetLiveData<Option>()
+    val selectedOptionSet: LiveData<Set<Option>> = _selectedOptionSet
 
 
     fun selectTag(tag: OptionTag) {
@@ -75,7 +87,7 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
             val tagList = optionRepository.getAdditionalTagList()
             withContext(Dispatchers.Main) {
                 _tagList.value = tagList
-                _selectedTag.value = tagList[0]
+                selectTag(tagList[0])
             }
         }
     }
@@ -84,20 +96,33 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         tagId: Int?,
     ) {
         viewModelScope.launch {
-            val optionList = optionRepository.fetchFirstAdditionalOptionList(tagId) ?: return@launch
-            withContext(Dispatchers.Main) {
-                if (displayType.value == OPTION_LIST) {
-                    _optionList.value = optionList
-                } else {
-                    val situationOptionList: MutableList<Option?> = MutableList(
+            optionList = optionRepository.fetchFirstAdditionalOptionList(tagId) ?: return@launch
+            val optionListWithSelectState = optionList.map { option ->
+                SelectState(option, _selectedOptionSet.contain(option))
+            }
+
+            if (displayType.value == OPTION_LIST) {
+                withContext(Dispatchers.Main) {
+                    _optionListWithSelectStage.value = optionListWithSelectState
+                }
+            } else {
+                val situationOptionListWithSelectState: MutableList<SelectState<Option>?> =
+                    MutableList(
                         SITUATIONAL_OPTION_MAX
                     ) { null }
-                    for (i in 0 until min(optionList.size, SITUATIONAL_OPTION_MAX)) {
-                        situationOptionList[i] = optionList[i]
-                    }
+                val situationOptionList: MutableList<Option?> = MutableList(
+                    SITUATIONAL_OPTION_MAX
+                ) { null }
+
+                for (i in 0 until min(optionListWithSelectState.size, SITUATIONAL_OPTION_MAX)) {
+                    situationOptionListWithSelectState[i] = optionListWithSelectState[i]
+                    situationOptionList[i] = optionList[i]
+                }
+                situationalOptionList = situationOptionList.toList()
+                withContext(Dispatchers.Main) {
                     _situationalOptionViewState.value = SituationalOptionViewState(
                         selectedTag.value?.tagImage ?: "",
-                        situationOptionList.toList(),
+                        situationOptionListWithSelectState
                     )
                 }
             }
@@ -108,9 +133,12 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         tagId: Int?
     ) {
         viewModelScope.launch {
-            val optionList = optionRepository.fetchFirstDefaultOptionList(tagId) ?: return@launch
+            optionList = optionRepository.fetchFirstDefaultOptionList(tagId) ?: return@launch
+            val optionListWithSelectState = optionList.map { option ->
+                SelectState(option, true)
+            }
             withContext(Dispatchers.Main) {
-                _optionList.value = optionList
+                _optionListWithSelectStage.value = optionListWithSelectState
             }
         }
     }
@@ -137,16 +165,58 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         val tagId = if (selectedTag.value?.tagId == ALL_TAG_ID) null else selectedTag.value?.tagId
         if (isLastPage.value == true) return
         viewModelScope.launch {
+            val additionalList =
+                if (tabState.value == ADDITIONAL_OPTION_PAGE) optionRepository.fetchNextAdditionalOptionList(
+                    tagId
+                ) ?: return@launch
+                else optionRepository.fetchNextDefaultOptionList(tagId) ?: return@launch
+
+            val additionalListWithSelectState = additionalList.map { option ->
+                SelectState(option, _selectedOptionSet.contain(option))
+            }
+            optionList = optionList.toMutableList().apply {
+                addAll(additionalList)
+            }
+            val updateList = optionListWithSelectState.value?.toMutableList() ?: mutableListOf()
+            updateList.addAll(additionalListWithSelectState)
             withContext(Dispatchers.Main) {
-                val additionalList =
-                    if (tabState.value == ADDITIONAL_OPTION_PAGE) optionRepository.fetchNextAdditionalOptionList(
-                        tagId
-                    ) ?: return@withContext
-                    else optionRepository.fetchNextDefaultOptionList(tagId) ?: return@withContext
-                val updateList = optionList.value?.toMutableList() ?: mutableListOf()
-                updateList.addAll(additionalList)
-                _optionList.value = updateList
+                _optionListWithSelectStage.value = updateList
             }
         }
+    }
+
+    fun selectOption(option: Option?): Boolean {
+        option ?: return false
+
+        val isAlreadySelected = _selectedOptionSet.contain(option)
+        val selectResult = !isAlreadySelected
+
+        if (isAlreadySelected) {
+            _selectedOptionSet.remove(option)
+        } else {
+            _selectedOptionSet.add(option)
+        }
+
+        when (displayType.value) {
+            OPTION_LIST -> {
+                val optionIndex = optionList.indexOf(option)
+                _optionSelectEvent.value = SelectState(optionIndex, selectResult)
+            }
+
+            OPTION_IMAGE -> {
+                val optionIndex =
+                    situationalOptionList.indexOf(option)
+                if (optionIndex >= 0) _situationalOptionSelectEvent.value =
+                    SelectState(optionIndex, selectResult)
+            }
+        }
+
+        return true
+    }
+
+    fun setSituationalOptionSelect(index: Int): Boolean {
+        if (index < 0) return false
+        val selectedOption = situationalOptionList[index]
+        return selectOption(selectedOption)
     }
 }

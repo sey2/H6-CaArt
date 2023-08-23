@@ -16,6 +16,7 @@ import coil.load
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.LayoutDynamicOptionFloatingTooltipBinding
+import org.softeer_2nd.caArt.model.data.state.SelectState
 import org.softeer_2nd.caArt.ui.bindingadapter.setImageSrcWithUrl
 import org.softeer_2nd.caArt.ui.callback.OnItemClickListener
 import org.softeer_2nd.caArt.util.dp2px
@@ -84,10 +85,10 @@ class DynamicOptionFloatingImageView(context: Context, attrs: AttributeSet) :
         })
     }
 
-    fun addOptions(options: List<Option?>) {
+    fun addOptions(options: List<SelectState<Option>?>) {
         for (option in options) {
             option ?: continue
-            addOption(option)
+            addOption(option.item)
         }
     }
 

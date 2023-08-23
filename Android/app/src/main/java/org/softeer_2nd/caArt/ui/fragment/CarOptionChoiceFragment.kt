@@ -2,7 +2,6 @@ package org.softeer_2nd.caArt.ui.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +17,13 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.FragmentCarOptionChoiceBinding
-import org.softeer_2nd.caArt.databinding.ItemSituationOptionsOptionBinding
 import org.softeer_2nd.caArt.ui.dialog.OptionDetailDialog
 import org.softeer_2nd.caArt.ui.fragment.CarBuildingLoadingFragment.Companion.DEFAULT_LOADING_DURATION
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionPreviewRecyclerAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionTagRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.CarOptionChoiceViewModel
+import org.softeer_2nd.caArt.viewmodel.CarOptionChoiceViewModel.Companion.OPTION_IMAGE
 
 @AndroidEntryPoint
 class CarOptionChoiceFragment : Fragment() {
@@ -82,24 +81,27 @@ class CarOptionChoiceFragment : Fragment() {
             },
             {
                 model.requestNextPage()
+            },
+            { _, selectedOption ->
+                model.selectOption(selectedOption)
             }
         )
         binding.rvOptionPreviewContainer.initOptionPreviewContainer(optionPreviewAdapter)
 
-        val situationalOptionViewOptionMap = mapOf<ItemSituationOptionsOptionBinding, Option?>(
-            binding.incSituationalOptions.incSituationOption1 to null,
-            binding.incSituationalOptions.incSituationOption2 to null,
-            binding.incSituationalOptions.incSituationOption3 to null,
-            binding.incSituationalOptions.incSituationOption4 to null,
-
-            ).apply {
-            keys.forEach {
-                it.onClickListener = View.OnClickListener { view ->
-                    //TODO 모델로 전달!
-                    it.isSelected = !it.isSelected
+        val situationalOptionViewList = listOf(
+            binding.incSituationalOptions.incSituationOption1,
+            binding.incSituationalOptions.incSituationOption2,
+            binding.incSituationalOptions.incSituationOption3,
+            binding.incSituationalOptions.incSituationOption4
+        ).apply {
+            forEachIndexed { index, itemSituationOptionsOptionBinding ->
+                itemSituationOptionsOptionBinding.onClickListener = View.OnClickListener { view ->
+                    model.setSituationalOptionSelect(index)
                 }
             }
         }
+
+
         binding.incSituationalOptions.ivSituationalTagOptionsSituationImage.setOnMoreIconClickListener {
             if (it != null) showOptionDetailDialog(it)
         }
@@ -113,21 +115,10 @@ class CarOptionChoiceFragment : Fragment() {
             binding.incSituationalOptions.imageUrl = it.tagImage
         }
 
-        model.optionList.observe(viewLifecycleOwner) {
+        model.optionListWithSelectState.observe(viewLifecycleOwner) {
             optionPreviewAdapter.setOptionList(it)
         }
 
-        model.situationalOptions.observe(viewLifecycleOwner) {
-            binding.incSituationalOptions.ivSituationalTagOptionsSituationImage.apply {
-                clear()
-                addOptions(it)
-            }
-            situationalOptionViewOptionMap.keys.forEachIndexed { index, itemBinding ->
-                val option = it[index]
-                itemBinding.onClickListener
-                itemBinding.optionImageUrl = option?.optionImage
-            }
-        }
 
         model.situationalOptionViewState.observe(viewLifecycleOwner) {
             binding.incSituationalOptions.ivSituationalTagOptionsSituationImage.apply {
@@ -135,15 +126,16 @@ class CarOptionChoiceFragment : Fragment() {
                 addOptions(it.situationalOption)
                 setImage(it.situationalImage)
             }
-            situationalOptionViewOptionMap.keys.forEachIndexed { index, itemBinding ->
-                val option = it.situationalOption[index]
-                itemBinding.onClickListener
-                itemBinding.optionImageUrl = option?.optionImage
+            situationalOptionViewList.forEachIndexed { index, itemSituationOptionsOptionBinding ->
+                itemSituationOptionsOptionBinding.optionImageUrl =
+                    it.situationalOption[index]?.item?.optionImage
+                itemSituationOptionsOptionBinding.isSelected =
+                    it.situationalOption[index]?.isSelected ?: false
             }
         }
 
         model.displayType.observe(viewLifecycleOwner) {
-            binding.isSituationalLayoutDisplay = (it == CarOptionChoiceViewModel.OPTION_IMAGE)
+            binding.isSituationalLayoutDisplay = (it == OPTION_IMAGE)
         }
 
         model.isLastPage.observe(viewLifecycleOwner) {
@@ -152,6 +144,15 @@ class CarOptionChoiceFragment : Fragment() {
 
         model.totalOptionCount.observe(viewLifecycleOwner) {
             optionPreviewAdapter.setTotalOptionCount(it)
+        }
+
+        model.optionSelectEvent.observe(viewLifecycleOwner) {
+            optionPreviewAdapter.selectOption(it)
+        }
+
+        model.situationalOptionSelectEvent.observe(viewLifecycleOwner) {
+            val viewIndex = it.item
+            situationalOptionViewList[viewIndex].isSelected = it.isSelected
         }
 
     }
@@ -181,6 +182,7 @@ class CarOptionChoiceFragment : Fragment() {
                 }
             }
         })
+        itemAnimator = null
     }
 
     private fun RecyclerView.initOptionChoiceOptionTagsContainer(adapter: OptionTagRecyclerAdapter) {

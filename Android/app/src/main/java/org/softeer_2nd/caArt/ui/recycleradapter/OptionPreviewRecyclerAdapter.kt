@@ -13,14 +13,16 @@ import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.ItemOptionPreviewBinding
 import org.softeer_2nd.caArt.generated.callback.OnClickListener
+import org.softeer_2nd.caArt.model.data.state.SelectState
 import org.softeer_2nd.caArt.ui.callback.OnRecyclerItemClickListener
 
 class OptionPreviewRecyclerAdapter(
     private val listener: OnRecyclerItemClickListener<Option>,
-    private val onMoreButtonClicked: View.OnClickListener
+    private val onMoreButtonClicked: View.OnClickListener,
+    private val onSelectButtonClickListener: OnRecyclerItemClickListener<Option>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val optionList = mutableListOf<Option>()
+    private val optionList = mutableListOf<SelectState<Option>>()
 
     private var totalOptionCount = 0
     private var isLastPage = false
@@ -85,14 +87,14 @@ class OptionPreviewRecyclerAdapter(
 
     override fun getItemCount(): Int = optionList.size + 2
 
-    fun addOptionList(options: List<Option>) {
+    fun addOptionList(options: List<SelectState<Option>>) {
         val startIndex = optionList.size
         optionList.addAll(options)
         notifyItemRangeInserted(startIndex, options.size)
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setOptionList(options: List<Option>) {
+    fun setOptionList(options: List<SelectState<Option>>) {
         optionList.clear()
         optionList.addAll(options)
         notifyDataSetChanged()
@@ -108,18 +110,26 @@ class OptionPreviewRecyclerAdapter(
         notifyItemChanged(0)
     }
 
+    fun selectOption(selectState: SelectState<Int>) {
+        val itemIndex = selectState.item
+        optionList[itemIndex].isSelected = selectState.isSelected
+        notifyItemChanged(itemIndex)
+    }
+
     inner class OptionPreviewViewHolder(private val binding: ItemOptionPreviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(option: Option, position: Int) {
+        fun bind(option: SelectState<Option>, position: Int) {
             binding.ivOptionPreviewImage.clipToOutline = true
-            binding.url = option.optionImage
-            binding.optionName = option.optionName
+            binding.option = option.item
+            binding.isDefault = option.item.optionPrice == null
             binding.tvOptionPreviewMore.setOnClickListener {
-                listener.onItemClicked(position, option)
+                listener.onItemClicked(position, option.item)
             }
-            binding.optionPrice = option.optionPrice ?: 0
-            binding.isDefault = option.optionPrice == null
+            binding.sbOptionPreviewOptionSelect.isChecked = option.isSelected
+            binding.sbOptionPreviewOptionSelect.setOnClickListener {
+                onSelectButtonClickListener.onItemClicked(position, option.item)
+            }
         }
     }
 

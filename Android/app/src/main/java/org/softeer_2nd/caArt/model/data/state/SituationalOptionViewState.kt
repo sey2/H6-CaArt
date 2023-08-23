@@ -4,5 +4,5 @@ import org.softeer_2nd.caArt.model.data.Option
 
 data class SituationalOptionViewState(
     val situationalImage:String,
-    val situationalOption: List<Option?>
+    val situationalOption: List<SelectState<Option>?>
 )
