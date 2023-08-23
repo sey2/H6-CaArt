@@ -5,6 +5,7 @@ import HomePage from './pages/homePage/HomePage';
 import RecommendPage from './pages/recommendPage/RecommendPage';
 import VehicleEstimationPage from './pages/vehicleEstimationPage/VehicleEstimationPage';
 import ResultPage from './pages/resultPage/ResultPage';
+import SurveyPage from './pages/surveyPage/SurveyPage';
 import ErrorPopup from './components/common/ErrorPopup';
 import { ModalProvider } from './store/ModalContext';
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/recommend/*" Component={RecommendPage} />
             <Route path="/estimate/*" Component={VehicleEstimationPage} />
             <Route path="/result" Component={ResultPage} />
+            <Route path="/survey" Component={SurveyPage} />
             <Route path="*" Component={ErrorPopup} />
           </Routes>
         </BrowserRouter>
