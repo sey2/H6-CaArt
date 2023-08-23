@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ResultCardList } from './ResultCardList';
-import { ResultFooter } from './ResultFooter';
-import { ResultHeader } from './ResultHeader';
+import ResultCardList from './ResultCardList';
+import ResultFooter from './ResultFooter';
+import ResultHeader from './ResultHeader';
 
 function ResultMain() {
   return (
@@ -18,4 +18,4 @@ const ResultMainBox = styled.div`
   width: 608px;
 `;
 
-export { ResultMain };
+export default ResultMain;

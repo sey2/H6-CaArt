@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
 import useModal from '../../../hooks/useModal';
-import { ErrorPopup } from '../../common/ErrorPopup';
+import ErrorPopup from '../../common/ErrorPopup';
 import LifeStylePeekForYou from './LifeStylePeekForYou';
 import LifeStylePeekInterview from './LifeStylePeekInterview';
 import LifeStylePeekProfile from './LifeStylePeekProfile';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
+import ErrorPopup from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
 import PageNum from '../../components/recommendPage/ageAndLifeStyle/PageNum';
 import LifeStyleCard from '../../components/recommendPage/lifeStyleCard/LifeStyleCard';

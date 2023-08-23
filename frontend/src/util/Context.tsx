@@ -68,7 +68,7 @@ interface Props {
 const EstimationContext = createContext<MyVechicle | null>(null);
 
 const EstimationProvider = ({ children }: Props): JSX.Element => {
-  const [totalPrice, setNewTotalPrice] = useState(43000000);
+  const [totalPrice, setNewTotalPrice] = useState(38960000);
   const [currentEstimation, setCurrentEstimation] =
     useState<currentEstimationProps>({
       age: '',
@@ -76,20 +76,20 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
       body: { name: '7인승', price: 0 },
       wd: { name: '2WD', price: 0 },
       trim: {
-        name: 'Le Blanc',
-        price: 41980000,
-        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-1.png',
+        name: 'Exclusive',
+        price: 38960000,
+        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-2.png',
       },
       trimInteriorImage: '',
       outerColor: {
-        name: '크리미 화이트 펄',
-        price: 100000,
-        img: '',
+        name: '어비스 블랙 펄',
+        price: 0,
+        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/11.png',
       },
       interiorColor: {
-        name: '퀄팅 천연(블랙)',
+        name: '인조가죽(블랙)',
         price: 0,
-        img: '',
+        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/interior/7.png',
       },
       options: [] as NameAndPriceAndImg[],
     });
@@ -130,23 +130,17 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
   };
 
   const addOption = (option: NameAndPriceAndImg): void => {
-    if (
-      currentEstimation.options.some(item => {
-        return item.name === option.name;
-      }) === true
-    ) {
+    if (currentEstimation.options.some(item => item.name === option.name)) {
       return;
     }
-
     const copyOptions = [...currentEstimation.options, option];
-
     setCurrentEstimation({ ...currentEstimation, options: copyOptions });
   };
 
   const deleteOption = (option: string): void => {
-    const copyOptions = currentEstimation.options.filter(item => {
-      return item.name !== option;
-    });
+    const copyOptions = currentEstimation.options.filter(
+      item => item.name !== option,
+    );
     setCurrentEstimation({ ...currentEstimation, options: copyOptions });
   };
 

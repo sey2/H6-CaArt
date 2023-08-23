@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
-import { truncateString } from '../../../util/TruncateString';
 
 function HeaderDetail({
   setShowDetail,
@@ -52,7 +51,7 @@ function HeaderDetail({
         <OptionBox2>
           <OptionList>
             <div className="body-regular-14 text-grey-300">
-              {truncateString(currentEstimation.outerColor.name, 6)}
+              {currentEstimation.outerColor.name}
             </div>
             <div className="body-medium-14 text-grey-100">
               {priceToString(currentEstimation.outerColor.price)}
@@ -60,7 +59,7 @@ function HeaderDetail({
           </OptionList>
           <OptionList>
             <div className="body-regular-14 text-grey-300">
-              {truncateString(currentEstimation.interiorColor.name, 6)}
+              {currentEstimation.interiorColor.name}
             </div>
             <div className="body-medium-14 text-grey-100">
               {priceToString(currentEstimation.interiorColor.price)}
@@ -117,7 +116,7 @@ const HeaderBottomLine = styled.div`
 const OptionBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 147px;
+  width: 160px;
   height: 98px;
   margin: 20px 0px 20px 0px;
   gap: 7px;
@@ -132,7 +131,7 @@ const OptionBox = styled.div`
 const OptionBox2 = styled.div`
   display: flex;
   flex-direction: column;
-  width: 147px;
+  width: 200px;
   height: 98px;
   margin: 20px 0px 20px 13px;
   gap: 7px;
@@ -146,7 +145,7 @@ const OptionBox3 = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
-  width: 400px;
+  width: 600px;
   min-height: 98px;
   max-height: 140px;
   margin: 20px 0px 20px 0px;

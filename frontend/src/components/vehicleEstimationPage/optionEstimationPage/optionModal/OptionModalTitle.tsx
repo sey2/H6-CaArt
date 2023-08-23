@@ -4,6 +4,7 @@ import { priceToString } from '../../../../util/PriceToString';
 import CircularButton from '../../../common/CircularButton';
 import { EstimationContext } from '../../../../util/Context';
 import { OptionProps } from '../optionCardList/OptionCardList';
+import replaceWonSymbol from '../../../../util/ReplaceWonSymbol';
 
 interface OptionModalTitleProps {
   option: OptionProps;
@@ -60,9 +61,11 @@ function OptionModalTitle({
       </OptionModalTitleUpperBox>
 
       <OptionModalDescriptionBox className="body-regular-14 text-grey-200">
-        {isSetOption
-          ? option.subOptions![optionNum].description
-          : option.description}
+        {replaceWonSymbol(
+          isSetOption
+            ? option.subOptions![optionNum].description
+            : option.description,
+        )}
       </OptionModalDescriptionBox>
 
       <IconBox
@@ -115,6 +118,7 @@ const OptionModalDescriptionBox = styled.div`
   width: 314px;
   padding-left: 28px;
   padding-top: 20px;
+  white-space: pre-wrap;
 `;
 
 const IconBox = styled.img`

@@ -20,7 +20,7 @@ function OptionModalDetail({
   const detailNameList = options.map((item, index) => {
     return (
       <span
-        key={index * 100}
+        key={index * 101}
         className={index === optionNum ? selectedClassName : basicClassName}
         onClick={() => {
           setOptionNum(index);
@@ -34,7 +34,7 @@ function OptionModalDetail({
   const detailBtnList = options.map((item, index) => {
     return (
       <OptionModalDetailBtn
-        key={index * 1000}
+        key={index * 102}
         selected={index === optionNum}
         onClick={() => {
           setOptionNum(index);
@@ -52,7 +52,7 @@ function OptionModalDetail({
 }
 
 const OptionModalDetailBox = styled.div`
-  padding-top: 28px;
+  padding-top: 15px;
   padding-left: 28px;
   width: 344px;
   height: 190px;
@@ -62,7 +62,7 @@ const OptionModalDetailListBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 314px;
-  gap: 14px;
+  gap: 10px;
 
   span {
     width: 45%;
@@ -75,14 +75,18 @@ const OptionModalDetailListBox = styled.div`
 `;
 
 const OptionModalDetailBtnBox = styled.div`
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 8px;
-  padding-top: 28px;
+  padding-top: 15px;
 `;
 
 const OptionModalDetailBtn = styled.div<{ selected: boolean }>`
-  width: 8px;
-  height: 8px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   cursor: pointer;
   background: ${props =>

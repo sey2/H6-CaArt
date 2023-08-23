@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import replaceWonSymbol from '../../../util/ReplaceWonSymbol';
 import CheckButton from '../../common/CheckButton';
-import { TagList } from '../../common/TagList';
+import TagList from '../../common/TagList';
 
 interface LifeStyleCardProps {
   id: number;

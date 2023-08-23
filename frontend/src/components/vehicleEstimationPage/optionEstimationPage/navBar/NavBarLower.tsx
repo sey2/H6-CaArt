@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../../hooks/useFetch';
 import { OptionComponentProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
-import { ErrorPopup } from '../../../common/ErrorPopup';
+import ErrorPopup from '../../../common/ErrorPopup';
 
 interface optionTagProps {
   tagId: number;

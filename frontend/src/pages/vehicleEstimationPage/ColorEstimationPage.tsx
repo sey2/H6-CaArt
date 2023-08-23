@@ -8,7 +8,7 @@ import InteriorColorContainer from '../../components/vehicleEstimationPage/color
 import SquareButton from '../../components/common/SquareButton';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
+import ErrorPopup from '../../components/common/ErrorPopup';
 import { EstimationContext } from '../../util/Context';
 import { Hr } from '../../components/common/Hr';
 

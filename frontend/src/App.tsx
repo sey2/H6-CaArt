@@ -5,7 +5,7 @@ import HomePage from './pages/homePage/HomePage';
 import RecommendPage from './pages/recommendPage/RecommendPage';
 import VehicleEstimationPage from './pages/vehicleEstimationPage/VehicleEstimationPage';
 import ResultPage from './pages/resultPage/ResultPage';
-import { ErrorPopup } from './components/common/ErrorPopup';
+import ErrorPopup from './components/common/ErrorPopup';
 import { ModalProvider } from './store/ModalContext';
 
 function App() {

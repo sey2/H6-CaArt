@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import SquareButton from '../SquareButton';
 import HeaderDetail from './HeaderDetail';
@@ -12,30 +12,27 @@ function HeaderMain() {
   const { currentEstimation, totalPrice } = useContext(EstimationContext)!;
   const [showDetail, setShowDetail] = useState(false);
   const optionList = getOptionList(currentEstimation.options);
+  const url = useLocation().pathname;
   const selectedClassName = 'head-medium-14 text-primary-blue';
   const unSelectedClassName = 'head-regular-14 text-grey-600';
-  const url = useLocation().pathname;
 
-  const estimateList = [
-    {
-      name: '트림',
-      link: '/estimate/trim',
-      children: ['currentEstimation.trim.name'],
-    },
-    {
-      name: '색상',
-      link: '/estimate/color',
-      children: [
-        'currentEstimation.outerColor.name',
-        'currentEstimation.interiorColor.name',
-      ],
-    },
-    {
-      name: '옵션',
-      link: '/estimate/option',
-      children: ['optionList'],
-    },
-  ];
+  const estimateList = useMemo(
+    () => [
+      {
+        name: '트림',
+        link: '/estimate/trim',
+      },
+      {
+        name: '색상',
+        link: '/estimate/color',
+      },
+      {
+        name: '옵션',
+        link: '/estimate/option',
+      },
+    ],
+    [],
+  );
 
   const estimateNavList = estimateList.map((item, index) => {
     return (
@@ -119,7 +116,7 @@ const Container = styled.div`
 const TextBox = styled.div`
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 
   span:first-child {
     cursor: pointer;
@@ -128,7 +125,7 @@ const TextBox = styled.div`
 
 const TextListBox = styled.div`
   display: flex;
-  gap: 22px;
+  gap: 12px;
   padding-top: 25px;
 
   .head-regular-14:hover {

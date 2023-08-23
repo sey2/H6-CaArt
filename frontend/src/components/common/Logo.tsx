@@ -1,30 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-function Logo({ type }: LogoProps) {
-  const carList = ['펠리세이드', '베뉴'];
-  const [carNum] = useState(0);
-  const [isOpened, setIsOpened] = useState(false);
+export interface LogoProps {
+  type: 'default' | 'home';
+}
 
+function Logo({ type }: LogoProps) {
   const logoImgSrc =
     type === 'default'
       ? '/images/hyundai_logo_default.svg'
       : '/images/hyundai_logo_home.svg';
-  const dropdownImgSrc =
-    type === 'default'
-      ? '/images/dropdown_icon_default.svg'
-      : '/images/dropdown_icon_home.svg';
-
-  const dropdownList = carList.map((item, index) => {
-    const indexClassName = `body-medium-16 floating${index}`;
-    if (index === carNum) return null;
-    return (
-      <span key={item} className={indexClassName}>
-        {item}
-      </span>
-    );
-  });
 
   return (
     <LogoBox>
@@ -32,22 +18,10 @@ function Logo({ type }: LogoProps) {
         <img src={logoImgSrc} />
       </Link>
       <CarListBox type={type}>
-        <TextBox
-          onClick={() => {
-            setIsOpened(!isOpened);
-          }}
-        >
-          <span className="head-medium-16">{carList[carNum]}</span>
-          <img src={dropdownImgSrc} />
-        </TextBox>
-        {isOpened && dropdownList}
+        <span className="head-medium-16">펠리세이드</span>
       </CarListBox>
     </LogoBox>
   );
-}
-
-export interface LogoProps {
-  type: 'default' | 'home';
 }
 
 const LogoBox = styled.div`
@@ -57,13 +31,8 @@ const LogoBox = styled.div`
 
   img {
     cursor: pointer;
+    transform: translateY(2px);
   }
-`;
-
-const TextBox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
 `;
 
 const CarListBox = styled.div<LogoProps>`
@@ -77,11 +46,6 @@ const CarListBox = styled.div<LogoProps>`
     cursor: pointer;
     z-index: 3;
   }
-
-  .floating1 {
-    position: absolute;
-    top: 20px;
-  }
 `;
 
-export default Logo;
+export default React.memo(Logo);

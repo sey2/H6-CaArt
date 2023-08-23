@@ -63,4 +63,4 @@ const LogoBox = styled.div`
   margin: auto;
 `;
 
-export default Header;
+export default React.memo(Header);

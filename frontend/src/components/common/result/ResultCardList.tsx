@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ResultCard } from './ResultCard';
+import ResultCard from './ResultCard';
 import { EstimationContext } from '../../../util/Context';
 
 function ResultCardList() {
@@ -26,12 +26,14 @@ function ResultCardList() {
         </ResultCardListSetName>
         <ResultCardListSet>
           <ResultCard
+            key={currentEstimation.outerColor.name}
             title={currentEstimation.outerColor.name}
             price={currentEstimation.outerColor.price}
             imgSrc={currentEstimation.outerColor.img}
             text={currentEstimation.outerColor.msg || ''}
           ></ResultCard>
           <ResultCard
+            key={currentEstimation.interiorColor.name}
             title={currentEstimation.interiorColor.name}
             price={currentEstimation.interiorColor.price}
             imgSrc={currentEstimation.interiorColor.img}
@@ -69,6 +71,7 @@ const ResultCardListSetName = styled.div``;
 const ResultCardListSet = styled.div`
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 `;
 
 const ResultCardListMiddleLine = styled.div`
@@ -77,4 +80,4 @@ const ResultCardListMiddleLine = styled.div`
   background: var(--grey-700);
 `;
 
-export { ResultCardList };
+export default ResultCardList;

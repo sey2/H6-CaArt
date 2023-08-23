@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useFetch } from '../../../../hooks/useFetch';
 import useModal from '../../../../hooks/useModal';
 import { EstimationContext } from '../../../../util/Context';
-import { ErrorPopup } from '../../../common/ErrorPopup';
-import { TagList } from '../../../common/TagList';
+import ErrorPopup from '../../../common/ErrorPopup';
+import TagList from '../../../common/TagList';
 import { OptionProps, SubOptionProps } from '../optionCardList/OptionCardList';
 import OptionModalDetail from './OptionModalDetail';
 import OptionModalTitle from './OptionModalTitle';
@@ -41,7 +41,7 @@ function OptionModal({
   ) {
     if (data !== null) {
       return (
-        <OptionModalBox key={item.description} selected={selected}>
+        <OptionModalBox key={`${index}${item.optionName} `} selected={selected}>
           <OptionModalTagImgBox>
             <OptionModalImgBox src={item.optionImage}></OptionModalImgBox>
             <OptionModalTagList>
@@ -154,6 +154,7 @@ const WrapperBox = styled.div`
 `;
 
 const OptionModalBox = styled.div<{ selected: boolean }>`
+  position: relative;
   display: flex;
   width: 900px;
   height: 440px;

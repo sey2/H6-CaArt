@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import { EstimationContext } from '../../util/Context';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
+import ErrorPopup from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
 import PageNum from '../../components/recommendPage/ageAndLifeStyle/PageNum';
 import RecommendPageButton from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';

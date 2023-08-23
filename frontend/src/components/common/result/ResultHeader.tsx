@@ -14,13 +14,13 @@ function ResultHeader() {
             {currentEstimation.trim.name}
           </span>
         </ResultHeaderCar>
-        <ResultHeaderPrice className="head-medium-16 text-grey-100">
+        <span className="head-medium-16 text-grey-100">
           {priceToString(currentEstimation.trim.price)}
-        </ResultHeaderPrice>
+        </span>
       </ResultHeaderUpperBox>
-      <ResultHeaderLowerBox className="body-regular-14 text-grey-400">
+      <span className="body-regular-14 text-grey-400">
         {`${currentEstimation.engine.name} ・ ${currentEstimation.wd.name} ・ ${currentEstimation.body.name}`}
-      </ResultHeaderLowerBox>
+      </span>
     </ResultHeaderBox>
   );
 }
@@ -44,8 +44,4 @@ const ResultHeaderCar = styled.div`
   gap: 8px;
 `;
 
-const ResultHeaderPrice = styled.div``;
-
-const ResultHeaderLowerBox = styled.div``;
-
-export { ResultHeader };
+export default ResultHeader;

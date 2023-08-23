@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { EstimationContext } from '../../../../util/Context';
 import { useFetch } from '../../../../hooks/useFetch';
 import OptionCard from '../optionCard/OptionCard';
-import { ErrorPopup } from '../../../common/ErrorPopup';
+import ErrorPopup from '../../../common/ErrorPopup';
 import OptionInfoPopupBtn from '../optionInfoPopup/OptionInfoPopupBtn';
 import { OptionComponentProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 import OptionCardListButton from './OptionCardListButton';

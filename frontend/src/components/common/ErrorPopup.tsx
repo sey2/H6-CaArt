@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import SquareButton from './SquareButton';
 
 function ErrorPopup() {
@@ -14,10 +14,10 @@ function ErrorPopup() {
 
   return (
     <ErrorPopupBox>
-      <ErrorPopupText className="head-medium-22 text-grey-50">
+      <span className="head-medium-22 text-grey-50">
         내 차 만들기 과정 중 <br />
         오류가 발생했어요
-      </ErrorPopupText>
+      </span>
       <ErrorPopupImg src="/images/error_logo_blue.svg"></ErrorPopupImg>
       <Link to="/">
         <SquareButton size="l" color="grey-1000" bg="primary-blue">
@@ -44,8 +44,6 @@ const ErrorPopupBox = styled.div`
   background: var(--grey-1000);
 `;
 
-const ErrorPopupText = styled.div``;
-
 const ErrorPopupImg = styled.img`
   width: 222px;
   height: 138px;
@@ -54,4 +52,4 @@ const ErrorPopupImg = styled.img`
   transform: translateX(70px);
 `;
 
-export { ErrorPopup };
+export default ErrorPopup;

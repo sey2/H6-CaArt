@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
+import ErrorPopup from '../../components/common/ErrorPopup';
 import Header from '../../components/common/header/Header';
 import RecommendAgePage from './RecommendAgePage';
 import RecommendDetailPage from './RecommendDetailPage';

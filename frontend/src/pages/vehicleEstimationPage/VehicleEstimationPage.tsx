@@ -3,7 +3,7 @@ import TrimEstimationPage from './TrimEstimationPage';
 import ColorEstimationPage from './ColorEstimationPage';
 import OptionEstimationPage from './OptionEstimationPage';
 import { Route, Routes } from 'react-router-dom';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
+import ErrorPopup from '../../components/common/ErrorPopup';
 
 function VehicleEstimationPage() {
   return (

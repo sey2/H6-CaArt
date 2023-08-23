@@ -48,4 +48,4 @@ const cssHandler = (type: tagType, selected: boolean | undefined) => {
   }
 };
 
-export { Tag };
+export default Tag;

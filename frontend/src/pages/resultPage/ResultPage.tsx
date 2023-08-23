@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import TopContainer from '../../components/resultPage/TopContainer';
-import { ResultMain } from '../../components/common/result/ResultMain';
+import ResultMain from '../../components/common/result/ResultMain';
 import { styled } from 'styled-components';
 import SquareButton from '../../components/common/SquareButton';
 import BuyCarContainer from '../../components/resultPage/BuyCarContainer';

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import replaceWonSymbol from '../../../util/ReplaceWonSymbol';
-import { TagList } from '../../common/TagList';
+import TagList from '../../common/TagList';
 import { LifeStyleModalProps } from './LifeStylePeekModal';
 
 function LifeStylePeekHeader({

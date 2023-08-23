@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Tag, tagType } from './Tag';
+import Tag, { tagType } from './Tag';
 
 interface TagListProps {
   tagArr: string[];
@@ -25,13 +25,11 @@ const TagListBox = styled.ul<Pick<TagListProps, 'type'>>`
 
 const cssHandler = (type: tagType) => {
   switch (type) {
-    case 'lifeStyle':
-    case 'option':
-    case 'lifeStylePeek':
-      return `gap: 8px;`;
     case 'result':
       return `gap: 6px;`;
+    default:
+      return `gap: 8px;`;
   }
 };
 
-export { TagList };
+export default TagList;

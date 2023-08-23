@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { priceToString } from '../../../util/PriceToString';
 
 export interface ResultCardProps {
@@ -69,4 +69,4 @@ const ResultCardLower = styled.div`
   background: rgba(33, 151, 201, 0.1);
 `;
 
-export { ResultCard };
+export default ResultCard;

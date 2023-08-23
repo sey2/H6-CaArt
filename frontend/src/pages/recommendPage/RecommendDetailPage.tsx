@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
-import { ErrorPopup } from '../../components/common/ErrorPopup';
+import ErrorPopup from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
 import RecommendPageButton from '../../components/recommendPage/ageAndLifeStyle/RecommendPageButton';
 import SlideBar from '../../components/recommendPage/ageAndLifeStyle/SlideBar';
