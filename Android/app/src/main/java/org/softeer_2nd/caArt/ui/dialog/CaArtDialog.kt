@@ -88,7 +88,9 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
         var description: String? = null
         var positiveButtonText: String? = context.getString(R.string.yes)
         var negativeButtonText: String? = context.getString(R.string.no)
-        var positiveButtonClickListener: OnDialogClickListener? = null
+        var positiveButtonClickListener: OnDialogClickListener? = OnDialogClickListener {
+            it.dismiss()
+        }
         var negativeButtonClickListener: OnDialogClickListener? = OnDialogClickListener {
             it.dismiss()
         }
@@ -108,7 +110,10 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
 
         fun setPositiveButton(text: String? = null, listener: OnDialogClickListener): Builder {
             positiveButtonText = text ?: context.getString(R.string.yes)
-            positiveButtonClickListener = listener
+            positiveButtonClickListener = OnDialogClickListener {
+                listener.onButtonClicked(it)
+                it.dismiss()
+            }
             return this
         }
 

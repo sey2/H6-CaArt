@@ -128,7 +128,7 @@ class UserChoiceViewModel : ViewModel() {
         return prices.sum()
     }
 
-     fun findMatchedIndices(colorData: ColorData): Pair<Int, Int> {
+    fun findMatchedIndices(colorData: ColorData): Pair<Int, Int> {
         val matchedExteriorIndex =
             colorData.exteriorColors.indexOfFirst { it.colorName == selectedExteriorColor.value?.colorName }
         val matchedInteriorIndex =
@@ -139,7 +139,7 @@ class UserChoiceViewModel : ViewModel() {
             matchedInteriorIndex.takeIf { it != -1 } ?: 0
         )
     }
-     
+
     fun setRecommendData(data: RecommendCompleteResultDTO) {
 
         data.model.let {
@@ -152,8 +152,8 @@ class UserChoiceViewModel : ViewModel() {
         setSelectedOptions(data.options)
 
         data.colors.let {
-            setInteriorColor(it[0].toInteriorColor())
-            setExteriorColor(it[1].toExteriorColor())
+            setSelectedInteriorColor(it[0].toInteriorColor())
+            setSelectedExteriorColor(it[1].toExteriorColor())
         }
 
     }

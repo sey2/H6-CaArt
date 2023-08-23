@@ -9,22 +9,25 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import org.softeer_2nd.caArt.model.data.Option
-import org.softeer_2nd.caArt.model.data.event.OptionSelectEvent
 import org.softeer_2nd.caArt.databinding.ItemOptionDetailBinding
+import org.softeer_2nd.caArt.model.data.state.OptionDetailDialogState
 import org.softeer_2nd.caArt.ui.callback.OnRecyclerItemClickListener
 import org.softeer_2nd.caArt.util.dp2px
 import kotlin.math.max
 
 class OptionDetailPageAdapter(
-    private val parentOption: Option? = null,
-    private val optionList: List<Option>,
+    private val state: OptionDetailDialogState,
+    private val onSelectButtonClicked: OnClickListener,
     private val onTextIndicatorItemClickListener: OnRecyclerItemClickListener<Option>,
-    private val onOptionSelectListener: OnRecyclerItemClickListener<OptionSelectEvent>,
     private val onCancelButtonClickListener: OnClickListener
 ) : RecyclerView.Adapter<OptionDetailPageAdapter.OptionDetailPageViewHolder>(),
     OnRecyclerItemClickListener<String> {
 
     private var displayPageIndex: Int = 0
+
+    private val parentOption = state.mainOption
+    private val optionList = state.optionList
+    private var isSelected = state.isSelected
 
     private val textIndicatorAdapter =
         OptionDetailTextIndicatorAdapter(optionList.map { it.optionName }, this)
@@ -74,28 +77,29 @@ class OptionDetailPageAdapter(
         notifyItemRangeChanged(firstChangePosition, pos + 1 - firstChangePosition)
     }
 
+    fun changeSelectState(isSelected: Boolean) {
+        this.isSelected = isSelected
+        notifyItemRangeChanged(0, itemCount)
+    }
+
     inner class OptionDetailPageViewHolder(private val binding: ItemOptionDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
 
         fun bind(option: Option, position: Int) {
             binding.apply {
                 this.option = option
 
-                parentOptionName = parentOption?.optionName
-                isGroup = !parentOption?.subOptions.isNullOrEmpty()
+                parentOptionName = parentOption.optionName
+                isGroup = !parentOption.subOptions.isNullOrEmpty()
                 onCancelButtonClickListener = onCancelButtonClickListener
                 pageIndex = position
                 pageCount = optionList.size
                 isBlurEffect = position != displayPageIndex
-                cbOptionDetailChoice.setOnCheckedChangeListener { _, isSelected ->
-                    onOptionSelectListener.onItemClicked(
-                        position,
-                        OptionSelectEvent(option, isSelected)
-                    )
-                }
-                optionPrice=parentOption?.optionPrice?:0
-                isDefaultOption = (parentOption?.optionPrice == null)
+                //sbOptionDetailChoice.isEnabled=false
+                sbOptionDetailChoice.isChecked = isSelected
+                sbOptionDetailChoice.setOnClickListener(onSelectButtonClicked)
+                optionPrice = parentOption.optionPrice ?: 0
+                isDefaultOption = (parentOption.optionPrice == null)
                 onCancelButtonClickListener =
                     this@OptionDetailPageAdapter.onCancelButtonClickListener
             }

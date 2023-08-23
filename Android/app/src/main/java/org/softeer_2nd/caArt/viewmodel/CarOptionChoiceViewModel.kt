@@ -1,6 +1,5 @@
 package org.softeer_2nd.caArt.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -69,6 +68,8 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
     private val _selectedOptionSet = MutableSetLiveData<Option>()
     val selectedOptionSet: LiveData<Set<Option>> = _selectedOptionSet
 
+    private val _optionDetailDialogPopUpEvent = MutableLiveData<SelectState<Option>>()
+    val optionDetailDialogPopUpEvent: LiveData<SelectState<Option>> = _optionDetailDialogPopUpEvent
 
     fun selectTag(tag: OptionTag) {
         _selectedTag.value = tag
@@ -185,29 +186,28 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         }
     }
 
-    fun selectOption(option: Option?): Boolean {
+    fun selectOption(option: Option?, result: Boolean? = null): Boolean {
         option ?: return false
 
-        val isAlreadySelected = _selectedOptionSet.contain(option)
-        val selectResult = !isAlreadySelected
+        val isSelectable = result ?: !_selectedOptionSet.contain(option)
 
-        if (isAlreadySelected) {
-            _selectedOptionSet.remove(option)
-        } else {
+        if (isSelectable) {
             _selectedOptionSet.add(option)
+        } else {
+            _selectedOptionSet.remove(option)
         }
 
         when (displayType.value) {
             OPTION_LIST -> {
                 val optionIndex = optionList.indexOf(option)
-                _optionSelectEvent.value = SelectState(optionIndex, selectResult)
+                _optionSelectEvent.value = SelectState(optionIndex, isSelectable)
             }
 
             OPTION_IMAGE -> {
                 val optionIndex =
                     situationalOptionList.indexOf(option)
                 if (optionIndex >= 0) _situationalOptionSelectEvent.value =
-                    SelectState(optionIndex, selectResult)
+                    SelectState(optionIndex, isSelectable)
             }
         }
 
@@ -218,5 +218,14 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
         if (index < 0) return false
         val selectedOption = situationalOptionList[index]
         return selectOption(selectedOption)
+    }
+
+    fun setOptionDetailDialogPopUpEvent(option: Option) {
+        _optionDetailDialogPopUpEvent.value =
+            SelectState(option, _selectedOptionSet.contain(option))
+    }
+
+    fun selectDialogResultOption(option: SelectState<Option>) {
+        selectOption(option.item, option.isSelected)
     }
 }

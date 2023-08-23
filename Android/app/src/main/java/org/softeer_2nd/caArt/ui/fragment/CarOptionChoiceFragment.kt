@@ -2,6 +2,7 @@ package org.softeer_2nd.caArt.ui.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.FragmentCarOptionChoiceBinding
+import org.softeer_2nd.caArt.model.data.state.SelectState
 import org.softeer_2nd.caArt.ui.dialog.OptionDetailDialog
 import org.softeer_2nd.caArt.ui.fragment.CarBuildingLoadingFragment.Companion.DEFAULT_LOADING_DURATION
 import org.softeer_2nd.caArt.util.dp2px
@@ -77,7 +79,7 @@ class CarOptionChoiceFragment : Fragment() {
 
         val optionPreviewAdapter = OptionPreviewRecyclerAdapter(
             { _, option ->
-                showOptionDetailDialog(option)
+                model.setOptionDetailDialogPopUpEvent(option)
             },
             {
                 model.requestNextPage()
@@ -103,7 +105,7 @@ class CarOptionChoiceFragment : Fragment() {
 
 
         binding.incSituationalOptions.ivSituationalTagOptionsSituationImage.setOnMoreIconClickListener {
-            if (it != null) showOptionDetailDialog(it)
+            if (it != null) model.setOptionDetailDialogPopUpEvent(it)
         }
 
         model.tagList.observe(viewLifecycleOwner) {
@@ -155,6 +157,10 @@ class CarOptionChoiceFragment : Fragment() {
             situationalOptionViewList[viewIndex].isSelected = it.isSelected
         }
 
+        model.optionDetailDialogPopUpEvent.observe(viewLifecycleOwner) {
+            showOptionDetailDialog(it)
+        }
+
     }
 
     private fun RecyclerView.initOptionPreviewContainer(adapter: OptionPreviewRecyclerAdapter) {
@@ -203,11 +209,15 @@ class CarOptionChoiceFragment : Fragment() {
         })
     }
 
-    private fun showOptionDetailDialog(option: Option) {
-        OptionDetailDialog.Builder()
+    private fun showOptionDetailDialog(option: SelectState<Option>) {
+        val dialog = OptionDetailDialog.Builder()
             .setOption(option)
+            .setOnOptionSelectResultListener {
+                model.selectDialogResultOption(it)
+            }
             .build()
-            .show(requireActivity().supportFragmentManager, "optionDetail")
+
+        dialog.show(requireActivity().supportFragmentManager, "optionDetail")
     }
 
     override fun onDestroyView() {

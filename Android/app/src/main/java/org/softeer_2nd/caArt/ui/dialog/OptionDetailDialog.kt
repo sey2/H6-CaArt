@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.ui.dialog
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
@@ -8,13 +9,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import org.softeer_2nd.caArt.model.data.Option
+import org.softeer_2nd.caArt.model.data.state.SelectState
+import org.softeer_2nd.caArt.model.factory.OptionDetailDialogViewModelFactory
+import org.softeer_2nd.caArt.ui.callback.OnDialogDismissListener
+import org.softeer_2nd.caArt.ui.callback.OnItemClickListener
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionDetailPageAdapter
 import org.softeer_2nd.caArt.util.dp2px
+import org.softeer_2nd.caArt.viewmodel.OptionDetailDialogViewModel
 
 class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
+
+    private val viewModelFactory = OptionDetailDialogViewModelFactory(
+        mainOption = builder.parentOption!!,
+        initialSelected = builder.isSelected
+    )
+    private val model by lazy {
+        ViewModelProvider(this, viewModelFactory)[OptionDetailDialogViewModel::class.java]
+    }
 
     companion object {
         const val SINGLE_OPTION = 0
@@ -22,6 +38,7 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
     }
 
     private var viewPager: ViewPager2? = null
+    private var adapter: OptionDetailPageAdapter? = null
 
     override fun onStart() {
         super.onStart()
@@ -37,7 +54,6 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         viewPager = ViewPager2(requireContext()).apply {
             initOptionDetailViewPager()
         }
@@ -47,21 +63,26 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = OptionDetailPageAdapter(
-            builder.parentOption,
-            builder.optionList?: listOf(),
-            onTextIndicatorItemClickListener = { position, _ ->
-                viewPager?.setCurrentItem(position, true)
-            },
-            onOptionSelectListener = { _, optionSelectEvent ->
-                //TODO 반영 ~ 뷰모델
-            },
-            onCancelButtonClickListener = {
-                dismiss()
-            }
-        )
+        model.optionDetailDialogState.observe(viewLifecycleOwner) {
+            adapter = OptionDetailPageAdapter(
+                state = it,
+                onTextIndicatorItemClickListener = { position, _ ->
+                    viewPager?.setCurrentItem(position, true)
+                },
+                onSelectButtonClicked = {
+                    model.changeSelected()
+                },
+                onCancelButtonClickListener = {
+                    dismiss()
+                }
+            )
 
-        viewPager?.adapter = adapter
+            viewPager?.adapter = adapter
+        }
+
+        model.onSelectChangeEvent.observe(viewLifecycleOwner) {
+            adapter?.changeSelectState(it)
+        }
     }
 
     private fun ViewPager2.initOptionDetailViewPager() {
@@ -98,28 +119,41 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
         })
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        builder.parentOption?.let { builder.onSelectResultListener?.onDialogDismissed(model.getSelectState()) }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         viewPager = null
+        adapter = null
     }
 
     class Builder() {
-        var isDefaultOption=false
-        var parentOption:Option?=null
+        var parentOption: Option? = null
         var optionList: List<Option>? = null
+        var isSelected = false
+        var onSelectResultListener: OnDialogDismissListener<SelectState<Option>>? = null
         private var _type: Int = SINGLE_OPTION
         val type get() = _type
-        fun setOption(option: Option) = apply {
-            parentOption=option
-            if (option.subOptions.isNullOrEmpty()){
-                _type= SINGLE_OPTION
-                optionList=listOf(option)
+        fun setOption(option: SelectState<Option>) = apply {
+            parentOption = option.item
+            if (option.item.subOptions.isNullOrEmpty()) {
+                _type = SINGLE_OPTION
+                optionList = listOf(option.item)
 
-            }else{
-                _type= OPTION_GROUP
-                optionList=option.subOptions
+            } else {
+                _type = OPTION_GROUP
+                optionList = option.item.subOptions
             }
+            isSelected = option.isSelected
         }
+
+        fun setOnOptionSelectResultListener(listener: OnDialogDismissListener<SelectState<Option>>? = null) =
+            apply {
+                onSelectResultListener = listener
+            }
 
         fun build(): OptionDetailDialog = OptionDetailDialog(this)
     }

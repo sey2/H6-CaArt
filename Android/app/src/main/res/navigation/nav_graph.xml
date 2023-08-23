@@ -35,9 +35,6 @@
         <action
             android:id="@+id/action_carColorChoiceFragment_to_carOptionChoiceFragment"
             app:destination="@id/carOptionChoiceFragment" />
-        <action
-            android:id="@+id/action_carColorChoiceFragment_to_carTrimChoiceFragment"
-            app:destination="@id/carTrimChoiceFragment" />
     </fragment>
 
     <fragment

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.ItemOptionPreviewBinding
-import org.softeer_2nd.caArt.generated.callback.OnClickListener
 import org.softeer_2nd.caArt.model.data.state.SelectState
 import org.softeer_2nd.caArt.ui.callback.OnRecyclerItemClickListener
 
@@ -50,7 +49,6 @@ class OptionPreviewRecyclerAdapter(
                     typeface = resources.getFont(R.font.hyundaisanstextkrmedium)
                     textSize = 16f
                     setTextColor(parent.context.getColor(R.color.gray_300))
-                    //setBackgroundColor(Color.GRAY)
                 }
                 OptionCountIndicatorViewHolder(textView)
             }
@@ -113,7 +111,7 @@ class OptionPreviewRecyclerAdapter(
     fun selectOption(selectState: SelectState<Int>) {
         val itemIndex = selectState.item
         optionList[itemIndex].isSelected = selectState.isSelected
-        notifyItemChanged(itemIndex)
+        notifyItemChanged(itemIndex + 1)
     }
 
     inner class OptionPreviewViewHolder(private val binding: ItemOptionPreviewBinding) :
@@ -165,4 +163,5 @@ class OptionPreviewRecyclerAdapter(
         }
 
     }
+
 }

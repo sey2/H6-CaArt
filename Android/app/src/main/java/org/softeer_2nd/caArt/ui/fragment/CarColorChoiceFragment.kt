@@ -182,7 +182,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
                             )
                         )
                     }
-                    findNavController().navigate(CarColorChoiceFragmentDirections.actionCarColorChoiceFragmentToCarTrimChoiceFragment())
+                    findNavController().popBackStack()
                 })
                 .build()
                 .show(childFragmentManager, "colorOptionChangePopup")
