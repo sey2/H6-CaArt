@@ -121,7 +121,7 @@ function ColorEstimationPage() {
           <LeftCarImageContainer
             type={selectedType}
             setter={setSelectedType}
-            data={data.exteriorColors}
+            data={data}
           />
           <RightBox onMouseOver={preloadImages}>
             <HeadTitle className="text-grey-0 head-medium-20">

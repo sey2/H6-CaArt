@@ -1,22 +1,23 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import OptionButton from './button/OptionButton';
 import CarRotator from './CarRotator';
 import RerecommendButton from '../trimEstimationPage/RerecommendButton';
 import RerecommendModal from '../trimEstimationPage/modal/RerecommendModal';
 import { EstimationContext } from '../../../util/Context';
-import { ExteriorColor } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
+import { CarData } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
 
 type ViewOptionType = 'ex' | 'in' | '360' | string;
 
 interface CarContainerType {
   type: ViewOptionType;
   setter: React.Dispatch<React.SetStateAction<ViewOptionType>>;
-  data: ExteriorColor[];
+  data: CarData;
 }
 
 function LeftCarImageContainer({ type, setter, data }: CarContainerType) {
-  const { currentEstimation } = useContext(EstimationContext)!;
+  const { currentEstimation, setTrimInteriorImage } =
+    useContext(EstimationContext)!;
 
   const exView = useCallback(() => {
     return (
@@ -41,7 +42,7 @@ function LeftCarImageContainer({ type, setter, data }: CarContainerType) {
   }, [currentEstimation.trimInteriorImage]);
 
   const rotateView = useCallback(() => {
-    return <CarRotator data={data} />;
+    return <CarRotator data={data.exteriorColors} />;
   }, [data]);
 
   const drawView = useCallback(
@@ -59,6 +60,12 @@ function LeftCarImageContainer({ type, setter, data }: CarContainerType) {
     [exView, inView, rotateView],
   );
 
+  useEffect(() => {
+    const interData = data.interiorColors.find(
+      item => item.colorName === currentEstimation.interiorColor.name,
+    );
+    setTrimInteriorImage(interData?.preview as string);
+  },[]);
   return (
     <Wrapper>
       <RerecommendButton />

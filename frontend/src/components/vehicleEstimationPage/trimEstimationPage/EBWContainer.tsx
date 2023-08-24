@@ -74,8 +74,8 @@ function EBWContainer() {
           <ButtonBox
             onClick={e => {
               findSpan(e);
-              preloadImages;
             }}
+            onMouseOver={preloadImages}
           >
             <EBWButton value="디젤 2.2" price={0} onClick={handleButtonClick} />
             <EBWButton
@@ -90,8 +90,8 @@ function EBWContainer() {
           <ButtonBox
             onClick={e => {
               findSpan(e);
-              preloadImages;
             }}
+            onMouseOver={preloadImages}
           >
             <EBWButton value="7인승" price={0} onClick={handleButtonClick} />
             <EBWButton value="8인승" price={3000} onClick={handleButtonClick} />
@@ -102,8 +102,8 @@ function EBWContainer() {
           <ButtonBox
             onClick={e => {
               findSpan(e);
-              preloadImages;
             }}
+            onMouseOver={preloadImages}
           >
             <EBWButton value="2WD" price={0} onClick={handleButtonClick} />
             <EBWButton value="4WD" price={5000} onClick={handleButtonClick} />

@@ -74,18 +74,6 @@ function EBWGuideModal() {
       }px`;
     }
   }
-  useEffect(() => {
-    setCompositionData(data as CompositionsData);
-    if (lineRef.current) {
-      const targetDom: HTMLElement =
-        document.querySelector('.text-primary-blue')!;
-      lineRef.current.style.width = `${targetDom.offsetWidth}px`;
-      lineRef.current.style.left = `${targetDom.offsetLeft}px`;
-      lineRef.current.style.top = `${
-        targetDom.offsetTop + targetDom.offsetHeight - 0.5
-      }px`;
-    }
-  }, [data]);
 
   function getEngineInfo() {
     const data = compositionData?.['carEngines'];
@@ -225,13 +213,30 @@ function EBWGuideModal() {
           lineHandler(e);
         }}
         className={
-          value === selectedNav ? 'body-bold-18 text-primary-blue' : ''
+          value === selectedNav
+            ? `body-bold-18 text-primary-blue carEngines`
+            : ''
         }
       >
         {translator(value)}
       </NItem>
     );
   }
+
+  useEffect(() => {
+    setCompositionData(data as CompositionsData);
+    if (data && lineRef.current) {
+      const targetDom: HTMLElement = document.querySelector('.carEngines')!;
+      if (targetDom) {
+        lineRef.current.style.width = `${targetDom.offsetWidth}px`;
+        lineRef.current.style.left = `${targetDom.offsetLeft}px`;
+        lineRef.current.style.top = `${
+          targetDom.offsetTop + targetDom.offsetHeight - 0.5
+        }px`;
+      }
+    }
+  }, [data, state.infoModalOpen]);
+
   return (
     <Modal $isopen={state.infoModalOpen}>
       <Overlay

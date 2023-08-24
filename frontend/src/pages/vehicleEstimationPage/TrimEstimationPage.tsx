@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
@@ -66,6 +66,7 @@ function TrimEstimationPage() {
   const { setPreLoadData, preloadImages } = useContext<PreloadProps | null>(
     preloadContext,
   )!;
+  const [isDataLoad, setIsDataLoad] = useState(false);
 
   function closeModalHandler() {
     dispatch({ type: 'CLOSE_TOOLTIP_MODAL' });
@@ -79,11 +80,10 @@ function TrimEstimationPage() {
         throw new Error('fetch error');
       }
       const jsonData: TrimCarData = await response.json();
-      if (jsonData) {
-        jsonData.data.exteriorColors.forEach(item => {
-          setPreLoadData(prev => [...prev, item.previews]);
-        });
-      }
+      jsonData.data.exteriorColors.forEach(item => {
+        setPreLoadData(prev => [...prev, item.previews]);
+      });
+      setIsDataLoad(true);
     } catch (error) {
       console.warn(error);
     }
@@ -99,10 +99,17 @@ function TrimEstimationPage() {
         price: currentEstimation.trim.price,
         img: trimImg,
       });
-      fetchData();
     }
+    fetchData();
     dispatch({ type: 'SET_TOOLTIP_TYPE', tooltipType: '엔진' });
   }, []);
+
+  useEffect(() => {
+    for (let i = 0; i < 7; i++) {
+      preloadImages();
+    }
+  }, [isDataLoad]);
+
   return (
     <>
       {<EBWGuideModal />}
