@@ -21,7 +21,9 @@ type Action =
   | { type: 'OPEN_SHARE_MODAL' }
   | { type: 'CLOSE_SHARE_MODAL' }
   | { type: 'OPEN_SAVE_MODAL' }
-  | { type: 'CLOSE_SAVE_MODAL' };
+  | { type: 'CLOSE_SAVE_MODAL' }
+  | { type: 'OPEN_TRIM_CHANGE_MODAL', trim:{name:string, price:number, img:string} }
+  | { type: 'CLOSE_TRIM_CHANGE_MODAL' };
 
 interface TrimModalState {
   infoModalOpen: boolean;
@@ -36,6 +38,10 @@ interface TrimModalState {
   mailModalOpen: boolean;
   shareModalOpen: boolean;
   saveModalOpen: boolean;
+  trimChangeModal: {
+    isopen: boolean;
+    trim:{name:string, price:number, img:string};
+  }
 }
 
 const initialState: TrimModalState = {
@@ -56,6 +62,14 @@ const initialState: TrimModalState = {
   saveModalOpen: false,
   mailModalOpen: false,
   shareModalOpen: false,
+  trimChangeModal: {
+    isopen: false,
+    trim: {
+      name:'',
+      price:0,
+      img:'',
+    }
+  }
 };
 
 function reducer(state: TrimModalState, action: Action): TrimModalState {
@@ -100,6 +114,10 @@ function reducer(state: TrimModalState, action: Action): TrimModalState {
       return { ...state, saveModalOpen: true };
     case 'CLOSE_SAVE_MODAL':
       return { ...state, saveModalOpen: false };
+    case 'OPEN_TRIM_CHANGE_MODAL':
+      return { ...state, trimChangeModal:{isopen:true, trim:{name:action.trim.name, price:action.trim.price, img:action.trim.img}}};
+    case 'CLOSE_TRIM_CHANGE_MODAL':
+      return { ...state, trimChangeModal:{...state.trimChangeModal, isopen:false }};
     default:
       return state;
   }

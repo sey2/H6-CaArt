@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import SquareButton from '../../common/SquareButton';
+import SquareButton from '../../../common/SquareButton';
 import { useNavigate } from 'react-router-dom';
-import { FlexBox } from '../../common/FlexBox';
-import { useModalContext } from '../../../store/ModalContext';
+import { FlexBox } from '../../../common/FlexBox';
+import { useModalContext } from '../../../../store/ModalContext';
 
 function RerecommendModal() {
   const { state, dispatch } = useModalContext();

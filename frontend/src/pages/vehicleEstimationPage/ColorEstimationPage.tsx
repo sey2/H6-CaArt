@@ -66,7 +66,7 @@ function ColorEstimationPage() {
     }
   }
 
-  const { currentEstimation } = useContext(EstimationContext)!;
+  const { currentEstimation, setTrim } = useContext(EstimationContext)!;
   const { preloadImages } = useContext<PreloadProps | null>(preloadContext)!;
   const { data, status, error } = useFetch<CarData>(
     `/colors?trimId=${getTrimId(currentEstimation.trim.name)}`,

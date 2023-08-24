@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { styled } from 'styled-components';
-import { useFetch } from '../../../hooks/useFetch';
-import { useModalContext } from '../../../store/ModalContext';
-import { priceToString } from '../../../util/PriceToString';
-import { Hr } from '../../common/Hr';
+import { useFetch } from '../../../../hooks/useFetch';
+import { useModalContext } from '../../../../store/ModalContext';
+import { priceToString } from '../../../../util/PriceToString';
+import { Hr } from '../../../common/Hr';
 
 interface Engine {
   engineName: string;

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { styled } from 'styled-components';
-import { useModalContext } from '../../../store/ModalContext';
+import { useModalContext } from '../../../../store/ModalContext';
 
 function OptionExplainModal() {
   const { state, dispatch } = useModalContext();

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import OptionButton from './button/OptionButton';
 import CarRotator from './CarRotator';
 import RerecommendButton from '../trimEstimationPage/RerecommendButton';
-import RerecommendModal from '../trimEstimationPage/RerecommendModal';
+import RerecommendModal from '../trimEstimationPage/modal/RerecommendModal';
 import { EstimationContext } from '../../../util/Context';
-import { ExteriorColor } from "../../../pages/vehicleEstimationPage/ColorEstimationPage";
+import { ExteriorColor } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
 
 type ViewOptionType = 'ex' | 'in' | '360' | string;
 
@@ -16,7 +16,12 @@ interface CarContainerType {
   data: ExteriorColor[];
 }
 
-function LeftCarImageContainer({ type, setter, state,data }: CarContainerType) {
+function LeftCarImageContainer({
+  type,
+  setter,
+  state,
+  data,
+}: CarContainerType) {
   const { currentEstimation } = useContext(EstimationContext)!;
   function drawView(type: ViewOptionType) {
     switch (type) {
@@ -53,7 +58,7 @@ function LeftCarImageContainer({ type, setter, state,data }: CarContainerType) {
   }
 
   function rotateView() {
-    return <CarRotator data={data}/>;
+    return <CarRotator data={data} />;
   }
 
   return (

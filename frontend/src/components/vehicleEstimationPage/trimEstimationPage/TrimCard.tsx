@@ -8,7 +8,6 @@ import { useModalContext } from '../../../store/ModalContext';
 import { EstimationContext } from '../../../util/Context';
 import { priceToString } from '../../../util/PriceToString';
 import { FlexBox } from '../../common/FlexBox';
-import TrimData, { TrimDataProps } from '../../../static/data/TrimData';
 
 function TrimCard({
   trim,
@@ -17,8 +16,7 @@ function TrimCard({
   trim: 'Exclusive' | 'Le Blanc' | 'Prestige' | 'Calligraphy' | string;
   data: Trim[];
 }) {
-  const { currentEstimation, setTrimAndAllColor } =
-    useContext(EstimationContext)!;
+  const { currentEstimation } = useContext(EstimationContext)!;
   const { dispatch } = useModalContext();
 
   function handleModal(e: React.MouseEvent, option: OptionType) {
@@ -71,29 +69,6 @@ function TrimCard({
     dispatch({ type: 'OPEN_TOOLTIP_MODAL' });
   }
 
-  function trimAndColorSetter(item: Trim) {
-    const colorData = TrimData[item.trimName as keyof TrimDataProps];
-    setTrimAndAllColor({
-      trim: {
-        name: item.trimName,
-        price: item.trimPrice,
-        img: item.trimImage,
-      },
-      interiorColor: {
-        name: colorData.interiorColorName,
-        price: colorData.interiorColorPrice,
-        img: colorData.interiorColorImage,
-      },
-      exteriorColor: {
-        name: colorData.colorName,
-        price: colorData.colorPrice,
-        img: colorData.colorImage,
-      },
-      interiorImage: colorData.preview,
-      type: 'trim',
-    });
-  }
-
   return (
     <>
       <Wrapper>
@@ -121,10 +96,18 @@ function TrimCard({
                         ? '/images/check_circle_blue_bold.svg'
                         : '/images/check_circle_grey_bold.svg'
                     }
-                    onClick={e => {
-                      trimAndColorSetter(trimItem);
-                      handleCheckBtnClick(e);
+                    onClick={() => {
+                      dispatch({
+                        type: 'OPEN_TRIM_CHANGE_MODAL',
+                        trim: {
+                          name: trimItem.trimName,
+                          price: trimItem.trimPrice,
+                          img: trimItem.trimImage,
+                        },
+                      });
                     }}
+                    onMouseOver={e => handleCheckBtnClick(e)}
+                    onMouseOut={() => dispatch({ type: 'CLOSE_TOOLTIP_MODAL' })}
                   />
                 </Head>
                 <TrimSummary className="text-grey-100 body-regular-16">

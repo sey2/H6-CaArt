@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
 import ToolTip from '../../components/common/ToolTip';
-import CompareModal from '../../components/vehicleEstimationPage/trimEstimationPage/CompareModal';
+import CompareModal from '../../components/vehicleEstimationPage/trimEstimationPage/modal/CompareModal';
 import EBWContainer from '../../components/vehicleEstimationPage/trimEstimationPage/EBWContainer';
-import EBWGuideModal from '../../components/vehicleEstimationPage/trimEstimationPage/EBWGuideModal';
+import EBWGuideModal from '../../components/vehicleEstimationPage/trimEstimationPage/modal/EBWGuideModal';
 import TrimCarImage from '../../components/vehicleEstimationPage/trimEstimationPage/TrimCarImage';
 import TrimContainer from '../../components/vehicleEstimationPage/trimEstimationPage/TrimContainer';
-import OptionExplainModal from '../../components/vehicleEstimationPage/trimEstimationPage/OptionExplainModal';
+import OptionExplainModal from '../../components/vehicleEstimationPage/trimEstimationPage/modal/OptionExplainModal';
 import { Link } from 'react-router-dom';
 import { useModalContext } from '../../store/ModalContext';
 import { useFetch } from '../../hooks/useFetch';
@@ -16,6 +16,7 @@ import { EstimationContext } from '../../util/Context';
 import { PreloadProps } from './VehicleEstimationPage';
 import { preloadContext } from '../../store/PreloadContext';
 import { ExteriorColor, InteriorColor } from './ColorEstimationPage';
+import TrimChangeModal from '../../components/vehicleEstimationPage/trimEstimationPage/modal/TrimChangeModal';
 
 interface TrimCarData {
   data: {
@@ -108,6 +109,7 @@ function TrimEstimationPage() {
       {<CompareModal data={data as Trim[]} />}
       {<ToolTip />}
       {<OptionExplainModal />}
+      {<TrimChangeModal />}
       <Wrapper onClick={closeModalHandler}>
         <Header size="large" page={0} />
         <Layout>

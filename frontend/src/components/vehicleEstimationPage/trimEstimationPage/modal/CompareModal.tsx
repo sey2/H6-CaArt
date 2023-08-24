@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import useModal from '../../../hooks/useModal';
-import { FlexBox, SFlex } from '../../common/FlexBox';
-import { commonOption } from '../../../static/data/CompareModalData';
-import { Hr } from '../../common/Hr';
-import { useModalContext } from '../../../store/ModalContext';
-import { Trim } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
-import { Color } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
+import useModal from '../../../../hooks/useModal';
+import { FlexBox, SFlex } from '../../../common/FlexBox';
+import { commonOption } from '../../../../static/data/CompareModalData';
+import { Hr } from '../../../common/Hr';
+import { useModalContext } from '../../../../store/ModalContext';
+import { Trim } from '../../../../pages/vehicleEstimationPage/TrimEstimationPage';
+import { Color } from '../../../../pages/vehicleEstimationPage/TrimEstimationPage';
 
 function CompareModal({ data }: { data: Trim[] }) {
   useModal();
