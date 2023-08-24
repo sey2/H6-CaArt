@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="userViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel" />
+    </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -98,12 +106,13 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/hyundaisansheadkrmedium"
-                        android:text="@string/le_blanc"
+                        android:text="@{userViewModel.selectedTrim.trimName}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_car_name" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_car_name"
+                        tools:text="@string/le_blanc" />
 
                     <ImageView
                         android:id="@+id/iv_hyundai_long_logo"
@@ -161,11 +170,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
-                android:text="@string/price"
+                app:formattedPrice="@{userViewModel.selectedTrim.trimPrice}"
                 android:textColor="@color/gray_100"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/tv_choice_model"
-                app:layout_constraintTop_toBottomOf="@id/tv_choice_model" />
+                app:layout_constraintTop_toBottomOf="@id/tv_choice_model"
+                tools:text="@string/price" />
 
             <View
                 android:id="@+id/view_model_price_bottom_divider"
@@ -205,19 +215,20 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
-                android:text="@string/price"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                app:formattedPrice="@{userViewModel.totalPrice}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/tv_total_price"
-                app:layout_constraintTop_toBottomOf="@id/rv_choice_options" />
+                app:layout_constraintTop_toBottomOf="@id/rv_choice_options"
+                tools:text="@string/price" />
 
             <Button
                 android:id="@+id/btn_pdf_save"
                 style="@style/SecondaryButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="62dp"
+                android:layout_height="52dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
@@ -232,7 +243,7 @@
                 android:id="@+id/btn_send_mail"
                 style="@style/SecondaryButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="62dp"
+                android:layout_height="52dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
@@ -248,7 +259,7 @@
                 android:id="@+id/btn_save_my_account"
                 style="@style/SecondaryButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="62dp"
+                android:layout_height="52dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
@@ -288,7 +299,7 @@
                 android:layout_marginHorizontal="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_car_purchase"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_car_purchase" />
 
             <TextView
                 android:id="@+id/tv_car_total_etimate_price_title"
@@ -309,22 +320,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="17dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
-                android:text="@string/price"
                 android:textColor="@color/active_blue"
                 android:textSize="18sp"
+                app:formattedPrice="@{userViewModel.totalPrice}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@id/tv_car_total_etimate_price_title"
-                app:layout_constraintTop_toTopOf="@id/tv_car_total_etimate_price_title" />
+                app:layout_constraintTop_toTopOf="@id/tv_car_total_etimate_price_title"
+                tools:text="@string/price" />
 
             <Button
                 android:id="@+id/btn_modify"
                 style="@style/SecondaryButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="62dp"
+                android:layout_height="52dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="12dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginEnd="12dp"
                 android:layout_marginBottom="25dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
                 android:text="@string/modify"
@@ -339,9 +351,9 @@
                 android:id="@+id/btn_purchase_consulting"
                 style="@style/PrimaryButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="62dp"
-                android:layout_marginEnd="16dp"
+                android:layout_height="52dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="25dp"
                 android:fontFamily="@font/hyundaisansheadkrmedium"
                 android:text="@string/purchase_consultant"

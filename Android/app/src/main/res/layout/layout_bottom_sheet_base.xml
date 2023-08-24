@@ -4,9 +4,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="562dp"
+        android:layout_height="572dp"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="125dp"
+        app:behavior_peekHeight="115dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <View
@@ -21,7 +21,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="572dp"
             android:layout_marginTop="16dp"
             app:behavior_hideable="true"
             app:cardCornerRadius="20dp"

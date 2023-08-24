@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.ui.bindingadapter
 
+import android.animation.ValueAnimator
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
@@ -8,10 +9,13 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import org.softeer_2nd.caArt.R
+import org.softeer_2nd.caArt.util.StringFormatter.setFormattedPrice
+import org.softeer_2nd.caArt.util.StringFormatter.toIntOrNullWithComma
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -101,4 +105,15 @@ fun TextView.setSpanColorText(percentage: Int?, text: String?) {
 
         this.text = spannable
     }
+}
+
+fun TextView.animatePriceChange(newPrice: Long?) {
+    val oldPrice = text.toString().toIntOrNullWithComma()
+    val targetPrice = newPrice?.toInt() ?: 0
+    val valueAnimator = ValueAnimator.ofInt(oldPrice ?: 0, targetPrice)
+    valueAnimator.duration = 1000
+    valueAnimator.addUpdateListener { animator ->
+        text = "${animator.animatedValue}".setFormattedPrice()
+    }
+    valueAnimator.start()
 }

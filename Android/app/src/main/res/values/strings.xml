@@ -90,6 +90,8 @@
     <string name="car_masters_recommended_it">전국의 Car master 분들이 엄선하여 추천했어요</string>
     <string name="custom">커스텀하기</string>
     <string name="making_my_palisade">나만의 펠리세이드를 \n만들고 있어요</string>
+    <string name="zero">0</string>
+    <string name="won">원</string>
     <string name="n_performance">N Performance</string>
     <string name="h_genuine_accessories">H Genuine Accessories</string>
 </resources>

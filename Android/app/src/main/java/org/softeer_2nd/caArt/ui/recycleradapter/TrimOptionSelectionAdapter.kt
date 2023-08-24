@@ -46,6 +46,13 @@ class TrimOptionSelectionAdapter(
         notifyDataSetChanged()
     }
 
+    fun updateSelectedState(selectedIndex: Int){
+        items.forEachIndexed { index, item ->
+            item.isChecked = index == selectedIndex
+        }
+        notifyDataSetChanged()
+    }
+
     inner class TrimOptionSelectionViewHolder(val binding: ItemTrimSelectBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val exteriorAdapter = TrimOptionMoreDetailAdapter()

@@ -1,6 +1,5 @@
 package org.softeer_2nd.caArt.util
 
-import org.softeer_2nd.caArt.R
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -29,6 +28,17 @@ object StringFormatter {
         val formatter = NumberFormat.getNumberInstance(Locale.KOREA)
         val formattedPrice = formatter.format(this)
         return "${formattedPrice}"
+    }
+
+    fun String.setFormattedPrice(): String {
+        val unformattedNumber = this.replace(",", "").toLongOrNull() ?: return this
+        val formatter = NumberFormat.getNumberInstance(Locale.KOREA)
+        return formatter.format(unformattedNumber)
+    }
+
+    fun String.toIntOrNullWithComma(): Int? {
+        val sanitizedString = this.replace(",", "").replace("원","")
+        return sanitizedString.toIntOrNull()
     }
 
     fun extractColorFromUrl(url: String): String {

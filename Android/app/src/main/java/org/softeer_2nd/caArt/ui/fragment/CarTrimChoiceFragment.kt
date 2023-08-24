@@ -15,6 +15,8 @@ import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.databinding.FragmentCarTrimChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
 import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
+import org.softeer_2nd.caArt.model.data.toExteriorColor
+import org.softeer_2nd.caArt.model.data.toInteriorColor
 import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.ui.callback.OnTrimItemClickListener
@@ -44,45 +46,53 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         carTrimChoiceViewModel.getTrims()
         carTrimChoiceViewModel.getCompositions()
 
-        //createChangePopup(false)
         return binding.root
     }
     private fun setupObservers() {
         carTrimChoiceViewModel.trims.observe(viewLifecycleOwner) { trims ->
-            (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateTrimItems(trims)
+            binding.rvTrim.adapter?.let { adapter ->
+                if (adapter is TrimOptionSelectionAdapter) {
+                    adapter.updateTrimItems(trims)
+                }
+            }
+
+            if(userChoiceViewModel.selectedTrim.value == null) {
+                userChoiceViewModel.setSelectedTrim(trims.first())
+                userChoiceViewModel.setSelectedExteriorColor(trims.first().exteriorColors[0].toExteriorColor())
+                userChoiceViewModel.setSelectedInteriorColor(trims.first().interiorColors[0].toInteriorColor())
+            } else {
+                val selectedTrimIndex = carTrimChoiceViewModel.findMatchedTrimIndices(userChoiceViewModel.selectedTrim.value!!)
+               userChoiceViewModel.setSelectedTrimIndex(selectedTrimIndex + 1)
+                binding.rvTrim.adapter?.let { adapter ->
+                    if (adapter is TrimOptionSelectionAdapter) {
+                        adapter.updateSelectedState(selectedTrimIndex)
+                    }
+                }
+            }
         }
 
-        userChoiceViewModel.selectedEngine.observe(viewLifecycleOwner) { engine ->
-            val str = StringFormatter.combineCarComposition(
-                engine.itemName,
-                userChoiceViewModel.selectedBodyType.value!!.itemName,
-                userChoiceViewModel.selectedWheelDrive.value!!.itemName
-            )
-            (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateSpecifications(str)
-        }
+        carTrimChoiceViewModel.composition.observe(viewLifecycleOwner) { compositions ->
+            if(userChoiceViewModel.selectedEngine.value == null )
+                 userChoiceViewModel.setSelectedEngine(compositions.carEngines[0])
+            if(userChoiceViewModel.selectedBodyType.value == null)
+                userChoiceViewModel.setSelectedBodyType(compositions.bodyTypes[0])
+            if(userChoiceViewModel.selectedWheelDrive.value == null)
+                userChoiceViewModel.setSelectedWheelDrive(compositions.wheelDrives[0])
 
-        userChoiceViewModel.selectedBodyType.observe(viewLifecycleOwner) { bodyType ->
-            val str = StringFormatter.combineCarComposition(
-                userChoiceViewModel.selectedEngine.value!!.itemName,
-                bodyType.itemName,
-                userChoiceViewModel.selectedWheelDrive.value!!.itemName
-            )
-            (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateSpecifications(str)
-        }
+            listOf(
+                userChoiceViewModel.selectedEngine,
+                userChoiceViewModel.selectedBodyType,
+                userChoiceViewModel.selectedWheelDrive
+            ).forEach { liveData ->
+                liveData.observe(viewLifecycleOwner) {
+                    updateSpecifications()
+                }
+            }
 
-
-        userChoiceViewModel.selectedWheelDrive.observe(viewLifecycleOwner) { wheelDrive ->
-            val str = StringFormatter.combineCarComposition(
-                userChoiceViewModel.selectedEngine.value!!.itemName,
-                userChoiceViewModel.selectedBodyType.value!!.itemName,
-                wheelDrive.itemName
-            )
-            (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateSpecifications(str)
-        }
-
-        userChoiceViewModel.selectedTrimIndex.observe(viewLifecycleOwner) { index ->
-            carTrimChoiceViewModel.trims.value?.let { trims ->
-                userChoiceViewModel.setSelectedTrim(trims[index-1])
+            userChoiceViewModel.selectedTrimIndex.observe(viewLifecycleOwner) { index ->
+                carTrimChoiceViewModel.trims.value?.let { trims ->
+                    userChoiceViewModel.setSelectedTrim(trims[index - 1])
+                }
             }
         }
     }
@@ -92,7 +102,6 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         setupBinding()
         setupRecyclerView()
     }
-
     private fun setupBinding() {
         binding.apply {
             incEngineBodyOption.carTrimChoiceViewModel = carTrimChoiceViewModel
@@ -121,6 +130,17 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
                 (userChoiceViewModel.selectedTrimIndex.value?: 1) - 1
             )
             itemAnimator = null
+        }
+    }
+
+    private fun updateSpecifications() {
+        val engine = userChoiceViewModel.selectedEngine.value
+        val bodyType = userChoiceViewModel.selectedBodyType.value
+        val wheelDrive = userChoiceViewModel.selectedWheelDrive.value
+
+        if (engine != null && bodyType != null && wheelDrive != null) {
+            val str = StringFormatter.combineCarComposition(engine.itemName, bodyType.itemName, wheelDrive.itemName)
+            (binding.rvTrim.adapter as? TrimOptionSelectionAdapter)?.updateSpecifications(str)
         }
     }
 

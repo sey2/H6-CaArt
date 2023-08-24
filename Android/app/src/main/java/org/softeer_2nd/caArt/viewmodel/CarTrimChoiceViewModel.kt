@@ -48,4 +48,8 @@ class CarTrimChoiceViewModel @Inject constructor(
     fun setIsToolTipVisible(visibility: Boolean) {
         _isToolTipVisible.value = visibility
     }
+
+    fun findMatchedTrimIndices(selectedTrim: Trim): Int {
+        return trims.value?.indexOfFirst { it.trimName ==  selectedTrim.trimName} ?: 0
+    }
 }

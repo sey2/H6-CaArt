@@ -30,13 +30,11 @@
         <Button
             android:id="@+id/btn_previous"
             style="@style/SecondaryButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="92dp"
             android:layout_height="wrap_content"
             android:text="@string/prev"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/btn_two_next"
-            app:layout_constraintStart_toEndOf="@+id/tv_price"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/flow_prv_next_btn" />
 
         <Button
             android:id="@+id/btn_one_next"
@@ -47,28 +45,47 @@
             android:layout_marginEnd="14dp"
             android:text="@string/next"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintStart_toEndOf="@id/tv_won"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone"/>
 
         <Button
             android:id="@+id/btn_two_next"
             style="@style/PrimaryButtonStyle"
-            android:layout_width="0dp"
+            android:layout_width="92dp"
             android:layout_height="wrap_content"
             android:text="@string/next"
+            app:layout_constraintBottom_toBottomOf="@+id/flow_prv_next_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_previous"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:visibility="visible" />
 
 
         <TextView
             android:id="@+id/tv_price"
             style="@style/PriceTextStyle"
+            android:layout_width="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="44dp"
             android:textSize="18sp"
+            android:text="@string/zero"
             android:fontFamily="@font/hyundaisansheadkrbold"
             app:formattedPrice="@{userChoiceViewModel.totalPrice}"
             app:layout_constraintStart_toEndOf="@id/iv_arrow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_won"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@string/won"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_price"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -86,7 +103,7 @@
 
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow_prv_next_btn"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
             android:layout_marginTop="28dp"
@@ -96,9 +113,10 @@
             app:flow_horizontalStyle="packed"
             app:flow_wrapMode="chain"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_price"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tv_won"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone"/>
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

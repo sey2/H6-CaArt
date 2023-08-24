@@ -14,6 +14,7 @@ import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.ui.recycleradapter.BottomSheetCurrentOptionAdapter
 import org.softeer_2nd.caArt.databinding.LayoutBottomSheetBaseBinding
+import org.softeer_2nd.caArt.ui.bindingadapter.animatePriceChange
 import org.softeer_2nd.caArt.util.UserChoiceConverter
 import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
 
@@ -54,6 +55,10 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
     private fun configureNavigation() {
         binding.incSlideDown.btnPrevious.setOnClickListener {
             it.findNavController().popBackStack()
+        }
+
+        binding.incSlideUp.btnEstimate.setOnClickListener {
+            it.findNavController().navigate(R.id.estimateFragment)
         }
     }
 
@@ -119,6 +124,15 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
         observeSelectedEngine(userChoiceViewModel, lifecycleOwner)
         observeSelectedColors(userChoiceViewModel, lifecycleOwner)
         observeSelectedOptions(userChoiceViewModel, lifecycleOwner)
+        observeSelectedBodyType(userChoiceViewModel, lifecycleOwner)
+        observeSelectedWheelDrive(userChoiceViewModel, lifecycleOwner)
+        observePrice(userChoiceViewModel, lifecycleOwner)
+    }
+
+    fun observePrice(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        userChoiceViewModel?.totalPrice?.observe(lifecycleOwner) { price ->
+            binding.incSlideDown.tvPrice.animatePriceChange(price)
+        }
     }
 
     private fun bindViewModel(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
@@ -151,6 +165,26 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
 
             if (selectedEngine != null) {
                 itemAdapter.updateEngineItem(selectedEngine)
+            }
+        }
+    }
+
+    private fun observeSelectedBodyType(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        userChoiceViewModel?.selectedBodyType?.observe(lifecycleOwner) { body ->
+            val selectedBody = userChoiceViewModel.selectedBodyType.value
+
+            if (selectedBody != null) {
+                itemAdapter.updateBodyTypeItem(body)
+            }
+        }
+    }
+
+    private fun observeSelectedWheelDrive(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+        userChoiceViewModel?.selectedEngine?.observe(lifecycleOwner) { engine ->
+            val selectedWheelDrive = userChoiceViewModel.selectedWheelDrive.value
+
+            if (selectedWheelDrive != null) {
+                itemAdapter.updateWheelDriveItem(selectedWheelDrive)
             }
         }
     }

@@ -1,7 +1,5 @@
 package org.softeer_2nd.caArt.model.factory
 
-import org.softeer_2nd.caArt.model.data.BudgetRange
-import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
 import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.ResultChoiceOption

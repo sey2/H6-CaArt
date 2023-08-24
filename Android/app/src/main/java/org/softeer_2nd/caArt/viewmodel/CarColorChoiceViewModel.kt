@@ -6,12 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.softeer_2nd.caArt.model.data.dto.ColorData
 import org.softeer_2nd.caArt.model.repository.CarColorImageRepository
-import org.softeer_2nd.caArt.util.CoilUtils
 import org.softeer_2nd.caArt.util.StringFormatter
 import org.softeer_2nd.caArt.util.StringFormatter.extractExteriorPreviewBaseUrl
 import javax.inject.Inject
@@ -19,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CarColorChoiceViewModel @Inject constructor(
-    val imageRepository: CarColorImageRepository
+    private val imageRepository: CarColorImageRepository
 ) : ViewModel() {
 
     private val _colorData = MutableLiveData<ColorData>()
@@ -33,12 +31,10 @@ class CarColorChoiceViewModel @Inject constructor(
 
     val currentExteriorColorImage = MediatorLiveData<String>()
 
-    private val _currentExteriorUrls = MutableStateFlow<List<String>?>(null)
-    val currentExteriorUrls: Flow<List<String>?> = _currentExteriorUrls
-
+    private val currentExteriorUrls = MutableStateFlow<List<String>?>(null)
     init {
         currentExteriorColorImage.addSource(spinCarImageIndex) { index ->
-            val urls = _currentExteriorUrls.value
+            val urls = currentExteriorUrls.value
 
             if (urls != null && index in urls.indices) {
                 val color = StringFormatter.extractColorFromUrl(urls[index])
@@ -75,7 +71,7 @@ class CarColorChoiceViewModel @Inject constructor(
     }
 
     fun updateCurrentExteriorUrls(index: Int) {
-        _currentExteriorUrls.value = colorData.value?.exteriorColors?.get(index)?.previews
+        currentExteriorUrls.value = colorData.value?.exteriorColors?.get(index)?.previews
         _spinCarImageIndex.value = 0
     }
 }

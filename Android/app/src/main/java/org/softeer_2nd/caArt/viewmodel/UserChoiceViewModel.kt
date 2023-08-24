@@ -16,16 +16,15 @@ import org.softeer_2nd.caArt.model.data.dto.ExteriorColor
 import org.softeer_2nd.caArt.model.data.dto.InteriorColor
 import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
 
-
 class UserChoiceViewModel : ViewModel() {
 
-    private val _selectedBodyType = MutableLiveData(BodyType("7인승", "", "", ""))
+    private val _selectedBodyType = MutableLiveData<BodyType>()
     val selectedBodyType: LiveData<BodyType> = _selectedBodyType
 
-    private val _selectedEngine = MutableLiveData(Engine("디젤 2.2", "", 1480000, "", "", "", ""))
+    private val _selectedEngine = MutableLiveData<Engine>()
     val selectedEngine: LiveData<Engine> = _selectedEngine
 
-    private val _selectedWheelDrive = MutableLiveData(WheelDrive("2WD", "", 0, "", ""))
+    private val _selectedWheelDrive = MutableLiveData<WheelDrive>()
     val selectedWheelDrive: LiveData<WheelDrive> = _selectedWheelDrive
 
     // TODO: 초기 값 설정
@@ -35,47 +34,17 @@ class UserChoiceViewModel : ViewModel() {
     private val _selectedTrimIndex = MutableLiveData<Int>(1)
     val selectedTrimIndex: LiveData<Int> = _selectedTrimIndex
 
-    private val _selectedTrim = MutableLiveData(
-        Trim(
-            "",
-            listOf(),
-            listOf(),
-            listOf(),
-            "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-2.png",
-            "Exclusive",
-            38960000,
-            false
-        )
-    )
+    private val _selectedTrim = MutableLiveData<Trim>()
     val selectedTrim: LiveData<Trim> = _selectedTrim
 
-    private val _selectedExteriorColor = MutableLiveData<ExteriorColor>(
-        ExteriorColor(
-            1,
-            "어비스 블랙 ",
-            "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/11.png",
-            0,
-            60,
-            listOf()
-        )
-    )
+    private val _selectedExteriorColor = MutableLiveData<ExteriorColor>()
     val selectedExteriorColor: LiveData<ExteriorColor> = _selectedExteriorColor
 
-    private val _selectedInteriorColor = MutableLiveData<InteriorColor>(
-        InteriorColor(
-            7,
-            "퀄팅 천연(블랙)",
-            "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/interior/17.png",
-            0,
-            60,
-            "https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/17-preview.png"
-        )
-    )
+    private val _selectedInteriorColor = MutableLiveData<InteriorColor>()
     val selectedInteriorColor: LiveData<InteriorColor> = _selectedInteriorColor
 
     val totalPrice = MediatorLiveData<Long>().apply {
         value = calculateTotalPrice()
-
         listOf(
             _selectedEngine,
             _selectedWheelDrive,
@@ -155,7 +124,6 @@ class UserChoiceViewModel : ViewModel() {
             setSelectedInteriorColor(it[0].toInteriorColor())
             setSelectedExteriorColor(it[1].toExteriorColor())
         }
-
     }
 
     fun getSelectedOptionList(): List<Option>? = selectedOptions.value
