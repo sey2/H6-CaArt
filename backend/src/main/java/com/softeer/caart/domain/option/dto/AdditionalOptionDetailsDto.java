@@ -1,10 +1,11 @@
 package com.softeer.caart.domain.option.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.softeer.caart.domain.option.dto.response.BaseOptionResponse;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
+import com.softeer.caart.domain.option.entity.Position;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,20 +13,26 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class AdditionalOptionResponse {
+public class AdditionalOptionDetailsDto {
 	private Long optionId;
 	private String optionName;
 	private Integer optionPrice;
 	private String description;
 	private String summary;
+	private String badge;
+	private double adoptionRate;
+	private Position position;
 	private String optionImage;
 	private List<String> tags;
-	private List<BaseOptionResponse> subOptions = new ArrayList<>(); // TODO : 추후 재사용하지 않으면 inner class로 변경
+	private List<BaseOptionResponse> subOptions;
 
-	private AdditionalOptionResponse(AdditionalOptionInfo option) {
+	private AdditionalOptionDetailsDto(AdditionalOptionInfo option, double adoptionRate) {
 		this.optionId = option.getId();
 		this.optionPrice = option.getPrice();
 		this.summary = option.getSummary();
+		this.badge = option.getBadgeName();
+		this.adoptionRate = adoptionRate;
+		// this.position = option.getPosition(); // FIXME
 		BaseOptionInfo details = option.getDetails();
 		this.optionName = details.getName();
 		this.description = details.getDescription();
@@ -34,7 +41,7 @@ public class AdditionalOptionResponse {
 		this.subOptions = option.getSubOptions();
 	}
 
-	public static AdditionalOptionResponse from(AdditionalOptionInfo option) {
-		return new AdditionalOptionResponse(option);
+	public static AdditionalOptionDetailsDto from(AdditionalOptionInfo option, double adoptionRate) {
+		return new AdditionalOptionDetailsDto(option, adoptionRate);
 	}
 }

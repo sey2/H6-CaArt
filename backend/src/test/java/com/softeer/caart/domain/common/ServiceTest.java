@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import com.softeer.caart.domain.color.entity.Color;
 import com.softeer.caart.domain.composition.entity.BodyType;
 import com.softeer.caart.domain.composition.entity.CarEngine;
 import com.softeer.caart.domain.composition.entity.WheelDrive;
@@ -50,6 +51,10 @@ public abstract class ServiceTest {
 	protected Profile profile;
 	protected RecommendationResult recommendationResult;
 	protected Persona persona;
+	protected Color exteriorColor1;
+	protected Color exteriorColor2;
+	protected Color interiorColor1;
+	protected Color interiorColor2;
 
 	@InjectSoftAssertions
 	protected SoftAssertions softly;
@@ -68,6 +73,7 @@ public abstract class ServiceTest {
 		initProfile();
 		initRecommendationResult();
 		initPersona();
+		initColor();
 	}
 
 	private void initCarEngine() {
@@ -177,7 +183,7 @@ public abstract class ServiceTest {
 			.summary("추가옵션_세트O")
 			.subOptions(List.of(자식옵션))
 			.build();
-		ReflectionTestUtils.setField(추가옵션_세트O_기본X, "id", 3L);
+		ReflectionTestUtils.setField(추가옵션_세트O_기본X, "id", 1L);
 		추가옵션_세트X_기본O = AdditionalOptionInfo.builder()
 			.details(기본옵션O)
 			.price(0)
@@ -185,7 +191,7 @@ public abstract class ServiceTest {
 			.badge(NONE)
 			.summary("추가옵션_세트X")
 			.build();
-		ReflectionTestUtils.setField(추가옵션_세트X_기본O, "id", 3L);
+		ReflectionTestUtils.setField(추가옵션_세트X_기본O, "id", 2L);
 	}
 
 	private void initTag() {
@@ -249,5 +255,36 @@ public abstract class ServiceTest {
 			.firstTag(Tag.builder().name("태그1").build())
 			.secondTag(Tag.builder().name("태그2").build())
 			.build();
+	}
+
+	private void initColor() {
+		exteriorColor1 = Color.builder()
+			.name("외장 색상1")
+			.price(100000)
+			.imageUrl("imageUrl")
+			.isExterior(true)
+			.build();
+		ReflectionTestUtils.setField(exteriorColor1, "id", 1L);
+		exteriorColor2 = Color.builder()
+			.name("외장 색상2")
+			.price(100000)
+			.imageUrl("imageUrl")
+			.isExterior(true)
+			.build();
+		ReflectionTestUtils.setField(exteriorColor2, "id", 2L);
+		interiorColor1 = Color.builder()
+			.name("내장 색상1")
+			.price(100000)
+			.imageUrl("imageUrl")
+			.isExterior(false)
+			.build();
+		ReflectionTestUtils.setField(interiorColor1, "id", 3L);
+		interiorColor2 = Color.builder()
+			.name("내장 색상2")
+			.price(100000)
+			.imageUrl("imageUrl")
+			.isExterior(false)
+			.build();
+		ReflectionTestUtils.setField(interiorColor2, "id", 4L);
 	}
 }

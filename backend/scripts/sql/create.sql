@@ -90,9 +90,14 @@ DROP TABLE IF EXISTS rel_trim_color;
 
 create table rel_trim_color
 (
-    rel_trim_color_id bigint auto_increment primary key,
-    trim_id           bigint not null,
-    color_id          bigint not null,
+    rel_trim_color_id            bigint auto_increment primary key,
+    trim_id                      bigint not null,
+    color_id                     bigint not null,
+    adoption_rate_twenty         double null default 0.0,
+    adoption_rate_thirty         double null default 0.0,
+    adoption_rate_forty          double null default 0.0,
+    adoption_rate_fifty_or_above double null default 0.0,
+    adoption_rate_all            double null default 0.0,
     foreign key (trim_id) references trim (trim_id),
     foreign key (color_id) references color (color_id)
 );
@@ -162,6 +167,7 @@ create table rel_model_base_option_info
     rel_model_base_option_info_id bigint auto_increment primary key,
     model_id                      bigint not null,
     base_option_info_id           bigint not null,
+    adoption_rate_all             double not null default 100.0,
     foreign key (model_id) references model (model_id),
     foreign key (base_option_info_id) references base_option_info (base_option_info_id)
 );
@@ -252,9 +258,9 @@ DROP TABLE IF EXISTS rel_purchase_additional_option;
 
 create table rel_purchase_additional_option
 (
-	rel_purchase_additional_option_id bigint not null primary key,
-	purchase_id                            bigint not null,
-	additional_option_info_id              bigint not null,
-	foreign key (purchase_id) references purchase (purchase_id),
-	foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
+    rel_purchase_additional_option_id bigint not null primary key,
+    purchase_id                       bigint not null,
+    additional_option_info_id         bigint not null,
+    foreign key (purchase_id) references purchase (purchase_id),
+    foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
 );

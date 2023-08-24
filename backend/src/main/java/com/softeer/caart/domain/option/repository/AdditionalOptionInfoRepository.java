@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.softeer.caart.domain.option.dto.PurchasedOptionCountDto;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 
 public interface AdditionalOptionInfoRepository extends JpaRepository<AdditionalOptionInfo, Long> {
@@ -27,4 +28,14 @@ public interface AdditionalOptionInfoRepository extends JpaRepository<Additional
 		+ "WHERE rmboi.model_id = :modelId"
 		, nativeQuery = true)
 	List<AdditionalOptionInfo> findAdditionalOptionInfosByModelId(Long modelId);
+
+	@Query(value = "select "
+		+ "p.model_id as modelId, "
+		+ "o.additional_option_info_id as optionId, "
+		+ "COUNT(*) as count "
+		+ "from purchase p "
+		+ "left outer join rel_purchase_additional_option o on p.purchase_id = o.purchase_id "
+		+ "group by p.model_id, o.additional_option_info_id",
+		nativeQuery = true)
+	List<PurchasedOptionCountDto> countPurchasedOption();
 }

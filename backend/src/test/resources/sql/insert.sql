@@ -41,8 +41,10 @@ VALUES (1, 'icon1.svg',
 
 -- 색상
 INSERT INTO color (color_id, name, price, image, is_exterior)
-VALUES (1, '외장 색상', 0, 'exterior_color.png', 1),
-       (2, '내장 색상', 0, 'interior_color.png', 0);
+VALUES (1, '외장 색상1', 0, 'exterior_color.png', 1),
+       (2, '외장 색상2', 0, 'interior_color.png', 1),
+       (3, '내장 색상1', 0, 'interior_color.png', 0),
+       (4, '내장 색상2', 0, 'interior_color.png', 0);
 
 -- 트림 가능 색상
 INSERT INTO rel_trim_color (rel_trim_color_id, trim_id, color_id)
@@ -59,7 +61,8 @@ VALUES (1, null, '추가옵션(세트).jpg',
         false, '추가 옵션(단품)'),
        (3, '자식 옵션 상세 설명', '자식옵션.jpg', false, '자식 옵션'),
        (4, '기본 옵션 상세 설명', '기본옵션.jpg', true, '기본 옵션');
-INSERT INTO additional_option_info (additional_option_info_id, badge, is_set_option, price, summary, base_option_info_id)
+INSERT INTO additional_option_info (additional_option_info_id, badge, is_set_option, price, summary,
+                                    base_option_info_id)
 VALUES (1, 'NONE', true, 1090000, '추가 옵션(세트) 요약 설명', 1),
        (2, 'NONE', false, 690000, '추가 옵션(단품) 요약 설명', 2);
 INSERT INTO rel_tag_base_option_info (rel_tag_base_option_info_id, base_option_info_id, tag_id)
@@ -97,3 +100,24 @@ VALUES (1, 'persona.png', '김현대',
         '저는 차를 타고 출퇴근도 하지만 주중에 아이들 픽업하거나 마트 갈 때도 자주 타곤 합니다.', '차를 살 때 가장 중요하게 생각하는 부분이 뭔가요?',
         '저는 차를 살 때 안전을 중요하게 생각해요. 가족들이 같이 타는 차라 항상 사고에 경각심을 갖고 있죠. 펠리세이드는 그 점에서 뒷좌석 에어백도 터지는 모델이라 안심이 되는 편이에요.',
         '가족을 생각하는 당신', 1, 1, 2);
+
+-- 구매 이력
+create table purchase
+(
+    purchase_id       bigint primary key,
+    age               int    not null,
+    model_id          bigint not null,
+    exterior_color_id bigint not null,
+    interior_color_id bigint not null,
+    foreign key (model_id) references model (model_id),
+    foreign key (exterior_color_id) references color (color_id),
+    foreign key (interior_color_id) references color (color_id)
+);
+
+INSERT INTO purchase (purchase_id, age, model_id, exterior_color_id, interior_color_id)
+VALUES (1, 22, 1, 1, 3),
+       (2, 28, 1, 1, 4),
+       (3, 28, 1, 2, 4);
+
+
+

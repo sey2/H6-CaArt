@@ -2,6 +2,8 @@ package com.softeer.caart.domain.option.service;
 
 import static com.softeer.caart.global.ResultCode.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,16 +13,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.softeer.caart.domain.model.entity.AvailableOption;
 import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.model.exception.ModelNotFoundException;
+import com.softeer.caart.domain.model.repository.AvailableOptionRepository;
 import com.softeer.caart.domain.model.repository.ModelRepository;
-import com.softeer.caart.domain.option.dto.AdditionalOptionResponse;
-import com.softeer.caart.domain.option.dto.AdditionalOptionSummaryResponse;
-import com.softeer.caart.domain.option.dto.AdditionalOptionsResponse;
-import com.softeer.caart.domain.option.dto.BasicOptionResponse;
-import com.softeer.caart.domain.option.dto.BasicOptionsResponse;
-import com.softeer.caart.domain.option.dto.OptionListRequest;
-import com.softeer.caart.domain.option.dto.OptionSummaryListRequest;
+import com.softeer.caart.domain.option.dto.AdditionalOptionDetailsDto;
+import com.softeer.caart.domain.option.dto.request.OptionListRequest;
+import com.softeer.caart.domain.option.dto.request.OptionSummaryListRequest;
+import com.softeer.caart.domain.option.dto.response.AdditionalOptionResponse;
+import com.softeer.caart.domain.option.dto.response.AdditionalOptionSummaryResponse;
+import com.softeer.caart.domain.option.dto.response.AdditionalOptionsResponse;
+import com.softeer.caart.domain.option.dto.response.BasicOptionResponse;
+import com.softeer.caart.domain.option.dto.response.BasicOptionsResponse;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
@@ -37,6 +42,7 @@ public class OptionService {
 	private final BaseOptionInfoRepository baseOptionInfoRepository;
 	private final AdditionalOptionInfoRepository additionalOptionInfoRepository;
 	private final ModelRepository modelRepository;
+	private final AvailableOptionRepository availableOptionRepository;
 
 	public BasicOptionResponse getBasicOption(Long optionId) {
 		BaseOptionInfo option = baseOptionInfoRepository.findById(optionId)
@@ -77,19 +83,30 @@ public class OptionService {
 
 	// FIXME : N+1
 	public AdditionalOptionsResponse getAdditionalOptions(OptionListRequest dto) {
-		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
-				dto.getBodyTypeId(), dto.getWdId())
+		Model model = modelRepository.findModelByTrimIdAndCompositionsId(
+				dto.getTrimId(), dto.getEngineId(), dto.getBodyTypeId(), dto.getWdId())
 			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
 
-		Page<AdditionalOptionInfo> additionalOptionInfos = fetchAdditionalOptionsByTagIdStatus(model.getId(),
-			dto.getTagId(),
-			dto.getOffset(), dto.getPageSize());
+		Page<AdditionalOptionInfo> additionalOptionsPage = fetchAdditionalOptionsByTagIdStatus(
+			model.getId(), dto.getTagId(), dto.getOffset(), dto.getPageSize());
 
-		return AdditionalOptionsResponse.from(additionalOptionInfos);
+		// 채택률 조회
+		List<AdditionalOptionDetailsDto> additionalOptionDetails = new ArrayList<>();
+		for (AdditionalOptionInfo additionalOptionInfo : additionalOptionsPage) {
+			AvailableOption availableOption = availableOptionRepository.findByModelIdAndAdditionalOptionId(
+				model.getId(), additionalOptionInfo.getId());
+			additionalOptionDetails.add(
+				AdditionalOptionDetailsDto.from(additionalOptionInfo, availableOption.getAdoptionRateAll()));
+		}
+		additionalOptionDetails.sort(
+			Comparator.comparingDouble(optionDetails -> (-1) * optionDetails.getAdoptionRate()));
+
+		return AdditionalOptionsResponse.from(additionalOptionsPage.getTotalElements(),
+			additionalOptionsPage.getTotalPages(), additionalOptionDetails);
 	}
 
-	private Page<AdditionalOptionInfo> fetchAdditionalOptionsByTagIdStatus(Long modelId, Long tagId, Integer offset,
-		Integer pageSize) {
+	private Page<AdditionalOptionInfo> fetchAdditionalOptionsByTagIdStatus(
+		Long modelId, Long tagId, Integer offset, Integer pageSize) {
 		Pageable pageable = PageRequest.of(offset, pageSize);
 		if (isTagIdEmpty(tagId)) {
 			return additionalOptionInfoRepository.findByModelId(modelId, pageable);
@@ -102,8 +119,8 @@ public class OptionService {
 	}
 
 	public List<AdditionalOptionSummaryResponse> getAdditionalOptionSummaries(OptionSummaryListRequest dto) {
-		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
-				dto.getBodyTypeId(), dto.getWdId())
+		Model model = modelRepository.findModelByTrimIdAndCompositionsId(
+				dto.getTrimId(), dto.getEngineId(), dto.getBodyTypeId(), dto.getWdId())
 			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
 		List<AdditionalOptionInfo> additionalOptions = additionalOptionInfoRepository
 			.findAdditionalOptionInfosByModelId(model.getId());

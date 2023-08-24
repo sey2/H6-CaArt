@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.option.dto;
+package com.softeer.caart.domain.option.dto.response;
 
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 

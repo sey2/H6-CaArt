@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,4 +36,18 @@ public class AvailableOption {
 	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "model_id", nullable = false)
 	private Model model;
+
+	@Column(name = "adoption_rate_all")
+	private Double adoptionRateAll;
+
+	public void updateAdoptionRate(double adoptionRate) {
+		adoptionRateAll = adoptionRate;
+	}
+
+	@Builder
+	public AvailableOption(BaseOptionInfo baseOptionInfo, Model model) {
+		this.baseOptionInfo = baseOptionInfo;
+		this.model = model;
+		this.adoptionRateAll = 100.0;
+	}
 }

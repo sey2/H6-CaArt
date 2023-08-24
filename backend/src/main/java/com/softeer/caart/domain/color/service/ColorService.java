@@ -3,8 +3,10 @@ package com.softeer.caart.domain.color.service;
 import static com.softeer.caart.domain.color.dto.ColorDto.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import com.softeer.caart.domain.color.dto.ColorResponse;
 import com.softeer.caart.domain.color.entity.AvailableColor;
 import com.softeer.caart.domain.color.entity.Color;
 import com.softeer.caart.domain.color.exception.TrimNotFoundException;
-import com.softeer.caart.domain.color.repository.ColorRepository;
+import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 import com.softeer.caart.domain.trim.entity.Trim;
 import com.softeer.caart.domain.trim.repository.TrimRepository;
 import com.softeer.caart.global.ResultCode;
@@ -24,66 +26,84 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ColorService {
 
-	private final ColorRepository colorRepository;
 	private final TrimRepository trimRepository;
 
-	public ColorResponse getColors(Long currentTrimId) {
-		List<Color> colors = colorRepository.findColorsByTrimId(currentTrimId);
-		if (colors.isEmpty()) {
-			throw new TrimNotFoundException(ResultCode.TRIM_NOT_FOUND);
-		}
-		Map<Trim, List<AvailableColor>> otherTrimColors = getOtherTrimColors(currentTrimId);
+	public ColorResponse getColors(Long currentTrimId, Answer age) {
+		Map<Trim, List<AvailableColor>> trimAvailableColorMap = getTrimColorMap();
+		List<AvailableColor> availableColors = getCurrentTrimColors(trimAvailableColorMap, currentTrimId);
 
 		// 현재 선택한 트림의 색상들
 		List<ExteriorColorDto> exteriorColors = new ArrayList<>();
 		List<InteriorColorDto> interiorColors = new ArrayList<>();
-		initColors(colors, exteriorColors, interiorColors);
+		initColors(availableColors, exteriorColors, interiorColors, age);
+		// 채택률 순으로 정렬
+		exteriorColors.sort(Comparator.comparingDouble(exteriorColor -> (-1) * exteriorColor.getAdoptionRate()));
+		interiorColors.sort(Comparator.comparingDouble(interiorColor -> (-1) * interiorColor.getAdoptionRate()));
 
 		// 다른 트림의 색상들
 		List<OtherTrimColorDto> otherTrimExteriorColors = new ArrayList<>();
 		List<OtherTrimColorDto> otherTrimInteriorColors = new ArrayList<>();
-		initOtherTrimColors(colors, otherTrimColors, otherTrimExteriorColors, otherTrimInteriorColors);
+		initOtherTrimColors(availableColors, trimAvailableColorMap, otherTrimExteriorColors, otherTrimInteriorColors);
 
 		// 응답 생성
 		return ColorResponse.of(currentTrimId, exteriorColors, otherTrimExteriorColors,
 			interiorColors, otherTrimInteriorColors);
 	}
 
-	private Map<Trim, List<AvailableColor>> getOtherTrimColors(Long excludedTrimId) {
-		return trimRepository.findOtherTrimsWithColors(excludedTrimId).stream()
+	private Map<Trim, List<AvailableColor>> getTrimColorMap() {
+		return trimRepository.findTrimsWithColors().stream()
 			.collect(Collectors.toMap(
 				trim -> trim,
 				Trim::getAvailableColors
 			));
 	}
 
-	private void initColors(List<Color> colors,
-		List<ExteriorColorDto> exteriorColors, List<InteriorColorDto> interiorColors) {
-		for (Color color : colors) {
-			addColor(exteriorColors, interiorColors, color);
+	private List<AvailableColor> getCurrentTrimColors(Map<Trim, List<AvailableColor>> trimColorMap,
+		Long currentTrimId) {
+		Optional<Trim> currentTrim = trimColorMap.keySet().stream()
+			.filter(trim -> trim.getId().equals(currentTrimId))
+			.findAny();
+		if (currentTrim.isEmpty()) {
+			throw new TrimNotFoundException(ResultCode.TRIM_NOT_FOUND);
+		}
+		return trimColorMap.get(currentTrim.get());
+	}
+
+	private void initColors(List<AvailableColor> availableColors,
+		List<ExteriorColorDto> exteriorColors, List<InteriorColorDto> interiorColors, Answer age) {
+		for (AvailableColor availableColor : availableColors) {
+			Color color = availableColor.getColor();
+			double adoptionRate = availableColor.getAdoptionRate(age);
+			addColor(exteriorColors, interiorColors, color, adoptionRate);
 		}
 	}
 
-	private void addColor(List<ExteriorColorDto> exteriorColors,
-		List<InteriorColorDto> interiorColors, Color color) {
+	private void addColor(List<ExteriorColorDto> exteriorColors, List<InteriorColorDto> interiorColors,
+		Color color, double adoptionRate) {
 		// 외장 색상 추가
 		if (color.isExteriorColor()) {
-			exteriorColors.add(new ExteriorColorDto(color));
+			exteriorColors.add(new ExteriorColorDto(color, adoptionRate));
 			return;
 		}
 		// 내장 색상 추가
-		interiorColors.add(new InteriorColorDto(color));
+		interiorColors.add(new InteriorColorDto(color, adoptionRate));
 	}
 
-	private void initOtherTrimColors(List<Color> colors, Map<Trim, List<AvailableColor>> otherTrimColors,
-		List<OtherTrimColorDto> otherTrimExteriorColors, List<OtherTrimColorDto> otherTrimInteriorColors) {
-		for (Map.Entry<Trim, List<AvailableColor>> entry : otherTrimColors.entrySet()) {
+	private void initOtherTrimColors(List<AvailableColor> availableColors,
+		Map<Trim, List<AvailableColor>> trimAvailableColorMap,
+		List<OtherTrimColorDto> otherTrimExteriorColors,
+		List<OtherTrimColorDto> otherTrimInteriorColors) {
+		
+		List<Color> colors = availableColors.stream().map(AvailableColor::getColor).collect(Collectors.toList());
+		for (Map.Entry<Trim, List<AvailableColor>> entry : trimAvailableColorMap.entrySet()) {
 			Trim trim = entry.getKey();
 			List<Color> otherColors = entry.getValue().stream()
 				.map(AvailableColor::getColor)
 				.filter(color -> !colors.contains(color))
 				.collect(Collectors.toList());
-			addColorToTrim(trim, otherColors, otherTrimExteriorColors, otherTrimInteriorColors);
+			if (!otherColors.isEmpty()) {
+				addColorToTrim(trim, otherColors, otherTrimExteriorColors, otherTrimInteriorColors);
+			}
 		}
 	}
 

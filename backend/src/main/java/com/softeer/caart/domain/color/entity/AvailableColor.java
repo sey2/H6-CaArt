@@ -11,16 +11,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 import com.softeer.caart.domain.trim.entity.Trim;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "rel_trim_color")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
 public class AvailableColor {
 
 	@Id
@@ -36,7 +38,71 @@ public class AvailableColor {
 	@JoinColumn(name = "color_id", nullable = false)
 	private Color color;
 
+	@Column(name = "adoption_rate_twenty")
+	private Double adoptionRateTwenty;
+
+	@Column(name = "adoption_rate_thirty")
+	private Double adoptionRateThirty;
+
+	@Column(name = "adoption_rate_forty")
+	private Double adoptionRateForty;
+
+	@Column(name = "adoption_rate_fifty_or_above")
+	private Double adoptionRateFiftyOrAbove;
+
+	@Column(name = "adoption_rate_all")
+	private Double adoptionRateAll;
+
+	@Builder
+	public AvailableColor(Trim trim, Color color) {
+		this.trim = trim;
+		this.color = color;
+		this.adoptionRateTwenty = 0.0;
+		this.adoptionRateThirty = 0.0;
+		this.adoptionRateForty = 0.0;
+		this.adoptionRateFiftyOrAbove = 0.0;
+		this.adoptionRateAll = 0.0;
+	}
+
 	public boolean isAvailableColorOfTrim(Long trimId) {
 		return trim.getId().equals(trimId);
+	}
+
+	public void updateAdoptionRate(AgeGroup ageGroup, double adoptionRate) {
+		switch (ageGroup) {
+			case TWENTY:
+				adoptionRateTwenty = adoptionRate;
+				break;
+			case THIRTY:
+				adoptionRateThirty = adoptionRate;
+				break;
+			case FORTY:
+				adoptionRateForty = adoptionRate;
+				break;
+			case FIFTY_OR_ABOVE:
+				adoptionRateFiftyOrAbove = adoptionRate;
+				break;
+			case ALL:
+				adoptionRateAll = adoptionRate;
+				break;
+		}
+	}
+
+	public double getAdoptionRate(Answer age) {
+		if (age == null) {
+			return adoptionRateAll;
+		}
+		switch (age) {
+			case TWENTY:
+				return adoptionRateTwenty;
+			case THIRTY:
+				return adoptionRateThirty;
+			case FORTY:
+				return adoptionRateForty;
+			case FIFTY_OR_ABOVE:
+				return adoptionRateFiftyOrAbove;
+			default:
+				return adoptionRateAll;
+		}
 	}
 }

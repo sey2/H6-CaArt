@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.option.dto;
+package com.softeer.caart.domain.option.dto.request;
 
 import javax.validation.constraints.NotNull;
 

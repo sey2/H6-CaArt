@@ -46,9 +46,6 @@ public class Color {
 	@OneToMany(mappedBy = "color")
 	private List<ColorPreview> colorPreviews;
 
-	@OneToMany(mappedBy = "color")
-	private List<AvailableColor> relationsWithTrims;
-
 	@Builder
 	public Color(String name, Integer price, String imageUrl, Boolean isExterior) {
 		this.name = name;

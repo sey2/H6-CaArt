@@ -33,15 +33,15 @@ public class ColorDto {
 		private final String colorName;
 		private final String colorImage;
 		private final Integer colorPrice;
-		private final Double adoptionRate;
+		private final double adoptionRate;
 		private final List<String> previews;
 
-		public ExteriorColorDto(Color color) {
+		public ExteriorColorDto(Color color, double adoptionRate) {
 			this.colorId = color.getId();
 			this.colorName = color.getName();
 			this.colorImage = color.getImage().getUrl();
 			this.colorPrice = color.getPrice();
-			this.adoptionRate = 60.0;    // TODO: 채택률 계산 로직 추가
+			this.adoptionRate = adoptionRate;
 			this.previews = color.getImageUrlListOfColorPreview();
 		}
 	}
@@ -52,15 +52,15 @@ public class ColorDto {
 		private final String colorName;
 		private final String colorImage;
 		private final Integer colorPrice;
-		private final Double adoptionRate;
+		private final double adoptionRate;
 		private final String preview;
 
-		public InteriorColorDto(Color color) {
+		public InteriorColorDto(Color color, double adoptionRate) {
 			this.colorId = color.getId();
 			this.colorName = color.getName();
 			this.colorImage = color.getImage().getUrl();
 			this.colorPrice = color.getPrice();
-			this.adoptionRate = 60.0;    // TODO: 채택률 계산 로직 추가
+			this.adoptionRate = adoptionRate;
 			this.preview = color.getImageUrlOfMainColorPreview();
 		}
 	}
@@ -70,6 +70,7 @@ public class ColorDto {
 		private final Long colorId;
 		private final String colorName;
 		private final String colorImage;
+		private final Integer colorPrice;
 		private final Long trimId;
 		private final String trimName;
 		private final Integer trimPrice;
@@ -79,6 +80,7 @@ public class ColorDto {
 			this.colorId = color.getId();
 			this.colorName = color.getName();
 			this.colorImage = color.getImage().getUrl();
+			this.colorPrice = color.getPrice();
 			this.trimId = trim.getId();
 			this.trimName = trim.getName();
 			this.trimPrice = trim.getPrice();

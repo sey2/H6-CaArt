@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.softeer.caart.domain.option.dto.BaseOptionResponse;
+import com.softeer.caart.domain.option.dto.response.BaseOptionResponse;
 import com.softeer.caart.domain.option.exception.InvalidOptionException;
 import com.softeer.caart.global.ResultCode;
 
