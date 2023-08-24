@@ -30,7 +30,7 @@ const Background = styled.div`
   flex-shrink: 0;
   padding-top: 89px;
   padding-bottom: 52px;
-  background-color: #e6eaef;
+  background-color: var(--grey-700);
   position: relative;
   text-align: center;
 `;

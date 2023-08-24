@@ -26,7 +26,7 @@ function ToolTip() {
         $isopen={state.tooltipOpen}
       >
         <img src="/images/tooltip_icon.svg" />
-        <p className="body-regular-14 text-grey-900">{text}</p>
+        <p className="body-regular-14">{text}</p>
       </BubbleBox>
     </>
   );
@@ -46,7 +46,7 @@ const BubbleBox = styled.div<{ top: number; left: number; $isopen: boolean }>`
   border-radius: 8px;
   width: 281px;
   background-color: #2e3d51;
-  color: var(--gray-900);
+  color: #fbfbfb;
   z-index: 10;
   transition: all 0.3s;
   visibility: hidden;

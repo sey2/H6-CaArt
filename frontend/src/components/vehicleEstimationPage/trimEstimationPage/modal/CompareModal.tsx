@@ -156,7 +156,7 @@ const Wrapperbox = styled.div`
   margin-bottom: 148px;
   width: 900px;
   height: 1500px;
-  background-color: #fff;
+  background-color: var(--grey-1000);
 `;
 
 const Grid = styled.div`

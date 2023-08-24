@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { DarkContext } from '../../hooks/useDark';
 
 export interface LogoProps {
   type: 'default' | 'home';
 }
 
 function Logo({ type }: LogoProps) {
+  const { isDark } = useContext(DarkContext)!;
+
   const logoImgSrc =
-    type === 'default'
-      ? '/images/hyundai_logo_default.svg'
-      : '/images/hyundai_logo_home.svg';
+    type === 'home' || isDark
+      ? '/images/hyundai_logo_home.svg'
+      : '/images/hyundai_logo_default.svg';
 
   return (
     <LogoBox>
@@ -18,7 +21,7 @@ function Logo({ type }: LogoProps) {
         <img src={logoImgSrc} />
       </Link>
       <CarListBox type={type}>
-        <span className="head-medium-16">펠리세이드</span>
+        <span className="head-medium-16">팰리세이드</span>
       </CarListBox>
     </LogoBox>
   );
@@ -48,4 +51,4 @@ const CarListBox = styled.div<LogoProps>`
   }
 `;
 
-export default React.memo(Logo);
+export default Logo;

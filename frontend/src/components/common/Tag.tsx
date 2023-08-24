@@ -35,16 +35,16 @@ const cssHandler = (type: tagType, selected: boolean | undefined) => {
   switch (type) {
     case 'lifeStyle':
       if (selected) {
-        return `background: rgba(33, 151, 201, 0.10); color: #2197c9; border-radius: 100px`;
+        return `background: rgba(33, 151, 201, 0.10); color: var(--secondary-active-blue); border-radius: 100px`;
       } else {
-        return `background: #fff; color: #2197c9; border-radius: 100px`;
+        return `background: var(--grey-1000); color: var(--secondary-active-blue); border-radius: 100px`;
       }
     case 'result':
-      return `background: transparent; color: #696969; border-radius: 30px; border: 1px solid #BEBEBE;`;
+      return `background: transparent; color: var(--grey-300); border-radius: 30px; border: 1px solid var(--grey-600);`;
     case 'option':
-      return `background: #404040; color:#f0f0f0; border-radius: 100px`;
+      return `background: var(--grey-200); color:var(--grey-800); border-radius: 100px`;
     case 'lifeStylePeek':
-      return `background: rgba(15,17,20,0.8); color: #fff; border-radius: 100px; backdrop-filter: blur(4px);`;
+      return `background: var(--grey-50); color: var(--grey-900); border-radius: 100px; backdrop-filter: blur(4px);`;
   }
 };
 

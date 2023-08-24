@@ -101,13 +101,13 @@ const HeaderDetailBox = styled.div`
 `;
 
 const HeaderMiddleLine = styled.div`
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid var(--grey-700);
   width: 100%;
   height: 1px;
 `;
 
 const HeaderBottomLine = styled.div`
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid var(--grey-700);
   height: 1px;
   width: 1024px;
   margin-bottom: 16px;
@@ -120,7 +120,7 @@ const OptionBox = styled.div`
   height: 98px;
   margin: 20px 0px 20px 0px;
   gap: 7px;
-  border-right: 1px solid #ebebeb;
+  border-right: 1px solid var(--grey-700);
   position: relative;
 
   div {
@@ -150,7 +150,7 @@ const OptionBox3 = styled.div`
   max-height: 140px;
   margin: 20px 0px 20px 0px;
   padding-left: 13px;
-  border-left: 1px solid #ebebeb;
+  border-left: 1px solid var(--grey-700);
   overflow: scroll;
   &::-webkit-scrollbar {
     display: none;

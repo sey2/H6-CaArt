@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { styled } from 'styled-components';
+import { DarkContext } from '../../../../hooks/useDark';
 import { FlexBox } from '../../../common/FlexBox';
 
 type ButtonType = 'ex' | 'in' | '360' | string;
@@ -11,6 +12,8 @@ interface OptionButtonProps {
 }
 
 function OptionButton({ type, state, setter }: OptionButtonProps) {
+  const { isDark } = useContext(DarkContext)!;
+
   function returnByType(type: string) {
     switch (type) {
       case 'ex':
@@ -24,7 +27,9 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
                 setter(type);
               }}
             >
-              <img src="/images/ex_img.svg" />
+              <img
+                src={isDark ? '/images/ex_img_dark.svg' : '/images/ex_img.svg'}
+              />
               <span>외장</span>
             </FlexBox>
           </>
@@ -40,7 +45,9 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
                 setter(type);
               }}
             >
-              <img src="/images/in_img.svg" />
+              <img
+                src={isDark ? '/images/in_img_dark.svg' : '/images/in_img.svg'}
+              />
               <span>내장</span>
             </FlexBox>
           </>
@@ -56,7 +63,11 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
                 setter(type);
               }}
             >
-              <img src="/images/360_img.svg" />
+              <img
+                src={
+                  isDark ? '/images/360_img_dark.svg' : '/images/360_img.svg'
+                }
+              />
               <span>360</span>
             </FlexBox>
           </>
@@ -83,7 +94,7 @@ export default React.memo(OptionButton);
 
 const Box = styled.div<{ type: string; selected: string }>`
   transition: width 0.1s linear;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--grey-800);
   width: 52px;
   height: 52px;
   overflow: hidden;

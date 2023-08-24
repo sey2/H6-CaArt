@@ -9,7 +9,7 @@ function ResultHeader() {
     <ResultHeaderBox>
       <ResultHeaderUpperBox>
         <ResultHeaderCar>
-          <span className="head-medium-20 text-grey-50">펠리세이드</span>
+          <span className="head-medium-20 text-grey-50">팰리세이드</span>
           <span className="body-medium-18 text-grey-300">
             {currentEstimation.trim.name}
           </span>

@@ -15,7 +15,7 @@ function LifeStylePeekHeader({
       <LogoBox src="/images/hyundai_logo_home.svg"></LogoBox>
       <LifeStylePeekTitleBox>
         <TagList tagArr={tags} type={'lifeStylePeek'}></TagList>
-        <LifeStylePeekTitle className="head-medium-32 text-grey-1000">
+        <LifeStylePeekTitle className="head-medium-32">
           {replaceWonSymbol(cover.letter)}
         </LifeStylePeekTitle>
         <LifeStylePeekText className="body-regular-16">{`${profile.name}씨의 라이프스타일 엿보기`}</LifeStylePeekText>
@@ -57,6 +57,7 @@ const LifeStylePeekTitleBox = styled.div`
   align-items: flex-start;
   gap: 8px;
   z-index: 1;
+  color: #fbfbfb;
 `;
 
 const LifeStylePeekTitle = styled.div``;

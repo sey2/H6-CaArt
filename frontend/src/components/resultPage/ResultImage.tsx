@@ -1,10 +1,11 @@
-import React,{useContext} from 'react';
+import React, { useContext } from 'react';
 import { styled } from 'styled-components';
+import { DarkContext } from '../../hooks/useDark';
 import { useModalContext } from '../../store/ModalContext';
-import { EstimationContext } from "../../util/Context";
-
+import { EstimationContext } from '../../util/Context';
 
 function ResultImage() {
+  const { isDark } = useContext(DarkContext)!;
   const { dispatch } = useModalContext();
   const { currentEstimation } = useContext(EstimationContext)!;
   return (
@@ -14,14 +15,20 @@ function ResultImage() {
         <ShareIcon onClick={() => dispatch({ type: 'OPEN_SHARE_MODAL' })}>
           <img src="/images/download_icon.svg" />
         </ShareIcon>
-        <ShadeTop src="/images/triangle.svg" />
+        <ShadeTop
+          src={isDark ? '/images/triangle_dark.svg' : '/images/triangle.svg'}
+        />
         <ImageBottom>
           <Flex>
-            <span className="text-grey-300 body-medium-14">펠리세이드</span>
+            <span className="text-grey-300 body-medium-14">팰리세이드</span>
             <Logo src="/images/hyundai_logo_default.svg" />
           </Flex>
-          <span className="text-grey-0 head-medium-16">{currentEstimation.trim.name}</span>
-          <Shade src="/images/triangle.svg" />
+          <span className="text-grey-0 head-medium-16">
+            {currentEstimation.trim.name}
+          </span>
+          <Shade
+            src={isDark ? '/images/triangle_dark.svg' : '/images/triangle.svg'}
+          />
         </ImageBottom>
       </Wrapper>
     </>

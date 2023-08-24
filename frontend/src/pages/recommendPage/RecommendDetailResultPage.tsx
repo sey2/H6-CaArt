@@ -10,14 +10,20 @@ import TagList from '../../components/common/TagList';
 import { question } from './RecommendDetailPage';
 import { LifeStyleResultProps } from './RecommendLifeStyleResultPage';
 import { RecommendPageProps } from './RecommendPage';
+import { DarkContext } from '../../hooks/useDark';
 
 function RecommendDetailResultPage({
   choice,
 }: Pick<RecommendPageProps, 'choice'>) {
+  const { isDark } = useContext(DarkContext)!;
   const { setResult } = useContext(EstimationContext)!;
 
   const { data, status, error } = useFetch<LifeStyleResultProps>(
-    `/lifestyles/recommendation?age=${choice.age.code}&experience=${choice.experience.code}&family=${choice.family.code}&purpose=${choice.purpose.code}&value=${choice.value.code}&budget=${choice.budget}`,
+    `/lifestyles/recommendation?age=${choice.age.code}&experience=${
+      choice.experience.code
+    }&family=${choice.family.code}&purpose=${choice.purpose.code}&value=${
+      choice.value.code
+    }&minBudget=42000000&maxBudget=${choice.budget * 10000}`,
   );
 
   useEffect(() => {
@@ -46,7 +52,7 @@ function RecommendDetailResultPage({
 
   return (
     <RecommendDetailResultPageBox>
-      <RecommendDetailResultPageCarImgBox>
+      <RecommendDetailResultPageCarImgBox $isDark={isDark}>
         <FlexBox>
           <TagList tagArr={tagList} type="result"></TagList>
           <RecommendDetailResultPageCarTextBox>
@@ -88,14 +94,17 @@ const RecommendDetailResultPageBox = styled.div`
   align-items: center;
 `;
 
-const RecommendDetailResultPageCarImgBox = styled.div`
+const RecommendDetailResultPageCarImgBox = styled.div<{ $isDark: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   width: 100%;
   height: 218px;
-  background: linear-gradient(180deg, #e6eaef 0%, #f1f4f7 100%);
+  background: ${props =>
+    props.$isDark
+      ? 'linear-gradient(180deg, #222 0%, #333 100%)'
+      : 'linear-gradient(180deg, #e6eaef 0%, #f1f4f7 100%)'};
 `;
 
 const FlexBox = styled.div`

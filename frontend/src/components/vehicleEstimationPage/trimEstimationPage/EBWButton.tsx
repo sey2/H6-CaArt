@@ -63,14 +63,14 @@ const Button = styled.div`
   align-items: center;
   gap: 10px;
   border-radius: 6px;
-  background: var(--grey-scale-grey-800, #f0f0f0);
+  background: var(--grey-800);
   cursor: pointer;
 `;
 
 const SelectedButton = styled(Button)`
-  border: 1.5px solid var(--blue-blue-500-primary, #00428e);
+  border: 1.5px solid var(--primary-blue);
   width: 142px;
-  background: var(--grey-scale-grey-1000, #fff);
+  background: var(--grey-1000);
   font-family: HyundaiTextMedium;
   font-size: 14px;
   font-style: normal;

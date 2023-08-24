@@ -5,13 +5,16 @@ import './style/index.css';
 import './style/font.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { DarkContextProvider } from './hooks/useDark';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <DarkContextProvider>
+      <App />
+    </DarkContextProvider>
   </React.StrictMode>,
 );
 

@@ -8,6 +8,7 @@ import ResultMain from '../../components/common/result/ResultMain';
 import SquareButton from '../../components/common/SquareButton';
 import RecommendResultCard from '../../components/recommendPage/ageAndLifeStyle/RecommendResultCard';
 import { RecommendPageProps } from './RecommendPage';
+import { DarkContext } from '../../hooks/useDark';
 
 export interface LifeStyleResultProps {
   palisadeImage: string;
@@ -54,12 +55,13 @@ export interface LifeStyleResultProps {
 function RecommendLifeStyleResultPage({
   choice,
 }: Pick<RecommendPageProps, 'choice'>) {
+  const { isDark } = useContext(DarkContext)!;
   const { setResult } = useContext(EstimationContext)!;
 
   const { data, status, error } = useFetch<LifeStyleResultProps>(
     `/personas/${choice.lifeStyle}/recommendation?ageId=${choice.age.id}`,
   );
-
+  console.log(data);
   useEffect(() => {
     if (data) {
       setResult(data);
@@ -76,7 +78,7 @@ function RecommendLifeStyleResultPage({
 
   return (
     <RecommendLifeStyleResultPageBox>
-      <RecommendLifeStyleResultPageCarImgBox>
+      <RecommendLifeStyleResultPageCarImgBox $isDark={isDark}>
         <RecommendResultCard
           palisadeImage={data.palisadeImage}
           model={data.model}
@@ -106,14 +108,17 @@ const RecommendLifeStyleResultPageBox = styled.div`
   align-items: center;
 `;
 
-const RecommendLifeStyleResultPageCarImgBox = styled.div`
+const RecommendLifeStyleResultPageCarImgBox = styled.div<{ $isDark: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 485px;
   margin-bottom: 56px;
-  background: linear-gradient(180deg, #a2b1d3 0%, #edf2fe 100%);
+  background: ${props =>
+    props.$isDark
+      ? 'linear-gradient(180deg, #1a1a1a 0%, #2c2c2c 100%)'
+      : 'linear-gradient(180deg, #a2b1d3 0%, #edf2fe 100%)'};
 `;
 
 const RecommendLifeStyleResultPageBtnBox = styled.div`

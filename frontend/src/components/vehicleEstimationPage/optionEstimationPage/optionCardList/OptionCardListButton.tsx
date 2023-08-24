@@ -24,6 +24,7 @@ function OptionCardListButton({
           onClick={() => {
             pageMoveHandler(i);
           }}
+          className="text-grey-0"
         >
           {i + 1}
         </OptionCardPageMoveBtn>,

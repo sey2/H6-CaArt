@@ -26,9 +26,9 @@ const Button = styled.div<{ top: number; left: number }>`
   height: 36px;
   flex-shrink: 0;
   border-radius: 20px;
-  border: 1px solid var(--grey-scale-grey-1000, #fff);
+  border: 1px solid var(--grey-1000);
   backdrop-filter: blur(2px);
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--grey-800);
   display: flex;
   gap: 4px;
   justify-content: center;

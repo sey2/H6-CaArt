@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import styled from 'styled-components';
+import { DarkContext } from '../../../../hooks/useDark';
 import { useFetch } from '../../../../hooks/useFetch';
 import { OptionComponentProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 import ErrorPopup from '../../../common/ErrorPopup';
@@ -17,6 +18,7 @@ function OptionNavBarLower({
   optionCategory,
   setOptionCategory,
 }: OptionComponentProps) {
+  const { isDark } = useContext(DarkContext)!;
   const selectedClassName = `body-medium-14 text-primary-blue`;
   const unSelectedClassName = `body-regular-14 text-grey-400`;
 
@@ -30,7 +32,7 @@ function OptionNavBarLower({
         page: 0,
       });
     },
-    [setOptionCategory],
+    [setOptionCategory, optionCategory],
   );
 
   const { data, status, error } = useFetch<optionTagProps[]>(
@@ -55,7 +57,18 @@ function OptionNavBarLower({
           categoryHandler(item);
         }}
       >
-        <img src={$isSelected ? item.tagIconSelected : item.tagIcon}></img>
+        {!isDark && (
+          <img src={$isSelected ? item.tagIconSelected : item.tagIcon}></img>
+        )}
+        {isDark && (
+          <img
+            src={
+              $isSelected
+                ? item.tagIconSelected
+                : `/images/optionCategoryIcon/${item.tagId}.svg`
+            }
+          ></img>
+        )}
         <span className={$isSelected ? selectedClassName : unSelectedClassName}>
           {item.tagName}
         </span>
