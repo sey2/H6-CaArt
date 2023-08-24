@@ -13,6 +13,19 @@ import { Link } from 'react-router-dom';
 import { useModalContext } from '../../store/ModalContext';
 import { useFetch } from '../../hooks/useFetch';
 import { EstimationContext } from '../../util/Context';
+import { PreloadProps } from './VehicleEstimationPage';
+import { preloadContext } from '../../store/PreloadContext';
+import { ExteriorColor, InteriorColor } from './ColorEstimationPage';
+
+interface TrimCarData {
+  data: {
+    trimId: number;
+    exteriorColors: ExteriorColor[];
+    otherTrimExteriorColors: Trim[];
+    interiorColors: InteriorColor[];
+    otherTrimInteriorColors: Trim[];
+  };
+}
 
 export interface OptionType {
   optionId: number;
@@ -49,19 +62,44 @@ function TrimEstimationPage() {
   const { dispatch } = useModalContext();
   const { data } = useFetch<Trim[]>('/trims');
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
+  const { setPreLoadData, preloadImages } = useContext<PreloadProps | null>(
+    preloadContext,
+  )!;
 
   function closeModalHandler() {
     dispatch({ type: 'CLOSE_TOOLTIP_MODAL' });
     dispatch({ type: 'CLOSE_OPTION_MODAL' });
   }
 
-  useEffect(() => {
-    setTrim({
-      name: currentEstimation.trim.name,
-      price: currentEstimation.trim.price,
-      img: currentEstimation.trim.img,
-    });
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://api.ca-art.store/colors?trimId=4');
+      if (!response.ok) {
+        throw new Error('fetch error');
+      }
+      const jsonData: TrimCarData = await response.json();
+      if (jsonData) {
+        jsonData.data.exteriorColors.forEach(item => {
+          setPreLoadData(prev => [...prev, item.previews]);
+        });
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  };
 
+  useEffect(() => {
+    if (data) {
+      const trimImg = data.find(
+        item => item.trimName === currentEstimation.trim.name,
+      )?.trimImage as string;
+      setTrim({
+        name: currentEstimation.trim.name,
+        price: currentEstimation.trim.price,
+        img: trimImg,
+      });
+      fetchData();
+    }
     dispatch({ type: 'SET_TOOLTIP_TYPE', tooltipType: '엔진' });
   }, []);
   return (
@@ -74,7 +112,7 @@ function TrimEstimationPage() {
         <Header size="large" page={0} />
         <Layout>
           <TrimCarImage />
-          <RightBox onScroll={closeModalHandler}>
+          <RightBox onScroll={closeModalHandler} onClick={preloadImages}>
             <InfoText onClick={() => dispatch({ type: 'OPEN_INFO_MODAL' })}>
               <img src="/images/question_icon.svg" />
               <span className="text-secondary-active-blue body-medium-14">

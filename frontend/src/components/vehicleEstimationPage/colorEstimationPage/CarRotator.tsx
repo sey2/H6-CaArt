@@ -22,6 +22,7 @@ function CarRotator({ data }: { data: ExteriorColor[] }) {
       }
     }
   };
+
   useEffect(() => {
     if (data) {
       const nowItem = data.find(
@@ -29,7 +30,8 @@ function CarRotator({ data }: { data: ExteriorColor[] }) {
       );
       setBaseUrl(nowItem?.previews[0] as string);
     }
-  }, [currentEstimation.outerColor.name]);
+  }, [currentEstimation.outerColor.name, data]);
+
   return (
     <ImageContainer
       onMouseDown={() => setStart(true)}
@@ -38,6 +40,7 @@ function CarRotator({ data }: { data: ExteriorColor[] }) {
     >
       <BgTop />
       <BgBottom />
+
       <Image
         src={`${baseUrl.slice(0, -7)}${String(image).padStart(3, '0')}.png`}
         onMouseMove={startSwipe}

@@ -11,6 +11,8 @@ import { useFetch } from '../../hooks/useFetch';
 import ErrorPopup from '../../components/common/ErrorPopup';
 import { EstimationContext } from '../../util/Context';
 import { Hr } from '../../components/common/Hr';
+import { preloadContext } from '../../store/PreloadContext';
+import { PreloadProps } from './VehicleEstimationPage';
 
 export interface ExteriorColor {
   colorId: number;
@@ -40,7 +42,8 @@ export interface Trim {
   preview: string;
 }
 
-interface CarData {
+export interface CarData {
+  trimId: number;
   exteriorColors: ExteriorColor[];
   otherTrimExteriorColors: Trim[];
   interiorColors: InteriorColor[];
@@ -62,10 +65,13 @@ function ColorEstimationPage() {
         return 4;
     }
   }
-  const { currentEstimation, setTrim } = useContext(EstimationContext)!;
+
+  const { currentEstimation } = useContext(EstimationContext)!;
+  const { preloadImages } = useContext<PreloadProps | null>(preloadContext)!;
   const { data, status, error } = useFetch<CarData>(
     `/colors?trimId=${getTrimId(currentEstimation.trim.name)}`,
   );
+
   const [modal, setModal] = useState({
     isopen: false,
     nowTrim: {
@@ -91,7 +97,6 @@ function ColorEstimationPage() {
       const imgData = data.exteriorColors.find(
         item => item.colorName === currentEstimation.outerColor.name,
       );
-      console.log(imgData);
       setTrim({
         ...currentEstimation.trim,
         img: imgData?.previews[11] as string,
@@ -119,7 +124,7 @@ function ColorEstimationPage() {
             setter={setSelectedType}
             data={data.exteriorColors}
           />
-          <RightBox>
+          <RightBox onMouseOver={preloadImages}>
             <HeadTitle className="text-grey-0 head-medium-20">
               외장 색상
             </HeadTitle>

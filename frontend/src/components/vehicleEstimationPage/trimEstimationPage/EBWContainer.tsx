@@ -4,10 +4,14 @@ import EBWButton from './EBWButton';
 import { EstimationContext } from '../../../util/Context';
 import { FlexBox } from '../../common/FlexBox';
 import { useModalContext } from '../../../store/ModalContext';
+import { preloadContext } from '../../../store/PreloadContext';
+import { PreloadProps } from '../../../pages/vehicleEstimationPage/VehicleEstimationPage';
 
 function EBWContainer() {
   const { setEngine, setBody, setWd } = useContext(EstimationContext)!;
   const { dispatch } = useModalContext();
+  const { preloadImages } = useContext<PreloadProps | null>(preloadContext)!;
+
   function handleButtonClick(value: string, price: number) {
     switch (value) {
       case '디젤 2.2':
@@ -67,7 +71,12 @@ function EBWContainer() {
       <Box className="body-medium-14 text-grey-200">
         <FlexBox direction="column">
           <Title className="engine">엔진</Title>
-          <ButtonBox onClick={e => findSpan(e)}>
+          <ButtonBox
+            onClick={e => {
+              findSpan(e);
+              preloadImages;
+            }}
+          >
             <EBWButton value="디젤 2.2" price={0} onClick={handleButtonClick} />
             <EBWButton
               value="가솔린 3.8"
@@ -78,14 +87,24 @@ function EBWContainer() {
         </FlexBox>
         <FlexBox direction="column">
           <Title>바디</Title>
-          <ButtonBox onClick={e => findSpan(e)}>
+          <ButtonBox
+            onClick={e => {
+              findSpan(e);
+              preloadImages;
+            }}
+          >
             <EBWButton value="7인승" price={0} onClick={handleButtonClick} />
             <EBWButton value="8인승" price={3000} onClick={handleButtonClick} />
           </ButtonBox>
         </FlexBox>
         <FlexBox direction="column">
           <Title>구동방식</Title>
-          <ButtonBox onClick={e => findSpan(e)}>
+          <ButtonBox
+            onClick={e => {
+              findSpan(e);
+              preloadImages;
+            }}
+          >
             <EBWButton value="2WD" price={0} onClick={handleButtonClick} />
             <EBWButton value="4WD" price={5000} onClick={handleButtonClick} />
           </ButtonBox>

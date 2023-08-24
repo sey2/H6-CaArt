@@ -1,13 +1,42 @@
-import React from 'react';
+import React,{useState} from 'react';
 import TrimEstimationPage from './TrimEstimationPage';
 import ColorEstimationPage from './ColorEstimationPage';
 import OptionEstimationPage from './OptionEstimationPage';
 import { Route, Routes } from 'react-router-dom';
-import ErrorPopup from '../../components/common/ErrorPopup';
+import { ErrorPopup } from '../../components/common/ErrorPopup';
+import { preloadContext } from "../../store/PreloadContext";
+import { preloadImage } from "../../util/PreLoader";
+
+export interface PreloadProps {
+  preLoadData: string[][];
+  setPreLoadData: React.Dispatch<React.SetStateAction<string[][]>>;
+  loaderIdx: number;
+  setLoaderIdx: React.Dispatch<React.SetStateAction<number>>;
+  preloadImages: () => void;
+}
+
 
 function VehicleEstimationPage() {
+  const [preLoadData, setPreLoadData] = useState<string[][]>([]);
+  const [loaderIdx, setLoaderIdx] = useState(0);
+  function preloadImages() {
+    if (loaderIdx < preLoadData.length) {
+      preLoadData[loaderIdx].map(item => {
+        preloadImage(item);
+      });
+      setLoaderIdx(prev => prev + 1);
+    }
+  }
   return (
-    <div>
+  <preloadContext.Provider
+    value={{
+      preLoadData,
+      setPreLoadData,
+      loaderIdx,
+      setLoaderIdx,
+      preloadImages,
+    }}
+  >
       <Routes>
         <Route
           path="trim"
@@ -23,7 +52,7 @@ function VehicleEstimationPage() {
         />
         <Route path="*" element={<ErrorPopup></ErrorPopup>} />
       </Routes>
-    </div>
+    </preloadContext.Provider>
   );
 }
 
