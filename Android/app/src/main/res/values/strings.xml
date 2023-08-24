@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android</string>
+    <string name="app_name">CaArt \n내 차만들기</string>
     <string name="exterior_color">외장 색상</string>
     <string name="interior_color">내장 색상</string>
     <string name="buyer_selected">%의 구매자가 선택한</string>
