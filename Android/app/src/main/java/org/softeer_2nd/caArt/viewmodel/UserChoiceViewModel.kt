@@ -157,4 +157,6 @@ class UserChoiceViewModel : ViewModel() {
         }
 
     }
+
+    fun getSelectedOptionList(): List<Option>? = selectedOptions.value
 }

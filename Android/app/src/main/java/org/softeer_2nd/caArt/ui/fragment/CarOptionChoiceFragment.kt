@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,6 +27,7 @@ import org.softeer_2nd.caArt.ui.recycleradapter.OptionPreviewRecyclerAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionTagRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.CarOptionChoiceViewModel
 import org.softeer_2nd.caArt.viewmodel.CarOptionChoiceViewModel.Companion.OPTION_IMAGE
+import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
 
 @AndroidEntryPoint
 class CarOptionChoiceFragment : Fragment() {
@@ -34,12 +36,14 @@ class CarOptionChoiceFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val model: CarOptionChoiceViewModel by viewModels()
+    private val userChoiceViewModel: UserChoiceViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        model.setInitialSelectedOption(userChoiceViewModel.getSelectedOptionList())
         model.requestTagList()
         _binding = FragmentCarOptionChoiceBinding.inflate(inflater, container, false)
         return binding.root
@@ -62,12 +66,15 @@ class CarOptionChoiceFragment : Fragment() {
             }
         })
 
-        binding.bsOptionChoiceSummary.setMode(
-            BottomSheetMode.PrevAndEstimate,
-            CarOptionChoiceFragmentDirections.actionCarOptionChoiceFragmentToCarBuildingLoadingFragment(
-                DEFAULT_LOADING_DURATION
+        binding.bsOptionChoiceSummary.apply {
+            setMode(
+                BottomSheetMode.PrevAndEstimate,
+                CarOptionChoiceFragmentDirections.actionCarOptionChoiceFragmentToCarBuildingLoadingFragment(
+                    DEFAULT_LOADING_DURATION
+                )
             )
-        )
+            this.setViewModel(userChoiceViewModel, viewLifecycleOwner)
+        }
 
         val optionTagAdapter = OptionTagRecyclerAdapter() { _, tag ->
             model.selectTag(tag)
@@ -121,7 +128,6 @@ class CarOptionChoiceFragment : Fragment() {
             optionPreviewAdapter.setOptionList(it)
         }
 
-
         model.situationalOptionViewState.observe(viewLifecycleOwner) {
             binding.incSituationalOptions.ivSituationalTagOptionsSituationImage.apply {
                 clear()
@@ -159,6 +165,10 @@ class CarOptionChoiceFragment : Fragment() {
 
         model.optionDetailDialogPopUpEvent.observe(viewLifecycleOwner) {
             showOptionDetailDialog(it)
+        }
+
+        model.selectedOptionSet.observe(viewLifecycleOwner) {
+            userChoiceViewModel.setSelectedOptions(it.toList())
         }
 
     }

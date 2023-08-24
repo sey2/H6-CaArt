@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.model.data
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 
 class MutableSetLiveData<T> : MutableLiveData<Set<T>>() {
@@ -15,7 +16,7 @@ class MutableSetLiveData<T> : MutableLiveData<Set<T>>() {
         value = set
     }
 
-    fun addAll(items: List<T>) {
+    fun addAll(items: Set<T>) {
         set.addAll(items)
         value = set
     }

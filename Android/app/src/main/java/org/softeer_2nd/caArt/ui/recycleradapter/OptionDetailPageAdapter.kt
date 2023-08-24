@@ -16,18 +16,17 @@ import org.softeer_2nd.caArt.util.dp2px
 import kotlin.math.max
 
 class OptionDetailPageAdapter(
-    private val state: OptionDetailDialogState,
+    state: OptionDetailDialogState,
     private val onSelectButtonClicked: OnClickListener,
     private val onTextIndicatorItemClickListener: OnRecyclerItemClickListener<Option>,
     private val onCancelButtonClickListener: OnClickListener
 ) : RecyclerView.Adapter<OptionDetailPageAdapter.OptionDetailPageViewHolder>(),
     OnRecyclerItemClickListener<String> {
 
-    private var displayPageIndex: Int = 0
-
     private val parentOption = state.mainOption
     private val optionList = state.optionList
     private var isSelected = state.isSelected
+    private var displayPageIndex: Int = 0
 
     private val textIndicatorAdapter =
         OptionDetailTextIndicatorAdapter(optionList.map { it.optionName }, this)
@@ -70,16 +69,16 @@ class OptionDetailPageAdapter(
         onTextIndicatorItemClickListener.onItemClicked(position, optionList[position])
     }
 
-    fun setDisplayingPageIndex(pos: Int) {
-        displayPageIndex = pos
-        textIndicatorAdapter.setIndicatedItemPosition(pos)
-        val firstChangePosition = max(0, pos - 1)
-        notifyItemRangeChanged(firstChangePosition, pos + 1 - firstChangePosition)
-    }
-
     fun changeSelectState(isSelected: Boolean) {
         this.isSelected = isSelected
         notifyItemRangeChanged(0, itemCount)
+    }
+
+    fun setDisplayingPageIndex(index: Int) {
+        displayPageIndex = index
+        textIndicatorAdapter.setIndicatedItemPosition(index)
+        val firstChangePosition = max(0, index - 1)
+        notifyItemRangeChanged(firstChangePosition, index + 1 - firstChangePosition)
     }
 
     inner class OptionDetailPageViewHolder(private val binding: ItemOptionDetailBinding) :
@@ -88,14 +87,11 @@ class OptionDetailPageAdapter(
         fun bind(option: Option, position: Int) {
             binding.apply {
                 this.option = option
-
                 parentOptionName = parentOption.optionName
                 isGroup = !parentOption.subOptions.isNullOrEmpty()
                 onCancelButtonClickListener = onCancelButtonClickListener
                 pageIndex = position
                 pageCount = optionList.size
-                isBlurEffect = position != displayPageIndex
-                //sbOptionDetailChoice.isEnabled=false
                 sbOptionDetailChoice.isChecked = isSelected
                 sbOptionDetailChoice.setOnClickListener(onSelectButtonClicked)
                 optionPrice = parentOption.optionPrice ?: 0

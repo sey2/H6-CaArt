@@ -89,7 +89,7 @@ class CircleIndicator(context: Context, attrs: AttributeSet) : View(context, att
     }
 
     fun setSelectedDotIndex(index: Int) {
-        if (index !in 0 until 5) return
+        if (index !in 0 until dotCount) return
         selectedDotIndex = index
         invalidate()
     }

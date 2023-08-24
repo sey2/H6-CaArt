@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -228,4 +229,10 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
     fun selectDialogResultOption(option: SelectState<Option>) {
         selectOption(option.item, option.isSelected)
     }
+
+    fun setInitialSelectedOption(optionList: List<Option>?) {
+        optionList ?: return
+        _selectedOptionSet.addAll(optionList.toSet())
+    }
+
 }

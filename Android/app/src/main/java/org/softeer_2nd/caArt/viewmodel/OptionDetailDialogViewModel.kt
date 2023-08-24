@@ -18,6 +18,9 @@ class OptionDetailDialogViewModel(
     private val _optionDetailDialogState = MutableLiveData<OptionDetailDialogState>()
     val optionDetailDialogState: LiveData<OptionDetailDialogState> = _optionDetailDialogState
 
+    private val _pageChangeEvent = MutableLiveData<Int>()
+    val pageChangeEvent: LiveData<Int> = _pageChangeEvent
+
     init {
         val optionList =
             if (mainOption.subOptions.isNullOrEmpty()) listOf(mainOption) else mainOption.subOptions
@@ -40,7 +43,10 @@ class OptionDetailDialogViewModel(
         _onSelectChangeEvent.value = changeResult
     }
 
-
     fun getSelectState() = SelectState(mainOption, onSelectChangeEvent.value ?: initialSelected)
+
+    fun setPageChangeEvent(displayPageIndex: Int) {
+        _pageChangeEvent.value = displayPageIndex
+    }
 
 }

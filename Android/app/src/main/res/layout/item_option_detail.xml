@@ -10,16 +10,14 @@
         <variable
             name="option"
             type="org.softeer_2nd.caArt.model.data.Option" />
+
         <variable
             name="isGroup"
             type="boolean" />
+
         <variable
             name="optionPrice"
             type="long" />
-
-        <variable
-            name="isBlurEffect"
-            type="boolean" />
 
         <variable
             name="isDefaultOption"
@@ -128,22 +126,27 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_title"
             tools:text="1,090,000 원" />
 
-        <TextView
-            android:id="@+id/tv_option_detail_description"
+        <ScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/hyundaisanstext_regular"
-            android:text="@{option.description}"
-            android:textColor="@color/gray_200"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/v_option_detail_indicator_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_price"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="초음파 센서를 통해 뒷좌석에 남아있는 승객의 움직임을 감지하여 운전자에게 경고함으로써 부주의에 의한 유아 또는 반려 동물 등의 방치 사고를 예방하는 신기술입니다." />
+            app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_price">
+
+            <TextView
+                android:id="@+id/tv_option_detail_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/hyundaisanstext_regular"
+                android:text="@{option.description??`-`}"
+                android:textColor="@color/gray_200"
+                tools:text="초음파 센서를 통해 뒷좌석에 남아있는 승객의 움직임을 감지하여 운전자에게 경고함으로써 부주의에 의한 유아 또는 반려 동물 등의 방치 사고를 예방하는 신기술입니다." />
+        </ScrollView>
 
         <org.softeer_2nd.caArt.ui.custom.SelectLongButton
             android:id="@+id/sb_option_detail_choice"
@@ -196,18 +199,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/rv_option_detail_text_indicator"
             app:selectedDotIndex="@{pageIndex}" />
-
-        <View
-            android:id="@+id/v_option_detail_blur_effect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent_white"
-            android:visibility="@{isBlurEffect?View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
 
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"

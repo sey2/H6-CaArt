@@ -21,6 +21,7 @@ import org.softeer_2nd.caArt.ui.callback.OnItemClickListener
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionDetailPageAdapter
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.viewmodel.OptionDetailDialogViewModel
+import kotlin.math.abs
 
 class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
 
@@ -83,6 +84,10 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
         model.onSelectChangeEvent.observe(viewLifecycleOwner) {
             adapter?.changeSelectState(it)
         }
+
+        model.pageChangeEvent.observe(viewLifecycleOwner) {
+            adapter?.setDisplayingPageIndex(it)
+        }
     }
 
     private fun ViewPager2.initOptionDetailViewPager() {
@@ -110,11 +115,11 @@ class OptionDetailDialog(private val builder: Builder) : DialogFragment() {
         offscreenPageLimit = 1
         setPageTransformer { page, position ->
             page.translationX = position * -(margin + adjacentItemPreviewWidth)
-
+            page.alpha = 0.55f + (1 - abs(position))
         }
         registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                (adapter as OptionDetailPageAdapter).setDisplayingPageIndex(position)
+                model.setPageChangeEvent(position)
             }
         })
     }

@@ -8,8 +8,12 @@ import org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState
 import org.softeer_2nd.caArt.model.data.WheelDrive
 import org.softeer_2nd.caArt.model.data.dto.ExteriorColor
 import org.softeer_2nd.caArt.model.data.dto.InteriorColor
+import kotlin.math.min
 
 object UserChoiceConverter {
+
+    private const val DISPLAY_OPTION_LIMIT = 2
+
     fun trimToUserChoice(
         trim: Trim,
         engine: Engine,
@@ -25,7 +29,10 @@ object UserChoiceConverter {
         )
     }
 
-    fun colorToUserChoice(exteriorColor: ExteriorColor, interiorColor: InteriorColor): UserChoiceBottomsheetState {
+    fun colorToUserChoice(
+        exteriorColor: ExteriorColor,
+        interiorColor: InteriorColor
+    ): UserChoiceBottomsheetState {
         return UserChoiceBottomsheetState(
             "색상",
             "외장 - ${exteriorColor.colorName}",
@@ -36,12 +43,19 @@ object UserChoiceConverter {
     }
 
     fun optionToUserChoice(options: List<Option>): UserChoiceBottomsheetState {
+
+        val displayOptionList = MutableList<Option?>(DISPLAY_OPTION_LIMIT) { null }
+        val lastIndex = min(options.size, DISPLAY_OPTION_LIMIT)
+        for (i in 0 until lastIndex) {
+            displayOptionList[i] = options[i]
+        }
+
         return UserChoiceBottomsheetState(
             "옵션",
-            options[0].optionName,
-            options[1].optionName,
-            StringFormatter.formatPriceString(options[0].optionPrice?:0) + "원",
-            StringFormatter.formatPriceString(options[1].optionPrice?:0) + "원",
+            displayOptionList[0]?.optionName ?: "-",
+            displayOptionList[1]?.optionName ?: "-",
+            StringFormatter.formatPriceString(displayOptionList[0]?.optionPrice ?: 0) + "원",
+            StringFormatter.formatPriceString(displayOptionList[1]?.optionPrice ?: 0) + "원",
         )
     }
 }
