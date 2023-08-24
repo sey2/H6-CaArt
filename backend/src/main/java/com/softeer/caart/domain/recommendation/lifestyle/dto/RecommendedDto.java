@@ -35,20 +35,23 @@ public class RecommendedDto {
 
 	@Getter
 	public static class RecommendedModelDto {
-		private final String modelName;
+		private final String modelName = "팰리세이드";
 		private final Integer modelPrice;
 		private final TrimDto trim;
 		private final CarEngineDto engine;
 		private final WheelDriveDto wheelDrive;
 		private final BodyTypeDto bodyType;
 
-		public RecommendedModelDto(Model model) {
-			this.modelName = "펠리세이드";
+		private RecommendedModelDto(Model model) {
 			this.modelPrice = model.calcModelPrice();
 			this.trim = new TrimDto(model.getTrim());
 			this.engine = new CarEngineDto(model.getCarEngine());
 			this.wheelDrive = new WheelDriveDto(model.getWheelDrive());
 			this.bodyType = new BodyTypeDto(model.getBodyType());
+		}
+
+		public static RecommendedModelDto from(Model model) {
+			return new RecommendedModelDto(model);
 		}
 	}
 
@@ -59,13 +62,16 @@ public class RecommendedDto {
 		private final Integer optionPrice;
 		private final String recommendationMessage;
 
-		public RecommendedOptionDto(AdditionalOptionInfo optionInfo) {
+		private RecommendedOptionDto(AdditionalOptionInfo optionInfo, String reason) {
 			BaseOptionInfo baseInfo = optionInfo.getDetails();
 			this.optionImage = baseInfo.getImage().getUrl();
 			this.optionName = baseInfo.getName();
 			this.optionPrice = optionInfo.getPrice();
-			this.recommendationMessage = "꼭 추가해야 하는 옵션이에요.";
+			this.recommendationMessage = reason;
+		}
+
+		public static RecommendedOptionDto of(AdditionalOptionInfo optionInfo, String reason) {
+			return new RecommendedOptionDto(optionInfo, reason);
 		}
 	}
-
 }

@@ -2,6 +2,7 @@ package com.softeer.caart.domain.recommendation.persona.dto;
 
 import static com.softeer.caart.domain.recommendation.lifestyle.dto.RecommendedDto.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,13 +30,11 @@ public class PersonaRecommendationResponse {
 		RecommendationResult recommendationResult = persona.getRecommendationResult();
 		this.palisadeImage = recommendationResult.getPalisageImage();
 		this.recommendationCard = new RecommendationCard(persona);
-		this.model = new RecommendedModelDto(recommendationResult.getModel());
+		this.model = RecommendedModelDto.from(recommendationResult.getModel());
 		this.colors = recommendationResult.getRecommendedColorList().stream()
 			.map(RecommendedColorDto::new)
 			.collect(Collectors.toList());
-		this.options = recommendationResult.getRecommendedOptionList().stream()
-			.map(RecommendedOptionDto::new)
-			.collect(Collectors.toList());
+		this.options = new ArrayList<>(); // FIXME
 		this.totalPrice = recommendationResult.calcTotalPrice();
 	}
 

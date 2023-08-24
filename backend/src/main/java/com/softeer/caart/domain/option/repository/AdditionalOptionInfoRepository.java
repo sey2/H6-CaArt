@@ -9,10 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.softeer.caart.domain.option.dto.PurchasedOptionCountDto;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
+import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 
 public interface AdditionalOptionInfoRepository extends JpaRepository<AdditionalOptionInfo, Long> {
 	// TODO : order by 채택률 desc
-	// TODO : convert native @Query to QueryDSL
 	@Query(value = "SELECT aoi.* FROM additional_option_info aoi JOIN rel_model_base_option_info rmboi on aoi.base_option_info_id = rmboi.base_option_info_id WHERE rmboi.model_id = :modelId",
 		countQuery = "SELECT COUNT(*) FROM additional_option_info aoi JOIN rel_model_base_option_info rmboi on aoi.base_option_info_id = rmboi.base_option_info_id WHERE rmboi.model_id = :modelId",
 		nativeQuery = true)
@@ -38,4 +38,22 @@ public interface AdditionalOptionInfoRepository extends JpaRepository<Additional
 		+ "group by p.model_id, o.additional_option_info_id",
 		nativeQuery = true)
 	List<PurchasedOptionCountDto> countPurchasedOption();
+
+	/**
+	 * 추천 가장 많이 받은 modelId의 설문들 중에 추천 가장 많이 받은 옵션 2개 가져오기
+	 */
+	@Query(value = "SELECT aoi.* FROM car_master_survey cms "
+		+ "JOIN recommended_option ro ON cms.car_master_survey_id = ro.car_master_survey_id "
+		+ "JOIN additional_option_info aoi ON ro.additional_option_info_id = aoi.additional_option_info_id "
+		+ "WHERE cms.model_id = :mostRecommendedModelId"
+		+ "    AND cms.experience_code = :#{#experience.name()}"
+		+ "    AND cms.purpose_code = :#{#purpose.name()}"
+		+ "    AND cms.value_code = :#{#value.name()}"
+		+ "    AND cms.family_code = :#{#family.name()}"
+		+ "    AND cms.total_sum BETWEEN :minBudget AND :maxBudget "
+		+ "GROUP BY ro.additional_option_info_id "
+		+ "ORDER BY COUNT(*) DESC "
+		+ "LIMIT 2", nativeQuery = true)
+	List<AdditionalOptionInfo> findMostRecommendedOptionByCondition(Answer experience, Answer family, Answer purpose,
+		Answer value, Integer minBudget, Integer maxBudget, Long mostRecommendedModelId);
 }

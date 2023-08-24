@@ -33,7 +33,7 @@ public class RecommendedOption {
 	@JoinColumn(name = "additional_option_info_id", nullable = false)
 	private AdditionalOptionInfo option;
 
-	@Column(nullable = false, length = 35)
+	@Column(nullable = false, length = 100)
 	private String reason;
 
 	@ManyToOne(fetch = LAZY)

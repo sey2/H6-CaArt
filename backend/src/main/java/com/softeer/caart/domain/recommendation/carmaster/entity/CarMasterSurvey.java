@@ -2,6 +2,8 @@ package com.softeer.caart.domain.recommendation.carmaster.entity;
 
 import static javax.persistence.FetchType.*;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,12 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-import com.softeer.caart.domain.composition.entity.BodyType;
-import com.softeer.caart.domain.composition.entity.CarEngine;
-import com.softeer.caart.domain.composition.entity.WheelDrive;
+import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
-import com.softeer.caart.domain.trim.entity.Trim;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -36,38 +36,28 @@ public class CarMasterSurvey {
 	private Long id;
 
 	@Enumerated(value = EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "experience_code", nullable = false)
 	private Answer experience;
 
 	@Enumerated(value = EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "family_code", nullable = false)
 	private Answer family;
 
 	@Enumerated(value = EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "purpose_code", nullable = false)
 	private Answer purpose;
 
 	@Enumerated(value = EnumType.STRING)
-	@Column(nullable = false)
+	@Column(name = "value_code", nullable = false)
 	private Answer value;
 
 	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "trim_id", nullable = false)
-	private Trim trim;
-
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "car_engine_id", nullable = false)
-	private CarEngine carEngine;
-
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "body_type_id", nullable = false)
-	private BodyType bodyType;
-
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "wd_id", nullable = false)
-	private WheelDrive wheelDrive;
+	@JoinColumn(name = "model_id", nullable = false)
+	private Model model;
 
 	@Column(nullable = false)
 	private Integer totalSum;
 
+	@OneToMany(mappedBy = "survey")
+	private List<RecommendedOption> recommendedOptions;
 }

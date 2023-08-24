@@ -121,3 +121,15 @@ VALUES (1, 22, 1, 1, 3),
 
 
 
+
+-- 카마스터 설문
+INSERT INTO car_master_survey (car_master_survey_id, experience_code, family_code, purpose_code, total_sum, value_code,
+                               model_id)
+VALUES (1, 'ONE_YEAR', 'SINGLE', 'LEISURE', 43000000, 'PERFORMANCE', 1);
+
+
+-- 카마스터 추천 옵션
+INSERT INTO recommended_option (recommended_option_id, reason, additional_option_info_id, car_master_survey_id)
+VALUES (1, '추천옵션1', 1, 1);
+INSERT INTO recommended_option (recommended_option_id, reason, additional_option_info_id, car_master_survey_id)
+VALUES (2, '추천옵션2', 2, 1);

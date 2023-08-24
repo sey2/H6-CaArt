@@ -14,15 +14,12 @@ import com.softeer.caart.domain.composition.dto.response.BodyTypeSummaryResponse
 import com.softeer.caart.domain.composition.dto.response.CarEngineSummaryResponse;
 import com.softeer.caart.domain.composition.dto.response.CompositionSummaryResponse;
 import com.softeer.caart.domain.composition.dto.response.WheelDriveSummaryResponse;
-import com.softeer.caart.domain.composition.entity.BodyType;
-import com.softeer.caart.domain.composition.entity.CarEngine;
-import com.softeer.caart.domain.composition.entity.WheelDrive;
-import com.softeer.caart.domain.composition.exception.BodyTypeNotFoundException;
-import com.softeer.caart.domain.composition.exception.EngineNotFoundException;
-import com.softeer.caart.domain.composition.exception.WheelDriveNotFoundException;
 import com.softeer.caart.domain.composition.repository.BodyTypeRepository;
 import com.softeer.caart.domain.composition.repository.CarEngineRepository;
 import com.softeer.caart.domain.composition.repository.WheelDriveRepository;
+import com.softeer.caart.domain.model.entity.Model;
+import com.softeer.caart.domain.model.exception.ModelNotFoundException;
+import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
 import com.softeer.caart.domain.option.repository.AdditionalOptionInfoRepository;
@@ -33,8 +30,6 @@ import com.softeer.caart.domain.recommendation.carmaster.entity.RecommendedOptio
 import com.softeer.caart.domain.recommendation.carmaster.repository.CarMasterSurveyRepository;
 import com.softeer.caart.domain.recommendation.carmaster.repository.RecommendedOptionRepository;
 import com.softeer.caart.domain.trim.dto.response.TrimSummaryResponse;
-import com.softeer.caart.domain.trim.entity.Trim;
-import com.softeer.caart.domain.trim.exception.TrimNotFoundException;
 import com.softeer.caart.domain.trim.repository.TrimRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -45,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional(readOnly = true)
 @Slf4j
 public class CarMasterService {
+	private final ModelRepository modelRepository;
 	private final TrimRepository trimRepository;
 	private final CarEngineRepository carEngineRepository;
 	private final BodyTypeRepository bodyTypeRepository;
@@ -107,15 +103,10 @@ public class CarMasterService {
 	}
 
 	private CarMasterSurvey createSurvey(CreateSurveyRequest dto) {
-		final Trim trim = trimRepository.findById(dto.getTrimId())
-			.orElseThrow(() -> new TrimNotFoundException(TRIM_NOT_FOUND));
-		final CarEngine engine = carEngineRepository.findById(dto.getEngineId())
-			.orElseThrow(() -> new EngineNotFoundException(ENGINE_NOT_FOUND));
-		final BodyType bodyType = bodyTypeRepository.findById(dto.getBodyTypeId())
-			.orElseThrow(() -> new BodyTypeNotFoundException(BODY_TYPE_NOT_FOUND));
-		final WheelDrive wd = wheelDriveRepository.findById(dto.getWdId())
-			.orElseThrow(() -> new WheelDriveNotFoundException(WHEEL_DRIVE_NOT_FOUND));
-		return dto.toCarMasterSurveyEntity(trim, engine, bodyType, wd);
+		final Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
+				dto.getBodyTypeId(), dto.getWdId())
+			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
+		return dto.toCarMasterSurveyEntity(model);
 	}
 
 	private RecommendedOption createRecommendedOption(Long optionId, String reason, CarMasterSurvey survey) {

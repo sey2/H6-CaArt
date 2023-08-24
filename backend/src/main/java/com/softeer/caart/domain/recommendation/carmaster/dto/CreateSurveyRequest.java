@@ -6,12 +6,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.softeer.caart.domain.composition.entity.BodyType;
-import com.softeer.caart.domain.composition.entity.CarEngine;
-import com.softeer.caart.domain.composition.entity.WheelDrive;
+import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.recommendation.carmaster.entity.CarMasterSurvey;
 import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
-import com.softeer.caart.domain.trim.entity.Trim;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -46,14 +43,14 @@ public class CreateSurveyRequest {
 	private final Long additionalOptionId1;
 
 	@NotEmpty
-	@Size(max = 30, message = "사유는 30자 이내로 입력해주세요.")
+	@Size(max = 50, message = "사유는 50자 이내로 입력해주세요.")
 	private final String reason1;
 
 	@NotNull
 	private final Long additionalOptionId2;
 
 	@NotEmpty
-	@Size(max = 30, message = "사유는 30자 이내로 입력해주세요.")
+	@Size(max = 50, message = "사유는 50자 이내로 입력해주세요.")
 	private final String reason2;
 
 	@NotNull
@@ -77,24 +74,20 @@ public class CreateSurveyRequest {
 		this.additionalOptionId2 = additionalOptionId2;
 		this.reason2 = reason2;
 		this.totalSum = totalSum;
-		validateAnswer();
 	}
 
-	public CarMasterSurvey toCarMasterSurveyEntity(Trim trim, CarEngine engine, BodyType bodyType, WheelDrive wd) {
+	public CarMasterSurvey toCarMasterSurveyEntity(Model model) {
 		return CarMasterSurvey.builder()
 			.experience(this.experience)
 			.family(this.family)
 			.purpose(this.purpose)
 			.value(this.value)
-			.trim(trim)
-			.carEngine(engine)
-			.bodyType(bodyType)
-			.wheelDrive(wd)
+			.model(model)
 			.totalSum(this.totalSum)
 			.build();
 	}
 
-	private void validateAnswer() {
+	public void validateAnswer() {
 		experience.validateAnswer(EXPERIENCE);
 		family.validateAnswer(FAMILY);
 		purpose.validateAnswer(PURPOSE);

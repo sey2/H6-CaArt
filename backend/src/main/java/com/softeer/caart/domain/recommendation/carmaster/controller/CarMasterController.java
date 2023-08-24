@@ -35,6 +35,7 @@ public class CarMasterController {
 	@PostMapping("surveys")
 	@Operation(summary = "카마스터 설문지를 저장한다.", description = "다음 설문 버튼을 누르면 API를 호출해서 설문지를 저장한다. (기획 상 5번 반복)")
 	public ResponseDto saveSurvey(@Valid @RequestBody CreateSurveyRequest dto) {
+		dto.validateAnswer();
 		carMasterService.saveSurvey(dto);
 		return ResponseDto.success();
 	}
