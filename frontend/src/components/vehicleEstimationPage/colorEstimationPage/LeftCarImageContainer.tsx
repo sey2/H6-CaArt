@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import OptionButton from './button/OptionButton';
 import CarRotator from './CarRotator';
@@ -11,31 +11,14 @@ type ViewOptionType = 'ex' | 'in' | '360' | string;
 
 interface CarContainerType {
   type: ViewOptionType;
-  state: ViewOptionType;
   setter: React.Dispatch<React.SetStateAction<ViewOptionType>>;
   data: ExteriorColor[];
 }
 
-function LeftCarImageContainer({
-  type,
-  setter,
-  state,
-  data,
-}: CarContainerType) {
+function LeftCarImageContainer({ type, setter, data }: CarContainerType) {
   const { currentEstimation } = useContext(EstimationContext)!;
-  function drawView(type: ViewOptionType) {
-    switch (type) {
-      case 'ex':
-        return exView();
-      case 'in':
-        return inView();
-      case '360':
-        return rotateView();
-      default:
-    }
-  }
 
-  function exView() {
+  const exView = useCallback(() => {
     return (
       <>
         <BgTop />
@@ -43,9 +26,9 @@ function LeftCarImageContainer({
         <Image src={currentEstimation.trim.img} width={646} height={366} />
       </>
     );
-  }
+  }, [currentEstimation.trim]);
 
-  function inView() {
+  const inView = useCallback(() => {
     return (
       <>
         <Image
@@ -55,21 +38,36 @@ function LeftCarImageContainer({
         />
       </>
     );
-  }
+  }, [currentEstimation.trimInteriorImage]);
 
-  function rotateView() {
+  const rotateView = useCallback(() => {
     return <CarRotator data={data} />;
-  }
+  }, [data]);
+
+  const drawView = useCallback(
+    (type: ViewOptionType) => {
+      switch (type) {
+        case 'ex':
+          return exView();
+        case 'in':
+          return inView();
+        case '360':
+          return rotateView();
+        default:
+      }
+    },
+    [exView, inView, rotateView],
+  );
 
   return (
     <Wrapper>
       <RerecommendButton />
-      {<RerecommendModal />}
+      <RerecommendModal />
       <TypeBox>
-        <OptionButton type="ex" state={state} setter={setter} />
-        <OptionButton type="in" state={state} setter={setter} />
-        {state !== 'in' && (
-          <OptionButton type="360" state={state} setter={setter} />
+        <OptionButton type="ex" state={type} setter={setter} />
+        <OptionButton type="in" state={type} setter={setter} />
+        {type !== 'in' && (
+          <OptionButton type="360" state={type} setter={setter} />
         )}
       </TypeBox>
       {drawView(type)}
@@ -77,7 +75,7 @@ function LeftCarImageContainer({
   );
 }
 
-export default LeftCarImageContainer;
+export default React.memo(LeftCarImageContainer);
 
 const Wrapper = styled.div`
   height: calc(100vh - 120px);

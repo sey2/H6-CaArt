@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../../hooks/useFetch';
 import { OptionComponentProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
@@ -20,6 +20,19 @@ function OptionNavBarLower({
   const selectedClassName = `body-medium-14 text-primary-blue`;
   const unSelectedClassName = `body-regular-14 text-grey-400`;
 
+  const categoryHandler = useCallback(
+    (item: optionTagProps) => {
+      setOptionCategory({
+        isBasic: optionCategory.isBasic,
+        name: item.tagName,
+        img: item.tagImage,
+        id: item.tagId,
+        page: 0,
+      });
+    },
+    [setOptionCategory],
+  );
+
   const { data, status, error } = useFetch<optionTagProps[]>(
     `/tags/${optionCategory.isBasic ? 'basic' : 'additional'}`,
   );
@@ -39,13 +52,7 @@ function OptionNavBarLower({
         key={item.tagName}
         $isSelected={$isSelected}
         onClick={() => {
-          setOptionCategory({
-            isBasic: optionCategory.isBasic,
-            name: item.tagName,
-            img: item.tagImage,
-            id: item.tagId,
-            page: 0,
-          });
+          categoryHandler(item);
         }}
       >
         <img src={$isSelected ? item.tagIconSelected : item.tagIcon}></img>

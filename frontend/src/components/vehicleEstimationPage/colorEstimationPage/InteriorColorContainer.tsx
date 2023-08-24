@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import {
   InteriorColor,
@@ -18,34 +18,37 @@ function InteriorColorContainer({
 }) {
   const { currentEstimation, setColorAndTrim, setTrimInteriorImage } =
     useContext(EstimationContext)!;
-    function getAdoptionRate() {
-      const nowData = data.find(
-        item => item.colorName === currentEstimation.interiorColor.name,
-      );
-      return nowData?.adoptionRate as number;
-    }
-    const [adoptionRate, setAdoptionRate] = useState(getAdoptionRate());
+  function getAdoptionRate() {
+    const nowData = data.find(
+      item => item.colorName === currentEstimation.interiorColor.name,
+    );
+    return nowData?.adoptionRate as number;
+  }
+  const [adoptionRate, setAdoptionRate] = useState(getAdoptionRate());
   const [selectedColorName, setSelectedColorName] = useState(
     currentEstimation.interiorColor.name,
   );
 
-  function setInterColor(item: InteriorColor) {
-    const colorItem = {
-      name: item.colorName,
-      price: item.colorPrice,
-      img: item.colorImage,
-      adoptionRate: item.adoptionRate,
-    };
-    setColorAndTrim({
-      trim: {
-        img: item.preview,
-        name: currentEstimation.trim.name,
-        price: currentEstimation.trim.price,
-      },
-      color: colorItem,
-      type: 'interior',
-    });
-  }
+  const setInterColor = useCallback(
+    (item: InteriorColor) => {
+      const colorItem = {
+        name: item.colorName,
+        price: item.colorPrice,
+        img: item.colorImage,
+        adoptionRate: item.adoptionRate,
+      };
+      setColorAndTrim({
+        trim: {
+          img: item.preview,
+          name: currentEstimation.trim.name,
+          price: currentEstimation.trim.price,
+        },
+        color: colorItem,
+        type: 'interior',
+      });
+    },
+    [setColorAndTrim, currentEstimation.trim],
+  );
 
   useEffect(() => {
     if (data) {

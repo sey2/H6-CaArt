@@ -79,7 +79,7 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
   return getButtonType(type);
 }
 
-export default OptionButton;
+export default React.memo(OptionButton);
 
 const Box = styled.div<{ type: string; selected: string }>`
   transition: width 0.1s linear;

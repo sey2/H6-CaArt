@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { styled } from 'styled-components';
 import ColorButton from './button/ColorButton';
 import ColorChangePopup, { State } from './ColorChangePopup';
@@ -16,28 +16,32 @@ interface Dropdown {
 function Dropdown({ type, data, setter, modaldata }: Dropdown) {
   const { currentEstimation } = useContext(EstimationContext)!;
   const [dropdownOpen, dropdownRef, dropdownHandler] = useDetectClose(false);
-  function setModalData(item: Trim) {
-    const nowModalData = {
-      isopen: true,
-      nowTrim: {
-        name: currentEstimation.trim.name,
-        price: currentEstimation.trim.price,
-        img: currentEstimation.trim.img,
-      },
-      changeTrim: {
-        name: item.trimName,
-        price: item.trimPrice,
-        img: item.preview,
-      },
-      color: {
-        name: item.colorName,
-        price: 0,
-        img: item.colorImage,
-      },
-      type: type,
-    };
-    setter(nowModalData);
-  }
+
+  const setModalData = useCallback(
+    (item: Trim) => {
+      const nowModalData = {
+        isopen: true,
+        nowTrim: {
+          name: currentEstimation.trim.name,
+          price: currentEstimation.trim.price,
+          img: currentEstimation.trim.img,
+        },
+        changeTrim: {
+          name: item.trimName,
+          price: item.trimPrice,
+          img: item.preview,
+        },
+        color: {
+          name: item.colorName,
+          price: 0,
+          img: item.colorImage,
+        },
+        type: type,
+      };
+      setter(nowModalData);
+    },
+    [setter],
+  );
 
   function getDropdown(type: string) {
     const colorText = type === 'exterior' ? '외장' : '내장';
@@ -82,7 +86,7 @@ function Dropdown({ type, data, setter, modaldata }: Dropdown) {
   return getDropdown(type);
 }
 
-export default Dropdown;
+export default React.memo(Dropdown);
 
 const DropdownBox = styled.div<{ $isDown: boolean }>`
   width: 308px;

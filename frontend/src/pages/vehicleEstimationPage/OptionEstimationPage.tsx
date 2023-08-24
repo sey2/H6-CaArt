@@ -31,7 +31,6 @@ function OptionEstimationPage() {
 
   useEffect(() => {
     window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
-    // setOptionCategory({ ...optionCategory, page: 0 });
   }, [optionCategory]);
 
   return (

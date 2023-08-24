@@ -93,6 +93,31 @@ function OptionCardList({
   const { data, status, error } = useFetch<
     AdditionalOptionListProps | basicOptionListProps
   >(apiUrl);
+
+  const maxPageNum = data ? data.totalPages : 0;
+
+  const pageMoveHandler = useCallback(
+    (page: 'right' | 'left' | number) => {
+      if (page === 'left') {
+        setOptionCategory({
+          ...optionCategory,
+          page: optionCategory.page === 0 ? 0 : optionCategory.page - 1,
+        });
+      } else if (page === 'right') {
+        setOptionCategory({
+          ...optionCategory,
+          page:
+            optionCategory.page === maxPageNum - 1
+              ? maxPageNum - 1
+              : optionCategory.page + 1,
+        });
+      } else {
+        setOptionCategory({ ...optionCategory, page: page });
+      }
+    },
+    [setOptionCategory, maxPageNum],
+  );
+
   if (status === 'loading') {
     return <div></div>;
   } else if (status === 'error') {
@@ -100,7 +125,6 @@ function OptionCardList({
     return <ErrorPopup></ErrorPopup>;
   }
   if (data === null) return <div></div>;
-  const maxPageNum = data.totalPages;
 
   const options =
     'baseOptions' in data ? data.baseOptions : data.additionalOptions;
@@ -151,25 +175,6 @@ function OptionCardList({
       </>
     );
   });
-
-  function pageMoveHandler(page: 'right' | 'left' | number) {
-    if (page === 'left') {
-      setOptionCategory({
-        ...optionCategory,
-        page: optionCategory.page === 0 ? 0 : optionCategory.page - 1,
-      });
-    } else if (page === 'right') {
-      setOptionCategory({
-        ...optionCategory,
-        page:
-          optionCategory.page === maxPageNum - 1
-            ? maxPageNum - 1
-            : optionCategory.page + 1,
-      });
-    } else {
-      setOptionCategory({ ...optionCategory, page: page });
-    }
-  }
 
   if (optionCategory.isBasic || optionCategory.name === '전체') {
     return (

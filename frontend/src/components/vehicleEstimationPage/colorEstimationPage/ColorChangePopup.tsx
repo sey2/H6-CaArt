@@ -165,7 +165,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
   );
 }
 
-export default ColorChangePopup;
+export default React.memo(ColorChangePopup);
 
 const Overlay = styled.div`
   width: 100vw;

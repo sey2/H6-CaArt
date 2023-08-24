@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import {
   ExteriorColor,
@@ -11,14 +11,9 @@ import RankBanner from './RankBanner';
 interface ExteriorColorContainerProps {
   data: ExteriorColor[];
   setter: React.Dispatch<React.SetStateAction<SelectedType>>;
-  type: SelectedType;
 }
 
-function ExteriorColorContainer({
-  data,
-  setter,
-  type,
-}: ExteriorColorContainerProps) {
+function ExteriorColorContainer({ data, setter }: ExteriorColorContainerProps) {
   const { currentEstimation, setColorAndTrim, setTrim } =
     useContext(EstimationContext)!;
   function getAdoptionRate() {
@@ -31,7 +26,8 @@ function ExteriorColorContainer({
   const [selectedColorName, setSelectedName] = useState(
     currentEstimation.outerColor.name,
   );
-  function setRankBanner(id: number) {
+
+  const setRankBanner = useCallback((id: number) => {
     switch (id) {
       case 1:
         return <RankBanner text="Top 1" />;
@@ -40,24 +36,28 @@ function ExteriorColorContainer({
       case 3:
         return <RankBanner text="Top 3" />;
     }
-  }
+  }, []);
 
-  function setExteriorColor(item: ExteriorColor) {
-    const colorItem = {
-      name: item.colorName,
-      price: item.colorPrice,
-      img: item.colorImage,
-    };
-    setColorAndTrim({
-      trim: {
-        name: currentEstimation.trim.name,
-        price: currentEstimation.trim.price,
-        img: item.previews[11],
-      },
-      color: colorItem,
-      type: 'exterior',
-    });
-  }
+  const setExteriorColor = useCallback(
+    (item: ExteriorColor) => {
+      const colorItem = {
+        name: item.colorName,
+        price: item.colorPrice,
+        img: item.colorImage,
+      };
+      setColorAndTrim({
+        trim: {
+          name: currentEstimation.trim.name,
+          price: currentEstimation.trim.price,
+          img: item.previews[11],
+        },
+        color: colorItem,
+        type: 'exterior',
+      });
+    },
+    [setColorAndTrim],
+  );
+
   useEffect(() => {
     if (data) {
       setTrim({
@@ -88,9 +88,7 @@ function ExteriorColorContainer({
                 setExteriorColor(item);
                 setAdoptionRate(item.adoptionRate);
                 setSelectedName(item.colorName);
-                if (type !== '360') {
-                  setter('ex');
-                }
+                setter('ex');
               }}
               className="selected"
             >
@@ -114,7 +112,7 @@ function ExteriorColorContainer({
   );
 }
 
-export default ExteriorColorContainer;
+export default React.memo(ExteriorColorContainer);
 
 const Container = styled.div`
   display: flex;

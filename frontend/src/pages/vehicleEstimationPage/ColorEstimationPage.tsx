@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import LeftCarImageContainer from '../../components/vehicleEstimationPage/colorEstimationPage/LeftCarImageContainer';
@@ -53,7 +53,7 @@ export interface CarData {
 export type SelectedType = 'ex' | 'in' | '360' | string;
 
 function ColorEstimationPage() {
-  function getTrimId(trimName: string) {
+  const getTrimId = useCallback((trimName: string) => {
     switch (trimName) {
       case 'Exclusive':
         return 2;
@@ -64,10 +64,11 @@ function ColorEstimationPage() {
       case 'Calligraphy':
         return 4;
     }
-  }
+  }, []);
 
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
   const { preloadImages } = useContext<PreloadProps | null>(preloadContext)!;
+  const [selectedType, setSelectedType] = useState<SelectedType>('ex');
   const { data, status, error } = useFetch<CarData>(
     `/colors?trimId=${getTrimId(currentEstimation.trim.name)}`,
   );
@@ -104,9 +105,8 @@ function ColorEstimationPage() {
     }
   }, [data]);
 
-  const [selectedType, setSelectedType] = useState<SelectedType>('ex');
   if (status === 'loading') {
-    return <div>loading</div>;
+    return <div></div>;
   } else if (status === 'error') {
     console.error(error);
     return <ErrorPopup></ErrorPopup>;
@@ -120,7 +120,6 @@ function ColorEstimationPage() {
         <Layout>
           <LeftCarImageContainer
             type={selectedType}
-            state={selectedType}
             setter={setSelectedType}
             data={data.exteriorColors}
           />
@@ -131,7 +130,6 @@ function ColorEstimationPage() {
             <ExteriorColorContainer
               data={data.exteriorColors}
               setter={setSelectedType}
-              type={selectedType}
             />
             {data.otherTrimExteriorColors.length !== 0 && (
               <Dropdown
