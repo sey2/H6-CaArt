@@ -17,16 +17,20 @@ import com.softeer.caart.domain.recommendation.carmaster.repository.RecommendedO
 import com.softeer.caart.domain.recommendation.lifestyle.dto.request.RecommendationRequest;
 import com.softeer.caart.domain.recommendation.lifestyle.dto.response.RecommendationResponse;
 import com.softeer.caart.global.ResultCode;
+import com.softeer.caart.global.feign.OpenAiFeign;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LifeStyleService {
 	private final ModelRepository modelRepository;
 	private final AdditionalOptionInfoRepository optionInfoRepository;
 	private final RecommendedOptionRepository recommendedOptionRepository;
 	private final AvailableColorRepository availableColorRepository;
+	private final OpenAiFeign openAiFeign;
 
 	// TODO : write basic test codes
 	public RecommendationResponse getRecommendationByLifestyle(RecommendationRequest request) {
@@ -85,7 +89,10 @@ public class LifeStyleService {
 		 * RESPONSE
 		 * "블랙톤 휠은 운전 중에도 무릎의 따뜻함을 느낄 수 있도록 해요."
 		 */
-
-		return reasons.get(0);
+		String message = openAiFeign.getRecommendationMessage(reasons);
+		// String replaced = message.replace("\\", "");
+		// String recommendationMessage = replaced.replace("\"", "");
+		return message;
+		// return reasons.get(0);
 	}
 }
