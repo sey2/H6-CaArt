@@ -80,7 +80,7 @@ function ExteriorColorContainer({ data, setter }: ExteriorColorContainerProps) {
         </span>
       </Info>
       <Container className="text-grey-100 caption-regular-12">
-        {data.map(item => {
+        {data.map((item, index) => {
           return (
             <ColorItem
               key={item.colorId}
@@ -94,7 +94,7 @@ function ExteriorColorContainer({ data, setter }: ExteriorColorContainerProps) {
             >
               <ColorButton src={item.colorImage} />
               <span>{item.colorName}</span>
-              {setRankBanner(item.colorId)}
+              {setRankBanner(index + 1)}
               {selectedColorName === item.colorName && (
                 <SelectedBox>
                   <img

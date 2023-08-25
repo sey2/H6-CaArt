@@ -29,6 +29,7 @@ function CarRotator({ data }: { data: ExteriorColor[] }) {
         item => item.colorName === currentEstimation.outerColor.name,
       );
       setBaseUrl(nowItem?.previews[0] as string);
+      console.log(baseUrl);
     }
   }, [currentEstimation.outerColor.name, data]);
 
@@ -42,7 +43,7 @@ function CarRotator({ data }: { data: ExteriorColor[] }) {
       <BgBottom />
 
       <Image
-        src={`${baseUrl.slice(0, -7)}${String(image).padStart(3, '0')}.png`}
+        src={`${baseUrl.slice(0, -8)}${String(image).padStart(3, '0')}.webp`}
         onMouseMove={startSwipe}
       />
       <RotateCircle src="/images/rotate_circle.png" />
