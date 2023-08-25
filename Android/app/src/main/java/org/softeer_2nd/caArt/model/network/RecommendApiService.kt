@@ -28,7 +28,7 @@ sealed interface RecommendApiService {
     @GET("personas/{personaId}/recommendation")
     suspend fun getRecommendationResultByLifestyle(
         @Path("personaId") personaId: Int,
-        @Query("ageId") ageId: Int
+        @Query("age") ageId: String
 
     ): CaArtResponse<RecommendCompleteResultDTO>
 
@@ -36,7 +36,7 @@ sealed interface RecommendApiService {
     suspend fun getRecommendationResultByAdditionalQuestions(
         @Query("age") age: String,
         @Query("experience") experience: String,
-        @Query("family")family:String,
+        @Query("family") family: String,
         @Query("purpose") purpose: String,
         @Query("value") value: String,
         @Query("budget") budget: Int

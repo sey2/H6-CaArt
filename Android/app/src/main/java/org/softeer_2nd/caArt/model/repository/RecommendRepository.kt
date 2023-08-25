@@ -66,7 +66,7 @@ class RecommendRepository @Inject constructor(
     suspend fun fetchRecommendResult(personaId: Int, age: String): RecommendCompleteResultDTO? {
 
         //TODO 서버 변경 이후 ageId->ageCode로변경
-        val data = service.getRecommendationResultByLifestyle(personaId, 2).data
+        val data = service.getRecommendationResultByLifestyle(personaId, age).data
         return data
     }
 
