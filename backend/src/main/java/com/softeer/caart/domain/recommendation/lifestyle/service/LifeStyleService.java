@@ -1,9 +1,12 @@
 package com.softeer.caart.domain.recommendation.lifestyle.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.softeer.caart.domain.color.entity.AvailableColor;
+import com.softeer.caart.domain.color.repository.AvailableColorRepository;
 import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.model.exception.ModelNotFoundException;
 import com.softeer.caart.domain.model.repository.ModelRepository;
@@ -23,6 +26,7 @@ public class LifeStyleService {
 	private final ModelRepository modelRepository;
 	private final AdditionalOptionInfoRepository optionInfoRepository;
 	private final RecommendedOptionRepository recommendedOptionRepository;
+	private final AvailableColorRepository availableColorRepository;
 
 	// TODO : write basic test codes
 	public RecommendationResponse getRecommendationByLifestyle(RecommendationRequest request) {
@@ -30,7 +34,15 @@ public class LifeStyleService {
 		List<AdditionalOptionInfo> twoOptions = getMostRecommendedTwoOptions(request, model);
 		String reason1 = generateReasonByChatGPT(request, twoOptions.get(0));
 		String reason2 = generateReasonByChatGPT(request, twoOptions.get(1));
-		return RecommendationResponse.of(model, twoOptions, reason1, reason2);
+		List<AvailableColor> recommendedColorList = new ArrayList<>();
+		Long id = model.getTrim().getId();
+		AvailableColor exteriorColor = availableColorRepository.findAllByTrim_IdAndColor_IsExteriorOrderByAdoptionRateTwentyDesc(
+			id, true).get(0);
+		AvailableColor interiorColor = availableColorRepository.findAllByTrim_IdAndColor_IsExteriorOrderByAdoptionRateTwentyDesc(
+			id, false).get(0);
+		recommendedColorList.add(exteriorColor);
+		recommendedColorList.add(interiorColor);
+		return RecommendationResponse.of(model, recommendedColorList, twoOptions, reason1, reason2, request.getAge());
 	}
 
 	private Model getMostRecommendedModel(RecommendationRequest request) {

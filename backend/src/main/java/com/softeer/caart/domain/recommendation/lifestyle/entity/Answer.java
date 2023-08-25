@@ -49,4 +49,19 @@ public enum Answer {
 			throw new InvalidAnswerException(ResultCode.INVALID_ANSWER);
 		}
 	}
+
+	public static int getAge(Answer age) {
+		switch (age) {
+			case TWENTY:
+				return 20;
+			case THIRTY:
+				return 30;
+			case FORTY:
+				return 40;
+			case FIFTY_OR_ABOVE:
+				return 50;
+			default:
+				return 0;
+		}
+	}
 }

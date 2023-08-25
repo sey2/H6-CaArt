@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.softeer.caart.domain.color.dto.PurchasedColorCountDto;
 import com.softeer.caart.domain.color.entity.AvailableColor;
+import com.softeer.caart.domain.trim.entity.Trim;
 
 public interface AvailableColorRepository extends JpaRepository<AvailableColor, Long> {
 
@@ -28,4 +29,18 @@ public interface AvailableColorRepository extends JpaRepository<AvailableColor, 
 		nativeQuery = true)
 	List<PurchasedColorCountDto> countPurchasedInteriorColorByAgeGroup(@Param("trimId") Long trimId,
 		@Param("beginning") int beginning, @Param("end") int end);
+
+	List<AvailableColor> findAllByTrimAndColor_IsExteriorOrderByAdoptionRateTwentyDesc(Trim trim, Boolean isExterior);
+
+	List<AvailableColor> findAllByTrim_IdAndColor_IsExteriorOrderByAdoptionRateTwentyDesc(Long trimId,
+		Boolean isExterior);
+
+	List<AvailableColor> findAllByTrimAndColor_IsExteriorOrderByAdoptionRateThirtyDesc(Trim trim, Boolean isExterior);
+
+	List<AvailableColor> findAllByTrimAndColor_IsExteriorOrderByAdoptionRateFortyDesc(Trim trim, Boolean isExterior);
+
+	List<AvailableColor> findAllByTrimAndColor_IsExteriorOrderByAdoptionRateFiftyOrAboveDesc(Trim trim,
+		Boolean isExterior);
+
+	List<AvailableColor> findAllByTrimAndColor_IsExteriorOrderByAdoptionRateAllDesc(Trim trim, Boolean isExterior);
 }

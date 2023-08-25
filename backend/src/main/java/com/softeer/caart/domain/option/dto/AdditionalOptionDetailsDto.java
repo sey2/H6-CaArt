@@ -20,7 +20,7 @@ public class AdditionalOptionDetailsDto {
 	private String description;
 	private String summary;
 	private String badge;
-	private double adoptionRate;
+	private int adoptionRate;
 	private Position position;
 	private String optionImage;
 	private List<String> tags;
@@ -31,7 +31,7 @@ public class AdditionalOptionDetailsDto {
 		this.optionPrice = option.getPrice();
 		this.summary = option.getSummary();
 		this.badge = option.getBadgeName();
-		this.adoptionRate = adoptionRate;
+		this.adoptionRate = (int)adoptionRate;
 		// this.position = option.getPosition(); // FIXME
 		BaseOptionInfo details = option.getDetails();
 		this.optionName = details.getName();

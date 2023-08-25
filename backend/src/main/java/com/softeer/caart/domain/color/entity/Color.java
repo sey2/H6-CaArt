@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Color {
 
-	private static final int EXTERIOR_MAIN_PREVIEW_IDX = 11;
+	private static final int EXTERIOR_MAIN_PREVIEW_IDX = 10;
 	private static final int INTERIOR_MAIN_PREVIEW_IDX = 0;
 
 	@Id

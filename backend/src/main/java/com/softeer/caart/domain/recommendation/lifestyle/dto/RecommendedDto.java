@@ -19,17 +19,19 @@ public class RecommendedDto {
 	@Getter
 	public static class RecommendedColorDto {
 		private final String colorImage;
-		private final Boolean isExterior;
+		private final boolean isExterior;
 		private final String colorName;
-		private final Integer colorPrice;
+		private final int colorPrice;
+		private final String colorPreview;
 		private final String recommendationMessage;
 
-		public RecommendedColorDto(Color color) {
+		public RecommendedColorDto(Color color, int adoptionRate, int age) {
 			this.colorImage = color.getImage().getUrl();
 			this.isExterior = color.getIsExterior();
 			this.colorName = color.getName();
 			this.colorPrice = color.getPrice();
-			this.recommendationMessage = "75%의 20대 구매자들이 선택했어요.";
+			this.colorPreview = color.getImageUrlOfMainColorPreview();
+			this.recommendationMessage = String.format("%d%%의 %d대 구매자들이 선택했어요.", adoptionRate, age);
 		}
 	}
 

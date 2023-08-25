@@ -69,6 +69,10 @@ public class RecommendationResult {
 		return List.of(firstOption, secondOption);
 	}
 
+	public List<String> getExplanationList() {
+		return List.of(firstExplanation, secondExplanation);
+	}
+
 	public Integer calcTotalPrice() {
 		return model.calcModelPrice()
 			+ exteriorColor.getPrice() + interiorColor.getPrice()

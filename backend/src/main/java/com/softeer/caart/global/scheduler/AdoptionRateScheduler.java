@@ -36,9 +36,9 @@ public class AdoptionRateScheduler {
 	private final ModelRepository modelRepository;
 	private final AvailableOptionRepository availableOptionRepository;
 
-	// @Scheduled(cron = "0 50 23 * * ? *", zone = "Asia/Seoul")
+	// @Scheduled(fixedDelay = 1000000000)
 	@Transactional
-	@Scheduled(fixedDelay = 1000000000)
+	@Scheduled(cron = "0 0 3 * * ?", zone = "Asia/Seoul")
 	public void updateAdoptionRateOfColors() {
 		MultiValueMap<Trim, AvailableColor> trimAvailableColorMap = getTrimAvailableColorMap();
 		// 각 트림에 대해
@@ -88,9 +88,9 @@ public class AdoptionRateScheduler {
 		return availableColor.get();
 	}
 
-	// @Scheduled(cron = "0 55 23 * * ? *", zone = "Asia/Seoul")
+	// @Scheduled(fixedDelay = 1000000000)
 	@Transactional
-	@Scheduled(fixedDelay = 1000000000)
+	@Scheduled(cron = "0 5 3 * * ?", zone = "Asia/Seoul")
 	public void updateAdoptionRateOfOptions() {
 		List<PurchasedOptionCountDto> purchasedOptionCountDtoList = additionalOptionInfoRepository.countPurchasedOption();
 		List<Long> purchasedModelCounts = modelRepository.countPurchasedModel();

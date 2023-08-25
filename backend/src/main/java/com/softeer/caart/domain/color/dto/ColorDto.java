@@ -32,8 +32,8 @@ public class ColorDto {
 		private final Long colorId;
 		private final String colorName;
 		private final String colorImage;
-		private final Integer colorPrice;
-		private final double adoptionRate;
+		private final int colorPrice;
+		private final int adoptionRate;
 		private final List<String> previews;
 
 		public ExteriorColorDto(Color color, double adoptionRate) {
@@ -41,7 +41,7 @@ public class ColorDto {
 			this.colorName = color.getName();
 			this.colorImage = color.getImage().getUrl();
 			this.colorPrice = color.getPrice();
-			this.adoptionRate = adoptionRate;
+			this.adoptionRate = (int)adoptionRate;
 			this.previews = color.getImageUrlListOfColorPreview();
 		}
 	}
@@ -51,8 +51,8 @@ public class ColorDto {
 		private final Long colorId;
 		private final String colorName;
 		private final String colorImage;
-		private final Integer colorPrice;
-		private final double adoptionRate;
+		private final int colorPrice;
+		private final int adoptionRate;
 		private final String preview;
 
 		public InteriorColorDto(Color color, double adoptionRate) {
@@ -60,7 +60,7 @@ public class ColorDto {
 			this.colorName = color.getName();
 			this.colorImage = color.getImage().getUrl();
 			this.colorPrice = color.getPrice();
-			this.adoptionRate = adoptionRate;
+			this.adoptionRate = (int)adoptionRate;
 			this.preview = color.getImageUrlOfMainColorPreview();
 		}
 	}
