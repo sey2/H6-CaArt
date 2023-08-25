@@ -80,4 +80,8 @@ const Button = styled.button<buttonOption>`
   ${props => props.$border && `border: 1px solid var(--grey-600)`};
   opacity: ${props => (props.$disabled ? '0.6' : '1')};
   cursor: ${props => (props.$disabled ? 'not-allowed' : 'pointer')};
+
+  @media screen and (max-width: 1024px) {
+    width: 90%;
+  }
 `;

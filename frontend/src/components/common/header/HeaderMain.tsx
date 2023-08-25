@@ -56,6 +56,13 @@ function HeaderMain() {
     );
   });
 
+  const height =
+    currentEstimation.options.length === 5
+      ? '258px'
+      : currentEstimation.options.length === 4
+      ? '233px'
+      : '208px';
+
   return (
     <>
       <Container>
@@ -85,7 +92,7 @@ function HeaderMain() {
           </Link>
         </ButtonBox>
       </Container>
-      <DropDown visibility={showDetail}>
+      <DropDown visibility={showDetail} height={height}>
         {<HeaderDetail setShowDetail={setShowDetail}></HeaderDetail>}
       </DropDown>
     </>

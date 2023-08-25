@@ -4,9 +4,11 @@ import styled, { keyframes } from 'styled-components';
 function DropDown({
   children,
   visibility,
+  height,
 }: {
   children: ReactNode;
   visibility: boolean;
+  height: string;
 }) {
   const [visibilityAnimation, setVisibilityAnimation] = useState(false);
   const [repeat, setRepeat] = useState<NodeJS.Timeout | undefined>(undefined);
@@ -29,6 +31,7 @@ function DropDown({
     <Container
       className={visibility ? 'down' : 'up'}
       $visibilityAnimation={visibilityAnimation}
+      height={height}
     >
       {visibilityAnimation && children}
     </Container>
@@ -55,12 +58,12 @@ const moveUp = keyframes`
   }
 `;
 
-const Container = styled.div<{ $visibilityAnimation: boolean }>`
+const Container = styled.div<{ $visibilityAnimation: boolean; height: string }>`
   overflow: hidden;
   position: absolute;
   width: 100vw;
   left: 0px;
-  height: ${props => (props.$visibilityAnimation ? '258px' : '0px')};
+  height: ${props => (props.$visibilityAnimation ? props.height : '0px')};
 
   &.down > div {
     animation: ${moveDown} 0.5s;

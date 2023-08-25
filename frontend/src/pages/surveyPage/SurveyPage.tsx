@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ErrorPopup from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
+import { DarkContext } from '../../hooks/useDark';
 import { useFetch } from '../../hooks/useFetch';
 import { priceToString } from '../../util/PriceToString';
 
@@ -91,6 +92,7 @@ function SurveyPage() {
   const [dropDownNum, setDropDownNum] = useState(0);
   const [optionList, setOptionList] = useState<Option[] | null>(null);
   const navigate = useNavigate();
+  const { isDark } = useContext(DarkContext)!;
 
   const { data, status, error } = useFetch<SurveyProfileProps>(
     '/carmasters/surveys',
@@ -218,7 +220,13 @@ function SurveyPage() {
     <>
       <Container>
         <Logo>
-          <img src={'/images/hyundai_logo_default.svg'} />
+          <img
+            src={
+              isDark
+                ? '/images/hyundai_logo_home.svg'
+                : '/images/hyundai_logo_default.svg'
+            }
+          />
         </Logo>
 
         <Title>
@@ -239,7 +247,7 @@ function SurveyPage() {
               <span className="body-medium-20">{`${data.family.answer} 가구`}</span>
             </ProfileText>
             <ProfileText>
-              <span className="head-medium-20">뮥적</span>
+              <span className="head-medium-20">목적</span>
               <span className="body-medium-20">{data.purpose.answer}</span>
             </ProfileText>
             <ProfileText>
@@ -248,7 +256,9 @@ function SurveyPage() {
             </ProfileText>
             <ProfileText>
               <span className="head-medium-20">예산 범위</span>
-              <span className="body-medium-20">{`${data.budgetRange} 만원`}</span>
+              <span className="body-medium-20">{`${Math.floor(
+                data.budgetRange / 10000,
+              )} 만원`}</span>
             </ProfileText>
           </ProfileTextContainer>
         </ProfileCard>
@@ -408,7 +418,6 @@ function SurveyPage() {
           <Answer>
             <TextAnswer
               disabled={answer.additionalOptionId1 === 0}
-              type={'text'}
               placeholder="30자 이내로 짧게 적어주세요"
               value={answer.reason1}
               maxLength={30}
@@ -470,7 +479,6 @@ function SurveyPage() {
           <Answer>
             <TextAnswer
               disabled={answer.additionalOptionId2 === 0}
-              type={'text'}
               placeholder="30자 이내로 짧게 적어주세요"
               value={answer.reason2}
               maxLength={30}
@@ -485,7 +493,7 @@ function SurveyPage() {
       <TotalPrice>
         <span>총 견적</span>
         <span>{priceToString(answer.totalSum)}</span>
-        {answer.totalSum > data.budgetRange * 10000 && (
+        {answer.totalSum > data.budgetRange && (
           <PriceAlert>예산 범위를 초과했습니다!</PriceAlert>
         )}
       </TotalPrice>
@@ -517,6 +525,11 @@ const Container = styled.div`
   flex-direction: column;
   width: 1024px;
   margin: 80px auto 80px auto;
+  color: var(--grey-0);
+
+  @media screen and (max-width: 1024px) {
+    width: 90%;
+  }
 `;
 
 const Logo = styled.div`
@@ -533,6 +546,10 @@ const Title = styled.div`
   font-weight: 700;
   font-style: normal;
   white-space: pre-wrap;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 20px;
+  }
 `;
 
 const ProfileCard = styled.div`
@@ -540,16 +557,29 @@ const ProfileCard = styled.div`
   height: 315px;
   margin-top: 26px;
   border-radius: 20px;
-  background: #d9d9d9;
+  background: var(--grey-700);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const ProfileImg = styled.img`
   width: 250px;
   height: 250px;
   border-radius: 50%;
+
+  @media screen and (max-width: 1024px) {
+    width: 250px;
+    height: 250px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 `;
 
 const ProfileTextContainer = styled.div`
@@ -557,6 +587,13 @@ const ProfileTextContainer = styled.div`
   flex-direction: column;
   gap: 20px;
   width: 400px;
+
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    text-align: center;
+    gap: 30px;
+    padding: 30px;
+  }
 `;
 
 const ProfileText = styled.div`
@@ -566,6 +603,19 @@ const ProfileText = styled.div`
   & > :first-child {
     width: 100px;
   }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    gap: 10px;
+
+    & > span {
+      width: 100%;
+      text-align: center;
+    }
+    & > :first-child {
+      width: 100%;
+    }
+  }
 `;
 
 const QuestionContainer = styled.div`
@@ -573,6 +623,10 @@ const QuestionContainer = styled.div`
   gap: 40px;
   align-items: center;
   margin-top: 60px;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const Question = styled.div`
@@ -583,20 +637,34 @@ const Question = styled.div`
   line-height: 140%;
   font-weight: 700;
   font-style: normal;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 16px;
+    max-width: 90%;
+  }
 `;
 
 const Answer = styled.div`
   display: flex;
   gap: 20px;
+
+  @media screen and (max-width: 1024px) {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const TrimButton = styled.div<{ $selected?: boolean }>`
   width: 120px;
   padding: 15px;
   text-align: center;
-  background: ${props => (props.$selected ? '#fff' : '#f0f0f0;')};
+  background: ${props =>
+    props.$selected ? 'var(--grey-1000)' : 'var(--grey-800);'};
   border: ${props =>
-    props.$selected ? '1.5px solid #00428E' : '1.5px solid transparent'};
+    props.$selected
+      ? '1.5px solid var(--primary-blue)'
+      : '1.5px solid transparent'};
   border-radius: 12px;
   cursor: pointer;
 
@@ -608,8 +676,8 @@ const TrimButton = styled.div<{ $selected?: boolean }>`
   font-style: normal;
 
   &:hover {
-    background: #fff;
-    border: 1.5px solid #00428e;
+    background: var(--grey-1000);
+    border: 1.5px solid var(--primary-blue);
   }
 `;
 
@@ -625,10 +693,13 @@ const DropDown = styled.div<{
   padding: 15px;
   text-align: center;
   border: ${props =>
-    props.$optionSelected ? '1.5px solid #00428e' : '1.5px solid transparent'};
+    props.$optionSelected
+      ? '1.5px solid var(--primary-blue)'
+      : '1.5px solid transparent'};
   border-radius: 12px;
   cursor: ${props => (props.$optionSelectActive ? 'pointer' : 'not-allowed')};
-  background: ${props => (props.$optionSelected ? '#fff' : '#f0f0f0')};
+  background: ${props =>
+    props.$optionSelected ? 'var(--grey-1000)' : 'var(--grey-800)'};
 
   font-family: 'HyundaiHeadBold';
   font-size: 16px;
@@ -637,9 +708,13 @@ const DropDown = styled.div<{
   font-weight: 500;
   font-style: normal;
 
+  > span {
+    width: 90%;
+  }
+
   &:hover {
-    background: #fff;
-    border: 1.5px solid #00428e;
+    background: var(--grey-1000);
+    border: 1.5px solid var(--primary-blue);
   }
 `;
 
@@ -661,8 +736,8 @@ const DropDownList = styled.div`
   top: 60px;
   transform: translateX(-50%);
   overflow: scroll;
-  background: #fff;
-  border: 1.5px solid #00428e;
+  background: var(--grey-1000);
+  border: 1.5px solid var(--primary-blue);
   border-radius: 12px;
 
   > div {
@@ -670,22 +745,30 @@ const DropDownList = styled.div`
   }
 
   > div:hover {
-    background: #f0f0f0;
+    background: var(--grey-800);
   }
 `;
 
-const TextAnswer = styled.input`
+const TextAnswer = styled.textarea`
   width: 540px;
-  height: 50px;
-  padding-left: 20px;
+  height: 60px;
+  padding: 20px;
   border-radius: 20px;
   border: ${props =>
-    props.value ? '1.5px solid #00428e' : '1.5px solid transparent'};
-  background: ${props => (props.value ? '#fff' : '#f0f0f0')};
+    props.value
+      ? '1.5px solid var(--primary-blue)'
+      : '1.5px solid transparent'};
+  background: ${props =>
+    props.value ? 'var(--grey-1000)' : 'var(--grey-800)'};
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
 
   &:active {
-    border: 1.5px solid #00428e;
+    border: 1.5px solid var(--primary-blue);
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 260px;
+    height: 100px;
   }
 `;
 
@@ -696,6 +779,7 @@ const TotalPrice = styled.div`
   justify-content: flex-end;
   gap: 38px;
   position: relative;
+  color: var(--grey-0);
 
   font-family: 'HyundaiHeadMedium';
   font-size: 40px;
@@ -703,6 +787,11 @@ const TotalPrice = styled.div`
   font-weight: 700;
   line-height: 140%;
   letter-spacing: -0.3px;
+
+  @media screen and (max-width: 1024px) {
+    width: 90%;
+    font-size: 20px;
+  }
 `;
 
 const PriceAlert = styled.div`
@@ -717,6 +806,11 @@ const PriceAlert = styled.div`
   font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.3px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 16px;
+    top: 35px;
+  }
 `;
 
 const NextButton = styled.div`
