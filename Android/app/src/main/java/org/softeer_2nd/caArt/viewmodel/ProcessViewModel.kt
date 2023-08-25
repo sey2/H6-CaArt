@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.viewmodel
 
+import SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,8 +23,8 @@ abstract class ProcessViewModel<PROCESS_DATA_TYPE> : ViewModel() {
 
     protected val processData = mutableListOf<PROCESS_DATA_TYPE>()
 
-    protected val _processFinishEvent = MutableLiveData<Boolean>()
-    val processFinishEvent: LiveData<Boolean> = _processFinishEvent
+    protected val _processFinishEvent = SingleLiveEvent<Unit>()
+    val processFinishEvent: LiveData<Unit> = _processFinishEvent
 
     protected fun setLastProcess(lastProcess: Int) {
         _lastProcess.value = lastProcess
@@ -35,8 +36,7 @@ abstract class ProcessViewModel<PROCESS_DATA_TYPE> : ViewModel() {
 
     open fun next() {
         if (currentProcessIndex == lastProcessIndex) {
-            _processFinishEvent.value = true
-            _processFinishEvent.value = false
+            _processFinishEvent.call()
         }
         val next = min(processData.lastIndex, currentProcessIndex + 1)
         _currentProcessIndex = next

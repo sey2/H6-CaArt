@@ -18,38 +18,48 @@ data class RecommendCompleteResultDTO(
     val totalPrice: Long
 ) {
     companion object {
+
         fun RecommendCompleteResultDTO.toState(): RecommendCompleteResultState {
+            val resultOptionList = MutableList<Option?>(2) { null }
+            val resultColorList = MutableList<ChoiceColorItem?>(2) { null }
+
+            for (i in 0 until 2) {
+                if (options.size > i) resultOptionList[i] = options[i]
+                if (colors.size > i) resultColorList[i] = colors[i]
+            }
 
             val resultOptions = mutableListOf<ResultChoiceOption>()
-            val option1 = options[0]
-            val option2 = options[1]
+            val option1 = resultOptionList[0]
+            val option2 = resultOptionList[1]
+            val interiorColor = resultColorList[0]
+            val exteriorColor = resultColorList[1]
             val convertedOption = ResultChoiceOption(
                 optionTitle = CaArtApplication.getApplicationContext().getString(R.string.option),
-                topOptionImgUrl = option1.optionImage,
-                topOptionPrice = option1.optionPrice,
-                topOptionTitle = option1.optionName,
-                topOptionToolTipText = option1.recommendationMessage ?: "",
-                bottomOptionImgUrl = option2.optionImage,
-                bottomOptionPrice = option2.optionPrice,
-                bottomOptionTitle = option2.optionName,
-                bottomOptionToolTipText = option2.recommendationMessage ?: "",
+                topOptionImgUrl = option1?.optionImage ?: "",
+                topOptionPrice = option1?.optionPrice ?: 0,
+                topOptionTitle = option1?.optionName ?: "-",
+                topOptionToolTipText = option1?.recommendationMessage ?: "",
+                bottomOptionImgUrl = option2?.optionImage ?: "",
+                bottomOptionPrice = option2?.optionPrice ?: 0,
+                bottomOptionTitle = option2?.optionName ?: "-",
+                bottomOptionToolTipText = option2?.recommendationMessage ?: "",
             )
-            //TODO 컬러 완성 후 Color를 covert하는걸로 수정
+
             val convertedColor = ResultChoiceOption(
                 optionTitle = CaArtApplication.getApplicationContext().getString(R.string.color),
-                topOptionImgUrl = option1.optionImage,
-                topOptionPrice = option1.optionPrice,
-                topOptionTitle = option1.optionName,
-                topOptionToolTipText = option1.recommendationMessage ?: "",
-                bottomOptionImgUrl = option1.optionImage,
-                bottomOptionPrice = option1.optionPrice,
-                bottomOptionTitle = option1.optionName,
-                bottomOptionToolTipText = option1.recommendationMessage ?: "",
+                topOptionImgUrl = exteriorColor?.imgUrl ?: "",
+                topOptionPrice = exteriorColor?.colorPrice,
+                topOptionTitle = exteriorColor?.colorName ?: "",
+                topOptionToolTipText = exteriorColor?.recommendationMessage ?: "",
+                bottomOptionImgUrl = interiorColor?.imgUrl ?: "",
+                bottomOptionPrice = interiorColor?.colorPrice,
+                bottomOptionTitle = interiorColor?.colorName ?: "",
+                bottomOptionToolTipText = interiorColor?.recommendationMessage ?: "",
             )
 
             resultOptions.apply {
-                add(convertedOption)
                 add(convertedColor)
+                add(convertedOption)
             }
             return RecommendCompleteResultState(
                 model = model,

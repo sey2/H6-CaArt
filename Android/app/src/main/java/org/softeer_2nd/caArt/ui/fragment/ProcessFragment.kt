@@ -21,7 +21,7 @@ abstract class ProcessFragment<PROCESS_DATA_TYPE> : Fragment() {
         }
 
         processViewModel.processFinishEvent.observe(viewLifecycleOwner) {
-            if (it) onProcessFinished()
+            onProcessFinished()
         }
     }
 

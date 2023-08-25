@@ -39,6 +39,7 @@ sealed interface RecommendApiService {
         @Query("family") family: String,
         @Query("purpose") purpose: String,
         @Query("value") value: String,
-        @Query("budget") budget: Int
+        @Query("maxBudget") maxBudget: Int,
+        @Query("minBudget") minBudget: Int
     ): CaArtResponse<RecommendCompleteResultDTO>
 }

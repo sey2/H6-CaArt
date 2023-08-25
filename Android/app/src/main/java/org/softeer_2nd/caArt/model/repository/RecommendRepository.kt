@@ -76,7 +76,8 @@ class RecommendRepository @Inject constructor(
         family: String,
         purpose: String,
         value: String,
-        budget: Int
+        maxBudget: Int,
+        minBudget:Int
     ): RecommendCompleteResultState? {
 
         val data = service.getRecommendationResultByAdditionalQuestions(
@@ -85,7 +86,8 @@ class RecommendRepository @Inject constructor(
             family = family,
             purpose = purpose,
             value = value,
-            budget = budget
+            maxBudget = maxBudget,
+            minBudget = minBudget
         ).data
         return data?.toState()
     }

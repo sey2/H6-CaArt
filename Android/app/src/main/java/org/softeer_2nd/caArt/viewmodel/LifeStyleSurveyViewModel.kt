@@ -27,9 +27,12 @@ class LifeStyleSurveyViewModel @Inject constructor(
     private val _selectedAnswer = MutableLiveData<Answer>()
     val selectedAnswer: LiveData<Answer> = _selectedAnswer
 
-    private lateinit var selectedAnswerList: MutableList<Answer?>
+    private var selectedAnswerList: MutableList<Answer?>? = null
 
-    val selectedAgeAnswer: Answer? get() = if (selectedAnswerList.isNotEmpty()) selectedAnswerList[0] else null
+    var displayPersonaPageIndex = 0
+        private set
+
+    val selectedAgeAnswer: Answer? get() = if (!selectedAnswerList.isNullOrEmpty()) selectedAnswerList!![0] else null
 
     val selectedPersonaId: Int? get() = selectedPersona.value?.personaId
 
@@ -43,8 +46,8 @@ class LifeStyleSurveyViewModel @Inject constructor(
             withContext(Dispatchers.Main) {
                 setProcessData(questions)
                 setLastProcess(questions.size)
-                selectedAnswerList = MutableList(questions.size) { null }
-                startProcess()
+                selectedAnswerList = selectedAnswerList ?: MutableList(questions.size) { null }
+                if (currentProcessIndex < 0) startProcess()
             }
         }
     }
@@ -60,16 +63,22 @@ class LifeStyleSurveyViewModel @Inject constructor(
             val personaList = repository.fetchPersonaList() ?: return@launch
             withContext(Dispatchers.Main) {
                 _personaList.value = personaList
-                selectPersona(personaList[0])
+                selectPersona(selectedPersona.value ?: personaList[0])
             }
         }
     }
 
     fun selectAnswer(selectedAnswer: Answer) {
-        _selectedAnswer.value = selectedAnswer
-        if (selectedAnswerList.size > currentProcessIndex) {
-            selectedAnswerList[currentProcessIndex] = selectedAnswer
+        selectedAnswerList?.let {
+            _selectedAnswer.value = selectedAnswer
+            if (it.size > currentProcessIndex) {
+                it[currentProcessIndex] = selectedAnswer
+            }
         }
+    }
+
+    fun setDisplayPersonaPageIndex(position: Int) {
+        displayPersonaPageIndex = position
     }
 
 }

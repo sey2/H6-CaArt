@@ -1,10 +1,8 @@
 package org.softeer_2nd.caArt.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +46,8 @@ class RecommendCompleteViewModel @Inject constructor(private val repository: Rec
         family: Answer?,
         purpose: Answer?,
         value: Answer?,
-        budget: Int
+        maxBudget: Int,
+        minBudget: Int
     ): Boolean {
         if (experience == null || family == null || purpose == null || value == null) return false
         viewModelScope.launch {
@@ -59,7 +58,8 @@ class RecommendCompleteViewModel @Inject constructor(private val repository: Rec
                     family.code,
                     purpose.code,
                     value.code,
-                    budget
+                    maxBudget,
+                    minBudget
                 ) ?: return@launch
             val answerList = listOf(
                 age.answer,
@@ -67,14 +67,13 @@ class RecommendCompleteViewModel @Inject constructor(private val repository: Rec
                 family.answer,
                 purpose.answer,
                 value.answer,
-                "$budget 만원"
+                "${maxBudget / 10000} 만원"
             )
             withContext(Dispatchers.Main) {
                 _resultState.value = state
                 _answerList.value = answerList
             }
         }
-
         return true
     }
 

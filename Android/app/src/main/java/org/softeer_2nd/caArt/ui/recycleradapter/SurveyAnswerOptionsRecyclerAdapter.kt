@@ -1,6 +1,7 @@
 package org.softeer_2nd.caArt.ui.recycleradapter
 
 import android.content.res.ColorStateList
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -10,24 +11,24 @@ import org.softeer_2nd.caArt.model.data.Answer
 import org.softeer_2nd.caArt.ui.callback.OnItemClickListener
 import org.softeer_2nd.caArt.util.dp2px
 
-class SurveyAnswerOptionsRecyclerAdapter(private val itemSelectListener:OnItemClickListener<Answer>) :
+class SurveyAnswerOptionsRecyclerAdapter(private val itemSelectListener: OnItemClickListener<Answer>) :
     RecyclerView.Adapter<SurveyAnswerOptionsRecyclerAdapter.SurveyAnswerOptionViewHolder>() {
 
-    private var selectedAnswerOptionIndex: Int = 0
+    private var selectedAnswerOptionIndex: Int = -1
     private var answerOptionList: List<Answer> = listOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): SurveyAnswerOptionViewHolder {
-        val paddingVertical = 20f.dp2px(parent.context)
         val paddingHorizontal = 12f.dp2px(parent.context)
         val textView = TextView(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 56f.dp2px(parent.context)
             )
-            setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(paddingHorizontal, 0, paddingHorizontal, 0)
         }
         return SurveyAnswerOptionViewHolder(textView)
     }
@@ -50,7 +51,7 @@ class SurveyAnswerOptionsRecyclerAdapter(private val itemSelectListener:OnItemCl
         val oldIndex = selectedAnswerOptionIndex
         selectedAnswerOptionIndex = newIndex
 
-        notifyItemChanged(oldIndex)
+        if (oldIndex >= 0) notifyItemChanged(oldIndex)
         notifyItemChanged(selectedAnswerOptionIndex)
 
     }
@@ -75,13 +76,9 @@ class SurveyAnswerOptionsRecyclerAdapter(private val itemSelectListener:OnItemCl
 
         fun bind(answerOption: Answer) {
             textView.text = answerOption.answer
-//            textView.setOnClickListener {
-//                selectAnswerOption(answerOption)
-//            }
             textView.setOnClickListener {
                 itemSelectListener.onItemClicked(answerOption)
             }
-
         }
 
         fun applySelectedStyle() {

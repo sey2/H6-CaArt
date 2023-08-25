@@ -2,6 +2,7 @@ package org.softeer_2nd.caArt.ui.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
             root.initPersonaContainerLayoutParams()
             vpLifeStylePersonaContainer.initLifeStylePersonaContainer(personaAdapter)
         }
+
         binding.clSurveyScreenContainer.addView(lifeStylePersonaLayoutBinding?.root)
 
         binding.processViewModel = processViewModel
@@ -87,8 +89,14 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
         binding.rvSurveyAnswerOptionsContainer.initSurveyAnswerOptionsRecyclerView(surveyAdapter!!)
 
         processViewModel.personaList.observe(viewLifecycleOwner) {
-            lifeStylePersonaLayoutBinding?.ciLifeStylePersonaIndicator?.setDotCount(it.size + 1)
             personaAdapter.setItemList(it)
+            lifeStylePersonaLayoutBinding?.apply {
+                ciLifeStylePersonaIndicator.setDotCount(it.size + 1)
+                vpLifeStylePersonaContainer.setCurrentItem(
+                    processViewModel.displayPersonaPageIndex,
+                    false
+                )
+            }
         }
 
         processViewModel.selectedPersona.observe(viewLifecycleOwner) {
@@ -187,6 +195,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
                 lifeStylePersonaLayoutBinding?.ciLifeStylePersonaIndicator?.setSelectedDotIndex(
                     position
                 )
+                processViewModel.setDisplayPersonaPageIndex(position)
             }
         })
     }

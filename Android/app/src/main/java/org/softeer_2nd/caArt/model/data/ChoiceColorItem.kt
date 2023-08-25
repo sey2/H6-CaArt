@@ -13,6 +13,8 @@ data class ChoiceColorItem(
     @SerializedName("colorImage")
     val imgUrl: String = "",
     val trimName: String = "",
+    val recommendationMessage: String? = null,
+    val colorPrice: Long? = null
 ) {
     companion object {
         fun ChoiceColorItem.toExteriorColor(): ExteriorColor =

@@ -18,12 +18,15 @@ import javax.inject.Inject
 class LifeStyleDetailSurveyViewModel @Inject constructor(private val repository: RecommendRepository) :
     ProcessViewModel<SurveyQuestion>() {
 
-    val selectedExperienceAnswer: Answer? get() = if (selectedAnswerList.isNotEmpty()) selectedAnswerList[0] else null
-    val selectedFamilyAnswer: Answer? get() = if (selectedAnswerList.size > 2) selectedAnswerList[1] else null
-    val selectedPurposeAnswer: Answer? get() = if (selectedAnswerList.size > 3) selectedAnswerList[2] else null
-    val selectedValueAnswer: Answer? get() = if (selectedAnswerList.size > 4) selectedAnswerList[3] else null
+    val selectedExperienceAnswer: Answer? get() = if (selectedAnswerList?.isNotEmpty() == true) selectedAnswerList!![0] else null
+    val selectedFamilyAnswer: Answer?
+        get() = if ((selectedAnswerList?.size ?: 0) > 2) selectedAnswerList!![1] else null
+    val selectedPurposeAnswer: Answer?
+        get() = if ((selectedAnswerList?.size ?: 0) > 3) selectedAnswerList!![2] else null
+    val selectedValueAnswer: Answer?
+        get() = if ((selectedAnswerList?.size ?: 0) > 4) selectedAnswerList!![3] else null
 
-    private lateinit var selectedAnswerList: MutableList<Answer?>
+    private var selectedAnswerList: MutableList<Answer?>? = null
 
     private val _selectedAnswer = MutableLiveData<Answer>()
     val selectedAnswer: LiveData<Answer> = _selectedAnswer
@@ -36,8 +39,8 @@ class LifeStyleDetailSurveyViewModel @Inject constructor(private val repository:
             withContext(Dispatchers.Main) {
                 setProcessData(questions)
                 setLastProcess(questions.size)
-                selectedAnswerList = MutableList(questions.size) { null }
-                startProcess()
+                selectedAnswerList = selectedAnswerList ?: MutableList(questions.size) { null }
+                if (currentProcessIndex < 0) startProcess()
             }
         }
     }
@@ -49,9 +52,11 @@ class LifeStyleDetailSurveyViewModel @Inject constructor(private val repository:
     }
 
     fun selectAnswer(selectedAnswer: Answer) {
-        _selectedAnswer.value = selectedAnswer
-        if (selectedAnswerList.size > currentProcessIndex) {
-            selectedAnswerList[currentProcessIndex] = selectedAnswer
+        selectedAnswerList?.let {
+            _selectedAnswer.value = selectedAnswer
+            if (it.size > currentProcessIndex) {
+                it[currentProcessIndex] = selectedAnswer
+            }
         }
     }
 }

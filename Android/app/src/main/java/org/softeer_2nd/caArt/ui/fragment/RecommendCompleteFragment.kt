@@ -50,7 +50,8 @@ class RecommendCompleteFragment : Fragment() {
                     family = family,
                     purpose = purpose,
                     value = value,
-                    budget = budget
+                    maxBudget = budget * 10000,
+                    minBudget = 42000000
                 )
             }
         }
@@ -72,6 +73,11 @@ class RecommendCompleteFragment : Fragment() {
         )
 
         binding.btnRecommendCompleteGoCustom.setOnClickListener {
+            recommendCompleteViewModel.recommendResultData?.let {
+                userChoiceViewModel.setRecommendData(
+                    it
+                )
+            }
             findNavController().navigate(RecommendCompleteFragmentDirections.actionRecommendCompleteFragmentToCarTrimChoiceFragment())
         }
 
@@ -109,15 +115,6 @@ class RecommendCompleteFragment : Fragment() {
         model = state.model
         carImage = state.palisadeImage
         totalPrice = state.totalPrice
-    }
-
-    override fun onPause() {
-        super.onPause()
-        recommendCompleteViewModel.recommendResultData?.let {
-            userChoiceViewModel.setRecommendData(
-                it
-            )
-        }
     }
 
     override fun onDestroyView() {

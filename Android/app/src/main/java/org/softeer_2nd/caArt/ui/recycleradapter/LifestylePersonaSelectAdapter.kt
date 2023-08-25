@@ -19,7 +19,6 @@ class LifestylePersonaSelectAdapter(
     private val onLifeStylePersonaDetailSelectClickListener: View.OnClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-
     private var selectedIndex = 0
     private val itemList = mutableListOf<Persona>()
 
@@ -103,7 +102,7 @@ class LifestylePersonaSelectAdapter(
                 onLifeStylePersonaMoreClickListener.onItemClicked(adapterPosition, persona)
             }
 
-            binding.ivLifeStylePersonaSelect.setOnClickListener {
+            binding.root.setOnClickListener {
                 onLifeStylePersonaClickListener.onItemClicked(adapterPosition, persona)
             }
 
