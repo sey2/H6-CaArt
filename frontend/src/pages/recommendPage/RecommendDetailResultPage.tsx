@@ -11,6 +11,7 @@ import { question } from './RecommendDetailPage';
 import { LifeStyleResultProps } from './RecommendLifeStyleResultPage';
 import { RecommendPageProps } from './RecommendPage';
 import { DarkContext } from '../../hooks/useDark';
+import Loading from '../../components/common/Loading';
 
 function RecommendDetailResultPage({
   choice,
@@ -43,7 +44,11 @@ function RecommendDetailResultPage({
   }, [choice]);
 
   if (status === 'loading') {
-    return <div></div>;
+    return (
+      <LoadingBox>
+        <Loading width="50vw" height="50vh"></Loading>
+      </LoadingBox>
+    );
   } else if (status === 'error') {
     console.error(error);
     return <ErrorPopup></ErrorPopup>;
@@ -87,6 +92,14 @@ function RecommendDetailResultPage({
     </RecommendDetailResultPageBox>
   );
 }
+
+const LoadingBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+`;
 
 const RecommendDetailResultPageBox = styled.div`
   display: flex;

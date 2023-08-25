@@ -143,7 +143,14 @@ function SurveyPage() {
       setOptionSelectActive(true);
       getOptions();
     }
-  }, [answer.trimId, answer.engineId, answer.bodyTypeId, answer.wdId]);
+  }, [
+    answer.trimId,
+    answer.engineId,
+    answer.bodyTypeId,
+    answer.wdId,
+    answer.additionalOptionId1,
+    answer.additionalOptionId2,
+  ]);
 
   const OptionList1 = useMemo(() => {
     if (!optionList) return null;
@@ -195,9 +202,17 @@ function SurveyPage() {
   };
 
   function usePost() {
+    if (
+      !optionSelectActive ||
+      answer.additionalOptionId1 === 0 ||
+      answer.additionalOptionId2 === 0 ||
+      answer.reason1 === '' ||
+      answer.reason2 === ''
+    )
+      return;
     fetch('https://api.ca-art.store/carmasters/surveys', requestOptions)
       .then(() => {
-        navigate('/survey');
+        window.location.reload();
       })
       .catch(() => {
         navigate('/error');

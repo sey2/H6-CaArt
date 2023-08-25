@@ -42,6 +42,7 @@ export interface LifeStyleResultProps {
     colorName: string;
     colorPrice: number;
     recommendationMessage: string;
+    colorPreview: string;
   }[];
   options: {
     optionImage: string;
@@ -59,7 +60,7 @@ function RecommendLifeStyleResultPage({
   const { setResult } = useContext(EstimationContext)!;
 
   const { data, status, error } = useFetch<LifeStyleResultProps>(
-    `/personas/${choice.lifeStyle}/recommendation?ageId=${choice.age.code}`,
+    `/personas/${choice.lifeStyle}/recommendation?age=${choice.age.code}`,
   );
   console.log(data);
   useEffect(() => {

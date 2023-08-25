@@ -162,14 +162,14 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
       trim: {
         name: data.model.trim.trimName,
         price: data.model.trim.trimPrice,
-        img: '',
+        img: data.colors[0].colorPreview,
       },
-      trimInteriorImage: '',
+      trimInteriorImage: data.colors[1].colorPreview,
       outerColor: {
         name: data.colors[0].colorName,
         price: data.colors[0].colorPrice,
         img: data.colors[0].colorImage,
-        msg: data.colors[1].recommendationMessage,
+        msg: data.colors[0].recommendationMessage,
       },
       interiorColor: {
         name: data.colors[1].colorName,
