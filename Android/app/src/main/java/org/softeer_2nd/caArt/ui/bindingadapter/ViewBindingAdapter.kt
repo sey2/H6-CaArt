@@ -1,13 +1,19 @@
 package org.softeer_2nd.caArt.ui.bindingadapter
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
+import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.viewmodel.CarColorChoiceViewModel
 
@@ -123,3 +129,47 @@ fun View.setDynamicMarginTop(condition: Boolean, trueMarginDp: Float?, falseMarg
         resources.displayMetrics
     ).toInt()
 }
+
+@BindingAdapter("animatedVisibility")
+fun View.setAnimatedVisibility(isVisible: Boolean) {
+    var tooltipView: TextView? = (parent as? ViewGroup)?.findViewById(R.id.tv_tool_tip)
+    var tooltipBulb: ImageView? = (parent as? ViewGroup)?.findViewById(R.id.ic_tool_tip_bulb)
+
+    val currentVisibility = visibility == View.VISIBLE
+    if (currentVisibility == isVisible) return
+
+    val originalHeight = tag as? Int ?: 0
+    val startHeight = if (isVisible) 0 else originalHeight
+    val endHeight = if (isVisible) originalHeight else 0
+
+    val animator = ValueAnimator.ofInt(startHeight, endHeight)
+    animator.addUpdateListener { animation ->
+        val value = animation.animatedValue as Int
+        layoutParams.height = value
+        requestLayout()
+    }
+
+    animator.addListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationStart(animation: Animator) {
+            if (isVisible) {
+                visibility = View.VISIBLE
+            } else {
+                tooltipView?.visibility = View.GONE
+                tooltipBulb?.visibility = View.GONE
+            }
+        }
+
+        override fun onAnimationEnd(animation: Animator) {
+            if (!isVisible) {
+                visibility = View.GONE
+            } else {
+                tooltipView?.visibility = View.VISIBLE
+                tooltipBulb?.visibility = View.VISIBLE
+            }
+        }
+    })
+
+    animator.duration = 500
+    animator.start()
+}
+
