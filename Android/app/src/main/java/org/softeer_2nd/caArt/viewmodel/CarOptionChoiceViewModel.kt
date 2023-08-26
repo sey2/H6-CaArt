@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.viewmodel
 
+import SingleLiveEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,8 +41,8 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
     private val _selectedTag = MutableLiveData<OptionTag>()
     val selectedTag: LiveData<OptionTag> = _selectedTag
 
-    private val _optionListWithSelectStage = MutableLiveData<List<SelectState<Option>>>()
-    val optionListWithSelectState: LiveData<List<SelectState<Option>>> = _optionListWithSelectStage
+    private val _optionListWithSelectState = MutableLiveData<List<SelectState<Option>>>()
+    val optionListWithSelectState: LiveData<List<SelectState<Option>>> = _optionListWithSelectState
 
     private var optionList = listOf<Option>()
     private var situationalOptionList = listOf<Option?>()
@@ -70,6 +71,9 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
 
     private val _optionDetailDialogPopUpEvent = MutableLiveData<SelectState<Option>>()
     val optionDetailDialogPopUpEvent: LiveData<SelectState<Option>> = _optionDetailDialogPopUpEvent
+
+    private val _nextOptionListLoadEvent = SingleLiveEvent<List<SelectState<Option>>>()
+    val nextOptionListLoadEvent: LiveData<List<SelectState<Option>>> = _nextOptionListLoadEvent
 
     fun selectTag(tag: OptionTag) {
         _selectedTag.value = tag
@@ -104,7 +108,7 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
 
             if (displayType.value == OPTION_LIST) {
                 withContext(Dispatchers.Main) {
-                    _optionListWithSelectStage.value = optionListWithSelectState
+                    _optionListWithSelectState.value = optionListWithSelectState
                 }
             } else {
                 val situationOptionListWithSelectState: MutableList<SelectState<Option>?> =
@@ -139,22 +143,22 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
                 SelectState(option, true)
             }
             withContext(Dispatchers.Main) {
-                _optionListWithSelectStage.value = optionListWithSelectState
+                _optionListWithSelectState.value = optionListWithSelectState
             }
         }
     }
 
     fun setTabState(tabState: Int) {
         _tabState.value = tabState
-        if (tagList.value != null) selectTag(tagList.value!![0])
+
 
         if (tabState == DEFAULT_OPTION_PAGE) _tagList.value = optionRepository.getDefaultTagList()
         else _tagList.value = optionRepository.getAdditionalTagList()
 
-        checkAndUpdateDisplayType()
+        if (tagList.value != null) selectTag(tagList.value!![0])
     }
 
-    fun checkAndUpdateDisplayType() {
+    private fun checkAndUpdateDisplayType() {
         if (tabState.value == ADDITIONAL_OPTION_PAGE && (selectedTag.value?.tagId != ALL_TAG_ID)) {
             _displayType.value = OPTION_IMAGE
         } else {
@@ -178,10 +182,9 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
             optionList = optionList.toMutableList().apply {
                 addAll(additionalList)
             }
-            val updateList = optionListWithSelectState.value?.toMutableList() ?: mutableListOf()
-            updateList.addAll(additionalListWithSelectState)
             withContext(Dispatchers.Main) {
-                _optionListWithSelectStage.value = updateList
+                _nextOptionListLoadEvent.value = additionalListWithSelectState
+
             }
         }
     }
@@ -232,6 +235,15 @@ class CarOptionChoiceViewModel @Inject constructor(private val optionRepository:
     fun setInitialSelectedOption(optionList: List<Option>?) {
         optionList ?: return
         _selectedOptionSet.addAll(optionList.toSet())
+    }
+
+    fun setSelectedModelInfo(
+        trimId: Int,
+        engineId: Int,
+        bodyTypeId: Int,
+        wheelDriveId: Int
+    ) {
+        optionRepository.setSelectedModelInfo(trimId, engineId, bodyTypeId, wheelDriveId)
     }
 
 }

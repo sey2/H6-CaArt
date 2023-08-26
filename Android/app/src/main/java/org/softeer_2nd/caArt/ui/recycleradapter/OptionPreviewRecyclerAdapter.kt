@@ -86,7 +86,7 @@ class OptionPreviewRecyclerAdapter(
     override fun getItemCount(): Int = optionList.size + 2
 
     fun addOptionList(options: List<SelectState<Option>>) {
-        val startIndex = optionList.size
+        val startIndex = optionList.size+1
         optionList.addAll(options)
         notifyItemRangeInserted(startIndex, options.size)
     }
@@ -161,7 +161,5 @@ class OptionPreviewRecyclerAdapter(
             }
             textView.text = spannable
         }
-
     }
-
 }

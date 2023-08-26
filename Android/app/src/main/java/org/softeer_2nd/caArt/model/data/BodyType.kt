@@ -3,6 +3,7 @@ package org.softeer_2nd.caArt.model.data
 import com.google.gson.annotations.SerializedName
 
 data class BodyType(
+    @SerializedName("bodyTypeId") override val id: Int?=1,
     @SerializedName("bodyTypeName") override val itemName: String,
     @SerializedName("bodyTypeImage") override val imageUrl: String,
     override val description: String,

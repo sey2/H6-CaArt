@@ -29,17 +29,17 @@ data class RecommendCompleteResultDTO(
             }
 
             val resultOptions = mutableListOf<ResultChoiceOption>()
-            val option1 = resultOptionList[0]
-            val option2 = resultOptionList[1]
+            val option1 = resultOptionList[1]
+            val option2 = resultOptionList[0]
             val interiorColor = resultColorList[0]
             val exteriorColor = resultColorList[1]
             val convertedOption = ResultChoiceOption(
                 optionTitle = CaArtApplication.getApplicationContext().getString(R.string.option),
-                topOptionImgUrl = option1?.optionImage ?: "",
+                topOptionImgUrl = "외장 - ${option1?.optionImage}",
                 topOptionPrice = option1?.optionPrice ?: 0,
                 topOptionTitle = option1?.optionName ?: "-",
                 topOptionToolTipText = option1?.recommendationMessage ?: "",
-                bottomOptionImgUrl = option2?.optionImage ?: "",
+                bottomOptionImgUrl = "내장 - ${option1?.optionImage}",
                 bottomOptionPrice = option2?.optionPrice ?: 0,
                 bottomOptionTitle = option2?.optionName ?: "-",
                 bottomOptionToolTipText = option2?.recommendationMessage ?: "",

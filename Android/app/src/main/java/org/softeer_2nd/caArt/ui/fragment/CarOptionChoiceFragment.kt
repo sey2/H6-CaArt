@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.databinding.FragmentCarOptionChoiceBinding
+import org.softeer_2nd.caArt.model.data.Trim.Companion.toTrimId
 import org.softeer_2nd.caArt.model.data.state.SelectState
 import org.softeer_2nd.caArt.ui.dialog.OptionDetailDialog
 import org.softeer_2nd.caArt.ui.fragment.CarBuildingLoadingFragment.Companion.DEFAULT_LOADING_DURATION
@@ -43,6 +44,12 @@ class CarOptionChoiceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        model.setSelectedModelInfo(
+            1,//userChoiceViewModel.selectedTrim.value?.trimName?.toTrimId() ?: 1,
+            1,//userChoiceViewModel.selectedEngine.value?.id ?: 1,
+            1,//userChoiceViewModel.selectedBodyType.value?.id ?: 1,
+            1,//userChoiceViewModel.selectedEngine.value?.id ?: 1
+        )
         model.setInitialSelectedOption(userChoiceViewModel.getSelectedOptionList())
         model.requestTagList()
         _binding = FragmentCarOptionChoiceBinding.inflate(inflater, container, false)
@@ -169,6 +176,10 @@ class CarOptionChoiceFragment : Fragment() {
 
         model.selectedOptionSet.observe(viewLifecycleOwner) {
             userChoiceViewModel.setSelectedOptions(it.toList())
+        }
+
+        model.nextOptionListLoadEvent.observe(viewLifecycleOwner) {
+            optionPreviewAdapter.addOptionList(it)
         }
 
     }

@@ -94,4 +94,5 @@
     <string name="won">원</string>
     <string name="n_performance">N Performance</string>
     <string name="h_genuine_accessories">H Genuine Accessories</string>
+    <string name="network_error">에러가 발생했습니다.\n 잠시 후 다시 시도해주세요.</string>
 </resources>

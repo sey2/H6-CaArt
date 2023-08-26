@@ -12,14 +12,16 @@ import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.data.state.LifestyleDetailState
 import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
 import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO.Companion.toState
+import org.softeer_2nd.caArt.model.data.dto.SurveyQuestionResponse
 import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
+import org.softeer_2nd.caArt.model.network.CaArtResponse
 import org.softeer_2nd.caArt.model.network.RecommendApiService
 import javax.inject.Inject
 import kotlin.math.exp
 
 class RecommendRepository @Inject constructor(
     private val service: RecommendApiService
-) {
+) : BaseNetworkRepository() {
 
     private var personaList: List<Persona>? = null
 
@@ -27,12 +29,12 @@ class RecommendRepository @Inject constructor(
     val budgetRange: StateFlow<BudgetRange> = _budgetRange
 
     suspend fun fetchLifestyleSurveyQuestions(): List<SurveyQuestion>? {
-        val data = service.getSurveyQuestion().data ?: return null
+        val data = safeApiCall { service.getSurveyQuestion() }.data ?: return null
         return listOf(data.age, data.persona)
     }
 
     suspend fun fetchPersonaList(): List<Persona>? {
-        personaList = service.getPersonaList().data ?: return null
+        personaList = safeApiCall { service.getPersonaList() }.data ?: return null
         personaList?.forEach {
             it.coverLetter = it.coverLetter.replace("\\n", "\n")
         }
@@ -40,7 +42,7 @@ class RecommendRepository @Inject constructor(
     }
 
     suspend fun fetchAdditionalLifestyleSurveyQuestion(): List<SurveyQuestion>? {
-        val data = service.getAdditionalSurveyQuestion().data ?: return null
+        val data = safeApiCall { service.getAdditionalSurveyQuestion() }.data ?: return null
         val questions = mutableListOf<SurveyQuestion>()
         val budgetQuestion = SurveyQuestion(
             question = data.budget.question,
@@ -60,13 +62,12 @@ class RecommendRepository @Inject constructor(
     }
 
     suspend fun fetchLifestyleDetail(personaId: Int): LifestyleDetailState? {
-        return service.getLifestyleDetail(personaId).data
+        return safeApiCall { service.getLifestyleDetail(personaId) }.data
     }
 
     suspend fun fetchRecommendResult(personaId: Int, age: String): RecommendCompleteResultDTO? {
 
-        //TODO 서버 변경 이후 ageId->ageCode로변경
-        val data = service.getRecommendationResultByLifestyle(personaId, age).data
+        val data = safeApiCall { service.getRecommendationResultByLifestyle(personaId, age) }.data
         return data
     }
 
@@ -77,18 +78,20 @@ class RecommendRepository @Inject constructor(
         purpose: String,
         value: String,
         maxBudget: Int,
-        minBudget:Int
+        minBudget: Int
     ): RecommendCompleteResultState? {
 
-        val data = service.getRecommendationResultByAdditionalQuestions(
-            age = age,
-            experience = experience,
-            family = family,
-            purpose = purpose,
-            value = value,
-            maxBudget = maxBudget,
-            minBudget = minBudget
-        ).data
+        val data = safeApiCall {
+            service.getRecommendationResultByAdditionalQuestions(
+                age = age,
+                experience = experience,
+                family = family,
+                purpose = purpose,
+                value = value,
+                maxBudget = maxBudget,
+                minBudget = minBudget
+            )
+        }.data
         return data?.toState()
     }
 

@@ -136,7 +136,7 @@
             android:text="@{Integer.toString(option.adoptionRate)+`%의 사용자가 선택`}"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:visibility="@{option.adoptionRate==null?View.GONE:View.VISIBLE}"
+            android:visibility="@{option.adoptionRate==null||option.adoptionRate&lt;60?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_option_preview_image"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="65% 의 사용자가 선택" />
