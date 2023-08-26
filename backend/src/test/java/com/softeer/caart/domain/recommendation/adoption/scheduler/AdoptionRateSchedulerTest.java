@@ -17,11 +17,11 @@ import com.softeer.caart.domain.color.dto.PurchasedColorCountDto;
 import com.softeer.caart.domain.color.entity.AvailableColor;
 import com.softeer.caart.domain.color.repository.AvailableColorRepository;
 import com.softeer.caart.domain.common.ServiceTest;
-import com.softeer.caart.domain.model.entity.AvailableOption;
-import com.softeer.caart.domain.model.repository.AvailableOptionRepository;
 import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.dto.PurchasedOptionCountDto;
+import com.softeer.caart.domain.option.entity.AvailableOption;
 import com.softeer.caart.domain.option.repository.AdditionalOptionInfoRepository;
+import com.softeer.caart.domain.option.repository.AvailableOptionRepository;
 import com.softeer.caart.domain.trim.entity.Trim;
 import com.softeer.caart.global.scheduler.AdoptionRateScheduler;
 

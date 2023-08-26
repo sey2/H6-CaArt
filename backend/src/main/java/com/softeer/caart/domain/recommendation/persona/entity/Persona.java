@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,15 +58,15 @@ public class Persona {
 	@Column(name = "recommendation_message", nullable = false, length = 50)
 	private String recommendationMessage;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recommendation_result_id", nullable = false)
 	private RecommendationResult recommendationResult;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tag_id_1", nullable = false)
 	private Tag firstTag;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tag_id_2", nullable = false)
 	private Tag secondTag;
 

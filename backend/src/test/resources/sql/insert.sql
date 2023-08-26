@@ -85,10 +85,10 @@ VALUES (1, 1, 1),
        (7, 1, 4);
 
 -- 추천 결과
-INSERT INTO recommendation_result (recommendation_result_id, palisage_image, model_id, exterior_color_id,
-                                   interior_color_id, recommended_option_id_1, recommended_option_id_2,
+INSERT INTO recommendation_result (recommendation_result_id, palisage_image, model_id,
+                                   recommended_option_id_1, recommended_option_id_2,
                                    recommendation_explanation_1, recommendation_explanation_2)
-VALUES (1, 'palisade.png', 1, 1, 2, 1, 2,
+VALUES (1, 'palisade.png', 1, 1, 2,
         '좋아요.', '꼭 추가해야하는 옵션이에요.');
 -- 페르소나
 INSERT INTO persona (persona_id, profile_image, profile_name, profile_bio, profile_age, profile_message,
@@ -102,31 +102,15 @@ VALUES (1, 'persona.png', '김현대',
         '가족을 생각하는 당신', 1, 1, 2);
 
 -- 구매 이력
-create table purchase
-(
-    purchase_id       bigint primary key,
-    age               int    not null,
-    model_id          bigint not null,
-    exterior_color_id bigint not null,
-    interior_color_id bigint not null,
-    foreign key (model_id) references model (model_id),
-    foreign key (exterior_color_id) references color (color_id),
-    foreign key (interior_color_id) references color (color_id)
-);
-
 INSERT INTO purchase (purchase_id, age, model_id, exterior_color_id, interior_color_id)
 VALUES (1, 22, 1, 1, 3),
        (2, 28, 1, 1, 4),
        (3, 28, 1, 2, 4);
 
-
-
-
 -- 카마스터 설문
 INSERT INTO car_master_survey (car_master_survey_id, experience_code, family_code, purpose_code, total_sum, value_code,
                                model_id)
 VALUES (1, 'ONE_YEAR', 'SINGLE', 'LEISURE', 43000000, 'PERFORMANCE', 1);
-
 
 -- 카마스터 추천 옵션
 INSERT INTO recommended_option (recommended_option_id, reason, additional_option_info_id, car_master_survey_id)

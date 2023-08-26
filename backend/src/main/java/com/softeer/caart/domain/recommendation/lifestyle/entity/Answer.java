@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Answer {
 	// experience
-	ONE_YEAR("1년 이하"),
+	ONE_YEAR("1년 미만"),
 	ONE_TO_FIVE_YEAR("1년 이상 ~ 5년 미만"),
 	FIVE_YEAR("5년 이상"),
 
@@ -47,21 +47,6 @@ public enum Answer {
 		List<Answer> answers = question.getAnswers();
 		if (!answers.contains(this)) {
 			throw new InvalidAnswerException(ResultCode.INVALID_ANSWER);
-		}
-	}
-
-	public static int getAge(Answer age) {
-		switch (age) {
-			case TWENTY:
-				return 20;
-			case THIRTY:
-				return 30;
-			case FORTY:
-				return 40;
-			case FIFTY_OR_ABOVE:
-				return 50;
-			default:
-				return 0;
 		}
 	}
 }

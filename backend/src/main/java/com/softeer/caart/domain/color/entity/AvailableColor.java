@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 import com.softeer.caart.domain.trim.entity.Trim;
 
 import lombok.AccessLevel;
@@ -64,10 +63,6 @@ public class AvailableColor {
 		this.adoptionRateAll = 0.0;
 	}
 
-	public boolean isAvailableColorOfTrim(Long trimId) {
-		return trim.getId().equals(trimId);
-	}
-
 	public void updateAdoptionRate(AgeGroup ageGroup, double adoptionRate) {
 		switch (ageGroup) {
 			case TWENTY:
@@ -88,11 +83,11 @@ public class AvailableColor {
 		}
 	}
 
-	public double getAdoptionRate(Answer age) {
-		if (age == null) {
+	public double getAdoptionRate(AgeGroup ageGroup) {
+		if (ageGroup == null) {
 			return adoptionRateAll;
 		}
-		switch (age) {
+		switch (ageGroup) {
 			case TWENTY:
 				return adoptionRateTwenty;
 			case THIRTY:

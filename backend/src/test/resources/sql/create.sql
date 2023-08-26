@@ -1,8 +1,3 @@
-DROP DATABASE ca_art;
-CREATE DATABASE ca_art;
-
-USE ca_art;
-
 DROP TABLE IF EXISTS trim;
 
 create table trim
@@ -15,6 +10,7 @@ create table trim
 );
 
 DROP TABLE IF EXISTS car_engine;
+
 create table car_engine
 (
     car_engine_id bigint auto_increment primary key,

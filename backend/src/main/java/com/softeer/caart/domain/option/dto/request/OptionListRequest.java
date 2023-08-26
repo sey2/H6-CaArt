@@ -12,16 +12,16 @@ import lombok.Getter;
 public class OptionListRequest {
 	@Nullable
 	private Long tagId;
-	@NotNull
+	@NotNull(message = "trimId는 필수입니다. (type: Long)")
 	private Long trimId;
-	@NotNull
+	@NotNull(message = "engineId는 필수입니다. (type: Long)")
 	private Long engineId;
-	@NotNull
+	@NotNull(message = "bodyTypeId는 필수입니다. (type: Long)")
 	private Long bodyTypeId;
-	@NotNull
+	@NotNull(message = "wdId는 필수입니다. (type: Long)")
 	private Long wdId;
-	@NotNull
+	@NotNull(message = "offset는 필수입니다. (type: Integer)")
 	private Integer offset;
-	@NotNull
+	@NotNull(message = "pageSize는 필수입니다. (type: Integer)")
 	private Integer pageSize;
 }

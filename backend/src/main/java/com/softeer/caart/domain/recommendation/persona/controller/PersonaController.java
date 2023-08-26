@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.softeer.caart.domain.color.entity.AgeGroup;
 import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaDetailsResponse;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaRecommendationResponse;
@@ -45,7 +46,8 @@ public class PersonaController {
 	@GetMapping("/{personaId}/recommendation")
 	@Operation(summary = "페르소나의 추천 차량 견적을 조회한다.")
 	public ResponseDto getPersonaRecommendation(@PathVariable final Long personaId, @RequestParam final Answer age) {
-		PersonaRecommendationResponse response = personaService.getPersonaRecommendation(personaId, age);
+		AgeGroup ageGroup = AgeGroup.valueOf(age.name());
+		PersonaRecommendationResponse response = personaService.getPersonaRecommendation(personaId, ageGroup);
 		return DataResponseDto.of(response);
 	}
 }

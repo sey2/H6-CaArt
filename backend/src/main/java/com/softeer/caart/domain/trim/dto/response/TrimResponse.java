@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TrimResponse {
+	private Long trimId;
 	private String trimName;
 	private String description;
 	private String trimImage;
@@ -26,6 +27,7 @@ public class TrimResponse {
 	private List<ColorSummaryDto> interiorColors;
 
 	private TrimResponse(Trim trim) {
+		this.trimId = trim.getId();
 		this.trimName = trim.getName();
 		this.description = trim.getDescription();
 		this.trimImage = trim.getImage().getUrl();

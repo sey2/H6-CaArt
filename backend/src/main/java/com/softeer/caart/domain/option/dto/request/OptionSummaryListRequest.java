@@ -8,12 +8,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class OptionSummaryListRequest {
-	@NotNull(message = "해당 값은 비어있을 수 없습니다.")
+	@NotNull(message = "trimId는 필수입니다. (type: Long)")
 	private Long trimId;
-	@NotNull(message = "해당 값은 비어있을 수 없습니다.")
+	@NotNull(message = "engineId는 필수입니다. (type: Long)")
 	private Long engineId;
-	@NotNull(message = "해당 값은 비어있을 수 없습니다.")
+	@NotNull(message = "bodyTypeId는 필수입니다. (type: Long)")
 	private Long bodyTypeId;
-	@NotNull(message = "해당 값은 비어있을 수 없습니다.")
+	@NotNull(message = "wdId는 필수입니다. (type: Long)")
 	private Long wdId;
 }

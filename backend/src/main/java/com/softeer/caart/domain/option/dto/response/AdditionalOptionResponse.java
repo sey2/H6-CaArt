@@ -20,7 +20,7 @@ public class AdditionalOptionResponse {
 	private String summary;
 	private String optionImage;
 	private List<String> tags;
-	private List<BaseOptionResponse> subOptions = new ArrayList<>(); // TODO : 추후 재사용하지 않으면 inner class로 변경
+	private List<BaseOptionResponse> subOptions = new ArrayList<>();
 
 	private AdditionalOptionResponse(AdditionalOptionInfo option) {
 		this.optionId = option.getId();

@@ -12,21 +12,26 @@ import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 
 public interface AdditionalOptionInfoRepository extends JpaRepository<AdditionalOptionInfo, Long> {
-	// TODO : order by 채택률 desc
-	@Query(value = "SELECT aoi.* FROM additional_option_info aoi JOIN rel_model_base_option_info rmboi on aoi.base_option_info_id = rmboi.base_option_info_id WHERE rmboi.model_id = :modelId",
-		countQuery = "SELECT COUNT(*) FROM additional_option_info aoi JOIN rel_model_base_option_info rmboi on aoi.base_option_info_id = rmboi.base_option_info_id WHERE rmboi.model_id = :modelId",
-		nativeQuery = true)
+
+	@Query(value = "select aoi "
+		+ "from AdditionalOptionInfo aoi "
+		+ "join AvailableOption ao on aoi.details.id = ao.baseOptionInfo.id "
+		+ "where ao.model.id = :modelId")
 	Page<AdditionalOptionInfo> findByModelId(Long modelId, Pageable pageable);
 
-	@Query(value = "SELECT aoi.* FROM additional_option_info aoi JOIN rel_model_base_option_info rmboi ON aoi.base_option_info_id = rmboi.base_option_info_id JOIN rel_tag_base_option_info rtboi on rmboi.base_option_info_id = rtboi.base_option_info_id WHERE rmboi.model_id = :modelId AND rtboi.tag_id = :tagId",
-		countQuery = "SELECT COUNT(*) FROM additional_option_info aoi JOIN rel_model_base_option_info rmboi ON aoi.base_option_info_id = rmboi.base_option_info_id JOIN rel_tag_base_option_info rtboi on rmboi.base_option_info_id = rtboi.base_option_info_id WHERE rmboi.model_id = :modelId AND rtboi.tag_id = :tagId",
-		nativeQuery = true)
+	@Query(value = "select aoi "
+		+ "from AdditionalOptionInfo aoi "
+		+ "join aoi.details boi "
+		+ "join boi.tags tags "
+		+ "join AvailableOption ao on aoi.details.id = ao.baseOptionInfo.id "
+		+ "where ao.model.id = :modelId and tags.tag.id = :tagId")
 	Page<AdditionalOptionInfo> findByModelIdAndTagId(Long modelId, Long tagId, Pageable pageable);
 
-	@Query(value = "SELECT aoi.* FROM additional_option_info aoi "
-		+ "JOIN rel_model_base_option_info rmboi on aoi.base_option_info_id = rmboi.base_option_info_id "
-		+ "WHERE rmboi.model_id = :modelId"
-		, nativeQuery = true)
+	@Query(value = "select aoi "
+		+ "from AdditionalOptionInfo aoi "
+		+ "join fetch aoi.details boi "
+		+ "join AvailableOption ao on ao.baseOptionInfo.id = boi.id "
+		+ "where ao.model.id = :modelId")
 	List<AdditionalOptionInfo> findAdditionalOptionInfosByModelId(Long modelId);
 
 	@Query(value = "select "

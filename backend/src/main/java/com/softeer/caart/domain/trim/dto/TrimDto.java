@@ -7,10 +7,12 @@ import lombok.Getter;
 @Getter
 public class TrimDto {
 
+	private final Long trimId;
 	private final String trimName;
 	private final Integer trimPrice;
 
 	public TrimDto(Trim trim) {
+		this.trimId = trim.getId();
 		this.trimName = trim.getName();
 		this.trimPrice = trim.getPrice();
 	}

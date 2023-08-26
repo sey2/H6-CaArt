@@ -1,4 +1,4 @@
-package com.softeer.caart.domain.model.entity;
+package com.softeer.caart.domain.option.entity;
 
 import static javax.persistence.FetchType.*;
 
@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.softeer.caart.domain.option.entity.BaseOptionInfo;
+import com.softeer.caart.domain.model.entity.Model;
 
 import lombok.AccessLevel;
 import lombok.Builder;

@@ -10,13 +10,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.softeer.caart.domain.color.dto.ColorResponse;
+import com.softeer.caart.domain.color.entity.AgeGroup;
 import com.softeer.caart.domain.color.entity.AvailableColor;
 import com.softeer.caart.domain.color.entity.Color;
-import com.softeer.caart.domain.color.exception.TrimNotFoundException;
-import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 import com.softeer.caart.domain.trim.entity.Trim;
+import com.softeer.caart.domain.trim.exception.TrimNotFoundException;
 import com.softeer.caart.domain.trim.repository.TrimRepository;
 import com.softeer.caart.global.ResultCode;
 
@@ -24,21 +25,22 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ColorService {
 
 	private final TrimRepository trimRepository;
 
-	public ColorResponse getColors(Long currentTrimId, Answer age) {
+	public ColorResponse getColors(Long currentTrimId, AgeGroup ageGroup) {
 		Map<Trim, List<AvailableColor>> trimAvailableColorMap = getTrimColorMap();
 		List<AvailableColor> availableColors = getCurrentTrimColors(trimAvailableColorMap, currentTrimId);
 
 		// 현재 선택한 트림의 색상들
 		List<ExteriorColorDto> exteriorColors = new ArrayList<>();
 		List<InteriorColorDto> interiorColors = new ArrayList<>();
-		initColors(availableColors, exteriorColors, interiorColors, age);
-		// 채택률 순으로 정렬
-		exteriorColors.sort(Comparator.comparingDouble(exteriorColor -> (-1) * exteriorColor.getAdoptionRate()));
-		interiorColors.sort(Comparator.comparingDouble(interiorColor -> (-1) * interiorColor.getAdoptionRate()));
+		initColors(availableColors, exteriorColors, interiorColors, ageGroup);
+		// 채택률 내림차순으로 정렬
+		exteriorColors.sort(Comparator.comparingDouble(ExteriorColorDto::getAdoptionRate).reversed());
+		interiorColors.sort(Comparator.comparingDouble(InteriorColorDto::getAdoptionRate).reversed());
 
 		// 다른 트림의 색상들
 		List<OtherTrimColorDto> otherTrimExteriorColors = new ArrayList<>();
@@ -70,10 +72,10 @@ public class ColorService {
 	}
 
 	private void initColors(List<AvailableColor> availableColors,
-		List<ExteriorColorDto> exteriorColors, List<InteriorColorDto> interiorColors, Answer age) {
+		List<ExteriorColorDto> exteriorColors, List<InteriorColorDto> interiorColors, AgeGroup ageGroup) {
 		for (AvailableColor availableColor : availableColors) {
 			Color color = availableColor.getColor();
-			double adoptionRate = availableColor.getAdoptionRate(age);
+			double adoptionRate = availableColor.getAdoptionRate(ageGroup);
 			addColor(exteriorColors, interiorColors, color, adoptionRate);
 		}
 	}
@@ -93,7 +95,7 @@ public class ColorService {
 		Map<Trim, List<AvailableColor>> trimAvailableColorMap,
 		List<OtherTrimColorDto> otherTrimExteriorColors,
 		List<OtherTrimColorDto> otherTrimInteriorColors) {
-		
+
 		List<Color> colors = availableColors.stream().map(AvailableColor::getColor).collect(Collectors.toList());
 		for (Map.Entry<Trim, List<AvailableColor>> entry : trimAvailableColorMap.entrySet()) {
 			Trim trim = entry.getKey();

@@ -13,10 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softeer.caart.domain.model.entity.AvailableOption;
 import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.model.exception.ModelNotFoundException;
-import com.softeer.caart.domain.model.repository.AvailableOptionRepository;
 import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.dto.AdditionalOptionDetailsDto;
 import com.softeer.caart.domain.option.dto.request.OptionListRequest;
@@ -27,9 +25,11 @@ import com.softeer.caart.domain.option.dto.response.AdditionalOptionsResponse;
 import com.softeer.caart.domain.option.dto.response.BasicOptionResponse;
 import com.softeer.caart.domain.option.dto.response.BasicOptionsResponse;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
+import com.softeer.caart.domain.option.entity.AvailableOption;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
 import com.softeer.caart.domain.option.repository.AdditionalOptionInfoRepository;
+import com.softeer.caart.domain.option.repository.AvailableOptionRepository;
 import com.softeer.caart.domain.option.repository.BaseOptionInfoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -60,10 +60,9 @@ public class OptionService {
 		return AdditionalOptionResponse.from(option);
 	}
 
-	// FIXME : N+1
 	public BasicOptionsResponse getBasicOptions(OptionListRequest dto) {
-		Model model = modelRepository.findModelByTrimIdAndCompositionsId(dto.getTrimId(), dto.getEngineId(),
-				dto.getBodyTypeId(), dto.getWdId())
+		Model model = modelRepository.findModelByTrimIdAndCompositionsId(
+				dto.getTrimId(), dto.getEngineId(), dto.getBodyTypeId(), dto.getWdId())
 			.orElseThrow(() -> new ModelNotFoundException(MODEL_NOT_FOUND));
 
 		Page<BaseOptionInfo> baseOptionInfos = fetchBasicOptionsByTagIdStatus(model.getId(), dto.getTagId(),
@@ -81,7 +80,6 @@ public class OptionService {
 		return baseOptionInfoRepository.findByModelIdAndTagId(modelId, tagId, pageable);
 	}
 
-	// FIXME : N+1
 	public AdditionalOptionsResponse getAdditionalOptions(OptionListRequest dto) {
 		Model model = modelRepository.findModelByTrimIdAndCompositionsId(
 				dto.getTrimId(), dto.getEngineId(), dto.getBodyTypeId(), dto.getWdId())
@@ -99,7 +97,7 @@ public class OptionService {
 				AdditionalOptionDetailsDto.from(additionalOptionInfo, availableOption.getAdoptionRateAll()));
 		}
 		additionalOptionDetails.sort(
-			Comparator.comparingDouble(optionDetails -> (-1) * optionDetails.getAdoptionRate()));
+			Comparator.comparingDouble(AdditionalOptionDetailsDto::getAdoptionRate).reversed());
 
 		return AdditionalOptionsResponse.from(additionalOptionsPage.getTotalElements(),
 			additionalOptionsPage.getTotalPages(), additionalOptionDetails);

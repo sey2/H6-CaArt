@@ -5,26 +5,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.softeer.caart.domain.color.entity.AgeGroup;
 import com.softeer.caart.domain.color.entity.AvailableColor;
 import com.softeer.caart.domain.color.repository.AvailableColorRepository;
-import com.softeer.caart.domain.recommendation.lifestyle.entity.Answer;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaDetailsResponse;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaRecommendationResponse;
 import com.softeer.caart.domain.recommendation.persona.dto.PersonaResponse;
 import com.softeer.caart.domain.recommendation.persona.entity.Persona;
+import com.softeer.caart.domain.recommendation.persona.entity.RecommendationResult;
 import com.softeer.caart.domain.recommendation.persona.exception.PersonaNotFoundException;
 import com.softeer.caart.domain.recommendation.persona.repository.PersonaRepository;
-import com.softeer.caart.domain.trim.entity.Trim;
+import com.softeer.caart.domain.recommendation.persona.repository.RecommendationResultRepository;
 import com.softeer.caart.global.ResultCode;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PersonaService {
 
 	private final PersonaRepository personaRepository;
+	private final RecommendationResultRepository recommendationResultRepository;
 	private final AvailableColorRepository availableColorRepository;
 
 	public List<PersonaResponse> getPersonas() {
@@ -40,33 +44,42 @@ public class PersonaService {
 		return PersonaDetailsResponse.from(persona);
 	}
 
-	public PersonaRecommendationResponse getPersonaRecommendation(Long personaId, Answer age) {
-		Persona persona = personaRepository.findById(personaId)
+	public PersonaRecommendationResponse getPersonaRecommendation(Long personaId, AgeGroup ageGroup) {
+		RecommendationResult recommendationResult = recommendationResultRepository.findByPersona_Id(personaId)
 			.orElseThrow(() -> new PersonaNotFoundException(ResultCode.PERSONA_NOT_FOUND));
-		Trim recommendedTrim = persona.getRecommendationResult().getModel().getTrim();
-		List<AvailableColor> recommendedColorList = new ArrayList<>();
-		recommendedColorList.add(getRecommendedColor(recommendedTrim, age, true));
-		recommendedColorList.add(getRecommendedColor(recommendedTrim, age, false));
-		return PersonaRecommendationResponse.from(persona, recommendedColorList, age);
+		Long recommendedTrimId = recommendationResult.getModel().getTrim().getId();
+		List<AvailableColor> recommendedColorList = getRecommendedColors(recommendedTrimId, ageGroup);
+		return PersonaRecommendationResponse.of(recommendationResult, recommendedColorList, ageGroup);
 	}
 
-	private AvailableColor getRecommendedColor(Trim trim, Answer age, Boolean isExterior) {
-		switch (age) {
+	public List<AvailableColor> getRecommendedColors(Long trimId, AgeGroup ageGroup) {
+		List<AvailableColor> recommendedColors = new ArrayList<>();
+		AvailableColor recommendedExteriorColor;
+		AvailableColor recommendedInteriorColor;
+		switch (ageGroup) {
 			case TWENTY:
-				return availableColorRepository.findAllByTrimAndColor_IsExteriorOrderByAdoptionRateTwentyDesc(trim,
-					isExterior).get(0);
+				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForTwenty(trimId, true);
+				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForTwenty(trimId, false);
+				break;
 			case THIRTY:
-				return availableColorRepository.findAllByTrimAndColor_IsExteriorOrderByAdoptionRateThirtyDesc(trim,
-					isExterior).get(0);
+				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForThirty(trimId, true);
+				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForThirty(trimId, false);
+				break;
 			case FORTY:
-				return availableColorRepository.findAllByTrimAndColor_IsExteriorOrderByAdoptionRateFortyDesc(trim,
-					isExterior).get(0);
+				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForForty(trimId, true);
+				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForForty(trimId, false);
+				break;
 			case FIFTY_OR_ABOVE:
-				return availableColorRepository.findAllByTrimAndColor_IsExteriorOrderByAdoptionRateFiftyOrAboveDesc(
-					trim, isExterior).get(0);
+				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForFiftyOrAbove(trimId, true);
+				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForFiftyOrAbove(trimId, false);
+				break;
 			default:
-				return availableColorRepository.findAllByTrimAndColor_IsExteriorOrderByAdoptionRateAllDesc(trim,
-					isExterior).get(0);
+				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForAll(trimId, true);
+				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForAll(trimId, false);
+				break;
 		}
+		recommendedColors.add(recommendedExteriorColor);
+		recommendedColors.add(recommendedInteriorColor);
+		return recommendedColors;
 	}
 }

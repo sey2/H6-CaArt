@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
-import com.softeer.caart.domain.color.entity.Color;
 import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 
@@ -35,35 +36,26 @@ public class RecommendationResult {
 	@Column(name = "palisage_image", nullable = false)
 	private String palisageImage;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "model_id", nullable = false)
 	private Model model;
 
-	@ManyToOne
-	@JoinColumn(name = "exterior_color_id", nullable = false)
-	private Color exteriorColor;
-
-	@ManyToOne
-	@JoinColumn(name = "interior_color_id", nullable = false)
-	private Color interiorColor;
-
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recommended_option_id_1", nullable = false)
 	private AdditionalOptionInfo firstOption;
 
 	@Column(name = "recommendation_explanation_1", nullable = false, length = 100)
 	private String firstExplanation;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recommended_option_id_2", nullable = false)
 	private AdditionalOptionInfo secondOption;
 
 	@Column(name = "recommendation_explanation_2", nullable = false, length = 100)
 	private String secondExplanation;
 
-	public List<Color> getRecommendedColorList() {
-		return List.of(exteriorColor, interiorColor);
-	}
+	@OneToOne(mappedBy = "recommendationResult")
+	private Persona persona;
 
 	public List<AdditionalOptionInfo> getRecommendedOptionList() {
 		return List.of(firstOption, secondOption);
@@ -75,7 +67,6 @@ public class RecommendationResult {
 
 	public Integer calcTotalPrice() {
 		return model.calcModelPrice()
-			+ exteriorColor.getPrice() + interiorColor.getPrice()
 			+ firstOption.getPrice() + secondOption.getPrice();
 	}
 }

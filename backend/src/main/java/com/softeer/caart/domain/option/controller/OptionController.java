@@ -2,6 +2,8 @@ package com.softeer.caart.domain.option.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,37 +33,36 @@ public class OptionController {
 
 	@Operation(summary = "해당 모델이 가질 수 있는 기본 포함 옵션 목록을 조회한다", description = "이름 순으로 정렬한다")
 	@GetMapping("/basic/list")
-	public ResponseDto getBasicOptions(OptionListRequest dto) {
+	public ResponseDto getBasicOptions(@Valid OptionListRequest dto) {
 		BasicOptionsResponse basicOptions = optionService.getBasicOptions(dto);
 		return DataResponseDto.of(basicOptions);
 	}
 
-	@Operation(summary = "모델이 가질 수 있는 추가 옵션 목록을 조회한다", description = "(현재 LeBlanc만 조회 가능 > trimId : 1) 추가 옵션은 채택률 순으로 정렬한다. 태그가 ALL인 경우 tagId 인자를 넣지 않는다.")
-	@GetMapping("/additional/list")
-	public ResponseDto getAdditionalOptions(OptionListRequest dto) {
-		AdditionalOptionsResponse additionalOptions = optionService.getAdditionalOptions(dto);
-		return DataResponseDto.of(additionalOptions);
-	}
-
-	@Operation(summary = "모델이 가질 수 있는 추가 옵션의 간단한 정보 목록을 조회한다", description = "추가옵션id와 이름만 response한다")
-	@GetMapping("/additional/summary/list")
-	public ResponseDto getAdditionalOptionsSummary(OptionSummaryListRequest dto) {
-		List<AdditionalOptionSummaryResponse> additionalOptions = optionService.getAdditionalOptionSummaries(
-			dto);
-		return DataResponseDto.of(additionalOptions);
-	}
-
-	@Operation(summary = "기본 옵션의 세부 정보를 조회한다", description = "")
+	@Operation(summary = "기본 옵션의 세부 정보를 조회한다")
 	@GetMapping("/basic")
 	public ResponseDto getBasicOption(@RequestParam Long optionId) {
 		BasicOptionResponse basicOption = optionService.getBasicOption(optionId);
 		return DataResponseDto.of(basicOption);
 	}
 
-	@Operation(summary = "추가 옵션의 세부 정보를 조회한다", description = "태그와 옵션은 이름 순으로 오름차순 정렬한다")
+	@Operation(summary = "해당 모델이 가질 수 있는 추가 옵션 목록을 조회한다", description = "추가 옵션은 채택률 순으로 정렬한다. 태그가 ALL인 경우 tagId 인자를 넣지 않는다.")
+	@GetMapping("/additional/list")
+	public ResponseDto getAdditionalOptions(@Valid OptionListRequest dto) {
+		AdditionalOptionsResponse additionalOptions = optionService.getAdditionalOptions(dto);
+		return DataResponseDto.of(additionalOptions);
+	}
+
+	@Operation(summary = "추가 옵션의 세부 정보를 조회한다")
 	@GetMapping("/additional")
 	public ResponseDto getAdditionalOption(@RequestParam Long optionId) {
 		AdditionalOptionResponse additionalOption = optionService.getAdditionalOption(optionId);
 		return DataResponseDto.of(additionalOption);
+	}
+
+	@Operation(summary = "모델이 가질 수 있는 추가 옵션의 간단한 정보 목록을 조회한다", description = "추가옵션id와 이름만 response한다")
+	@GetMapping("/additional/summary/list")
+	public ResponseDto getAdditionalOptionsSummary(@Valid OptionSummaryListRequest dto) {
+		List<AdditionalOptionSummaryResponse> additionalOptions = optionService.getAdditionalOptionSummaries(dto);
+		return DataResponseDto.of(additionalOptions);
 	}
 }
