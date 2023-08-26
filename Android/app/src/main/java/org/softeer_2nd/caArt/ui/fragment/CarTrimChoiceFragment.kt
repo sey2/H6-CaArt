@@ -107,6 +107,8 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
     }
 
     private fun setupBinding() {
+        carTrimChoiceViewModel.setIsToolTipVisible(true)
+
         binding.apply {
             incEngineBodyOption.carTrimChoiceViewModel = carTrimChoiceViewModel
             incEngineBodyOption.userChoiceViewModel = userChoiceViewModel
