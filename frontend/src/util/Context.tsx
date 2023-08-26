@@ -72,7 +72,7 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
   const [currentEstimation, setCurrentEstimation] =
     useState<currentEstimationProps>({
       age: '',
-      engine: { name: '디젤 2.2', price: 0 },
+      engine: { name: '디젤 2.2', price: 1480000 },
       body: { name: '7인승', price: 0 },
       wd: { name: '2WD', price: 0 },
       trim: {

@@ -53,6 +53,16 @@ function TrimCard({
     const trimPrice = data?.find(
       trimItem => trimItem.trimName === trim,
     )?.trimPrice;
+    console.log(
+      'engine:',
+      enginePrice,
+      'body:',
+      bodyPrice,
+      'wd:',
+      wdPrice,
+      'trim:',
+      trimPrice,
+    );
     return enginePrice + bodyPrice + wdPrice + trimPrice!;
   }
 

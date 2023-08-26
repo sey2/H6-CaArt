@@ -91,7 +91,7 @@ export default React.memo(Dropdown);
 const DropdownBox = styled.div<{ $isDown: boolean }>`
   width: 308px;
   padding: 11px 16px 32px 16px;
-  transition: max-height 0.3s linear;
+  transition: max-height 0.5s linear;
   max-height: ${props => (props.$isDown ? '500px' : '30px')};
   border-radius: 4px;
   border: 1px solid var(--primary-blue);
@@ -103,7 +103,7 @@ const ColorListContainer = styled.div<{ $isActive: boolean }>`
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  transition: opacity 0.5s linear, visibility 0.1s 0.1s;
+  transition: opacity 1s;
   visibility: ${props => (props.$isActive ? 'visible' : 'hidden')};
   opacity: ${props => (props.$isActive ? 1 : 0)};
 `;

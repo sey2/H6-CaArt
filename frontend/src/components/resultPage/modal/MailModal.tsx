@@ -30,7 +30,7 @@ function MailModal() {
             onChange={e => setMailInput(e.target.value)}
           />
           <SquareButton size="l" color="grey-1000" bg="primary-blue">
-            복사하기
+            메일 전송하기
           </SquareButton>
         </Container>
       </OverlayBox>

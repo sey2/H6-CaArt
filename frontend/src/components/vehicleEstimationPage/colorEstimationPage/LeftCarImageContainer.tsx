@@ -65,9 +65,10 @@ function LeftCarImageContainer({ type, setter, data }: CarContainerType) {
       item => item.colorName === currentEstimation.interiorColor.name,
     );
     setTrimInteriorImage(interData?.preview as string);
-  },[]);
+    document.querySelector('.imageWrapper')?.classList.remove('imageWrapper');
+  }, []);
   return (
-    <Wrapper>
+    <Wrapper className="imageWrapper">
       <RerecommendButton />
       <RerecommendModal />
       <TypeBox>
@@ -88,6 +89,10 @@ const Wrapper = styled.div`
   height: calc(100vh - 120px);
   overflow: hidden;
   position: relative;
+  transition: opacity 2s;
+  &.imageWrapper {
+    opacity: 0;
+  }
 `;
 
 const TypeBox = styled.div`

@@ -11,6 +11,13 @@ function BuyCarContainer() {
     2: false,
     3: false,
   });
+  const dropdownMsg = {
+    탁송: '탁송지역을 선택해주세요.',
+    '할인/포인트': `할인 및 사용 가능한 포인트를 입력하고 차량의 할인 금액을 확인해 보세요.
+개별소비세 감면 혜택도 할인/포인트를 선택하시면 적용됩니다.`,
+    결제방법: '결제수단을 선택하고 지불조건 및 납입사항을 확인하세요.',
+    '면제 구분 및 등록비': '할인/포인트 및 결제 방법 선택 후 확인 가능합니다.',
+  };
   const option = ['탁송', '할인/포인트', '결제방법', '면제 구분 및 등록비'];
   const { totalPrice } = useContext(EstimationContext)!;
   return (
@@ -35,10 +42,9 @@ function BuyCarContainer() {
               />
             </Header>
             <FlexBox direction="column" margin="0px 0px 15px 0px" gap={8}>
-              <span>탁송비 어저구 저쩌구</span>
-              <span>탁송비 어저구 저쩌구</span>
-              <span>탁송비 어저구 저쩌구</span>
-              <span>탁송비 어저구 저쩌구</span>
+              <pre className="body-regular-14">
+                {dropdownMsg[item as keyof typeof dropdownMsg]}
+              </pre>
             </FlexBox>
           </Item>
           <Hr />
@@ -94,6 +100,9 @@ const Item = styled.div<{ $isOpen: boolean }>`
   max-height: ${props => (props.$isOpen ? '200px' : '58px')};
   will-change: max-height;
   overflow: hidden;
+  &pre {
+    line-height: 20px;
+  }
 `;
 
 const Flex = styled.div`

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import TopContainer from '../../components/resultPage/TopContainer';
 import ResultMain from '../../components/common/result/ResultMain';
 import { styled } from 'styled-components';
@@ -7,17 +7,16 @@ import BuyCarContainer from '../../components/resultPage/BuyCarContainer';
 import { Link } from 'react-router-dom';
 import ShareModal from '../../components/resultPage/modal/ShareModal';
 import MailModal from '../../components/resultPage/modal/MailModal';
-import MakePdf from '../../util/MakePdf';
 import { useModalContext } from '../../store/ModalContext';
 import LoginModal from '../../components/resultPage/modal/LoginModal';
+import { useReactToPrint } from 'react-to-print';
 
 function ResultPage() {
   const { state, dispatch } = useModalContext();
-  const pdf = MakePdf();
-  const getPdf = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    await pdf.viewWithPdf();
-  };
+  const printRef = useRef<HTMLDivElement | null>(null);
+  const handlePdf = useReactToPrint({
+    content: () => printRef.current,
+  });
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
@@ -30,6 +29,7 @@ function ResultPage() {
         share={state.shareModalOpen}
         mail={state.mailModalOpen}
         save={state.saveModalOpen}
+        ref={printRef}
       >
         <div className="pdf">
           <TopContainer />
@@ -39,7 +39,7 @@ function ResultPage() {
               <Button onClick={() => dispatch({ type: 'OPEN_SAVE_MODAL' })}>
                 내 계정에 저장
               </Button>
-              <Button onClick={getPdf}>PDF로 저장</Button>
+              <Button onClick={handlePdf}>PDF로 저장</Button>
               <Button onClick={() => dispatch({ type: 'OPEN_MAIL_MODAL' })}>
                 내 메일로 발송
               </Button>

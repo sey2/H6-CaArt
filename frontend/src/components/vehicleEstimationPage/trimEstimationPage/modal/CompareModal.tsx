@@ -155,7 +155,7 @@ const Wrapperbox = styled.div`
   margin-top: 70px;
   margin-bottom: 148px;
   width: 900px;
-  height: 1500px;
+  height: 1530px;
   background-color: var(--grey-1000);
 `;
 
