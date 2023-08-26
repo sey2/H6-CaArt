@@ -62,7 +62,7 @@ function RecommendLifeStyleResultPage({
   const { data, status, error } = useFetch<LifeStyleResultProps>(
     `/personas/${choice.lifeStyle}/recommendation?age=${choice.age.code}`,
   );
-  console.log(data);
+
   useEffect(() => {
     if (data) {
       setResult(data);
