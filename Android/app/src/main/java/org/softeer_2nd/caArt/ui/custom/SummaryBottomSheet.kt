@@ -146,9 +146,9 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
 
     private fun observeSelectedTrim(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
         userChoiceViewModel?.selectedTrim?.observe(lifecycleOwner) { trims ->
-            val selectedBodyType = userChoiceViewModel.selectedBodyType.value
-            val selectedWheelType = userChoiceViewModel.selectedWheelDrive.value
-            val selectedEngineType = userChoiceViewModel.selectedEngine.value
+            val selectedBodyType = userChoiceViewModel.selectedBodyType.value ?: return@observe
+            val selectedWheelType = userChoiceViewModel.selectedWheelDrive.value ?: return@observe
+            val selectedEngineType = userChoiceViewModel.selectedEngine.value ?: return@observe
 
             val updateData = selectedBodyType?.let { bodyType ->
                 UserChoiceConverter.trimToUserChoice(

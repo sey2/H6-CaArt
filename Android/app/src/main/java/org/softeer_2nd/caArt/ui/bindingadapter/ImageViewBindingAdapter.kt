@@ -9,7 +9,7 @@ import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import org.softeer_2nd.caArt.ui.custom.DynamicOptionFloatingImageView
 import org.softeer_2nd.caArt.ui.transformation.BlurTransformation
-import org.softeer_2nd.caArt.util.CoilUtils
+import org.softeer_2nd.caArt.util.ImageUtils
 import org.softeer_2nd.caArt.util.dp2px
 
 
@@ -22,7 +22,7 @@ fun ImageView.setImageSrcWithUrl(
     blurSampling: Float? = null
 ) {
 
-    load(url, CoilUtils.imageLoader) {
+    load(url, ImageUtils.imageLoader) {
         Log.d("test","$url")
         scale(coil.size.Scale.FILL)
         if (isCircleCrop) transformations(CircleCropTransformation())

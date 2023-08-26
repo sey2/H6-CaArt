@@ -32,6 +32,10 @@ class CarColorChoiceViewModel @Inject constructor(
     val currentExteriorColorImage = MediatorLiveData<String>()
 
     private val currentExteriorUrls = MutableStateFlow<List<String>?>(null)
+
+    private val _preloadProgress = MutableLiveData<Int>(0)
+    val preloadProgress: LiveData<Int> = _preloadProgress
+
     init {
         currentExteriorColorImage.addSource(spinCarImageIndex) { index ->
             val urls = currentExteriorUrls.value
@@ -39,14 +43,17 @@ class CarColorChoiceViewModel @Inject constructor(
             if (urls != null && index in urls.indices) {
                 val color = StringFormatter.extractColorFromUrl(urls[index])
                 val baseUrl = urls[index].extractExteriorPreviewBaseUrl()
-                val imageUrl = "${baseUrl}$color/image_${StringFormatter.getImageUrlFromIndex(index)}.png"
+                val imageUrl = "${baseUrl}$color/image_${StringFormatter.getImageUrlFromIndex(index)}.webp"
                 currentExteriorColorImage.value = imageUrl
             }
         }
 
         viewModelScope.launch {
             currentExteriorUrls.collect { urls ->
-                imageRepository.preloadExteriorImages(urls)
+                _preloadProgress.value = 0
+                imageRepository.preloadExteriorImages(currentExteriorUrls.value) { loadedCount ->
+                    _preloadProgress.postValue(loadedCount)
+                }
             }
         }
     }

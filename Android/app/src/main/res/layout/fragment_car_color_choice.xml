@@ -78,6 +78,21 @@
                     app:layout_constraintTop_toTopOf="@id/iv_car_spin_background"
                     app:srcCompat="@drawable/ic_rotate_56" />
 
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/spin_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="73dp"
+                    android:indeterminate="true"
+                    android:visibility="@{viewModel.preloadProgress == 100 ? View.GONE : View.VISIBLE}"
+                    app:indicatorColor="@color/active_blue"
+                    app:indicatorSize="48dp"
+                    app:layout_constraintStart_toStartOf="@+id/iv_spin_btn"
+                    app:layout_constraintTop_toTopOf="@+id/iv_car_spin_background"
+                    app:trackColor="@color/blue_500"
+                    app:trackThickness="6dp" />
+
                 <TextView
                     android:id="@+id/tv_exterior_color_title"
                     style="@style/TitleTextStyle"
