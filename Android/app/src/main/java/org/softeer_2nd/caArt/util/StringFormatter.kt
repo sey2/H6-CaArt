@@ -9,9 +9,9 @@ object StringFormatter {
         return priceFormatter.format(price)
     }
     fun combineCarComposition(
-        engineType: String,
-        seatingCapacity: String,
-        driveConfiguration: String
+        engineType: String?,
+        seatingCapacity: String?,
+        driveConfiguration: String?
     ): String {
         return "$engineType ・ $seatingCapacity ・ $driveConfiguration"
     }

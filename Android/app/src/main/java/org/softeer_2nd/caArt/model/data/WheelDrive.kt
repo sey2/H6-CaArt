@@ -6,7 +6,7 @@ data class WheelDrive(
     @SerializedName("wheelDriveId") override val id: Int?=1,
     @SerializedName("wheelDriveName") override val itemName: String,
     @SerializedName("wheelDriveImage") override val imageUrl: String,
-    @SerializedName("wheelDrivePrice") val wheelDrivePrice: Long,
+    @SerializedName("wheelDrivePrice") val wheelDrivePrice: Long?,
     override val description: String,
     override val summary: String
 ) : TrimDescription {

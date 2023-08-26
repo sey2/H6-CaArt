@@ -111,8 +111,8 @@ class ColorOptionSelectionAdapter(
                 selected = selectedFlag && !isOtherColorOption
                 imgUrl = item.imgUrl
                 isOtherColor = this@ColorOptionSelectionAdapter.isOtherColorOption
-                inTop3 = adapterPosition <= 2
-                topTag.text = "Top ${adapterPosition + 1}"
+                inTop3 = if(isExteriorColor) adapterPosition <= 2 else adapterPosition == 0
+                topTag.text = if(isExteriorColor) "Top ${adapterPosition + 1}" else "Best"
                 optionTitle = item.tag
             }
         }

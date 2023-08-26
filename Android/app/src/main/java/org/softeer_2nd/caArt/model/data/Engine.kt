@@ -6,7 +6,7 @@ data class Engine(
     @SerializedName("engineId") override val id: Int?=1,
     @SerializedName("engineName") override val itemName: String,
     @SerializedName("engineImage") override val imageUrl: String,
-    @SerializedName("enginePrice") val enginePrice: Long,
+    @SerializedName("enginePrice") val enginePrice: Long?,
     override val description: String,
     override val summary: String,
     override val maxPower: String,

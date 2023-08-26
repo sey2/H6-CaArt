@@ -83,7 +83,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/hyundaisansheadkrmedium"
             android:textColor="@color/gray_0"
-            app:formattedPrice="@{trimItems.trimPrice}"
+            app:formattedPrice="@{trimItems.trimPrice + trimItems.compositionPrice}"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/tv_product_key_features"
             app:layout_constraintTop_toBottomOf="@+id/tv_product_key_features"

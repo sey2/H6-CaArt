@@ -1,6 +1,5 @@
 package org.softeer_2nd.caArt.ui.bindingadapter
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import coil.decode.SvgDecoder
@@ -23,7 +22,6 @@ fun ImageView.setImageSrcWithUrl(
 ) {
 
     load(url, ImageUtils.imageLoader) {
-        Log.d("test","$url")
         scale(coil.size.Scale.FILL)
         if (isCircleCrop) transformations(CircleCropTransformation())
         if (blurRadius != null || blurSampling != null) {

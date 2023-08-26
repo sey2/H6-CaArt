@@ -11,7 +11,8 @@ data class Trim(
     val trimImage: String,
     var trimName: String,
     var trimPrice: Long,
-    var isChecked: Boolean = false
+    var isChecked: Boolean = false,
+    var compositionPrice: Long
 ) {
     companion object {
         private val trimNameIdMap = mapOf(

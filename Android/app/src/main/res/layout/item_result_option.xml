@@ -46,15 +46,18 @@
 
         <TextView
             android:id="@+id/tv_top_option_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
             android:fontFamily="@font/hyundaisansheadkrregular"
+            android:maxLines="2"
             android:text="@{optionItem.topOptionTitle}"
             android:textColor="@color/gray_200"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_top_option"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_top_option"
             app:layout_constraintTop_toTopOf="@id/iv_top_option"
             tools:text="@string/exterior_color" />
 
@@ -105,15 +108,18 @@
 
         <TextView
             android:id="@+id/tv_bottom_option_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
             android:fontFamily="@font/hyundaisansheadkrregular"
+            android:maxLines="2"
             android:text="@{optionItem.bottomOptionTitle}"
             android:textColor="@color/gray_200"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_bottom_option"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_bottom_option"
             app:layout_constraintTop_toTopOf="@id/iv_bottom_option"
             tools:text="@string/exterior_color" />
 
@@ -157,7 +163,7 @@
             app:falseMargin="@{24f}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_bottom_option"
+            app:layout_constraintTop_toBottomOf="@id/iv_bottom_option"
             app:marginTop="@{toolTipVisible}"
             app:trueMargin="@{82f}"
             tools:layout_marginTop="82dp" />

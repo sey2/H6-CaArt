@@ -41,8 +41,12 @@ class TrimOptionSelectionAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateSpecifications(newSpecifications: String) {
+    fun updateCompositions(newSpecifications: String, compositionTotalPrice: Long) {
         specifications = newSpecifications
+
+        for(i in 0 until items.size)
+            items[i].compositionPrice = compositionTotalPrice
+
         notifyDataSetChanged()
     }
 

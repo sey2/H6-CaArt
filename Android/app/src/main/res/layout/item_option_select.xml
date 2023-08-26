@@ -26,35 +26,49 @@
         <TextView
             android:id="@+id/tv_option_detail_top"
             style="@style/BottomSheetOptionDetailTextStyle"
+            android:layout_width="0dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@{userChoiceItem.optionDetailTop}"
+            app:layout_constraintEnd_toStartOf="@id/tv_price_top"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/iv_line"
-            app:layout_constraintTop_toBottomOf="@id/tv_option_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_option_title"
+            tool:text="@string/trim_desc" />
 
         <TextView
             android:id="@+id/tv_price_top"
             style="@style/PriceTextStyle"
             android:text="@{userChoiceItem.priceTop}"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_line"
-            app:layout_constraintTop_toTopOf="@+id/tv_option_detail_top" />
+            app:layout_constraintEnd_toEndOf="@id/iv_line"
+            app:layout_constraintTop_toTopOf="@id/tv_option_detail_top" />
 
         <TextView
             android:id="@+id/tv_option_detail_bottom"
             style="@style/BottomSheetOptionDetailTextStyle"
+            android:layout_width="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@{userChoiceItem.optionDetailBottom}"
-            android:layout_marginTop="7dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_price_bottom"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/iv_line"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price_top"
-            tool:text="@string/seater"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_top"
+            tool:text="@string/seater" />
 
         <TextView
             android:id="@+id/tv_price_bottom"
             style="@style/PriceTextStyle"
             android:layout_marginTop="4dp"
             android:text="@{userChoiceItem.priceBottom}"
-            app:layout_constraintEnd_toEndOf="@+id/iv_line"
-            app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_top" />
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_detail_top" />
 
         <View
             android:id="@+id/iv_line"

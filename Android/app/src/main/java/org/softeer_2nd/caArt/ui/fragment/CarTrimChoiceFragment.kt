@@ -54,12 +54,13 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
             binding.rvTrim.adapter?.let { adapter ->
                 if (adapter is TrimOptionSelectionAdapter) {
                     adapter.updateTrimItems(trims)
+                    updateSpecifications()
                 }
             }
 
             if (userChoiceViewModel.selectedTrim.value == null) {
                 userChoiceViewModel.setSelectedTrim(trims.first())
-                userChoiceViewModel.setSelectedExteriorColor(trims.first().exteriorColors[0].toExteriorColor())
+                userChoiceViewModel.setSelectedExteriorColor(trims.first().exteriorColors[5].toExteriorColor())
                 userChoiceViewModel.setSelectedInteriorColor(trims.first().interiorColors[0].toInteriorColor())
             } else {
                 val selectedTrimIndex =
@@ -142,18 +143,10 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
     }
 
     private fun updateSpecifications() {
-        val engine = userChoiceViewModel.selectedEngine.value
-        val bodyType = userChoiceViewModel.selectedBodyType.value
-        val wheelDrive = userChoiceViewModel.selectedWheelDrive.value
+        val specifications = userChoiceViewModel.getSpecifications()
+        val compositionTotalPrice = userChoiceViewModel.getCompositionTotalPrice()
 
-        if (engine != null && bodyType != null && wheelDrive != null) {
-            val str = StringFormatter.combineCarComposition(
-                engine.itemName,
-                bodyType.itemName,
-                wheelDrive.itemName
-            )
-            (binding.rvTrim.adapter as? TrimOptionSelectionAdapter)?.updateSpecifications(str)
-        }
+        (binding.rvTrim.adapter as? TrimOptionSelectionAdapter)?.updateCompositions(specifications, compositionTotalPrice)
     }
 
     override fun onDestroyView() {

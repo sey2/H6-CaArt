@@ -15,6 +15,7 @@ import org.softeer_2nd.caArt.model.data.dto.ColorData
 import org.softeer_2nd.caArt.model.data.dto.ExteriorColor
 import org.softeer_2nd.caArt.model.data.dto.InteriorColor
 import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
+import org.softeer_2nd.caArt.util.StringFormatter
 
 class UserChoiceViewModel : ViewModel() {
 
@@ -27,7 +28,6 @@ class UserChoiceViewModel : ViewModel() {
     private val _selectedWheelDrive = MutableLiveData<WheelDrive>()
     val selectedWheelDrive: LiveData<WheelDrive> = _selectedWheelDrive
 
-    // TODO: 초기 값 설정
     private val _selectedOptions = MutableLiveData<List<Option>>()
     val selectedOptions: LiveData<List<Option>> = _selectedOptions
 
@@ -124,6 +124,19 @@ class UserChoiceViewModel : ViewModel() {
             setSelectedInteriorColor(it[0].toInteriorColor())
             setSelectedExteriorColor(it[1].toExteriorColor())
         }
+    }
+
+    fun getSpecifications(): String {
+        return StringFormatter.combineCarComposition(
+            selectedEngine.value?.itemName,
+            selectedBodyType.value?.itemName,
+            selectedWheelDrive.value?.itemName
+        )
+    }
+
+    fun getCompositionTotalPrice(): Long {
+        return (selectedEngine.value?.enginePrice ?: 0) + (selectedBodyType.value?.bodyTypePrice
+            ?: 0) + (selectedWheelDrive.value?.wheelDrivePrice?: 0)
     }
 
     fun getSelectedOptionList(): List<Option>? = selectedOptions.value
