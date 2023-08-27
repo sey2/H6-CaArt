@@ -22,7 +22,6 @@ import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.ui.callback.OnTrimItemClickListener
 import org.softeer_2nd.caArt.ui.recycleradapter.OptionChangePopupAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.TrimOptionSelectionAdapter
-import org.softeer_2nd.caArt.util.StringFormatter
 import org.softeer_2nd.caArt.viewmodel.CarTrimChoiceViewModel
 import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
 
@@ -66,6 +65,7 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
                 val selectedTrimIndex =
                     carTrimChoiceViewModel.findMatchedTrimIndices(userChoiceViewModel.selectedTrim.value!!)
                 userChoiceViewModel.setSelectedTrimIndex(selectedTrimIndex + 1)
+                    userChoiceViewModel.selectedTrim.value?.trimImage = userChoiceViewModel.selectedExteriorColor.value?.previews?.get(0) ?: ""
                 binding.rvTrim.adapter?.let { adapter ->
                     if (adapter is TrimOptionSelectionAdapter) {
                         adapter.updateSelectedState(selectedTrimIndex)

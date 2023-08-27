@@ -41,7 +41,7 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCarColorChoiceBinding.inflate(inflater, container, false)
-        carColorChoiceViewModel.getImages(userChoiceViewModel.selectedTrimIndex.value!!)
+        carColorChoiceViewModel.getImages(userChoiceViewModel.selectedTrim.value?.trimId ?: 1)
         return binding.root
     }
 

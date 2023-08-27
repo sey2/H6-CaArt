@@ -9,6 +9,7 @@ data class ChoiceColorItem(
     val colorName: String,
     val trimPrice: Long,
     val trimId: Int = 0,
+    @SerializedName("colorPreview")
     val preview: String = "",
     @SerializedName("colorImage")
     val imgUrl: String = "",
@@ -18,9 +19,9 @@ data class ChoiceColorItem(
 ) {
     companion object {
         fun ChoiceColorItem.toExteriorColor(): ExteriorColor =
-            ExteriorColor(0, colorName, imgUrl, trimPrice, 0, emptyList())
+            ExteriorColor(0, colorName, imgUrl, trimPrice, 0, listOf(preview))
 
         fun ChoiceColorItem.toInteriorColor(): InteriorColor =
-            InteriorColor(0, colorName, imgUrl, trimPrice, 0, "")
+            InteriorColor(0, colorName, imgUrl, trimPrice, 0, preview)
     }
 }

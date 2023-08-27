@@ -121,8 +121,8 @@ class UserChoiceViewModel : ViewModel() {
         setSelectedOptions(data.options)
 
         data.colors.let {
-            setSelectedInteriorColor(it[0].toInteriorColor())
-            setSelectedExteriorColor(it[1].toExteriorColor())
+            setSelectedExteriorColor(it[0].toExteriorColor())
+            setSelectedInteriorColor(it[1].toInteriorColor())
         }
     }
 
