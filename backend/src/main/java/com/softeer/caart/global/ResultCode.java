@@ -22,6 +22,7 @@ public enum ResultCode {
 	INVALID_ANSWER(400, "답변이 질문과 잘못 매핑되었습니다."),
 	INVALID_BUDGET(400, "예산이 잘못 설정되었습니다."),
 	INVALID_RECOMMENDED_OPTION_SIZE(400, "추천 받은 옵션의 개수는 2개여야 합니다"),
+	SURVEY_NOT_FOUND(400, "조건에 해당하는 설문 결과가 없습니다."),
 
 	// 404
 	MODEL_NOT_FOUND(404, "존재하지 않는 모델입니다."),
@@ -31,7 +32,6 @@ public enum ResultCode {
 	WHEEL_DRIVE_NOT_FOUND(404, "존재하지 않는 구동방식입니다."),
 	OPTION_NOT_FOUND(404, "존재하지 않는 옵션입니다."),
 	PERSONA_NOT_FOUND(404, "존재하지 않는 페르소나입니다."),
-	SURVEY_NOT_FOUND(404, "조건에 해당하는 설문 결과가 없습니다."),
 
 	// 405
 	METHOD_NOT_ALLOWED(405, "대상 리소스가 이 메서드를 지원하지 않습니다."),

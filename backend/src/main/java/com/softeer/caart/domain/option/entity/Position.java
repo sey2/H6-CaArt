@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.softeer.caart.domain.tag.entity.Tag;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,12 +29,19 @@ public class Position {
 	@JoinColumn(name = "additional_option_info_id", nullable = false)
 	private AdditionalOptionInfo option;
 
-	@Column(name = "x", nullable = false)
-	private Double coordinateX;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tag_id", nullable = false)
+	private Tag tag;
 
-	@Column(name = "y", nullable = false)
-	private Double coordinateY;
+	@Column(name = "web_x", nullable = false)
+	private Double webX;
 
-	@Column(nullable = false)
-	private Boolean isMobile;
+	@Column(name = "web_y", nullable = false)
+	private Double webY;
+
+	@Column(name = "mobile_x", nullable = false)
+	private Double mobileX;
+
+	@Column(name = "mobile_y", nullable = false)
+	private Double mobileY;
 }

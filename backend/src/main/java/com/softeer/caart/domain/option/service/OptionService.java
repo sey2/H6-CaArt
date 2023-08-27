@@ -5,6 +5,7 @@ import static com.softeer.caart.global.ResultCode.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import com.softeer.caart.domain.model.entity.Model;
 import com.softeer.caart.domain.model.exception.ModelNotFoundException;
 import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.dto.AdditionalOptionDetailsDto;
+import com.softeer.caart.domain.option.dto.PositionResponse;
 import com.softeer.caart.domain.option.dto.request.OptionListRequest;
 import com.softeer.caart.domain.option.dto.request.OptionSummaryListRequest;
 import com.softeer.caart.domain.option.dto.response.AdditionalOptionResponse;
@@ -27,10 +29,12 @@ import com.softeer.caart.domain.option.dto.response.BasicOptionsResponse;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.AvailableOption;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
+import com.softeer.caart.domain.option.entity.Position;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
 import com.softeer.caart.domain.option.repository.AdditionalOptionInfoRepository;
 import com.softeer.caart.domain.option.repository.AvailableOptionRepository;
 import com.softeer.caart.domain.option.repository.BaseOptionInfoRepository;
+import com.softeer.caart.domain.option.repository.PositionRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,6 +47,7 @@ public class OptionService {
 	private final AdditionalOptionInfoRepository additionalOptionInfoRepository;
 	private final ModelRepository modelRepository;
 	private final AvailableOptionRepository availableOptionRepository;
+	private final PositionRepository positionRepository;
 
 	public BasicOptionResponse getBasicOption(Long optionId) {
 		BaseOptionInfo option = baseOptionInfoRepository.findById(optionId)
@@ -93,14 +98,21 @@ public class OptionService {
 		for (AdditionalOptionInfo additionalOptionInfo : additionalOptionsPage) {
 			AvailableOption availableOption = availableOptionRepository.findByModelIdAndAdditionalOptionId(
 				model.getId(), additionalOptionInfo.getId());
+			PositionResponse position = getPosition(dto, additionalOptionInfo);
 			additionalOptionDetails.add(
-				AdditionalOptionDetailsDto.from(additionalOptionInfo, availableOption.getAdoptionRateAll()));
+				AdditionalOptionDetailsDto.from(additionalOptionInfo, availableOption.getAdoptionRateAll(), position));
 		}
 		additionalOptionDetails.sort(
 			Comparator.comparingDouble(AdditionalOptionDetailsDto::getAdoptionRate).reversed());
 
 		return AdditionalOptionsResponse.from(additionalOptionsPage.getTotalElements(),
 			additionalOptionsPage.getTotalPages(), additionalOptionDetails);
+	}
+
+	private PositionResponse getPosition(OptionListRequest dto, AdditionalOptionInfo additionalOptionInfo) {
+		Optional<Position> position = positionRepository.findByAdditionalOptionIdAndTagId(
+			additionalOptionInfo.getId(), dto.getTagId());
+		return position.map(PositionResponse::from).orElse(null);
 	}
 
 	private Page<AdditionalOptionInfo> fetchAdditionalOptionsByTagIdStatus(

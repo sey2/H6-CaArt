@@ -55,9 +55,6 @@ public class AdditionalOptionInfo {
 	@Column(nullable = false)
 	private String summary;
 
-	@OneToMany(mappedBy = "option")
-	private List<Position> positions;
-
 	@OneToMany(mappedBy = "superOption")
 	private List<SubOptionInfo> subOptions = new ArrayList<>();
 

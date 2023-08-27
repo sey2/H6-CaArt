@@ -5,7 +5,6 @@ import java.util.List;
 import com.softeer.caart.domain.option.dto.response.BaseOptionResponse;
 import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
 import com.softeer.caart.domain.option.entity.BaseOptionInfo;
-import com.softeer.caart.domain.option.entity.Position;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,18 +20,18 @@ public class AdditionalOptionDetailsDto {
 	private String summary;
 	private String badge;
 	private int adoptionRate;
-	private Position position;
+	private PositionResponse position;
 	private String optionImage;
 	private List<String> tags;
 	private List<BaseOptionResponse> subOptions;
 
-	private AdditionalOptionDetailsDto(AdditionalOptionInfo option, double adoptionRate) {
+	private AdditionalOptionDetailsDto(AdditionalOptionInfo option, double adoptionRate, PositionResponse position) {
 		this.optionId = option.getId();
 		this.optionPrice = option.getPrice();
 		this.summary = option.getSummary();
 		this.badge = option.getBadgeName();
 		this.adoptionRate = (int)adoptionRate;
-		// this.position = option.getPosition(); // FIXME
+		this.position = position;
 		BaseOptionInfo details = option.getDetails();
 		this.optionName = details.getName();
 		this.description = details.getDescription();
@@ -41,7 +40,8 @@ public class AdditionalOptionDetailsDto {
 		this.subOptions = option.getSubOptions();
 	}
 
-	public static AdditionalOptionDetailsDto from(AdditionalOptionInfo option, double adoptionRate) {
-		return new AdditionalOptionDetailsDto(option, adoptionRate);
+	public static AdditionalOptionDetailsDto from(AdditionalOptionInfo option, double adoptionRate,
+		PositionResponse position) {
+		return new AdditionalOptionDetailsDto(option, adoptionRate, position);
 	}
 }
