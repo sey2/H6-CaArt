@@ -216,6 +216,16 @@ function EBWGuideModal() {
 
   useEffect(() => {
     setCompositionData(data as CompositionsData);
+    if (data && lineRef.current) {
+      const targetDom: HTMLElement = document.querySelector('.carEngines')!;
+      if (targetDom) {
+        lineRef.current.style.width = `${targetDom.offsetWidth}px`;
+        lineRef.current.style.left = `${targetDom.offsetLeft}px`;
+        lineRef.current.style.top = `${
+          targetDom.offsetTop + targetDom.offsetHeight - 0.5
+        }px`;
+      }
+    }
   }, [data, state.infoModalOpen]);
 
   return (

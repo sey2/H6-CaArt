@@ -71,9 +71,11 @@ function ResultPage() {
               수정
             </SquareButton>
           </Link>
-          <SquareButton size="m" color="grey-1000" $bg="primary-blue">
-            구매/상담
-          </SquareButton>
+          <a href="https://www.hyundai.com/kr/ko/e/vehicles/purchase-consult">
+            <SquareButton size="m" color="grey-1000" $bg="primary-blue">
+              구매/상담
+            </SquareButton>
+          </a>
         </ButtonContainer>
       </Wrapper>
     </>

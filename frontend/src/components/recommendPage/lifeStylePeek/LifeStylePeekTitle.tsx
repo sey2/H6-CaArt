@@ -12,7 +12,7 @@ function LifeStylePeekHeader({
   return (
     <LifeStylePeekHeaderBox>
       <LifeStyleImgBox src={cover.image}></LifeStyleImgBox>
-      <LogoBox src="/images/hyundai_logo_home.svg"></LogoBox>
+      <LogoBox src="/images/logo/hyundai_logo_home.svg"></LogoBox>
       <LifeStylePeekTitleBox>
         <TagList tagArr={tags} type={'lifeStylePeek'}></TagList>
         <LifeStylePeekTitle className="head-medium-32">
@@ -47,7 +47,6 @@ const LifeStyleImgBox = styled.img`
 
 const LogoBox = styled.img`
   width: 129px;
-  height: 14px;
   z-index: 1;
 `;
 
