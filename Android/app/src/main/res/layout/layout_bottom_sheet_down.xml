@@ -88,7 +88,7 @@
             app:layout_constraintStart_toEndOf="@id/tv_price"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
-            app:layout_constraintBottom_toBottomOf="@+id/tv_price"
+         
 
         <ImageView
             android:id="@+id/iv_arrow"
@@ -99,7 +99,7 @@
             android:background="@drawable/ic_arrow_no_tail_20"
             android:backgroundTint="@color/black"
             android:rotation="180"
-            app:layout_constraintEnd_toStartOf="@+id/tv_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

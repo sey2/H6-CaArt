@@ -9,6 +9,7 @@ import org.softeer_2nd.caArt.model.data.Engine
 import org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState
 import org.softeer_2nd.caArt.model.data.WheelDrive
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
+import org.softeer_2nd.caArt.util.StringFormatter.setFormattedPrice
 
 class BottomSheetCurrentOptionAdapter() :
     RecyclerView.Adapter<BottomSheetCurrentOptionAdapter.OptionSelectionViewHolder>() {
@@ -38,7 +39,7 @@ class BottomSheetCurrentOptionAdapter() :
         }
     }
 
-    fun updateEngineItem(engine: Engine) {
+    fun updateEngineItem(engine: Engine, price: Long) {
         if (items.isNotEmpty()) {
             val engineParts = engine.itemName.split(" ")
             if (engineParts.size > 1) {
@@ -46,16 +47,18 @@ class BottomSheetCurrentOptionAdapter() :
                 currentItemParts[1] = engineParts[0]
                 currentItemParts[2] = engineParts[1]
                 items[0].optionDetailTop = currentItemParts.joinToString(" ")
+                items[0].priceTop = price.toString().setFormattedPrice() + "원"
             }
         }
         notifyItemChanged(0)
     }
 
-    fun updateWheelDriveItem(wheelDrive: WheelDrive) {
+    fun updateWheelDriveItem(wheelDrive: WheelDrive, price: Long) {
         if (items.isNotEmpty()) {
             val currentItemParts = items[0].optionDetailTop.split(" ").toMutableList()
             currentItemParts[3] = wheelDrive.itemName
             items[0].optionDetailTop = currentItemParts.joinToString(" ")
+            items[0].priceTop = price.toString().setFormattedPrice() + "원"
         }
         notifyItemChanged(0)
     }

@@ -24,7 +24,7 @@ object UserChoiceConverter {
             "모델",
             "펠리세이드 ${engine.itemName} ${wheelDrive.itemName} ${trim.trimName}",
             bodyType.itemName,
-            StringFormatter.formatPriceString(trim.trimPrice) + "원",
+            StringFormatter.formatPriceString(trim.trimPrice + engine.enginePrice!! + wheelDrive.wheelDrivePrice!!) + "원",
             ""
         )
     }

@@ -15,6 +15,7 @@ import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.databinding.FragmentCarTrimChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
+import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
 import org.softeer_2nd.caArt.model.data.Trim
 import org.softeer_2nd.caArt.model.data.toExteriorColor
@@ -63,6 +64,7 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
                 userChoiceViewModel.setSelectedTrim(trims.first())
                 userChoiceViewModel.setSelectedExteriorColor(trims.first().exteriorColors[5].toExteriorColor())
                 userChoiceViewModel.setSelectedInteriorColor(trims.first().interiorColors[0].toInteriorColor())
+                userChoiceViewModel.setSelectedOptions(listOf(Option()))
             } else {
                 val selectedTrimIndex =
                     carTrimChoiceViewModel.findMatchedTrimIndices(userChoiceViewModel.selectedTrim.value!!)
@@ -177,7 +179,7 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
                 showGuidePrice = false
                 this.bottomOptionVisible = bottomOptionVisible
                 guideChangePrice =
-                    (userChoiceViewModel.selectedTrim.value?.trimPrice?.minus(changeTrim.trimPrice)).toString()
+                    (userChoiceViewModel.selectedTrim.value?.trimPrice?.minus(changeTrim.trimPrice)).toString() + "원"
             }
         setupPopupRecyclerView(dialogContent)
 

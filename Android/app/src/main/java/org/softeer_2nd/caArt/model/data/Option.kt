@@ -3,10 +3,10 @@ package org.softeer_2nd.caArt.model.data
 import com.google.gson.annotations.SerializedName
 
 data class Option(
-    val optionId: Int,
+    val optionId: Int = 0,
     @SerializedName("description") private val unFormattedDescription: String? = null,
-    val optionImage: String,
-    val optionName: String,
+    val optionImage: String = "",
+    val optionName: String = "-",
     val optionPrice: Long? = null,
     val position: Position? = null,
     val subOptions: List<Option>? = null,

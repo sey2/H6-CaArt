@@ -29,7 +29,7 @@ class OptionChangePopupAdapter(private val items: List<OptionChangePopUpItem>) :
         fun bind(item: OptionChangePopUpItem) {
             binding.apply {
                 tvCurrentOption.text = item.optionName
-                tvChangePrice.text = item.optionPrice
+                tvChangePrice.text = item.optionPrice + "원"
             }
         }
     }

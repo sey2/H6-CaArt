@@ -2,6 +2,7 @@ package org.softeer_2nd.caArt.ui.custom
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,7 +19,8 @@ import org.softeer_2nd.caArt.ui.bindingadapter.animatePriceChange
 import org.softeer_2nd.caArt.util.UserChoiceConverter
 import org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel
 
-class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLayout(context, attrs) {
+class SummaryBottomSheet(context: Context, attrs: AttributeSet) :
+    CoordinatorLayout(context, attrs) {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var binding: LayoutBottomSheetBaseBinding
@@ -135,7 +137,10 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
         }
     }
 
-    private fun bindViewModel(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+    private fun bindViewModel(
+        userChoiceViewModel: UserChoiceViewModel?,
+        lifecycleOwner: LifecycleOwner
+    ) {
         with(binding) {
             incSlideDown.userChoiceViewModel = userChoiceViewModel
             incSlideDown.lifecycleOwner = lifecycleOwner
@@ -144,7 +149,10 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
         }
     }
 
-    private fun observeSelectedTrim(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+    private fun observeSelectedTrim(
+        userChoiceViewModel: UserChoiceViewModel?,
+        lifecycleOwner: LifecycleOwner
+    ) {
         userChoiceViewModel?.selectedTrim?.observe(lifecycleOwner) { trims ->
             val selectedBodyType = userChoiceViewModel.selectedBodyType.value ?: return@observe
             val selectedWheelType = userChoiceViewModel.selectedWheelDrive.value ?: return@observe
@@ -159,43 +167,60 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
         }
     }
 
-    private fun observeSelectedEngine(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+    private fun observeSelectedEngine(
+        userChoiceViewModel: UserChoiceViewModel?,
+        lifecycleOwner: LifecycleOwner
+    ) {
         userChoiceViewModel?.selectedEngine?.observe(lifecycleOwner) { engine ->
-            val selectedEngine = userChoiceViewModel.selectedEngine.value
-
-            if (selectedEngine != null) {
-                itemAdapter.updateEngineItem(selectedEngine)
+            if (engine != null) {
+                itemAdapter.updateEngineItem(
+                    engine,
+                    userChoiceViewModel.selectedTrim.value?.trimPrice?.plus(userChoiceViewModel.getCompositionTotalPrice()) ?: 0)
             }
         }
     }
 
-    private fun observeSelectedBodyType(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+    private fun observeSelectedBodyType(
+        userChoiceViewModel: UserChoiceViewModel?,
+        lifecycleOwner: LifecycleOwner
+    ) {
         userChoiceViewModel?.selectedBodyType?.observe(lifecycleOwner) { body ->
-            val selectedBody = userChoiceViewModel.selectedBodyType.value
-
-            if (selectedBody != null) {
+            if (body != null) {
                 itemAdapter.updateBodyTypeItem(body)
             }
         }
     }
 
-    private fun observeSelectedWheelDrive(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
-        userChoiceViewModel?.selectedEngine?.observe(lifecycleOwner) { engine ->
-            val selectedWheelDrive = userChoiceViewModel.selectedWheelDrive.value
+    private fun observeSelectedWheelDrive(
+        userChoiceViewModel: UserChoiceViewModel?,
+        lifecycleOwner: LifecycleOwner
+    ) {
+        userChoiceViewModel?.selectedWheelDrive?.observe(lifecycleOwner) { wheelDrive ->
+            val wheelDrive = userChoiceViewModel.selectedWheelDrive.value
 
-            if (selectedWheelDrive != null) {
-                itemAdapter.updateWheelDriveItem(selectedWheelDrive)
+            if (wheelDrive != null) {
+                itemAdapter.updateWheelDriveItem(
+                    wheelDrive, userChoiceViewModel.selectedTrim.value?.trimPrice?.plus(userChoiceViewModel.getCompositionTotalPrice()) ?: 0
+                )
             }
         }
     }
-    private fun observeSelectedColors(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+
+    private fun observeSelectedColors(
+        userChoiceViewModel: UserChoiceViewModel?,
+        lifecycleOwner: LifecycleOwner
+    ) {
         val colorObserver = {
             val selectedExteriorColor = userChoiceViewModel?.selectedExteriorColor?.value
             val selectedInteriorColor = userChoiceViewModel?.selectedInteriorColor?.value
 
             if (selectedExteriorColor != null && selectedInteriorColor != null) {
                 itemAdapter.updateItem(
-                    1, UserChoiceConverter.colorToUserChoice(selectedExteriorColor, selectedInteriorColor)
+                    1,
+                    UserChoiceConverter.colorToUserChoice(
+                        selectedExteriorColor,
+                        selectedInteriorColor
+                    )
                 )
             }
         }
@@ -203,8 +228,13 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
         userChoiceViewModel?.selectedExteriorColor?.observe(lifecycleOwner) { colorObserver.invoke() }
         userChoiceViewModel?.selectedInteriorColor?.observe(lifecycleOwner) { colorObserver.invoke() }
     }
-    private fun observeSelectedOptions(userChoiceViewModel: UserChoiceViewModel?, lifecycleOwner: LifecycleOwner) {
+
+    private fun observeSelectedOptions(
+        userChoiceViewModel: UserChoiceViewModel?,
+        lifecycleOwner: LifecycleOwner
+    ) {
         userChoiceViewModel?.selectedOptions?.observe(lifecycleOwner) { options ->
+            Log.d("test", "option: ${options[0].optionPrice}")
             val updateData = UserChoiceConverter.optionToUserChoice(options)
             itemAdapter.updateItem(2, updateData)
         }
