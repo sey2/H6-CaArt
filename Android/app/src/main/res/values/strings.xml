@@ -106,4 +106,8 @@
     <string name="developing">아직 준비중인 서비스에요</string>
     <string name="request_login">로그인이 필요한 서비스에요.\n로그인 화면으로 이동하시겠어요?</string>
     <string name="hyundai_estimate_site_url">https://www.hyundai.com/kr/ko/e/vehicles/purchase-consult</string>
+    <string name="change_pop_up_color_option">지금 변경하시면 선택한 색상과 옵션이 해제돼요.</string>
+    <string name="change_pop_up_color">지금 변경하시면 선택한 색상이 해제돼요.</string>
+    <string name="internal_color_to_be_released">해제 되는 내장 색상</string>
+    <string name="option_to_be_released">해제 되는 옵션</string>
 </resources>

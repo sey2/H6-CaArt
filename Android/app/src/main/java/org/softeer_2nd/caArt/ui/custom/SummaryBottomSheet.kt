@@ -150,12 +150,12 @@ class SummaryBottomSheet(context: Context, attrs: AttributeSet) : CoordinatorLay
             val selectedWheelType = userChoiceViewModel.selectedWheelDrive.value ?: return@observe
             val selectedEngineType = userChoiceViewModel.selectedEngine.value ?: return@observe
 
-            val updateData = selectedBodyType?.let { bodyType ->
+            val updateData = selectedBodyType.let { bodyType ->
                 UserChoiceConverter.trimToUserChoice(
-                    trims, selectedEngineType!!, bodyType, selectedWheelType!!
+                    trims, selectedEngineType, bodyType, selectedWheelType
                 )
             }
-            itemAdapter.updateItem(0, updateData!!)
+            itemAdapter.updateItem(0, updateData)
         }
     }
 

@@ -1,5 +1,6 @@
 package org.softeer_2nd.caArt.ui.fragment
 
+import android.icu.text.UnicodeSetSpanner.TrimOption
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.model.data.typeEnum.BottomSheetMode
 import org.softeer_2nd.caArt.databinding.FragmentCarTrimChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
 import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
+import org.softeer_2nd.caArt.model.data.Trim
 import org.softeer_2nd.caArt.model.data.toExteriorColor
 import org.softeer_2nd.caArt.model.data.toInteriorColor
 import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
@@ -65,7 +68,11 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
                 val selectedTrimIndex =
                     carTrimChoiceViewModel.findMatchedTrimIndices(userChoiceViewModel.selectedTrim.value!!)
                 userChoiceViewModel.setSelectedTrimIndex(selectedTrimIndex + 1)
-                userChoiceViewModel.selectedTrim.value?.trimImage = userChoiceViewModel.selectedExteriorColor.value?.previews?.get(0) ?: ""
+                userChoiceViewModel.selectedTrim.value?.trimImage =
+                    if (userChoiceViewModel.selectedExteriorColor.value?.previews?.isNotEmpty() == true)
+                        userChoiceViewModel.selectedExteriorColor.value?.previews?.get(0)
+                            ?: "" else ""
+
                 binding.rvTrim.adapter?.let { adapter ->
                     if (adapter is TrimOptionSelectionAdapter) {
                         adapter.updateSelectedState(selectedTrimIndex)
@@ -148,7 +155,10 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         val specifications = userChoiceViewModel.getSpecifications()
         val compositionTotalPrice = userChoiceViewModel.getCompositionTotalPrice()
 
-        (binding.rvTrim.adapter as? TrimOptionSelectionAdapter)?.updateCompositions(specifications, compositionTotalPrice)
+        (binding.rvTrim.adapter as? TrimOptionSelectionAdapter)?.updateCompositions(
+            specifications,
+            compositionTotalPrice
+        )
     }
 
     override fun onDestroyView() {
@@ -156,28 +166,33 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         _binding = null
     }
 
-    private fun createChangePopup(bottomOptionVisible: Boolean) {
+    private fun createChangePopup(bottomOptionVisible: Boolean, changeIndex: Int, changeTrim: Trim) {
         val dialogContent =
             LayoutChangePopupBinding.inflate(LayoutInflater.from(requireContext())).apply {
-                topOptionTitle = "현재 되는 내장 색상"
-                bottomOptionTitle = "해제되는 옵션"
+                topOptionTitle = getString(R.string.internal_color_to_be_released)
+                bottomOptionTitle = getString(R.string.option_to_be_released)
                 showGuidePrice = false
                 this.bottomOptionVisible = bottomOptionVisible
-                guideChangePrice = "+ 12,100,000원"
+                guideChangePrice =
+                    (userChoiceViewModel.selectedTrim.value?.trimPrice?.minus(changeTrim.trimPrice)).toString()
             }
         setupPopupRecyclerView(dialogContent)
 
         val description = getDescription(bottomOptionVisible)
-        showCaArtDialog(description, dialogContent.root)
+        showCaArtDialog(description, dialogContent.root, changeIndex, changeTrim)
     }
 
     private fun setupPopupRecyclerView(dialogContent: LayoutChangePopupBinding) {
-        dialogContent.rvTop.setupOptionChangeAdapter(DummyItemFactory.createInteriorColorOptionChangeDummyItems())
+        val selectedInteriorColor = userChoiceViewModel.selectedInteriorColor.value
+        dialogContent.rvTop.setupOptionChangeAdapter(listOf(OptionChangePopUpItem(selectedInteriorColor?.colorName
+            ?: "", (selectedInteriorColor?.colorPrice ?: "").toString())))
         dialogContent.rvBottom.setupOptionChangeAdapter(DummyItemFactory.createDefaultOptionChangeDummyItems())
     }
 
     private fun getDescription(bottomOptionVisible: Boolean): String {
-        return if (bottomOptionVisible) "지금 변경하시면 선택한 색상과 옵션이 해제돼요" else "지금 변경하시면 선택한 색상이 해제돼요."
+        return if (bottomOptionVisible) getString(R.string.change_pop_up_color_option) else getString(
+            R.string.change_pop_up_color
+        )
     }
 
     private fun RecyclerView.setupOptionChangeAdapter(items: List<OptionChangePopUpItem>) {
@@ -185,19 +200,21 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
         adapter = OptionChangePopupAdapter(items)
     }
 
-    private fun showCaArtDialog(description: String, view: View) {
+    private fun showCaArtDialog(description: String, view: View, changeIndex: Int, changeTrim: Trim) {
         CaArtDialog.Builder(requireContext())
-            .setTitle("Exclusive 트림으로 변경\n하시겠어요?")
+            .setTitle("${changeTrim.trimName} 트림으로 변경\n하시겠어요?")
             .setDescription(description)
             .setDialogContentView(view)
-            .setPositiveButton("변경하기") {}
+            .setPositiveButton(getString(R.string.change)) {
+                userChoiceViewModel.setSelectedTrim(changeTrim)
+                userChoiceViewModel.setSelectedTrimIndex(changeIndex + 1)
+                (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateTrimSCheckState(changeIndex)
+            }
             .build()
             .show(childFragmentManager, "colorOptionChangePopup")
     }
 
     override fun onItemClicked(itemIndx: Int) {
-        val selectedTrim = carTrimChoiceViewModel.trims.value?.get(itemIndx) ?: return
-        userChoiceViewModel.setSelectedTrim(selectedTrim)
-        userChoiceViewModel.setSelectedTrimIndex(itemIndx + 1)
+        createChangePopup(false, itemIndx, carTrimChoiceViewModel.trims.value?.get(itemIndx) ?: return)
     }
 }

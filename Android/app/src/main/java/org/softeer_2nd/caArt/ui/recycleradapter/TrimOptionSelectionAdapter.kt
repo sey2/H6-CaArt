@@ -44,17 +44,30 @@ class TrimOptionSelectionAdapter(
     fun updateCompositions(newSpecifications: String, compositionTotalPrice: Long) {
         specifications = newSpecifications
 
-        for(i in 0 until items.size)
+        for (i in 0 until items.size)
             items[i].compositionPrice = compositionTotalPrice
 
         notifyDataSetChanged()
     }
 
-    fun updateSelectedState(selectedIndex: Int){
+    fun updateSelectedState(selectedIndex: Int) {
         items.forEachIndexed { index, item ->
             item.isChecked = index == selectedIndex
         }
         notifyDataSetChanged()
+    }
+
+    fun updateTrimSCheckState(index: Int) {
+        if(index == -1) return
+
+        if (selectedPosition != -1) {
+            items[selectedPosition].isChecked = false
+            notifyItemChanged(selectedPosition)
+        }
+
+        items[index].isChecked = true
+        notifyItemChanged(index)
+        selectedPosition = index
     }
 
     inner class TrimOptionSelectionViewHolder(val binding: ItemTrimSelectBinding) :
@@ -66,15 +79,6 @@ class TrimOptionSelectionAdapter(
         init {
             binding.ivTrimCheck.setOnClickListener {
                 onTrimItemClickListener.onItemClicked(adapterPosition)
-
-                if (selectedPosition != -1) {
-                    items[selectedPosition].isChecked = false
-                    notifyItemChanged(selectedPosition)
-                }
-
-                items[adapterPosition].isChecked = true
-                notifyItemChanged(adapterPosition)
-                selectedPosition = adapterPosition
             }
 
             binding.incOtherMore.rvOtherMoreExteriorDetail.apply {
