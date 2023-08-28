@@ -55,7 +55,7 @@ function OptionCard({
         }}
       >
         더 알아보기
-        <img src="/images/rightArrow_icon_blue.svg"></img>
+        <img src="/images/icon/rightArrow_icon_blue.svg"></img>
       </OptionCardDetailTextBox>
     </OptionCardDetailTitleBox>
   );

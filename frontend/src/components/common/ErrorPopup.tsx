@@ -18,7 +18,7 @@ function ErrorPopup() {
         내 차 만들기 과정 중 <br />
         오류가 발생했어요
       </span>
-      <ErrorPopupImg src="/images/error_logo_blue.svg"></ErrorPopupImg>
+      <ErrorPopupImg src="/images/logo/error_logo_blue.svg"></ErrorPopupImg>
       <Link to="/">
         <SquareButton size="l" color="grey-1000" $bg="primary-blue">
           확인

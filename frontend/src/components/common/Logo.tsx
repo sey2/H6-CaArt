@@ -12,8 +12,8 @@ function Logo({ type }: LogoProps) {
 
   const logoImgSrc =
     type === 'home' || isDark
-      ? '/images/hyundai_logo_home.svg'
-      : '/images/hyundai_logo_default.svg';
+      ? '/images/logo/hyundai_logo_home.svg'
+      : '/images/logo/hyundai_logo_default.svg';
 
   return (
     <LogoBox>

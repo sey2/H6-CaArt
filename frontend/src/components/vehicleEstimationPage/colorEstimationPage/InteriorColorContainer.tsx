@@ -85,7 +85,7 @@ function InteriorColorContainer({
               {selectedColorName === item.colorName && (
                 <SelectedBox>
                   <img
-                    src="/images/white-lg-check-icon.svg"
+                    src="/images/checkIcon/white-lg-check-icon.svg"
                     width={24}
                     height={24}
                   />

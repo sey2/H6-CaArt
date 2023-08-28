@@ -24,7 +24,7 @@ function OptionExplainModal() {
       height={componentHeight}
     >
       <X
-        src="/images/x_icon.svg"
+        src="/images/icon/x_icon.svg"
         onClick={() => dispatch({ type: 'CLOSE_OPTION_MODAL' })}
       />
       <Title className="body-bold-18 text-grey-0">
@@ -35,7 +35,7 @@ function OptionExplainModal() {
         {replaceWonSymbol(state.optionModalData.description)}
       </Content>
       <footer className="caption-regular-12 text-grey-400">
-        *사진과 설명은 참고용이며 실제 차량과는 상이할 수 있습니다.
+        * 사진과 설명은 참고용이며 실제 차량과는 상이할 수 있습니다.
       </footer>
     </Modal>
   );

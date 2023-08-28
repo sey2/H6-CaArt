@@ -253,7 +253,7 @@ function EBWGuideModal() {
               )}
           </NavItem>
           <X
-            src="/images/x_icon.svg"
+            src="/images/icon/x_icon.svg"
             onClick={() => dispatch({ type: 'CLOSE_INFO_MODAL' })}
           />
           <BottomLine ref={lineRef} />

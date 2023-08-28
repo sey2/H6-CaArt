@@ -40,7 +40,7 @@ function BuyCarContainer() {
             >
               <span>{item}</span>
               <DropIcon
-                src="/images/dropdown_icon_silver.svg"
+                src="/images/dropdown/dropdown_icon_silver.svg"
                 $isOpen={dropState[index as keyof typeof dropState]}
               />
             </Header>

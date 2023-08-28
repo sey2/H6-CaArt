@@ -30,7 +30,7 @@ function OptionInfoPopupBtn({
           }
         }}
       >
-        <img src="/images/plus_icon_white.svg"></img>
+        <img src="/images/icon/plus_icon_white.svg"></img>
       </OptionInfoPopupBtnBox>
       {(clickedPlusBtn === option.id || isHover) && (
         <OptionInfoPopup

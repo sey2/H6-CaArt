@@ -88,7 +88,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
     >
       <Wrapper onClick={e => e.stopPropagation()}>
         <X
-          src="/images/x_icon.svg"
+          src="/images/icon/x_icon.svg"
           onClick={() => setter({ ...data, isopen: false })}
         />
         <FlexBox $direction="column">

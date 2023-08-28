@@ -238,8 +238,8 @@ function SurveyPage() {
           <img
             src={
               isDark
-                ? '/images/hyundai_logo_home.svg'
-                : '/images/hyundai_logo_default.svg'
+                ? '/images/logo/hyundai_logo_home.svg'
+                : '/images/logo/hyundai_logo_default.svg'
             }
           />
         </Logo>
@@ -398,7 +398,7 @@ function SurveyPage() {
               $optionSelected={answer.additionalOptionId1 !== 0}
             >
               {optionSelectActive && (
-                <DropDownIcon src="/images/dropdown_icon_default.svg"></DropDownIcon>
+                <DropDownIcon src="/images/dropdown/dropdown_icon_default.svg"></DropDownIcon>
               )}
               <span>
                 {answer.additionalOptionId1 && optionList
@@ -459,7 +459,7 @@ function SurveyPage() {
               $optionSelected={answer.additionalOptionId2 !== 0}
             >
               {optionSelectActive && (
-                <DropDownIcon src="/images/dropdown_icon_default.svg"></DropDownIcon>
+                <DropDownIcon src="/images/dropdown/dropdown_icon_default.svg"></DropDownIcon>
               )}
               <span>
                 {answer.additionalOptionId2 && optionList

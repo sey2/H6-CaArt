@@ -13,7 +13,7 @@ function RecommendResultCard({
 >) {
   return (
     <RecommendResultCardBox>
-      <RecommendResultCardLogo src="/images/hyundai_logo_mini.svg"></RecommendResultCardLogo>
+      <RecommendResultCardLogo src="/images/logo/hyundai_logo_mini.svg"></RecommendResultCardLogo>
       <RecommendResultCardTitle>
         <RecommendResultCardTag className="head-medium-12 text-grey-1000">
           <span>{`${model.modelName} - ${model.trim.trimName}`}</span>

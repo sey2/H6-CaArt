@@ -54,7 +54,7 @@ function Dropdown({ type, data, setter, modaldata }: Dropdown) {
               다른 {colorText} 색상을 찾고 있나요?
             </span>
             <DropIcon
-              src="/images/dropdown_icon.svg"
+              src="/images/dropdown/dropdown_icon.svg"
               outerOpen={dropdownOpen}
             />
           </Header>

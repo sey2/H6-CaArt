@@ -28,7 +28,7 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
               }}
             >
               <img
-                src={isDark ? '/images/ex_img_dark.svg' : '/images/ex_img.svg'}
+                src={isDark ? '/images/icon/ex_img_dark.svg' : '/images/icon/ex_img.svg'}
               />
               <span>외장</span>
             </FlexBox>
@@ -46,7 +46,7 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
               }}
             >
               <img
-                src={isDark ? '/images/in_img_dark.svg' : '/images/in_img.svg'}
+                src={isDark ? '/images/icon/in_img_dark.svg' : '/images/icon/in_img.svg'}
               />
               <span>내장</span>
             </FlexBox>
@@ -65,7 +65,7 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
             >
               <img
                 src={
-                  isDark ? '/images/360_img_dark.svg' : '/images/360_img.svg'
+                  isDark ? '/images/icon/360_img_dark.svg' : '/images/icon/360_img.svg'
                 }
               />
               <span>360</span>

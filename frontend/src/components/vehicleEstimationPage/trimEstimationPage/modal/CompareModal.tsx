@@ -38,7 +38,7 @@ function CompareModal({ data }: { data: Trim[] }) {
           <Header className="head-medium-22 text-grey-50">
             비교하기
             <X
-              src="/images/x_icon.svg"
+              src="/images/icon/x_icon.svg"
               onClick={() => dispatch({ type: 'CLOSE_COMPARE_MODAL' })}
             />
           </Header>

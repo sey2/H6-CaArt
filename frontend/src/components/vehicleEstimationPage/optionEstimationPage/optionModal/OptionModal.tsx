@@ -87,7 +87,7 @@ function OptionModal({
             setOptionNum(optionNum - 1);
           }}
         >
-          <img src="/images/leftArrow_icon_basic.svg"></img>
+          <img src="/images/icon/leftArrow_icon_basic.svg"></img>
         </OptionModalLeftBtn>
       )}
       {data.subOptions && optionNum !== data.subOptions.length - 1 && (
@@ -96,7 +96,7 @@ function OptionModal({
             setOptionNum(optionNum + 1);
           }}
         >
-          <img src="/images/rightArrow_icon_basic.svg"></img>
+          <img src="/images/icon/rightArrow_icon_basic.svg"></img>
         </OptionModalRightBtn>
       )}
     </>

@@ -44,7 +44,7 @@ function TrimChangeModal() {
   return (
     <Overlay
       onClick={() => dispatch({ type: 'CLOSE_TRIM_CHANGE_MODAL' })}
-      isopen={state.trimChangeModal.isopen}
+      $isopen={state.trimChangeModal.isopen}
     >
       <Box onClick={e => e.stopPropagation()}>
         <FlexBox $justify="space-between" $margin="0px 0px 48px 0px">
@@ -52,7 +52,7 @@ function TrimChangeModal() {
             트림 변경 시, 선택하신 색상과 옵션이 해제돼요
           </p>
           <X
-            src="/images/x_icon.svg"
+            src="/images/icon/x_icon.svg"
             onClick={() => dispatch({ type: 'CLOSE_TRIM_CHANGE_MODAL' })}
           />
         </FlexBox>
@@ -116,7 +116,7 @@ function TrimChangeModal() {
 
 export default TrimChangeModal;
 
-const Overlay = styled.div<{ isopen: boolean }>`
+const Overlay = styled.div<{ $isopen: boolean }>`
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -127,7 +127,7 @@ const Overlay = styled.div<{ isopen: boolean }>`
   transition: all 0.5s ease-out;
   visibility: hidden;
   opacity: 0;
-  ${props => props.isopen && `visibility:visible;opacity:1;`};
+  ${props => props.$isopen && `visibility:visible;opacity:1;`};
 `;
 
 const Box = styled.div`

@@ -25,7 +25,7 @@ function ToolTip() {
         onClick={e => e.stopPropagation()}
         $isopen={state.tooltipOpen}
       >
-        <img src="/images/tooltip_icon.svg" />
+        <img src="/images/icon/tooltip_icon.svg" />
         <p className="body-regular-14">{text}</p>
       </BubbleBox>
     </>

@@ -20,7 +20,7 @@ function App() {
         <BrowserRouter>
           <ModeBtnBox onClick={darkModeToggle}>
             <img
-              src={isDark ? '/images/moon_icon.svg' : '/images/sun_icon.svg'}
+              src={isDark ? '/images/icon/moon_icon.svg' : '/images/icon/sun_icon.svg'}
             ></img>
           </ModeBtnBox>
           <Routes>

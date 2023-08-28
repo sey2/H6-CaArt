@@ -70,13 +70,13 @@ function HeaderDetail({
         </OptionBox2>
         <OptionBox3>{optionList}</OptionBox3>
         {currentEstimation.options.length >= 6 && (
-          <ScrollIconBox src="/images/scroll_icon_black.svg"></ScrollIconBox>
+          <ScrollIconBox src="/images/icon/scroll_icon_black.svg"></ScrollIconBox>
         )}
       </OptionListBox>
       <HeaderBottomLine />
       <TotalPriceBox>
         <img
-          src="/images/dropup_icon_default.svg"
+          src="/images/dropdown/dropup_icon_default.svg"
           onClick={() => {
             setShowDetail(false);
           }}

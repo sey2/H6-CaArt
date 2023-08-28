@@ -20,7 +20,7 @@ function LoginModal() {
               <p>로그인 화면으로 이동하시겠어요?</p>
             </FlexBox>
             <img
-              src="/images/x_icon.svg"
+              src="/images/icon/x_icon.svg"
               onClick={() => dispatch({ type: 'CLOSE_SAVE_MODAL' })}
             />
           </FlexBox>

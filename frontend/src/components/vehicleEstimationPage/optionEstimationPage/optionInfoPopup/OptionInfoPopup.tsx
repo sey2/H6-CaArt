@@ -39,7 +39,7 @@ function OptionInfoPopup({
         </div>
       </OptionInfoPopupText>
       <OptionInfoPopupIcon
-        src="/images/rightArrow_icon_basic.svg"
+        src="/images/icon/rightArrow_icon_basic.svg"
         onClick={() => {
           setOpenedModalId(option.id);
         }}

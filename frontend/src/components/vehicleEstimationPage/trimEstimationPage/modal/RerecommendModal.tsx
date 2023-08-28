@@ -19,7 +19,7 @@ function RerecommendModal() {
             추천 페이지로 돌아가시겠어요?
           </span>
           <X
-            src="/images/x_icon.svg"
+            src="/images/icon/x_icon.svg"
             onClick={() => dispatch({ type: 'CLOSE_RECOMMEND_MODAL' })}
           />
         </FlexBox>

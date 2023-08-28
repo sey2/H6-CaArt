@@ -75,11 +75,7 @@ function ColorEstimationPage() {
 
   const [modal, setModal] = useState({
     isopen: false,
-    nowTrim: {
-      name: currentEstimation.trim.name,
-      price: currentEstimation.trim.price,
-      img: currentEstimation.trim.img,
-    },
+    nowTrim: { ...currentEstimation.trim },
     changeTrim: {
       name: '',
       price: 0,

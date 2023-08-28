@@ -8,7 +8,7 @@ function TopContainer() {
     <Background>
       <Link to="/">
         <Logo>
-          <img src="/images/hyundai_logo_default.svg" />
+          <img src="/images/logo/hyundai_logo_default.svg" />
         </Logo>
       </Link>
       <Flex>

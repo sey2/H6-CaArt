@@ -9,14 +9,14 @@ function CircularButton({
   return selected ? (
     <Button selected onClick={onClick}>
       <FlexBox>
-        <img src="/images/white-lg-check-icon.svg" width={16} height={16} />
+        <img src="/images/checkIcon/white-lg-check-icon.svg" width={16} height={16} />
         <span className="caption-medium-12 text-grey-1000">선택</span>
       </FlexBox>
     </Button>
   ) : (
     <Button onClick={onClick}>
       <FlexBox>
-        <img src="/images/blue-lg-check-icon.svg" width={16} height={16} />
+        <img src="/images/checkIcon/blue-lg-check-icon.svg" width={16} height={16} />
         <span className="caption-medium-12 text-primary-blue">선택</span>
       </FlexBox>
     </Button>

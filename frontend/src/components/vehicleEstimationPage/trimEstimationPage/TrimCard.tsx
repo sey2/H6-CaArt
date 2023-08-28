@@ -93,8 +93,8 @@ function TrimCard({
                   <CheckButton
                     src={
                       currentEstimation.trim.name === trimItem.trimName
-                        ? '/images/check_circle_blue_bold.svg'
-                        : '/images/check_circle_grey_bold.svg'
+                        ? '/images/checkIcon/check_circle_blue_bold.svg'
+                        : '/images/checkIcon/check_circle_grey_bold.svg'
                     }
                     onClick={() => {
                       dispatch({

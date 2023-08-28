@@ -16,7 +16,7 @@ function MailModal() {
               메일 주소를 알려주세요
             </span>
             <img
-              src="/images/x_icon.svg"
+              src="/images/icon/x_icon.svg"
               onClick={() => dispatch({ type: 'CLOSE_MAIL_MODAL' })}
             />
           </FlexBox>

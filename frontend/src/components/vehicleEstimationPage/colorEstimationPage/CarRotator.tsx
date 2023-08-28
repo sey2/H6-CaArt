@@ -45,7 +45,7 @@ function CarRotator({ data }: { data: ExteriorColor[] }) {
         src={`${baseUrl.slice(0, -8)}${String(image).padStart(3, '0')}.webp`}
         onMouseMove={startSwipe}
       />
-      <RotateCircle src="/images/rotate_circle.png" />
+      <RotateCircle src="/images/etc/rotate_circle.png" />
     </ImageContainer>
   );
 }

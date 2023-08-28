@@ -13,7 +13,7 @@ function ShareModal() {
           <FlexBox $justify="space-between" $margin="0 0 8px 0">
             <span className="head-medium-22 text-grey-50">공유하기</span>
             <img
-              src="/images/x_icon.svg"
+              src="/images/icon/x_icon.svg"
               onClick={() => dispatch({ type: 'CLOSE_SHARE_MODAL' })}
             />
           </FlexBox>

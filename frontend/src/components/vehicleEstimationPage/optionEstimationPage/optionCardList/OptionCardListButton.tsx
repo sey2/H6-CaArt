@@ -36,14 +36,14 @@ function OptionCardListButton({
   return (
     <OptionCardPageMoveBtnBox>
       <img
-        src="/images/leftArrow_icon_basic.svg"
+        src="/images/icon/leftArrow_icon_basic.svg"
         onClick={() => {
           pageMoveHandler('left');
         }}
       ></img>
       <div className="btn_list">{OptionMoveBtnList()}</div>
       <img
-        src="/images/rightArrow_icon_basic.svg"
+        src="/images/icon/rightArrow_icon_basic.svg"
         onClick={() => {
           pageMoveHandler('right');
         }}

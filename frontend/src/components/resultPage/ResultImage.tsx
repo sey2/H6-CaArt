@@ -11,23 +11,23 @@ function ResultImage() {
   return (
     <>
       <Wrapper>
-        <ImageTop src="/images/temp_top_image.png" />
+        <ImageTop src="/images/etc/temp_top_image.png" />
         <ShareIcon onClick={() => dispatch({ type: 'OPEN_SHARE_MODAL' })}>
-          <img src="/images/download_icon.svg" />
+          <img src="/images/icon/download_icon.svg" />
         </ShareIcon>
         <ShadeTop
-          src={isDark ? '/images/triangle_dark.svg' : '/images/triangle.svg'}
+          src={isDark ? '/images/etc/triangle_dark.svg' : '/images/etc/triangle.svg'}
         />
         <ImageBottom>
           <Flex>
             <span className="text-grey-300 body-medium-14">팰리세이드</span>
-            <Logo src="/images/hyundai_logo_default.svg" />
+            <Logo src="/images/logo/hyundai_logo_default.svg" />
           </Flex>
           <span className="text-grey-0 head-medium-16">
             {currentEstimation.trim.name}
           </span>
           <Shade
-            src={isDark ? '/images/triangle_dark.svg' : '/images/triangle.svg'}
+            src={isDark ? '/images/etc/triangle_dark.svg' : '/images/etc/triangle.svg'}
           />
         </ImageBottom>
       </Wrapper>

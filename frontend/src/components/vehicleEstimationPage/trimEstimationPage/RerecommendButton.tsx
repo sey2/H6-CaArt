@@ -10,7 +10,7 @@ function RerecommendButton() {
       left={128}
       onClick={() => dispatch({ type: 'OPEN_RECOMMEND_MODAL' })}
     >
-      <img src="/images/re_recommend_icon.svg" />
+      <img src="/images/icon/re_recommend_icon.svg" />
       <span className="text-secondary-active-blue body-medium-14">
         다시 추천받기
       </span>

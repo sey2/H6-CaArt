@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, Suspense } from 'react';
+import React, { useEffect, useContext, Suspense } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
@@ -58,10 +58,8 @@ function TrimEstimationPage() {
   const { dispatch } = useModalContext();
   const { data } = useFetch<Trim[]>('/trims');
   const { currentEstimation, setTrim } = useContext(EstimationContext)!;
-  const { setPreLoadData, preloadImages } = useContext<PreloadProps | null>(
-    preloadContext,
-  )!;
-  const [isDataLoad, setIsDataLoad] = useState(false);
+  const { loaderIdx, setPreLoadData, preloadImages } =
+    useContext<PreloadProps | null>(preloadContext)!;
 
   function closeModalHandler() {
     dispatch({ type: 'CLOSE_TOOLTIP_MODAL' });
@@ -78,7 +76,6 @@ function TrimEstimationPage() {
       jsonData.data.exteriorColors.forEach(item => {
         setPreLoadData(prev => [...prev, item.previews]);
       });
-      setIsDataLoad(true);
     } catch (error) {
       console.warn(error);
     }
@@ -100,10 +97,8 @@ function TrimEstimationPage() {
   }, []);
 
   useEffect(() => {
-    for (let i = 0; i < 7; i++) {
-      preloadImages();
-    }
-  }, [isDataLoad]);
+    preloadImages();
+  }, [loaderIdx]);
 
   const EBWGuideModalLazy = React.lazy(
     () =>
@@ -152,7 +147,7 @@ function TrimEstimationPage() {
           <TrimCarImage />
           <RightBox onScroll={closeModalHandler} onClick={preloadImages}>
             <InfoText onClick={() => dispatch({ type: 'OPEN_INFO_MODAL' })}>
-              <img src="/images/question_icon.svg" />
+              <img src="/images/icon/question_icon.svg" />
               <span className="text-secondary-active-blue body-medium-14">
                 고르기 어렵다면?
               </span>

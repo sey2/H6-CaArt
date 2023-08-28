@@ -69,7 +69,7 @@ function OptionModalTitle({
       </OptionModalDescriptionBox>
 
       <IconBox
-        src="/images/x_icon_basic.svg"
+        src="/images/icon/x_icon_basic.svg"
         onClick={() => {
           setOpenedModalId(0);
         }}
