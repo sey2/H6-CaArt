@@ -63,10 +63,10 @@
                 android:text="@{optionTag}"
                 android:textColor="@color/gray_400"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_option_floating_option_name"
-                app:layout_constraintEnd_toEndOf="@+id/tv_option_floating_option_name"
-                app:layout_constraintStart_toEndOf="@+id/iv_option_floating_option_image"
-                app:layout_constraintStart_toStartOf="@+id/tv_option_floating_option_name"
+                app:layout_constraintBottom_toTopOf="@id/tv_option_floating_option_name"
+                app:layout_constraintEnd_toEndOf="@id/tv_option_floating_option_name"
+                app:layout_constraintStart_toEndOf="@id/iv_option_floating_option_image"
+                app:layout_constraintStart_toStartOf="@id/tv_option_floating_option_name"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="주행안전" />
 
@@ -82,10 +82,10 @@
                 android:text="@{optionName}"
                 android:textColor="@color/gray_50"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_option_floating_option_price"
-                app:layout_constraintEnd_toStartOf="@+id/ib_option_floating_detail"
-                app:layout_constraintStart_toEndOf="@+id/iv_option_floating_option_image"
-                app:layout_constraintTop_toBottomOf="@+id/tv_option_floating_option_tag"
+                app:layout_constraintBottom_toTopOf="@id/tv_option_floating_option_price"
+                app:layout_constraintEnd_toStartOf="@id/ib_option_floating_detail"
+                app:layout_constraintStart_toEndOf="@id/iv_option_floating_option_image"
+                app:layout_constraintTop_toBottomOf="@id/tv_option_floating_option_tag"
                 tools:text="빌트인 캠dfdsfsdfdsfdsfds" />
 
             <TextView
@@ -99,9 +99,9 @@
                 android:textColor="@color/gray_200"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tv_option_floating_option_name"
-                app:layout_constraintStart_toStartOf="@+id/tv_option_floating_option_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_option_floating_option_name"
+                app:layout_constraintEnd_toEndOf="@id/tv_option_floating_option_name"
+                app:layout_constraintStart_toStartOf="@id/tv_option_floating_option_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_option_floating_option_name"
                 tools:text="690,000 원" />
 
             <ImageButton

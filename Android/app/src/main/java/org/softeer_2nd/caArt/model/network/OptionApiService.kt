@@ -1,7 +1,7 @@
 package org.softeer_2nd.caArt.model.network
 
-import org.softeer_2nd.caArt.model.data.dto.AdditionalOptionResponseDTO
-import org.softeer_2nd.caArt.model.data.dto.DefaultOptionResponseDTO
+import org.softeer_2nd.caArt.model.data.dto.AdditionalOptionResponse
+import org.softeer_2nd.caArt.model.data.dto.DefaultOptionResponse
 import org.softeer_2nd.caArt.model.data.OptionTag
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -23,7 +23,7 @@ interface OptionApiService {
         @Query("wdId") wheelDriveID: Int,
         @Query("offset") offset: Int = 0,
         @Query("pageSize") pageSize: Int = 8
-    ): CaArtResponse<AdditionalOptionResponseDTO>
+    ): CaArtResponse<AdditionalOptionResponse>
 
     @GET("/options/basic/list")
     suspend fun getDefaultOptionList(
@@ -34,6 +34,6 @@ interface OptionApiService {
         @Query("wdId") wheelDriveID: Int,
         @Query("offset") offset: Int = 0,
         @Query("pageSize") pageSize: Int = 8
-    ): CaArtResponse<DefaultOptionResponseDTO>
+    ): CaArtResponse<DefaultOptionResponse>
 
 }

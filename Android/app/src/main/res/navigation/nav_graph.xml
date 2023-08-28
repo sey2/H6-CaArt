@@ -61,7 +61,7 @@
         android:label="carTrimDescriptionFragment" />
     <fragment
         android:id="@+id/lifeStyleSurveyFragment"
-        android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleSurveyFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleSurveyFragment"
         android:label="LifeStyleSurveyFragment">
         <action
             android:id="@+id/action_lifeStyleSurveyFragment_to_lifeStyleDetailSurveyFragment"
@@ -101,7 +101,7 @@
 
     <fragment
         android:id="@+id/lifeStyleDetailSurveyFragment"
-        android:name="org.softeer_2nd.caArt.ui.fragment.LifeStyleDetailSurveyFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleDetailSurveyFragment"
         android:label="LifeStyleDetailSurveyFragment">
         <action
             android:id="@+id/action_lifeStyleDetailSurveyFragment_to_recommendCompleteFragment"
@@ -187,10 +187,13 @@
         <action
             android:id="@+id/action_carBuildingLoadingFragment_to_estimateFragment"
             app:destination="@id/estimateFragment"
-            app:popUpTo="@id/carOptionChoiceFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/carBuildingLoadingFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="loadingDuration"
             app:argType="long" />
     </fragment>
+    <action
+        android:id="@+id/action_global_carBuildingLoadingFragment"
+        app:destination="@id/carBuildingLoadingFragment" />
 </navigation>

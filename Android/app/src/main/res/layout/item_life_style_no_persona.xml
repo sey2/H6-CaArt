@@ -39,17 +39,17 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
+            app:layout_constraintTop_toTopOf="@id/view2" />
 
         <ImageView
             android:id="@+id/iv_life_style_no_persona_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_life_style_no_persona_more_detail_selection"
-            app:layout_constraintEnd_toEndOf="@+id/tv_life_style_no_persona_title"
-            app:layout_constraintStart_toStartOf="@+id/tv_life_style_no_persona_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_life_style_no_persona_title"
+            app:layout_constraintBottom_toTopOf="@id/btn_life_style_no_persona_more_detail_selection"
+            app:layout_constraintEnd_toEndOf="@id/tv_life_style_no_persona_title"
+            app:layout_constraintStart_toStartOf="@id/tv_life_style_no_persona_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_life_style_no_persona_title"
             app:srcCompat="@drawable/drawable_search_156" />
 
         <Button
@@ -70,7 +70,7 @@
             android:textSize="14sp"
             app:backgroundTint="@color/blue"
             app:cornerRadius="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view2"
+            app:layout_constraintBottom_toBottomOf="@id/view2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

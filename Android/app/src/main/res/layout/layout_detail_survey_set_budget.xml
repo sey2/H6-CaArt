@@ -76,7 +76,7 @@
             android:text="@{Long.toString(minPrice)+` 만원`}"
             android:textColor="@color/gray_400"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rs_detail_survey_set_budget_slider" />
+            app:layout_constraintTop_toBottomOf="@id/rs_detail_survey_set_budget_slider" />
 
         <TextView
             android:id="@+id/tv_detail_survey_set_budget_max_price"
@@ -87,6 +87,6 @@
             android:text="@{Long.toString(maxPrice)+` 만원`}"
             android:textColor="@color/gray_400"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rs_detail_survey_set_budget_slider" />
+            app:layout_constraintTop_toBottomOf="@id/rs_detail_survey_set_budget_slider" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

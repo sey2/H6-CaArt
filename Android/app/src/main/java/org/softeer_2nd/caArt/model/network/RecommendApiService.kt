@@ -4,7 +4,7 @@ import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.dto.AdditionalSurveyQuestionResponse
 import org.softeer_2nd.caArt.model.data.dto.SurveyQuestionResponse
 import org.softeer_2nd.caArt.model.data.state.LifestyleDetailState
-import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
+import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResult
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -30,7 +30,7 @@ sealed interface RecommendApiService {
         @Path("personaId") personaId: Int,
         @Query("age") ageId: String
 
-    ): CaArtResponse<RecommendCompleteResultDTO>
+    ): CaArtResponse<RecommendCompleteResult>
 
     @GET("lifestyles/recommendation")
     suspend fun getRecommendationResultByAdditionalQuestions(
@@ -41,5 +41,5 @@ sealed interface RecommendApiService {
         @Query("value") value: String,
         @Query("maxBudget") maxBudget: Int,
         @Query("minBudget") minBudget: Int
-    ): CaArtResponse<RecommendCompleteResultDTO>
+    ): CaArtResponse<RecommendCompleteResult>
 }

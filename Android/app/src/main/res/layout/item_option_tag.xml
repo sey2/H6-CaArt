@@ -46,9 +46,9 @@
             android:text="@{tagName}"
             android:textFontWeight="500"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_option_tab_icon"
-            app:layout_constraintStart_toStartOf="@+id/iv_option_tab_icon"
-            app:layout_constraintTop_toBottomOf="@+id/iv_option_tab_icon"
+            app:layout_constraintEnd_toEndOf="@id/iv_option_tab_icon"
+            app:layout_constraintStart_toStartOf="@id/iv_option_tab_icon"
+            app:layout_constraintTop_toBottomOf="@id/iv_option_tab_icon"
             tools:text="전체"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

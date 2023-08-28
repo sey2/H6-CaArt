@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.softeer_2nd.caArt.model.data.Answer
-import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
-import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO.Companion.toState
+import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResult
+import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResult.Companion.toState
 import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
 import org.softeer_2nd.caArt.model.repository.RecommendRepository
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class RecommendCompleteViewModel @Inject constructor(private val repository: Rec
     private val _answerList = MutableLiveData<List<String>>()
     val answerList: LiveData<List<String>> = _answerList
 
-    var recommendResultData: RecommendCompleteResultDTO? = null
+    var recommendResultData: RecommendCompleteResult? = null
         private set
 
     fun requestRecommendCompleteResult(personaId: Int, age: String): Boolean {
@@ -51,7 +51,7 @@ class RecommendCompleteViewModel @Inject constructor(private val repository: Rec
     ): Boolean {
         if (experience == null || family == null || purpose == null || value == null) return false
         viewModelScope.launch {
-            val state =
+            val data =
                 repository.fetchRecommendResult(
                     age.code,
                     experience.code,
@@ -69,9 +69,13 @@ class RecommendCompleteViewModel @Inject constructor(private val repository: Rec
                 value.answer,
                 "${maxBudget / 10000} 만원"
             )
+
+            val state = data.toState()
+
             withContext(Dispatchers.Main) {
                 _resultState.value = state
                 _answerList.value = answerList
+                recommendResultData = data
             }
         }
         return true

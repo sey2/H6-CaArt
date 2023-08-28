@@ -7,13 +7,14 @@ import javax.inject.Inject
 
 class CarTrimRepository @Inject constructor(
     private val service: TrimApiService
-) {
+) : BaseNetworkRepository() {
 
     suspend fun fetchTrims(): List<Trim> {
-        return service.getTrimList().data ?: listOf()
+        return safeApiCall { service.getTrimList() }.data ?: listOf()
     }
 
-    suspend fun fetchComposition(): Compositions{
-        return service.getComposition().data ?: throw NullPointerException("Composition API Data is Null")
+    suspend fun fetchComposition(): Compositions {
+        return safeApiCall { service.getComposition() }.data
+            ?: throw NullPointerException("Composition API Data is Null")
     }
 }

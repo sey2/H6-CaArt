@@ -47,8 +47,8 @@
             android:text="디젤 2.2 ・ 7인승 ・ 2WD"
             android:textColor="@color/gray_500"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_model"
-            app:layout_constraintTop_toTopOf="@+id/tv_model"
+            app:layout_constraintStart_toEndOf="@id/tv_model"
+            app:layout_constraintTop_toTopOf="@id/tv_model"
             tools:text="디젤 2.2 ・ 7인승 ・ 2WD" />
 
         <ImageView
@@ -60,7 +60,7 @@
             android:backgroundTint="@{isChecked ? @color/blue_500 : @color/gray_300}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_specifications"
+            app:layout_constraintStart_toEndOf="@id/tv_specifications"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -72,8 +72,8 @@
             android:text="@{trimItems.description}"
             android:textColor="@color/gray_100"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_model"
-            app:layout_constraintTop_toBottomOf="@+id/tv_model"
+            app:layout_constraintStart_toStartOf="@id/tv_model"
+            app:layout_constraintTop_toBottomOf="@id/tv_model"
             tools:text="합리적인 가격의 인기 옵션" />
 
         <TextView
@@ -85,8 +85,8 @@
             android:textColor="@color/gray_0"
             app:formattedPrice="@{trimItems.trimPrice + trimItems.compositionPrice}"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_product_key_features"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_key_features"
+            app:layout_constraintStart_toStartOf="@id/tv_product_key_features"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_key_features"
             tools:text="@string/price" />
 
         <include
@@ -99,7 +99,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_trim_price" />
+            app:layout_constraintTop_toBottomOf="@id/tv_trim_price" />
 
         <View
             android:id="@+id/view_line_bottom"

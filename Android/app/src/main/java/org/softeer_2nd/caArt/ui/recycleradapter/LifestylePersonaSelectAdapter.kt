@@ -87,7 +87,6 @@ class LifestylePersonaSelectAdapter(
 
         init {
             binding.ivLifeStylePersonaImage.clipToOutline = true
-
         }
 
         fun bind(persona: Persona) {

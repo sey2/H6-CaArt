@@ -1,23 +1,14 @@
 package org.softeer_2nd.caArt.model.repository
 
-import android.util.Log
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.withContext
-import org.softeer_2nd.caArt.model.data.Answer
 import org.softeer_2nd.caArt.model.data.BudgetRange
 import org.softeer_2nd.caArt.model.data.Persona
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.model.data.state.LifestyleDetailState
-import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
-import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO.Companion.toState
-import org.softeer_2nd.caArt.model.data.dto.SurveyQuestionResponse
-import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
-import org.softeer_2nd.caArt.model.network.CaArtResponse
+import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResult
 import org.softeer_2nd.caArt.model.network.RecommendApiService
 import javax.inject.Inject
-import kotlin.math.exp
 
 class RecommendRepository @Inject constructor(
     private val service: RecommendApiService
@@ -65,7 +56,7 @@ class RecommendRepository @Inject constructor(
         return safeApiCall { service.getLifestyleDetail(personaId) }.data
     }
 
-    suspend fun fetchRecommendResult(personaId: Int, age: String): RecommendCompleteResultDTO? {
+    suspend fun fetchRecommendResult(personaId: Int, age: String): RecommendCompleteResult? {
 
         val data = safeApiCall { service.getRecommendationResultByLifestyle(personaId, age) }.data
         return data
@@ -79,7 +70,7 @@ class RecommendRepository @Inject constructor(
         value: String,
         maxBudget: Int,
         minBudget: Int
-    ): RecommendCompleteResultState? {
+    ): RecommendCompleteResult? {
 
         val data = safeApiCall {
             service.getRecommendationResultByAdditionalQuestions(
@@ -92,7 +83,7 @@ class RecommendRepository @Inject constructor(
                 minBudget = minBudget
             )
         }.data
-        return data?.toState()
+        return data
     }
 
 }

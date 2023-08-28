@@ -2,11 +2,9 @@ package org.softeer_2nd.caArt.ui.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,12 +19,12 @@ import org.softeer_2nd.caArt.model.data.SurveyQuestion
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.ui.recycleradapter.LifestylePersonaSelectAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.SurveyAnswerOptionsRecyclerAdapter
-import org.softeer_2nd.caArt.viewmodel.LifeStyleSurveyViewModel
+import org.softeer_2nd.caArt.viewmodel.LifestyleSurveyViewModel
 
 @AndroidEntryPoint
-class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
+class LifestyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
-    override val processViewModel: LifeStyleSurveyViewModel by viewModels()
+    override val processViewModel: LifestyleSurveyViewModel by viewModels()
 
     private var _binding: FragmentSurveyBinding? = null
     private val binding get() = _binding!!
@@ -58,7 +56,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
             onLifeStylePersonaDetailSelectClickListener = { _ ->
                 processViewModel.selectedAgeAnswer?.let {
                     findNavController().navigate(
-                        LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifeStyleDetailSurveyFragment(
+                        LifestyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifeStyleDetailSurveyFragment(
                             it
                         )
                     )
@@ -66,7 +64,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
             },
             onLifeStylePersonaMoreClickListener = { _, persona ->
                 findNavController().navigate(
-                    LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifestyleDetailFragment(
+                    LifestyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToLifestyleDetailFragment(
                         persona.personaId
                     )
                 )
@@ -162,7 +160,7 @@ class LifeStyleSurveyFragment : ProcessFragment<SurveyQuestion>() {
     override fun onProcessFinished() {
         if (processViewModel.selectedAgeAnswer != null && processViewModel.selectedPersonaId != null) {
             findNavController().navigate(
-                LifeStyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToRecommendCompleteFragment(
+                LifestyleSurveyFragmentDirections.actionLifeStyleSurveyFragmentToRecommendCompleteFragment(
                     age = processViewModel.selectedAgeAnswer!!,
                     personaId = processViewModel.selectedPersonaId!!,
                 )

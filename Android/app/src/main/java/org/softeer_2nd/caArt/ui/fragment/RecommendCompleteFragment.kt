@@ -17,6 +17,7 @@ import org.softeer_2nd.caArt.databinding.FragmentRecommendCompleteBinding
 import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.ui.dialog.LoadingDialog
+import org.softeer_2nd.caArt.ui.fragment.CarBuildingLoadingFragment.Companion.DEFAULT_LOADING_DURATION
 import org.softeer_2nd.caArt.ui.recycleradapter.ResultOptionAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.UserSelectedAnswerChipRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.RecommendCompleteViewModel
@@ -34,16 +35,19 @@ class RecommendCompleteFragment : Fragment() {
 
     private val userChoiceViewModel: UserChoiceViewModel by activityViewModels()
 
+    private var loadingDialog: LoadingDialog? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        loadingDialog = LoadingDialog(requireContext())
         val fromAdditionalSurvey =
             (findNavController().previousBackStackEntry?.destination?.id == R.id.lifeStyleDetailSurveyFragment)
         if (!fromAdditionalSurvey) {
             recommendCompleteViewModel.requestRecommendCompleteResult(args.personaId, args.age.code)
         } else {
+            loadingDialog?.show()
             with(args) {
                 recommendCompleteViewModel.requestRecommendCompleteResultByAdditionalQuestions(
                     age = age,
@@ -64,9 +68,6 @@ class RecommendCompleteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val loadingDialog = LoadingDialog(requireContext()).apply {
-            show()
-        }
         val optionAdapter =
             ResultOptionAdapter(DummyItemFactory.createResultOptionDummyItem(), true)
 
@@ -77,26 +78,27 @@ class RecommendCompleteFragment : Fragment() {
         )
 
         binding.btnRecommendCompleteGoCustom.setOnClickListener {
-            recommendCompleteViewModel.recommendResultData?.let {
-                userChoiceViewModel.setRecommendData(
-                    it
-                )
-            }
+            saveRecommendData()
             findNavController().navigate(RecommendCompleteFragmentDirections.actionRecommendCompleteFragmentToCarTrimChoiceFragment())
         }
 
         binding.btnRecommendCompleteGoEstimate.setOnClickListener {
-            findNavController().navigate(RecommendCompleteFragmentDirections.actionRecommendCompleteFragmentToEstimateFragment())
+            saveRecommendData()
+            findNavController().navigate(
+                RecommendCompleteFragmentDirections.actionGlobalCarBuildingLoadingFragment(
+                    DEFAULT_LOADING_DURATION
+                )
+            )
         }
 
         recommendCompleteViewModel.resultState.observe(viewLifecycleOwner) {
-            loadingDialog.dismiss()
+            loadingDialog?.dismiss()
             binding.setBinding(it)
             optionAdapter.setItems(it.resultOptions)
         }
 
         recommendCompleteViewModel.answerList.observe(viewLifecycleOwner) {
-            loadingDialog.dismiss()
+            loadingDialog?.dismiss()
             binding.incRecommendCompleteByAdditionalQuestionCover.rvRecommendationCompleteByAdditionalQuestionUserAnswersContainer.setup(
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
                 UserSelectedAnswerChipRecyclerAdapter(it),
@@ -116,6 +118,14 @@ class RecommendCompleteFragment : Fragment() {
         this.isNestedScrollingEnabled = nestedScrollingEnabled
     }
 
+    private fun saveRecommendData() {
+        recommendCompleteViewModel.recommendResultData?.let {
+            userChoiceViewModel.setRecommendData(
+                it
+            )
+        }
+    }
+
     private fun FragmentRecommendCompleteBinding.setBinding(state: RecommendCompleteResultState) {
         recommendationCard = state.recommendationCard
         model = state.model
@@ -126,5 +136,6 @@ class RecommendCompleteFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        loadingDialog = null
     }
 }

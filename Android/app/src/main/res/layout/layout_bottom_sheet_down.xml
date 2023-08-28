@@ -23,7 +23,7 @@
             android:text="@{userChoiceViewModel.selectedTrim.trimName}"
             android:textColor="@color/gray_500"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/iv_arrow"
+            app:layout_constraintStart_toStartOf="@id/iv_arrow"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/le_blanc"/>
 
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="@string/prev"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/flow_prv_next_btn" />
+            app:layout_constraintBottom_toBottomOf="@id/flow_prv_next_btn" />
 
         <Button
             android:id="@+id/btn_one_next"
@@ -56,9 +56,9 @@
             android:layout_width="92dp"
             android:layout_height="wrap_content"
             android:text="@string/next"
-            app:layout_constraintBottom_toBottomOf="@+id/flow_prv_next_btn"
+            app:layout_constraintBottom_toBottomOf="@id/flow_prv_next_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_previous"
+            app:layout_constraintStart_toEndOf="@id/btn_previous"
             tools:visibility="visible" />
 
         <TextView
@@ -83,12 +83,12 @@
             android:text="@string/won"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_price"
-            app:layout_constraintEnd_toStartOf="@+id/btn_previous"
+            app:layout_constraintEnd_toStartOf="@id/btn_previous"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_price"
+            app:layout_constraintStart_toEndOf="@id/tv_price"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_price"
 
         <ImageView
             android:id="@+id/iv_arrow"
@@ -116,7 +116,7 @@
             app:flow_wrapMode="chain"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_won"
+            app:layout_constraintStart_toEndOf="@id/tv_won"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 

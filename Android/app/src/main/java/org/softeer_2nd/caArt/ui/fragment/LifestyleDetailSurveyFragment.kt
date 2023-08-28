@@ -16,13 +16,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.softeer_2nd.caArt.databinding.FragmentSurveyBinding
 import org.softeer_2nd.caArt.databinding.LayoutDetailSurveySetBudgetBinding
 import org.softeer_2nd.caArt.model.data.SurveyQuestion
-import org.softeer_2nd.caArt.model.factory.DummyItemFactory
 import org.softeer_2nd.caArt.util.dp2px
 import org.softeer_2nd.caArt.ui.recycleradapter.SurveyAnswerOptionsRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.LifeStyleDetailSurveyViewModel
 
 @AndroidEntryPoint
-class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
+class LifestyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
     override val processViewModel: LifeStyleDetailSurveyViewModel by viewModels()
 
@@ -33,7 +32,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
     private var detailSurveySetBudgetBinding: LayoutDetailSurveySetBudgetBinding? = null
 
-    private val args: LifeStyleDetailSurveyFragmentArgs by navArgs()
+    private val args: LifestyleDetailSurveyFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -103,7 +102,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
 
     override fun onProcessFinished() {
         findNavController().navigate(
-            LifeStyleDetailSurveyFragmentDirections.actionLifeStyleDetailSurveyFragmentToRecommendCompleteFragment(
+            LifestyleDetailSurveyFragmentDirections.actionLifeStyleDetailSurveyFragmentToRecommendCompleteFragment(
                 age = args.age,
                 budget = processViewModel.budgetMax,
                 experience = processViewModel.selectedExperienceAnswer,

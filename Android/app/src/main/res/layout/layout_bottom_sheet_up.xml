@@ -29,8 +29,8 @@
             android:layout_marginTop="12dp"
             android:text="@string/summary_view"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/iv_line"
-            app:layout_constraintTop_toBottomOf="@+id/iv_up_arrow" />
+            app:layout_constraintStart_toStartOf="@id/iv_line"
+            app:layout_constraintTop_toBottomOf="@id/iv_up_arrow" />
 
         <View
             android:id="@+id/iv_line"
@@ -52,7 +52,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_line" />
+            app:layout_constraintTop_toBottomOf="@id/iv_line" />
 
         <TextView
             android:id="@+id/tv_model_name"
@@ -64,8 +64,8 @@
             android:textColor="@color/gray_500"
             android:textSize="14sp"
             tools:text="@string/le_blanc"
-            app:layout_constraintStart_toStartOf="@+id/iv_line"
-            app:layout_constraintTop_toBottomOf="@+id/rv_select_options" />
+            app:layout_constraintStart_toStartOf="@id/iv_line"
+            app:layout_constraintTop_toBottomOf="@id/rv_select_options" />
 
         <TextView
             android:id="@+id/tv_price"
@@ -73,8 +73,8 @@
             android:layout_marginTop="32dp"
             android:textSize="18sp"
             app:formattedPrice="@{userChoiceViewModel.totalPrice}"
-            app:layout_constraintEnd_toEndOf="@+id/iv_line"
-            app:layout_constraintTop_toBottomOf="@+id/rv_select_options" />
+            app:layout_constraintEnd_toEndOf="@id/iv_line"
+            app:layout_constraintTop_toBottomOf="@id/rv_select_options" />
 
         <Button
             android:id="@+id/btn_estimate"
@@ -85,8 +85,8 @@
             android:layout_marginBottom="20dp"
             android:text="@string/estimate"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tv_price"
-            app:layout_constraintStart_toStartOf="@+id/tv_model_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+            app:layout_constraintEnd_toEndOf="@id/tv_price"
+            app:layout_constraintStart_toStartOf="@id/tv_model_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_price" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

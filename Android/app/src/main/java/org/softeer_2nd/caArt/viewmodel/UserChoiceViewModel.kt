@@ -14,7 +14,7 @@ import org.softeer_2nd.caArt.model.data.WheelDrive
 import org.softeer_2nd.caArt.model.data.dto.ColorData
 import org.softeer_2nd.caArt.model.data.dto.ExteriorColor
 import org.softeer_2nd.caArt.model.data.dto.InteriorColor
-import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResultDTO
+import org.softeer_2nd.caArt.model.data.dto.RecommendCompleteResult
 import org.softeer_2nd.caArt.util.StringFormatter
 
 class UserChoiceViewModel : ViewModel() {
@@ -109,7 +109,7 @@ class UserChoiceViewModel : ViewModel() {
         )
     }
 
-    fun setRecommendData(data: RecommendCompleteResultDTO) {
+    fun setRecommendData(data: RecommendCompleteResult) {
 
         data.model.let {
             setSelectedBodyType(it.bodyType)

@@ -86,7 +86,7 @@
                     android:paddingTop="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_option_choice_tab_layout_border" />
+                    app:layout_constraintTop_toBottomOf="@id/v_option_choice_tab_layout_border" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_option_preview_container"
@@ -99,7 +99,7 @@
                     android:visibility="@{isSituationalLayoutDisplay?View.GONE:View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_option_choice_option_tags_container" />
+                    app:layout_constraintTop_toBottomOf="@id/rv_option_choice_option_tags_container" />
 
                 <include
                     android:id="@+id/inc_situational_options"
@@ -110,7 +110,7 @@
                     android:visibility="@{isSituationalLayoutDisplay?View.VISIBLE:View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_option_choice_option_tags_container" />
+                    app:layout_constraintTop_toBottomOf="@id/rv_option_choice_option_tags_container" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

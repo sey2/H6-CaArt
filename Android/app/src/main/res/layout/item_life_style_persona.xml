@@ -39,7 +39,7 @@
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_life_style_persona_image" />
+            app:layout_constraintTop_toBottomOf="@id/iv_life_style_persona_image" />
 
         <ImageView
             android:id="@+id/iv_life_style_persona_image"
@@ -62,7 +62,7 @@
             android:backgroundTintMode="add"
             android:text="@{'#'+tagText1}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_life_style_persona_image"
+            app:layout_constraintTop_toBottomOf="@id/iv_life_style_persona_image"
             tools:text="#주행안전" />
 
         <TextView
@@ -73,8 +73,8 @@
             android:layout_marginStart="8dp"
             android:backgroundTintMode="add"
             android:text="@{'#'+tagText2}"
-            app:layout_constraintStart_toEndOf="@+id/tv_life_style_persona_tag1"
-            app:layout_constraintTop_toTopOf="@+id/tv_life_style_persona_tag1"
+            app:layout_constraintStart_toEndOf="@id/tv_life_style_persona_tag1"
+            app:layout_constraintTop_toTopOf="@id/tv_life_style_persona_tag1"
             tools:text="#사용편의" />
 
         <TextView
@@ -89,11 +89,11 @@
             android:text="@{lifeStyleDescription}"
             android:textColor="@{isSelected?@color/blue:@color/gray_0}"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_life_style_persona_more"
-            app:layout_constraintEnd_toStartOf="@+id/iv_life_style_persona_select"
+            app:layout_constraintBottom_toTopOf="@id/tv_life_style_persona_more"
+            app:layout_constraintEnd_toStartOf="@id/iv_life_style_persona_select"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_life_style_persona_tag1"
+            app:layout_constraintTop_toBottomOf="@id/tv_life_style_persona_tag1"
             tools:text="가족과 함께 타서 안전을\n중시해요" />
 
         <View
@@ -103,7 +103,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
             android:background="@{isSelected?@color/gray_700:@color/white}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_life_style_persona_more"
+            app:layout_constraintBottom_toTopOf="@id/tv_life_style_persona_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -119,7 +119,7 @@
             android:padding="4dp"
             android:text="@string/peek_into_lifestyle"
             android:textColor="@color/gray_200"
-            app:layout_constraintBottom_toBottomOf="@+id/v_life_style_persona_background"
+            app:layout_constraintBottom_toBottomOf="@id/v_life_style_persona_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -128,9 +128,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_life_style_persona_description"
+            app:layout_constraintBottom_toBottomOf="@id/tv_life_style_persona_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_life_style_persona_description"
+            app:layout_constraintTop_toTopOf="@id/tv_life_style_persona_description"
             app:srcCompat="@drawable/ic_checked_28"
             app:tint="@{isSelected?@color/blue:@color/gray_500}" />
 

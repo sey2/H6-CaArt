@@ -16,7 +16,7 @@
             android:textColor="@color/gray_300"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_change_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_change_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

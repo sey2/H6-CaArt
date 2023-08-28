@@ -96,8 +96,8 @@
                     android:text="@{item.description}"
                     android:textColor="@color/gray_300"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/iv_description"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_description"
+                    app:layout_constraintStart_toStartOf="@id/iv_description"
+                    app:layout_constraintTop_toBottomOf="@id/iv_description"
                     tools:text="@string/trim_desc" />
 
                 <View
@@ -118,8 +118,8 @@
                     android:textColor="@color/gray_500"
                     android:textSize="14sp"
                     android:visibility="@{item.maxPower == null ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toStartOf="@+id/tv_description"
-                    app:layout_constraintTop_toBottomOf="@+id/view" />
+                    app:layout_constraintStart_toStartOf="@id/tv_description"
+                    app:layout_constraintTop_toBottomOf="@id/view" />
 
                 <TextView
                     android:id="@+id/tv_max_torque_title"
@@ -132,8 +132,8 @@
                     android:textSize="14sp"
                     android:visibility="@{item.maxTorque == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tv_max_power_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_max_power_title" />
+                    app:layout_constraintStart_toStartOf="@id/tv_max_power_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_max_power_title" />
 
                 <TextView
                     android:id="@+id/tv_max_power"
@@ -144,8 +144,8 @@
                     android:textColor="@color/gray_300"
                     android:textSize="14sp"
                     android:visibility="@{item.maxPower == null ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toEndOf="@+id/tv_max_power_title"
-                    app:layout_constraintTop_toTopOf="@+id/tv_max_power_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_max_power_title"
+                    app:layout_constraintTop_toTopOf="@id/tv_max_power_title"
                     tools:text="@string/max_power_desc" />
 
                 <TextView
@@ -157,8 +157,8 @@
                     android:textColor="@color/gray_300"
                     android:textSize="14sp"
                     android:visibility="@{item.maxTorque == null ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toEndOf="@+id/tv_max_power_title"
-                    app:layout_constraintTop_toTopOf="@+id/tv_max_torque_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_max_power_title"
+                    app:layout_constraintTop_toTopOf="@id/tv_max_torque_title"
                     tools:text="@string/max_torque_desc" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

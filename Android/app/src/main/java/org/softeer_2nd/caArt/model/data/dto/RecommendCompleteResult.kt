@@ -9,7 +9,7 @@ import org.softeer_2nd.caArt.model.data.state.Model
 import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
 import org.softeer_2nd.caArt.model.data.state.RecommendationCardState
 
-data class RecommendCompleteResultDTO(
+data class RecommendCompleteResult(
     val colors: List<ChoiceColorItem>,
     val model: Model,
     val options: List<Option>,
@@ -19,7 +19,7 @@ data class RecommendCompleteResultDTO(
 ) {
     companion object {
 
-        fun RecommendCompleteResultDTO.toState(): RecommendCompleteResultState {
+        fun RecommendCompleteResult.toState(): RecommendCompleteResultState {
             val resultOptionList = MutableList<Option?>(2) { null }
             val resultColorList = MutableList<ChoiceColorItem?>(2) { null }
 

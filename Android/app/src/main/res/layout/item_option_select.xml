@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tv_price_bottom"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/iv_line"
-            app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_top"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_detail_top"
             tool:text="@string/seater" />
 
         <TextView

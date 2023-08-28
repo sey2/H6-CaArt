@@ -86,10 +86,10 @@
             android:textColor="@color/gray_400"
             android:textSize="12sp"
             android:visibility="@{isGroup?View.VISIBLE:View.GONE}"
-            app:layout_constraintEnd_toStartOf="@+id/sb_option_detail_choice"
+            app:layout_constraintEnd_toStartOf="@id/sb_option_detail_choice"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_option_detail_image"
+            app:layout_constraintTop_toBottomOf="@id/iv_option_detail_image"
             tools:text="컴포트 2" />
 
         <TextView
@@ -107,7 +107,7 @@
             app:layout_constraintEnd_toStartOf="@+id/sb_option_detail_choice"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_option_group"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_detail_option_group"
             tools:text="후석 승객 알림" />
 
         <TextView
@@ -122,10 +122,10 @@
             android:textColor="@color/gray_200"
             android:textSize="16sp"
             android:visibility="@{isDefaultOption?View.GONE:View.VISIBLE}"
-            app:layout_constraintEnd_toStartOf="@+id/sb_option_detail_choice"
+            app:layout_constraintEnd_toStartOf="@id/sb_option_detail_choice"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_detail_title"
             tools:text="1,090,000 원" />
 
         <ScrollView
@@ -135,10 +135,10 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/v_option_detail_indicator_background"
+            app:layout_constraintBottom_toTopOf="@id/v_option_detail_indicator_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_option_detail_price">
+            app:layout_constraintTop_toBottomOf="@id/tv_option_detail_price">
 
             <TextView
                 android:id="@+id/tv_option_detail_description"
@@ -186,10 +186,10 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="28dp"
-            app:layout_constraintBottom_toTopOf="@+id/ci_option_detail_indicator"
+            app:layout_constraintBottom_toTopOf="@id/ci_option_detail_indicator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/v_option_detail_indicator_background"
+            app:layout_constraintTop_toTopOf="@id/v_option_detail_indicator_background"
             app:layout_constraintVertical_bias="0.0" />
 
         <org.softeer_2nd.caArt.ui.custom.CircleIndicator
@@ -199,7 +199,7 @@
             android:layout_marginBottom="30dp"
             app:dotCount="@{pageCount}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/rv_option_detail_text_indicator"
+            app:layout_constraintStart_toStartOf="@id/rv_option_detail_text_indicator"
             app:selectedDotIndex="@{pageIndex}" />
 
         <androidx.constraintlayout.widget.Group

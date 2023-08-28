@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="imageUrl"
             type="String" />
@@ -14,15 +16,14 @@
 
         <org.softeer_2nd.caArt.ui.custom.DynamicOptionFloatingImageView
             android:id="@+id/iv_situational_tag_options_situation_image"
+            url="@{imageUrl}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/gray_400"
             app:layout_constraintDimensionRatio="w,240:375"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            url="@{imageUrl}"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_situational_tag_options_warning"
@@ -37,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inc_situation_option1" />
+            app:layout_constraintTop_toBottomOf="@id/inc_situation_option1" />
 
         <include
             android:id="@+id/inc_situation_option1"
@@ -51,7 +52,7 @@
             app:layout_constraintEnd_toStartOf="@+id/inc_situation_option2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_situational_tag_options_situation_image" />
+            app:layout_constraintTop_toBottomOf="@id/iv_situational_tag_options_situation_image" />
 
         <include
             android:id="@+id/inc_situation_option2"
@@ -60,12 +61,12 @@
             android:layout_height="0dp"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
-            app:layout_constraintBottom_toBottomOf="@+id/inc_situation_option1"
+            app:layout_constraintBottom_toBottomOf="@id/inc_situation_option1"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toStartOf="@+id/inc_situation_option3"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/inc_situation_option1"
-            app:layout_constraintTop_toTopOf="@+id/inc_situation_option1"
+            app:layout_constraintStart_toEndOf="@id/inc_situation_option1"
+            app:layout_constraintTop_toTopOf="@id/inc_situation_option1"
             app:srcCompat="@drawable/drawable_search_156" />
 
         <include
@@ -75,12 +76,12 @@
             android:layout_height="0dp"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
-            app:layout_constraintBottom_toBottomOf="@+id/inc_situation_option2"
+            app:layout_constraintBottom_toBottomOf="@id/inc_situation_option2"
             app:layout_constraintDimensionRatio="w,1:1"
-            app:layout_constraintEnd_toStartOf="@+id/inc_situation_option4"
+            app:layout_constraintEnd_toStartOf="@id/inc_situation_option4"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/inc_situation_option2"
-            app:layout_constraintTop_toTopOf="@+id/inc_situation_option2"
+            app:layout_constraintStart_toEndOf="@id/inc_situation_option2"
+            app:layout_constraintTop_toTopOf="@id/inc_situation_option2"
             app:srcCompat="@drawable/drawable_search_156" />
 
         <include
@@ -90,12 +91,12 @@
             android:layout_height="0dp"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/inc_situation_option3"
+            app:layout_constraintBottom_toBottomOf="@id/inc_situation_option3"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/inc_situation_option3"
-            app:layout_constraintTop_toTopOf="@+id/inc_situation_option3"
+            app:layout_constraintStart_toEndOf="@id/inc_situation_option3"
+            app:layout_constraintTop_toTopOf="@id/inc_situation_option3"
             app:srcCompat="@drawable/drawable_search_156" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

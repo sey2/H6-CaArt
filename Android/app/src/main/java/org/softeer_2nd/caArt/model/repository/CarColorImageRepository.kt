@@ -5,13 +5,14 @@ import org.softeer_2nd.caArt.model.network.ColorApiService
 import org.softeer_2nd.caArt.util.ImageUtils
 import javax.inject.Inject
 
-class CarColorImageRepository @Inject constructor(private val service: ColorApiService) {
+class CarColorImageRepository @Inject constructor(private val service: ColorApiService) :
+    BaseNetworkRepository() {
 
     suspend fun fetchColorList(trimId: Int): ColorData {
-        return service.getColorList(trimId).data!!
+        return safeApiCall { service.getColorList(trimId) }.data!!
     }
 
-    fun preloadExteriorImages(urls : List<String>?, onImageLoaded: (Int) -> Unit){
+    fun preloadExteriorImages(urls: List<String>?, onImageLoaded: (Int) -> Unit) {
         urls?.let { ImageUtils.preloadImages(it, onImageLoaded) }
     }
 }

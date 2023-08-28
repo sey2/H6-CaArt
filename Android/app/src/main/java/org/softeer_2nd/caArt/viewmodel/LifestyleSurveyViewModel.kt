@@ -14,7 +14,7 @@ import org.softeer_2nd.caArt.model.repository.RecommendRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class LifeStyleSurveyViewModel @Inject constructor(
+class LifestyleSurveyViewModel @Inject constructor(
     val repository: RecommendRepository
 ) : ProcessViewModel<SurveyQuestion>() {
 

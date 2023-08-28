@@ -91,7 +91,7 @@
                     app:indicatorSize="48dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/iv_spin_btn"
+                    app:layout_constraintTop_toTopOf="@id/iv_spin_btn"
                     app:trackColor="@color/blue_500"
                     app:trackThickness="6dp" />
 

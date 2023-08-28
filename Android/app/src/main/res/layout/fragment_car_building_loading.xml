@@ -17,7 +17,7 @@
             android:textColor="@color/gray_50"
             android:textSize="26sp"
             app:highlightText="@{@string/palisade}"
-            app:layout_constraintBottom_toTopOf="@+id/lv_car_building_loading_lottie"
+            app:layout_constraintBottom_toTopOf="@id/lv_car_building_loading_lottie"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +29,6 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
