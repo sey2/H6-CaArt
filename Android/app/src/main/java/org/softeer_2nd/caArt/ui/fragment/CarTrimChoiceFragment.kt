@@ -18,6 +18,7 @@ import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
 import org.softeer_2nd.caArt.model.data.Option
 import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
 import org.softeer_2nd.caArt.model.data.Trim
+import org.softeer_2nd.caArt.model.data.dto.InteriorColor
 import org.softeer_2nd.caArt.model.data.toExteriorColor
 import org.softeer_2nd.caArt.model.data.toInteriorColor
 import org.softeer_2nd.caArt.ui.dialog.CaArtDialog
@@ -64,7 +65,12 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
                 userChoiceViewModel.setSelectedTrim(trims.first())
                 userChoiceViewModel.setSelectedExteriorColor(trims.first().exteriorColors[5].toExteriorColor())
                 userChoiceViewModel.setSelectedInteriorColor(trims.first().interiorColors[0].toInteriorColor())
-                userChoiceViewModel.setSelectedOptions(listOf(Option()))
+                userChoiceViewModel.setSelectedOptions(
+                    listOf(
+                        Option(optionId = -1),
+                        Option(optionId = -2)
+                    )
+                )
             } else {
                 val selectedTrimIndex =
                     carTrimChoiceViewModel.findMatchedTrimIndices(userChoiceViewModel.selectedTrim.value!!)
@@ -72,7 +78,8 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
 
                 if (userChoiceViewModel.selectedExteriorColor.value?.previews?.isNotEmpty() == true)
                     userChoiceViewModel.setSelectedTrimImage(
-                        userChoiceViewModel.selectedExteriorColor.value?.previews?.get(0) ?: "")
+                        userChoiceViewModel.selectedExteriorColor.value?.previews?.get(0) ?: ""
+                    )
 
                 binding.rvTrim.adapter?.let { adapter ->
                     if (adapter is TrimOptionSelectionAdapter) {
@@ -223,6 +230,16 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
             .setDialogContentView(view)
             .setPositiveButton(getString(R.string.change)) {
                 userChoiceViewModel.setSelectedTrim(changeTrim)
+                userChoiceViewModel.setSelectedInteriorColor(
+                    InteriorColor(
+                        changeTrim.interiorColors[0].colorId,
+                        changeTrim.interiorColors[0].colorName,
+                        changeTrim.interiorColors[0].colorImage,
+                        changeTrim.interiorColors[0].colorPrice,
+                        0,
+                        ""
+                    )
+                )
                 userChoiceViewModel.setSelectedTrimIndex(changeIndex + 1)
                 (binding.rvTrim.adapter as TrimOptionSelectionAdapter).updateTrimSCheckState(
                     changeIndex

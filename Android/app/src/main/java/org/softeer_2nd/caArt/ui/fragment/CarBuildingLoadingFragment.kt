@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.softeer_2nd.caArt.databinding.FragmentCarBuildingLoadingBinding
+import java.lang.IllegalStateException
 
 class CarBuildingLoadingFragment : Fragment() {
 
@@ -37,8 +38,12 @@ class CarBuildingLoadingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(args.loadingDuration)
-            findNavController().navigate(CarBuildingLoadingFragmentDirections.actionCarBuildingLoadingFragmentToEstimateFragment())
+            try {
+                delay(args.loadingDuration)
+                findNavController().navigate(CarBuildingLoadingFragmentDirections.actionCarBuildingLoadingFragmentToEstimateFragment())
+            } catch (e: IllegalStateException) {
+                findNavController().navigate(CarBuildingLoadingFragmentDirections.actionCarBuildingLoadingFragmentToEstimateFragment())
+            }
         }
 
 
