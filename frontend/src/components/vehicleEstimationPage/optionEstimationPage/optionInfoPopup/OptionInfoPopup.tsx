@@ -34,7 +34,9 @@ function OptionInfoPopup({
             {truncateString(option.name, 12)}
           </div>
         </div>
-        <div className="head-medium-16">{priceToString(option.price)}</div>
+        <div className="head-medium-16 text-grey-100">
+          {priceToString(option.price)}
+        </div>
       </OptionInfoPopupText>
       <OptionInfoPopupIcon
         src="/images/rightArrow_icon_basic.svg"
@@ -57,7 +59,7 @@ const OptionInfoPopupBox = styled.div<{ top: number; left: number }>`
   border-radius: 8px;
   background: var(--grey-1000);
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
-  z-index: 0;
+  z-index: 1;
 
   ::after {
     content: '';
@@ -67,7 +69,7 @@ const OptionInfoPopupBox = styled.div<{ top: number; left: number }>`
     width: 0;
     height: 0;
     border: 13px solid transparent;
-    border-top-color: rgba(255, 255, 255, 1);
+    border-top-color: var(--grey-1000);
     border-bottom: 0;
     border-radius: 1px;
     margin-bottom: -6px;
@@ -86,7 +88,6 @@ const OptionInfoPopupText = styled.div`
   flex-direction: column;
 
   .head-medium-16 {
-    color: #2c2c35;
     margin-top: 8px;
   }
 `;

@@ -29,7 +29,7 @@ function MailModal() {
             value={mailInput}
             onChange={e => setMailInput(e.target.value)}
           />
-          <SquareButton size="l" color="grey-1000" bg="primary-blue">
+          <SquareButton size="l" color="grey-1000" $bg="primary-blue">
             메일 전송하기
           </SquareButton>
         </Container>

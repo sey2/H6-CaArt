@@ -26,9 +26,9 @@ function ResultPage() {
       {<MailModal />}
       {<LoginModal />}
       <Wrapper
-        share={state.shareModalOpen}
-        mail={state.mailModalOpen}
-        save={state.saveModalOpen}
+        $share={state.shareModalOpen}
+        $mail={state.mailModalOpen}
+        $save={state.saveModalOpen}
         ref={printRef}
       >
         <div className="pdf">

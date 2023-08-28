@@ -44,7 +44,7 @@ function BuyCarContainer() {
                 $isOpen={dropState[index as keyof typeof dropState]}
               />
             </Header>
-            <FlexBox direction="column" margin="0px 0px 15px 0px" gap={8}>
+            <FlexBox $direction="column" $margin="0px 0px 15px 0px" $gap={8}>
               <pre className="body-regular-14">
                 {dropdownMsg[item as keyof typeof dropdownMsg]}
               </pre>

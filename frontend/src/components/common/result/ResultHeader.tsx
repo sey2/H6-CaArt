@@ -15,7 +15,12 @@ function ResultHeader() {
           </span>
         </ResultHeaderCar>
         <span className="head-medium-16 text-grey-100">
-          {priceToString(currentEstimation.trim.price)}
+          {priceToString(
+            currentEstimation.trim.price +
+              currentEstimation.engine.price +
+              currentEstimation.body.price +
+              currentEstimation.wd.price,
+          )}
         </span>
       </ResultHeaderUpperBox>
       <span className="body-regular-14 text-grey-400">
