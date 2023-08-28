@@ -76,8 +76,8 @@ public class OptionService {
 		return BasicOptionsResponse.from(baseOptionInfos);
 	}
 
-	private Page<BaseOptionInfo> fetchBasicOptionsByTagIdStatus(Long modelId, Long tagId, Integer offset,
-		Integer pageSize) {
+	private Page<BaseOptionInfo> fetchBasicOptionsByTagIdStatus(Long modelId, Long tagId,
+		Integer offset, Integer pageSize) {
 		Pageable pageable = PageRequest.of(offset, pageSize);
 		if (isTagIdEmpty(tagId)) {
 			return baseOptionInfoRepository.findByModelId(modelId, pageable);
@@ -93,20 +93,28 @@ public class OptionService {
 		Page<AdditionalOptionInfo> additionalOptionsPage = fetchAdditionalOptionsByTagIdStatus(
 			model.getId(), dto.getTagId(), dto.getOffset(), dto.getPageSize());
 
-		// 채택률 조회
-		List<AdditionalOptionDetailsDto> additionalOptionDetails = new ArrayList<>();
-		for (AdditionalOptionInfo additionalOptionInfo : additionalOptionsPage) {
-			AvailableOption availableOption = availableOptionRepository.findByModelIdAndAdditionalOptionId(
-				model.getId(), additionalOptionInfo.getId());
-			PositionResponse position = getPosition(dto, additionalOptionInfo);
-			additionalOptionDetails.add(
-				AdditionalOptionDetailsDto.from(additionalOptionInfo, availableOption.getAdoptionRateAll(), position));
-		}
-		additionalOptionDetails.sort(
-			Comparator.comparingDouble(AdditionalOptionDetailsDto::getAdoptionRate).reversed());
+		List<AdditionalOptionDetailsDto> additionalOptionDetails = getAdditionalOptionDetails(model,
+			additionalOptionsPage, dto);
 
 		return AdditionalOptionsResponse.from(additionalOptionsPage.getTotalElements(),
 			additionalOptionsPage.getTotalPages(), additionalOptionDetails);
+	}
+	
+	private List<AdditionalOptionDetailsDto> getAdditionalOptionDetails(Model model,
+		Page<AdditionalOptionInfo> additionalOptionsPage, OptionListRequest dto) {
+		List<AdditionalOptionDetailsDto> optionDetails = new ArrayList<>();
+		for (AdditionalOptionInfo additionalOptionInfo : additionalOptionsPage) {
+			// 채택률
+			AvailableOption availableOption = availableOptionRepository.findByModelIdAndAdditionalOptionId(
+				model.getId(), additionalOptionInfo.getId());
+			// 위치 좌표
+			PositionResponse position = getPosition(dto, additionalOptionInfo);
+			optionDetails.add(
+				AdditionalOptionDetailsDto.from(additionalOptionInfo, availableOption.getAdoptionRateAll(), position));
+		}
+		optionDetails.sort(Comparator.comparingDouble(AdditionalOptionDetailsDto::getAdoptionRate).reversed());
+
+		return optionDetails;
 	}
 
 	private PositionResponse getPosition(OptionListRequest dto, AdditionalOptionInfo additionalOptionInfo) {

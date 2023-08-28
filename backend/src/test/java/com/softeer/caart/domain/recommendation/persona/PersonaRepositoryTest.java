@@ -27,7 +27,6 @@ class PersonaRepositoryTest extends RepositoryTest {
 
 		Optional<Persona> persona = personaRepository.findById(personaId);
 
-		// TODO: 쿼리 최적화
 		softly.assertThat(persona.isPresent()).isTrue();
 		softly.assertThat(persona.get().getProfile().getName()).isEqualTo(personaName);
 	}

@@ -19,17 +19,16 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class TagService {
 	private final TagRepository tagRepository;
+	private final String PRIORITY = "priority";
 
-	// 기본 포함 옵션 태그 목록에는 모든 태그가 포함됨
 	public List<TagResponse> getBasicOptionTags() {
-		return tagRepository.findAll(Sort.by(DESC, "priority")).stream()
+		return tagRepository.findAll(Sort.by(DESC, PRIORITY)).stream()
 			.map(TagResponse::from)
 			.collect(Collectors.toList());
 	}
 
-	// 추가 옵션 태그 목록에는 "대표", "엔터테인먼트" 태그가 제외됨
 	public List<TagResponse> getAdditionalOptionTags() {
-		return tagRepository.findAll(Sort.by(DESC, "priority")).stream()
+		return tagRepository.findAll(Sort.by(DESC, PRIORITY)).stream()
 			.filter(tag -> !tag.isMainTag() && !tag.isEntertainmentTag())
 			.map(TagResponse::from)
 			.collect(Collectors.toList());

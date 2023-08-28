@@ -5,7 +5,6 @@ import static com.softeer.caart.domain.recommendation.lifestyle.dto.RecommendedD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -45,9 +44,7 @@ public class LifeStyleService {
 	private final AvailableColorRepository availableColorRepository;
 	private final OpenAIFeign openAIFeign;
 
-	public RecommendationResponse getRecommendationByLifestyle(RecommendationRequest request) throws
-		ExecutionException,
-		InterruptedException {
+	public RecommendationResponse getRecommendationByLifestyle(RecommendationRequest request) {
 		// 모델 추천
 		Model model = getMostRecommendedModel(request);
 		// 옵션 추천
