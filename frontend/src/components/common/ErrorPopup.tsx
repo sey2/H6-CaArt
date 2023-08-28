@@ -20,7 +20,7 @@ function ErrorPopup() {
       </span>
       <ErrorPopupImg src="/images/error_logo_blue.svg"></ErrorPopupImg>
       <Link to="/">
-        <SquareButton size="l" color="grey-1000" bg="primary-blue">
+        <SquareButton size="l" color="grey-1000" $bg="primary-blue">
           확인
         </SquareButton>
       </Link>

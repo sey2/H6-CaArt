@@ -19,10 +19,10 @@ function LifeStylePeekForYou({
             </div>
           </LifeStylePeekForYouTextBox>
           <LifeStylePeekForYouImgBackground
-            greyColor={100}
+            $greyColor={100}
           ></LifeStylePeekForYouImgBackground>
           <LifeStylePeekForYouImgBackground
-            greyColor={500}
+            $greyColor={500}
           ></LifeStylePeekForYouImgBackground>
           <img src={recommendation.model.trimImage}></img>
         </LifeStylePeekForYouImgUpperBox>
@@ -76,10 +76,10 @@ const LifeStylePeekForYouTextBox = styled.div`
   left: 16px;
 `;
 
-const LifeStylePeekForYouImgBackground = styled.div<{ greyColor: number }>`
+const LifeStylePeekForYouImgBackground = styled.div<{ $greyColor: number }>`
   width: 608px;
   height: 80px;
-  background: ${props => `var(--grey-${props.greyColor})`};
+  background: ${props => `var(--grey-${props.$greyColor})`};
 `;
 
 const LifeStylePeekForYouImgLowerBox = styled.div`

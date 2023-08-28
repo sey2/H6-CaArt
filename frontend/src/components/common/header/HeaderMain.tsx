@@ -66,11 +66,11 @@ function HeaderMain() {
   });
 
   const height =
-    currentEstimation.options.length === 5
-      ? '258px'
+    currentEstimation.options.length < 4
+      ? '208px'
       : currentEstimation.options.length === 4
       ? '233px'
-      : '208px';
+      : '258px';
 
   return (
     <>
@@ -80,7 +80,7 @@ function HeaderMain() {
           <SquareButton
             size={'xxs'}
             color={'primary-blue'}
-            bg={'grey-1000'}
+            $bg={'grey-1000'}
             height={40}
             $border
             onClick={() => {
@@ -93,7 +93,7 @@ function HeaderMain() {
             <SquareButton
               size={'s'}
               color={'grey-1000'}
-              bg={'primary-blue'}
+              $bg={'primary-blue'}
               height={40}
             >
               {priceToString(calcTotalPrice)} 견적내기

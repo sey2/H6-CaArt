@@ -1,19 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useModalContext } from "../../../store/ModalContext";
+import { useModalContext } from '../../../store/ModalContext';
 import { FlexBox } from '../../common/FlexBox';
 import SquareButton from '../../common/SquareButton';
 
-
 function ShareModal() {
-  const {state, dispatch} = useModalContext();
+  const { state, dispatch } = useModalContext();
   return (
-    <ModalBox isopen={state.shareModalOpen}>
-      <OverlayBox onClick={() => dispatch({type:'CLOSE_SHARE_MODAL'})}>
+    <ModalBox $isopen={state.shareModalOpen}>
+      <OverlayBox onClick={() => dispatch({ type: 'CLOSE_SHARE_MODAL' })}>
         <Container onClick={e => e.stopPropagation()}>
-          <FlexBox justify="space-between" margin="0 0 8px 0">
+          <FlexBox $justify="space-between" $margin="0 0 8px 0">
             <span className="head-medium-22 text-grey-50">공유하기</span>
-            <img src="/images/x_icon.svg" onClick={() => dispatch({type:'CLOSE_SHARE_MODAL'})} />
+            <img
+              src="/images/x_icon.svg"
+              onClick={() => dispatch({ type: 'CLOSE_SHARE_MODAL' })}
+            />
           </FlexBox>
           <div className="body-regular-14 text-grey-400">
             구성하신 견적이 URL로 생성되었어요.
@@ -25,7 +27,7 @@ function ShareModal() {
           <UrlBox className="body-regular-14 text-grey-600">
             <p>https://www.hyundai.com/kr/ko/e/vehicles/estimation/</p>
           </UrlBox>
-          <SquareButton size="l" color="grey-1000" bg="primary-blue">
+          <SquareButton size="l" color="grey-1000" $bg="primary-blue">
             복사하기
           </SquareButton>
         </Container>
@@ -36,7 +38,7 @@ function ShareModal() {
 
 export default ShareModal;
 
-const ModalBox = styled.div<{isopen:boolean}>`
+const ModalBox = styled.div<{ $isopen: boolean }>`
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -46,7 +48,7 @@ const ModalBox = styled.div<{isopen:boolean}>`
   opacity: 0;
   visibility: hidden;
   transition: all 0.5s ease-out;
-  ${props => props.isopen && `visibility:visible; opacity:1;`};
+  ${props => props.$isopen && `visibility:visible; opacity:1;`};
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {

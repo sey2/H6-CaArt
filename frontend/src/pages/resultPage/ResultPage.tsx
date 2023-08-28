@@ -54,7 +54,7 @@ function ResultPage() {
               수정
             </SquareButton>
           </Link>
-          <SquareButton size="m" color="grey-1000" bg="primary-blue">
+          <SquareButton size="m" color="grey-1000" $bg="primary-blue">
             구매/상담
           </SquareButton>
         </ButtonContainer>
@@ -95,9 +95,9 @@ const Hr = styled.div`
   background: var(--grey-700);
 `;
 
-const Wrapper = styled.div<{ share: boolean; mail: boolean; save: boolean }>`
+const Wrapper = styled.div<{ $share: boolean; $mail: boolean; $save: boolean }>`
   overflow-x: hidden;
-  ${props => (props.share || props.mail || props.save) && `position: fixed;`}
+  ${props => (props.$share || props.$mail || props.$save) && `position: fixed;`}
 `;
 
 const Button = styled.div`

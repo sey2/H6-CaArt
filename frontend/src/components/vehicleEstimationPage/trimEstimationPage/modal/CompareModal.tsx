@@ -45,9 +45,13 @@ function CompareModal({ data }: { data: Trim[] }) {
           <Grid>
             {data?.map(trim => (
               <>
-                <FlexBox key={trim.trimName} direction="column" align="center">
+                <FlexBox
+                  key={trim.trimName}
+                  $direction="column"
+                  $align="center"
+                >
                   <CarImage src={trim.trimImage} />
-                  <FlexBox direction="column" justify="center" gap={8}>
+                  <FlexBox $direction="column" $justify="center" $gap={8}>
                     <p className="body-regular-14 text-grey-300">
                       {trim.trimName}
                     </p>
@@ -64,31 +68,31 @@ function CompareModal({ data }: { data: Trim[] }) {
                       <span className="body-regular-16 ">부터</span>
                     </p>
                     <p className="body-medium-14 text-grey-200">외장 색상</p>
-                    <FlexBox justify="center" gap={8} margin="0 0 16px 0">
+                    <FlexBox $justify="center" $gap={8} $margin="0 0 16px 0">
                       {setExteriorColor(trim.exteriorColors)}
                     </FlexBox>
                     <p className="body-medium-14 text-grey-200">내장 색상</p>
                     <FlexBox
-                      display="inline"
-                      justify="center"
-                      align="center"
-                      wrap="wrap"
-                      gap={8}
-                      height={52}
+                      $display="inline"
+                      $justify="center"
+                      $align="center"
+                      $wrap="wrap"
+                      $gap={8}
+                      $height={52}
                     >
                       {setInnerColor(trim.interiorColors)}
                     </FlexBox>
                     <Hr width={160} margin="33px 0px 33px 0px" />
-                    <FlexBox gap={51} direction="column">
+                    <FlexBox $gap={51} $direction="column">
                       {Object.entries(commonOption).map(item => {
                         if (item[0] === trim.trimName) {
                           return item[1].map(option => (
                             <>
                               <Option
                                 key={option.name}
-                                direction="column"
-                                gap={8}
-                                align="center"
+                                $direction="column"
+                                $gap={8}
+                                $align="center"
                               >
                                 <img src={option.imgSrc} />
                                 <InchSpan>{option.inch}</InchSpan>
@@ -104,8 +108,8 @@ function CompareModal({ data }: { data: Trim[] }) {
                       기본 옵션
                     </span>
                     <FlexBox
-                      gap={8}
-                      direction="column"
+                      $gap={8}
+                      $direction="column"
                       className="text-secondary-active-blue body-regular-14"
                     >
                       {trim.mainOptions.map(option => (

@@ -131,7 +131,7 @@ function TrimEstimationPage() {
             <EBWContainer />
             <TrimContainer data={data as Trim[]} />
             <Link to="/estimate/color">
-              <SquareButton size="xm" bg="primary-blue" color="grey-1000">
+              <SquareButton size="xm" $bg="primary-blue" color="grey-1000">
                 색상 선택
               </SquareButton>
             </Link>

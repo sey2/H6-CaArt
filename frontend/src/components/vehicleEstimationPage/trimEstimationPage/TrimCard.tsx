@@ -77,7 +77,7 @@ function TrimCard({
             return (
               <div key={trimItem.description}>
                 <Head>
-                  <FlexBox align="center" gap={8}>
+                  <FlexBox $align="center" $gap={8}>
                     <span className="text-grey-300 body-medium-14">
                       {trimItem.trimName}
                     </span>

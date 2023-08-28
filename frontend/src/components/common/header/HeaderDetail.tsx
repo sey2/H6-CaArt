@@ -19,7 +19,9 @@ function HeaderDetail({
     return (
       <OptionList key={item.name}>
         <div className="body-regular-14 text-grey-300">{item.name}</div>
-        <div className="body-medium-14 text-grey-100">{item.price}</div>
+        <div className="body-medium-14 text-grey-100">
+          {priceToString(item.price)}
+        </div>
       </OptionList>
     );
   });

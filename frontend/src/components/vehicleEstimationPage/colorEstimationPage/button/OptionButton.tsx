@@ -20,10 +20,10 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
         return (
           <>
             <FlexBox
-              gap={16}
-              align="center"
-              width={96}
-              onClick={() => {
+              $gap={16}
+              $align="center"
+              $width={96}
+              $onClick={() => {
                 setter(type);
               }}
             >
@@ -38,10 +38,10 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
         return (
           <>
             <FlexBox
-              gap={16}
-              align="center"
-              width={96}
-              onClick={() => {
+              $gap={16}
+              $align="center"
+              $width={96}
+              $onClick={() => {
                 setter(type);
               }}
             >
@@ -56,10 +56,10 @@ function OptionButton({ type, state, setter }: OptionButtonProps) {
         return (
           <>
             <FlexBox
-              gap={16}
-              align="center"
-              width={96}
-              onClick={() => {
+              $gap={16}
+              $align="center"
+              $width={96}
+              $onClick={() => {
                 setter(type);
               }}
             >

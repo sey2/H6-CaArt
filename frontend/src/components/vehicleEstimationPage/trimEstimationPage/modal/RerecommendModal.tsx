@@ -14,7 +14,7 @@ function RerecommendModal() {
       $isopen={state.recommendModalOpen}
     >
       <Box onClick={e => e.stopPropagation()}>
-        <FlexBox justify="space-between" margin="0px 0px 8px 0px">
+        <FlexBox $justify="space-between" $margin="0px 0px 8px 0px">
           <span className="head-medium-22 text-grey-50">
             추천 페이지로 돌아가시겠어요?
           </span>
@@ -27,15 +27,15 @@ function RerecommendModal() {
           선택한 옵션들은 모두 초기화돼요.
         </span>
         <FlexBox
-          align="center"
-          justify="center"
-          gap={8}
-          margin="32px 0px 0px 0px"
+          $align="center"
+          $justify="center"
+          $gap={8}
+          $margin="32px 0px 0px 0px"
         >
           <div onClick={() => dispatch({ type: 'CLOSE_RECOMMEND_MODAL' })}>
             <SquareButton
               size={'ms'}
-              bg={'grey-1000'}
+              $bg={'grey-1000'}
               color={'grey-50'}
               height={46}
               $border
@@ -45,7 +45,7 @@ function RerecommendModal() {
           </div>
           <SquareButton
             size="ms"
-            bg="primary-blue"
+            $bg="primary-blue"
             color="grey-1000"
             height={46}
             onClick={() => {

@@ -10,6 +10,7 @@ function ResultCardList() {
     return (
       <ResultCard
         key={item.name}
+        type={'option'}
         title={item.name}
         price={item.price}
         imgSrc={item.img}
@@ -27,6 +28,7 @@ function ResultCardList() {
         <ResultCardListSet>
           <ResultCard
             key={currentEstimation.outerColor.name}
+            type={'exterior'}
             title={currentEstimation.outerColor.name}
             price={currentEstimation.outerColor.price}
             imgSrc={currentEstimation.outerColor.img}
@@ -34,6 +36,7 @@ function ResultCardList() {
           ></ResultCard>
           <ResultCard
             key={currentEstimation.interiorColor.name}
+            type={'interior'}
             title={currentEstimation.interiorColor.name}
             price={currentEstimation.interiorColor.price}
             imgSrc={currentEstimation.interiorColor.img}

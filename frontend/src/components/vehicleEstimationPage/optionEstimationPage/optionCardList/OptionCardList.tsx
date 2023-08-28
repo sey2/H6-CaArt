@@ -34,7 +34,12 @@ export interface OptionProps {
   summary?: string;
   badge?: 'string';
   adoptionRate?: number;
-  position?: null;
+  position?: {
+    webX: number;
+    webY: number;
+    mobileX: number;
+    mobileY: number;
+  };
   subOptions?: SubOptionProps[];
 }
 
@@ -115,7 +120,7 @@ function OptionCardList({
         setOptionCategory({ ...optionCategory, page: page });
       }
     },
-    [setOptionCategory, maxPageNum],
+    [setOptionCategory, maxPageNum, optionCategory],
   );
 
   if (status === 'loading') {
@@ -141,8 +146,8 @@ function OptionCardList({
     };
 
     const popupData = {
-      top: item.position || item.optionId * 10,
-      left: item.position || item.optionId * 10,
+      top: item.position?.webY || 0,
+      left: item.position?.webX || 0,
       id: item.optionId,
       name: item.optionName,
       img: item.optionImage,

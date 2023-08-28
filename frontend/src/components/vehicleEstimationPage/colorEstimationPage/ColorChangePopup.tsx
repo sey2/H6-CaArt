@@ -91,7 +91,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
           src="/images/x_icon.svg"
           onClick={() => setter({ ...data, isopen: false })}
         />
-        <FlexBox direction="column">
+        <FlexBox $direction="column">
           <Title className="text-grey-50 head-medium-22">
             {data.changeTrim.name} 트림으로
             <br />
@@ -104,7 +104,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
             현재 트림
           </SubTitle>
           <Hr margin="7px 0px 0px 0px" />
-          <FlexBox justify="space-between">
+          <FlexBox $justify="space-between">
             <TrimName className="text-grey-100 body-regular-16">
               {data.nowTrim.name}
             </TrimName>
@@ -116,7 +116,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
             변경 트림
           </SubTitle>
           <Hr margin="7px 0px 0px 0px" />
-          <FlexBox justify="space-between">
+          <FlexBox $justify="space-between">
             <TrimName className="text-grey-100 body-regular-16">
               {data.changeTrim.name}
             </TrimName>
@@ -125,7 +125,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
             </TrimPrice>
           </FlexBox>
           <Hr margin="68px 0px 13px 0px" color="grey-500" />
-          <FlexBox justify="space-between">
+          <FlexBox $justify="space-between">
             <span className="text-secondary-active-blue body-medium-16">
               변경 금액
             </span>
@@ -135,10 +135,10 @@ function ColorChangePopup({ setter, data }: ModalProps) {
           </FlexBox>
         </FlexBox>
         <FlexBox
-          justify="flex-end"
-          gap={10}
-          align="center"
-          margin="33px 0px 0px 0px"
+          $justify="flex-end"
+          $gap={10}
+          $align="center"
+          $margin="33px 0px 0px 0px"
         >
           <div onClick={() => setter({ ...data, isopen: false })}>
             <SquareButton size="xxs" height={40} color="grey-400" $border>
@@ -150,7 +150,7 @@ function ColorChangePopup({ setter, data }: ModalProps) {
               size="xxs"
               height={40}
               color="grey-900"
-              bg="primary-blue"
+              $bg="primary-blue"
               onClick={() => {
                 trimAndColorSetter(data);
                 setter({ ...data, isopen: false });

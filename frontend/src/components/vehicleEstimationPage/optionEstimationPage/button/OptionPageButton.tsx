@@ -7,12 +7,12 @@ function OptionEstimationPageButton() {
   return (
     <OptionEstimationPageBtn>
       <Link to="/estimate/color">
-        <SquareButton size="m" color="grey-50" bg="grey-1000" $border>
+        <SquareButton size="m" color="grey-50" $bg="grey-1000" $border>
           색상 선택
         </SquareButton>
       </Link>
       <Link to="/result">
-        <SquareButton size="m" color="grey-1000" bg="primary-blue">
+        <SquareButton size="m" color="grey-1000" $bg="primary-blue">
           견적 내기
         </SquareButton>
       </Link>

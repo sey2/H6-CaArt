@@ -39,7 +39,7 @@ function SlideBar({
         </PriceBox>
       </SlidePriceResult>
       <SlideInputLeftCircle
-        budget={budget}
+        $budget={budget}
         onClick={() => {
           setBudget(data.minBudget);
         }}
@@ -52,7 +52,7 @@ function SlideBar({
         id="budget"
         name="budget"
         value={budget}
-        budget={budget}
+        $budget={budget}
         onChange={rangeHandler}
       ></SlideInput>
       <SlideBottom>
@@ -84,7 +84,7 @@ const SlidePriceResult = styled.label`
 
 const PriceBox = styled.div``;
 
-const SlideInputLeftCircle = styled.div<{ budget: number }>`
+const SlideInputLeftCircle = styled.div<{ $budget: number }>`
   position: absolute;
   top: 120px;
   left: 2px;
@@ -94,18 +94,20 @@ const SlideInputLeftCircle = styled.div<{ budget: number }>`
   border: 1px solid var(--grey-500);
   background: var(--grey-1000);
   cursor: pointer;
-  z-index: ${props => (props.budget === 4200 ? '-1' : 0)};
+  z-index: ${props => (props.$budget === 4200 ? '-1' : 0)};
 `;
 
-const SlideInput = styled.input<{ budget: number }>`
+const SlideInput = styled.input<{ $budget: number }>`
   margin-bottom: 14px;
   -webkit-appearance: none;
   width: 100%;
   height: 8px;
   background: ${props =>
     `linear-gradient(to right, var(--secondary-active-blue) 0%, var(--secondary-active-blue) ${
-      (props.budget - 4200) / 27
-    }%, var(--grey-700) ${(props.budget - 4200) / 27}%, var(--grey-700) 100%)`};
+      (props.$budget - 4200) / 27
+    }%, var(--grey-700) ${
+      (props.$budget - 4200) / 27
+    }%, var(--grey-700) 100%)`};
   border-radius: 16px;
   cursor: pointer;
 

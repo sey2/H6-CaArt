@@ -25,7 +25,10 @@ function BuyCarContainer() {
       <Title className="text-grey-100 head-medium-18">차량 구매</Title>
       {option.map((item, index) => (
         <>
-          <Item $isOpen={dropState[index as keyof typeof dropState]}>
+          <Item
+            $isOpen={dropState[index as keyof typeof dropState]}
+            key={index}
+          >
             <Header
               className="text-grey-300 body-regular-14"
               onClick={() =>

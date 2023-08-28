@@ -61,7 +61,7 @@ function RecommendAgePage({ choice, setChoice }: RecommendPageProps) {
         </ReccomendAgePageQBox>
         <ReccomendAgePageABox>{questionList}</ReccomendAgePageABox>
         <Link to="/recommend/lifeStyle">
-          <SquareButton size="xl" color="grey-1000" bg="primary-blue">
+          <SquareButton size="xl" color="grey-1000" $bg="primary-blue">
             다음
           </SquareButton>
         </Link>

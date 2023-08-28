@@ -47,7 +47,7 @@ function TrimChangeModal() {
       isopen={state.trimChangeModal.isopen}
     >
       <Box onClick={e => e.stopPropagation()}>
-        <FlexBox justify="space-between" margin="0px 0px 48px 0px">
+        <FlexBox $justify="space-between" $margin="0px 0px 48px 0px">
           <p className="head-medium-22 text-grey-50">
             트림 변경 시, 선택하신 색상과 옵션이 해제돼요
           </p>
@@ -59,13 +59,13 @@ function TrimChangeModal() {
         <p className="body-medium-16 text-primary-blue">해제 색상</p>
         <Hr margin="7px 0px 12px 0px" />
         <Container className="color">
-          <FlexBox gap={12}>
+          <FlexBox $gap={12}>
             <ItemImg src={currentEstimation.outerColor.img} />
             <span className="body-regular-16 text-grey-100">
               외장 - {currentEstimation.outerColor.name}
             </span>
           </FlexBox>
-          <FlexBox gap={12}>
+          <FlexBox $gap={12}>
             <ItemImg src={currentEstimation.interiorColor.img} />
             <span className="body-regular-16 text-grey-100">
               내장 - {currentEstimation.interiorColor.name}
@@ -78,7 +78,7 @@ function TrimChangeModal() {
           {currentEstimation.options.map(option => {
             return (
               <>
-                <FlexBox key={option.name} gap={12}>
+                <FlexBox key={option.name} $gap={12}>
                   <ItemImg src={option.img} />
                   <span className="body-regular-16 text-grey-100">
                     {option.name}
@@ -99,7 +99,7 @@ function TrimChangeModal() {
           </SquareButton>
           <SquareButton
             size="xxs"
-            bg="primary-blue"
+            $bg="primary-blue"
             color="grey-1000"
             onClick={() => {
               trimAndColorSetter(state.trimChangeModal.trim);

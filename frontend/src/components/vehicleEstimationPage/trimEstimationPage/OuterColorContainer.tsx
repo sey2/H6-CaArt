@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { FlexBox } from "../../common/FlexBox";
+import { FlexBox } from '../../common/FlexBox';
 
 function OuterColorContainer({ carType }: { carType: string }) {
   const colorSet = {
@@ -44,7 +44,7 @@ function OuterColorContainer({ carType }: { carType: string }) {
     return color.map(item => <Circle key={item} bgColor={item} />);
   }
 
-  return <FlexBox gap={8}>{setColor()}</FlexBox>;
+  return <FlexBox $gap={8}>{setColor()}</FlexBox>;
 }
 
 export default OuterColorContainer;
@@ -53,5 +53,5 @@ const Circle = styled.div<{ bgColor: string }>`
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: ${props=> props.bgColor};
+  background-color: ${props => props.bgColor};
 `;

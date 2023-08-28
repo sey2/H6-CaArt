@@ -163,7 +163,7 @@ function ColorEstimationPage() {
                 <SquareButton
                   size="xs"
                   color="grey-1000"
-                  bg="primary-blue"
+                  $bg="primary-blue"
                   $border
                 >
                   옵션 선택

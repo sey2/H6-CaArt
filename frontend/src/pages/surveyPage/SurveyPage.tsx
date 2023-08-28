@@ -517,7 +517,7 @@ function SurveyPage() {
         <SquareButton
           size="xl"
           color="grey-1000"
-          bg="primary-blue"
+          $bg="primary-blue"
           onClick={usePost}
           $disabled={
             !optionSelectActive ||

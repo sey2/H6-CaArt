@@ -26,7 +26,7 @@ function HomePage() {
             </SquareButton>
           </Link>
           <Link to="/recommend/age">
-            <SquareButton size="m" color="primary-blue" bg="grey-1000">
+            <SquareButton size="m" color="primary-blue" $bg="grey-1000">
               추천받기
             </SquareButton>
           </Link>

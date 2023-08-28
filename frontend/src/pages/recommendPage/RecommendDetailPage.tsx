@@ -137,7 +137,7 @@ function RecommendDetailPage({ choice, setChoice }: RecommendPageProps) {
           <SquareButton
             size="xl"
             color="grey-1000"
-            bg="primary-blue"
+            $bg="primary-blue"
             $disabled={choice.purpose.id === -1 || choice.value.id === -1}
           >
             완료

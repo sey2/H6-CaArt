@@ -4,13 +4,14 @@ import { useLocation } from 'react-router-dom';
 import { priceToString } from '../../../util/PriceToString';
 
 export interface ResultCardProps {
+  type: 'exterior' | 'interior' | 'option';
   title: string;
   price: number;
   imgSrc: string;
   text: string;
 }
 
-function ResultCard({ title, price, imgSrc, text }: ResultCardProps) {
+function ResultCard({ type, title, price, imgSrc, text }: ResultCardProps) {
   const url = useLocation().pathname;
 
   return (
@@ -18,7 +19,13 @@ function ResultCard({ title, price, imgSrc, text }: ResultCardProps) {
       <ResultCardUpper>
         <ResultCardImg src={imgSrc}></ResultCardImg>
         <ResultCardText>
-          <span className="body-regular-14 text-grey-200">{title}</span>
+          <span className="body-regular-14 text-grey-200">
+            {type === 'exterior'
+              ? `외장 - ${title}`
+              : type === 'interior'
+              ? `내장 - ${title}`
+              : `${title}`}
+          </span>
           <span className="head-medium-16 text-grey-100">
             {priceToString(price)}
           </span>

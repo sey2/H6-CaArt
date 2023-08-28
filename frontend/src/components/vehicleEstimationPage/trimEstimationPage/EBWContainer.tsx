@@ -69,7 +69,7 @@ function EBWContainer() {
   return (
     <>
       <Box className="body-medium-14 text-grey-200">
-        <FlexBox direction="column">
+        <FlexBox $direction="column">
           <Title className="engine">엔진</Title>
           <ButtonBox
             onClick={e => {
@@ -85,7 +85,7 @@ function EBWContainer() {
             />
           </ButtonBox>
         </FlexBox>
-        <FlexBox direction="column">
+        <FlexBox $direction="column">
           <Title>바디</Title>
           <ButtonBox
             onClick={e => {
@@ -97,7 +97,7 @@ function EBWContainer() {
             <EBWButton value="8인승" price={0} onClick={handleButtonClick} />
           </ButtonBox>
         </FlexBox>
-        <FlexBox direction="column">
+        <FlexBox $direction="column">
           <Title>구동방식</Title>
           <ButtonBox
             onClick={e => {

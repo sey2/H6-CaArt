@@ -7,13 +7,13 @@ import SquareButton from '../../common/SquareButton';
 function LoginModal() {
   const { state, dispatch } = useModalContext();
   return (
-    <ModalBox isopen={state.saveModalOpen}>
+    <ModalBox $isopen={state.saveModalOpen}>
       <OverlayBox onClick={() => dispatch({ type: 'CLOSE_SAVE_MODAL' })}>
         <Container>
-          <FlexBox justify="space-between" align="flex-start">
+          <FlexBox $justify="space-between" $align="flex-start">
             <FlexBox
-              direction="column"
-              margin="0px 0px 34px 0px"
+              $direction="column"
+              $margin="0px 0px 34px 0px"
               className="head-medium-22 text-grey-50"
             >
               <p>로그인이 필요한 서비스에요.</p>
@@ -24,7 +24,7 @@ function LoginModal() {
               onClick={() => dispatch({ type: 'CLOSE_SAVE_MODAL' })}
             />
           </FlexBox>
-          <FlexBox gap={7}>
+          <FlexBox $gap={7}>
             <SquareButton
               color="grey-50"
               className="body-medium-16"
@@ -37,7 +37,7 @@ function LoginModal() {
             <a href="https://www.hyundai.com/kr/ko/login">
               <SquareButton
                 color="grey-1000"
-                bg="primary-blue"
+                $bg="primary-blue"
                 className="body-medium-16"
                 size="mms"
               >
@@ -53,7 +53,7 @@ function LoginModal() {
 
 export default LoginModal;
 
-const ModalBox = styled.div<{ isopen: boolean }>`
+const ModalBox = styled.div<{ $isopen: boolean }>`
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -63,7 +63,7 @@ const ModalBox = styled.div<{ isopen: boolean }>`
   opacity: 0;
   visibility: hidden;
   transition: all 0.5s ease-out;
-  ${props => props.isopen && `visibility:visible; opacity:1;`};
+  ${props => props.$isopen && `visibility:visible; opacity:1;`};
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {

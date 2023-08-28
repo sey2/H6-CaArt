@@ -8,10 +8,10 @@ function MailModal() {
   const { state, dispatch } = useModalContext();
   const [mailInput, setMailInput] = useState<string>('');
   return (
-    <ModalBox isopen={state.mailModalOpen}>
+    <ModalBox $isopen={state.mailModalOpen}>
       <OverlayBox onClick={() => dispatch({ type: 'CLOSE_MAIL_MODAL' })}>
         <Container onClick={e => e.stopPropagation()}>
-          <FlexBox justify="space-between" margin="0 0 8px 0">
+          <FlexBox $justify="space-between" $margin="0 0 8px 0">
             <span className="head-medium-22 text-grey-50">
               메일 주소를 알려주세요
             </span>
@@ -40,7 +40,7 @@ function MailModal() {
 
 export default MailModal;
 
-const ModalBox = styled.div<{ isopen: boolean }>`
+const ModalBox = styled.div<{ $isopen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -48,7 +48,7 @@ const ModalBox = styled.div<{ isopen: boolean }>`
   transition: all 0.5s ease-out;
   visibility: hidden;
   opacity: 0;
-  ${props => props.isopen && `visibility:visible; opacity:1;`};
+  ${props => props.$isopen && `visibility:visible; opacity:1;`};
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
