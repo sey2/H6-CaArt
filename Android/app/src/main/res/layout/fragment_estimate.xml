@@ -22,7 +22,7 @@
                 android:id="@+id/view"
                 android:layout_width="0dp"
                 android:layout_height="452dp"
-                android:background="#E6EAEF"
+                android:background="@color/estimate_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

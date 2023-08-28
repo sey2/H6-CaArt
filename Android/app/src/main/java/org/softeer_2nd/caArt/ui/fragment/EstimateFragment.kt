@@ -82,11 +82,11 @@ class EstimateFragment : Fragment() {
             ),
             ResultChoiceOption(
                 optionTitle = getString(R.string.option),
-                topOptionTitle = userChoiceViewModel.selectedTrim.value!!.mainOptions[0].optionName,
-                topOptionImgUrl = userChoiceViewModel.selectedTrim.value!!.mainOptions[0].optionImage,
+                topOptionTitle = userChoiceViewModel.selectedTrim.value?.mainOptions?.get(0)?.optionName ?: "",
+                topOptionImgUrl = userChoiceViewModel.selectedTrim.value?.mainOptions?.get(0)?.optionImage ?: "",
                 0,
-                bottomOptionTitle =  userChoiceViewModel.selectedTrim.value!!.mainOptions[1].optionName,
-                bottomOptionImgUrl = userChoiceViewModel.selectedTrim.value!!.mainOptions[1].optionImage,
+                bottomOptionTitle =  userChoiceViewModel.selectedTrim.value?.mainOptions?.get(0)?.optionName ?: "",
+                bottomOptionImgUrl = userChoiceViewModel.selectedTrim.value?.mainOptions?.get(1)?.optionImage ?: "",
                 bottomOptionPrice = 0
             )
         )

@@ -65,7 +65,7 @@ class CarTrimChoiceFragment : Fragment(), OnTrimItemClickListener {
                 val selectedTrimIndex =
                     carTrimChoiceViewModel.findMatchedTrimIndices(userChoiceViewModel.selectedTrim.value!!)
                 userChoiceViewModel.setSelectedTrimIndex(selectedTrimIndex + 1)
-                    userChoiceViewModel.selectedTrim.value?.trimImage = userChoiceViewModel.selectedExteriorColor.value?.previews?.get(0) ?: ""
+                userChoiceViewModel.selectedTrim.value?.trimImage = userChoiceViewModel.selectedExteriorColor.value?.previews?.get(0) ?: ""
                 binding.rvTrim.adapter?.let { adapter ->
                     if (adapter is TrimOptionSelectionAdapter) {
                         adapter.updateSelectedState(selectedTrimIndex)

@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{toolBarViewModel.isHomeFragment ? @color/black : @color/white}"
+            android:background="@{toolBarViewModel.isHomeFragment ? @color/tool_bar_black : @color/tool_bar_white}"
             app:contentInsetStart="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="@{toolBarViewModel.isHomeFragment ? @color/white : @color/black}"
+                android:backgroundTint="@{toolBarViewModel.isHomeFragment ? @color/tool_bar_icon_white : @color/tool_bar_icon_black}"
                 android:background="@drawable/ic_hyundai_logo_28" />
         </androidx.appcompat.widget.Toolbar>
 

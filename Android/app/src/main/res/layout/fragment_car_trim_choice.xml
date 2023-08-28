@@ -145,7 +145,7 @@
                     android:fontFamily="@font/hyundaisansheadkrregular"
                     android:lineSpacingExtra="10dp"
                     android:text="@{trimChoiceViewModel.trimChoiceDescription}"
-                    android:textColor="@color/gray_900"
+                    android:textColor="@color/tool_tip_gray_900"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/view_tool_tip"
                     app:layout_constraintEnd_toEndOf="@id/view_tool_tip"

@@ -27,7 +27,7 @@
     <string name="price">43,460,000원</string>
     <string name="model">모델</string>
     <string name="seater">7인승</string>
-    <string name="default_model_name">펠리세이드 디젤 2.2 2WD Le Blanc</string>
+    <string name="default_model_name">팰리세이드 디젤 2.2 2WD Le Blanc</string>
     <string name="summary_view">요약보기</string>
     <string name="estimate">견적내기</string>
     <string name="quilting_natural_black">퀄팅천연 (블랙)</string>
@@ -89,7 +89,7 @@
     <string name="its_question_based_recommendation_car">질문에 기반한 추천 차량이에요</string>
     <string name="car_masters_recommended_it">전국의 Car master 분들이 엄선하여 추천했어요</string>
     <string name="custom">커스텀하기</string>
-    <string name="making_my_palisade">나만의 펠리세이드를 \n만들고 있어요</string>
+    <string name="making_my_palisade">나만의 팰리세이드 \n만들고 있어요</string>
     <string name="zero">0</string>
     <string name="won">원</string>
     <string name="n_performance">N Performance</string>
