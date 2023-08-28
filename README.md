@@ -1,8 +1,8 @@
-![ca_art_logo](https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/62997391/a35d0317-dd64-4603-adb0-115d84a4ca52)# 🎨 H6-CaArt
+# 🎨 H6-CaArt
 ![ca_art_logo](https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/62997391/d329c2a1-106a-45b4-9d8e-6c7bd5d5f4aa)
 > H6-CaArt의 위키입니다 🙂  
 > 질문과 피드백은 언제나 환영입니다 🙃
-> 
+> ### 🗓 [WIKI](https://github.com/softeerbootcamp-2nd/H6-CaArt/wiki)
 
 <br>
 
@@ -13,7 +13,9 @@
 <br>
 
 ## 시스템 아키텍처
-![Uploading image.png…]()
+![image](https://github.com/softeerbootcamp-2nd/H6-CaArt/assets/62997391/aee7c8b6-ffe6-4e7b-a2c8-00dfa6d14189)
+
+<br>
 
 
 ## 🧑‍💻 팀원 소개
@@ -24,5 +26,3 @@
 <br>
 
 ---
-
-### 🗓 [WIKI](https://github.com/softeerbootcamp-2nd/H6-CaArt/wiki)
