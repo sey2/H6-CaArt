@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS trim;
-
-create table trim
+create table if not exists trim
 (
     trim_id     bigint auto_increment primary key,
     description varchar(255) not null,
@@ -9,9 +7,7 @@ create table trim
     price       int          not null
 );
 
-DROP TABLE IF EXISTS car_engine;
-
-create table car_engine
+create table if not exists car_engine
 (
     car_engine_id bigint auto_increment primary key,
     name          varchar(30)  not null,
@@ -23,9 +19,7 @@ create table car_engine
     price         int          not null
 );
 
-DROP TABLE IF EXISTS body_type;
-
-create table body_type
+create table if not exists body_type
 (
     body_type_id bigint auto_increment primary key,
     name         varchar(30)  not null,
@@ -34,9 +28,7 @@ create table body_type
     image        varchar(255) not null
 );
 
-DROP TABLE IF EXISTS wheel_drive;
-
-create table wheel_drive
+create table if not exists wheel_drive
 (
     wd_id       bigint auto_increment primary key,
     name        varchar(30)  not null,
@@ -46,9 +38,7 @@ create table wheel_drive
     image       varchar(255) not null
 );
 
-DROP TABLE IF EXISTS model;
-
-create table model
+create table if not exists model
 (
     model_id      bigint auto_increment primary key,
     trim_id       bigint not null,
@@ -61,9 +51,7 @@ create table model
     foreign key (wd_id) references wheel_drive (wd_id)
 );
 
-DROP TABLE IF EXISTS color;
-
-create table color
+create table if not exists color
 (
     color_id    bigint auto_increment primary key,
     name        varchar(30)  not null,
@@ -72,9 +60,7 @@ create table color
     image       varchar(255) not null
 );
 
-DROP TABLE IF EXISTS color_preview;
-
-create table color_preview
+create table if not exists color_preview
 (
     color_preview_id bigint auto_increment primary key,
     color_id         bigint       not null,
@@ -82,9 +68,7 @@ create table color_preview
     foreign key (color_id) references color (color_id)
 );
 
-DROP TABLE IF EXISTS rel_trim_color;
-
-create table rel_trim_color
+create table if not exists rel_trim_color
 (
     rel_trim_color_id            bigint auto_increment primary key,
     trim_id                      bigint not null,
@@ -98,9 +82,7 @@ create table rel_trim_color
     foreign key (color_id) references color (color_id)
 );
 
-DROP TABLE IF EXISTS base_option_info;
-
-create table base_option_info
+create table if not exists base_option_info
 (
     base_option_info_id bigint auto_increment primary key,
     name                varchar(50)  not null,
@@ -109,9 +91,7 @@ create table base_option_info
     is_basic            bit          not null
 );
 
-DROP TABLE IF EXISTS additional_option_info;
-
-create table additional_option_info
+create table if not exists additional_option_info
 (
     additional_option_info_id bigint auto_increment primary key,
     base_option_info_id       bigint       not null,
@@ -122,9 +102,7 @@ create table additional_option_info
     foreign key (base_option_info_id) references base_option_info (base_option_info_id)
 );
 
-DROP TABLE IF EXISTS position;
-
-create table position
+create table if not exists position
 (
     position_id               bigint not null primary key,
     additional_option_info_id bigint not null,
@@ -134,9 +112,7 @@ create table position
     foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
 );
 
-DROP TABLE IF EXISTS sub_option_info;
-
-create table sub_option_info
+create table if not exists sub_option_info
 (
     sub_option_info_id        bigint auto_increment primary key,
     base_option_info_id       bigint not null,
@@ -145,9 +121,7 @@ create table sub_option_info
     foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
 );
 
-DROP TABLE IF EXISTS rel_trim_base_option_info;
-
-create table rel_trim_base_option_info
+create table if not exists rel_trim_base_option_info
 (
     rel_trim_base_option_info_id bigint auto_increment primary key,
     trim_id                      bigint not null,
@@ -156,9 +130,7 @@ create table rel_trim_base_option_info
     foreign key (base_option_info_id) references base_option_info (base_option_info_id)
 );
 
-DROP TABLE IF EXISTS rel_model_base_option_info;
-
-create table rel_model_base_option_info
+create table if not exists rel_model_base_option_info
 (
     rel_model_base_option_info_id bigint auto_increment primary key,
     model_id                      bigint not null,
@@ -168,9 +140,7 @@ create table rel_model_base_option_info
     foreign key (base_option_info_id) references base_option_info (base_option_info_id)
 );
 
-DROP TABLE IF EXISTS tag;
-
-create table tag
+create table if not exists tag
 (
     tag_id        bigint auto_increment primary key,
     name          varchar(20)  not null,
@@ -180,9 +150,7 @@ create table tag
     image         varchar(255) not null
 );
 
-DROP TABLE IF EXISTS rel_tag_base_option_info;
-
-create table rel_tag_base_option_info
+create table if not exists rel_tag_base_option_info
 (
     rel_tag_base_option_info_id bigint auto_increment primary key,
     tag_id                      bigint not null,
@@ -191,9 +159,7 @@ create table rel_tag_base_option_info
     foreign key (base_option_info_id) references base_option_info (base_option_info_id)
 );
 
-DROP TABLE IF EXISTS recommendation_result;
-
-create table recommendation_result
+create table if not exists recommendation_result
 (
     recommendation_result_id     bigint auto_increment primary key,
     palisage_image               varchar(255) not null,
@@ -207,9 +173,7 @@ create table recommendation_result
     foreign key (recommended_option_id_2) references additional_option_info (additional_option_info_id)
 );
 
-DROP TABLE IF EXISTS persona;
-
-create table persona
+create table if not exists persona
 (
     persona_id               bigint auto_increment primary key,
     profile_image            varchar(255) not null,
@@ -232,9 +196,7 @@ create table persona
     foreign key (tag_id_2) references tag (tag_id)
 );
 
-DROP TABLE IF EXISTS purchase;
-
-create table purchase
+create table if not exists purchase
 (
     purchase_id       bigint not null primary key,
     age               int    not null,
@@ -246,9 +208,7 @@ create table purchase
     foreign key (interior_color_id) references color (color_id)
 );
 
-DROP TABLE IF EXISTS rel_purchase_additional_option;
-
-create table rel_purchase_additional_option
+create table if not exists rel_purchase_additional_option
 (
     rel_purchase_additional_option_id bigint not null primary key,
     purchase_id                       bigint not null,
@@ -257,9 +217,7 @@ create table rel_purchase_additional_option
     foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id)
 );
 
-DROP TABLE IF EXISTS car_master_survey;
-
-create table car_master_survey
+create table if not exists car_master_survey
 (
     car_master_survey_id bigint auto_increment primary key,
     experience_code      varchar(255) not null,
@@ -271,14 +229,12 @@ create table car_master_survey
     foreign key (model_id) references model (model_id)
 );
 
-DROP TABLE IF EXISTS recommended_option;
-
-create table recommended_option
+create table if not exists recommended_option
 (
-	recommended_option_id bigint auto_increment primary key,
-	reason varchar(100) not null,
-	additional_option_info_id bigint not null,
-	car_master_survey_id bigint not null,
-	foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id),
-	foreign key (car_master_survey_id) references car_master_survey (car_master_survey_id)
+    recommended_option_id     bigint auto_increment primary key,
+    reason                    varchar(100) not null,
+    additional_option_info_id bigint       not null,
+    car_master_survey_id      bigint       not null,
+    foreign key (additional_option_info_id) references additional_option_info (additional_option_info_id),
+    foreign key (car_master_survey_id) references car_master_survey (car_master_survey_id)
 );

@@ -3,6 +3,7 @@ package com.softeer.caart.domain.option.service;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.softeer.caart.domain.common.ServiceTest;
 import com.softeer.caart.domain.model.exception.ModelNotFoundException;
@@ -17,9 +20,14 @@ import com.softeer.caart.domain.model.repository.ModelRepository;
 import com.softeer.caart.domain.option.dto.request.OptionListRequest;
 import com.softeer.caart.domain.option.dto.request.OptionSummaryListRequest;
 import com.softeer.caart.domain.option.dto.response.AdditionalOptionResponse;
+import com.softeer.caart.domain.option.dto.response.BasicOptionResponse;
+import com.softeer.caart.domain.option.dto.response.BasicOptionsResponse;
+import com.softeer.caart.domain.option.entity.AdditionalOptionInfo;
+import com.softeer.caart.domain.option.entity.BaseOptionInfo;
 import com.softeer.caart.domain.option.exception.InvalidOptionException;
 import com.softeer.caart.domain.option.exception.OptionNotFoundException;
 import com.softeer.caart.domain.option.repository.AdditionalOptionInfoRepository;
+import com.softeer.caart.domain.option.repository.AvailableOptionRepository;
 import com.softeer.caart.domain.option.repository.BaseOptionInfoRepository;
 import com.softeer.caart.global.ResultCode;
 
@@ -32,6 +40,27 @@ class OptionServiceTest extends ServiceTest {
 	private AdditionalOptionInfoRepository additionalOptionInfoRepository;
 	@Mock
 	private ModelRepository modelRepository;
+	@Mock
+	private AvailableOptionRepository availableOptionRepository;
+
+	OptionListRequest invalidRequest = OptionListRequest.builder()
+		.tagId(-1L)
+		.engineId(-1L)
+		.trimId(-1L)
+		.wdId(-1L)
+		.bodyTypeId(-1L)
+		.offset(-1)
+		.pageSize(-1)
+		.build();
+	OptionListRequest request = OptionListRequest.builder()
+		.tagId(1L)
+		.engineId(1L)
+		.trimId(1L)
+		.wdId(1L)
+		.bodyTypeId(1L)
+		.offset(0)
+		.pageSize(8)
+		.build();
 
 	@Nested
 	class GetBasicOption {
@@ -57,6 +86,21 @@ class OptionServiceTest extends ServiceTest {
 			assertThatThrownBy(() -> optionService.getBasicOption(-1L))
 				.isInstanceOf(InvalidOptionException.class)
 				.hasMessage(ResultCode.INVALID_BASIC_OPTION.getMessage());
+		}
+
+		@Test
+		@DisplayName("기본 옵션을 상세 조회한다.")
+		void getBasicOption() {
+			// given
+			Long optionId = 1L;
+			doReturn(Optional.of(기본옵션O)).when(baseOptionInfoRepository).findById(optionId);
+
+			// when
+			BasicOptionResponse basicOption = optionService.getBasicOption(optionId);
+
+			// then
+			assertThat(basicOption.getOptionId()).isEqualTo(optionId);
+			assertThat(basicOption.getOptionName()).isEqualTo(기본옵션O.getName());
 		}
 	}
 
@@ -99,11 +143,28 @@ class OptionServiceTest extends ServiceTest {
 			softly.assertThat(추가옵션_세트O_기본X.isOptionTypeSet()).isTrue();
 			softly.assertThat(optionResponse.getSubOptions().size()).isEqualTo(1);
 		}
+
+		@Test
+		@DisplayName("추가 옵션을 상세 조회한다.")
+		void getBasicOption() {
+			// given
+			Long optionId = 추가옵션_세트O_기본X.getId();
+			doReturn(Optional.of(추가옵션_세트O_기본X)).when(additionalOptionInfoRepository).findById(optionId);
+
+			// when
+			AdditionalOptionResponse additionalOption = optionService.getAdditionalOption(optionId);
+
+			// then
+			assertThat(additionalOption.getOptionId()).isEqualTo(optionId);
+			assertThat(additionalOption.getOptionName()).isEqualTo(추가옵션_세트O_기본X.getDetails().getName());
+		}
 	}
 
 	@Nested
 	class GetBasicOptions {
-		private final OptionListRequest requestDto = new OptionListRequest(-1L, -1L, -1L, -1L, -1L, -1, -1);
+
+		@Mock
+		Page<BaseOptionInfo> baseOptionInfoPage;
 
 		@Test
 		@DisplayName("존재하지 않는 모델에 접근하면 예외를 던진다")
@@ -113,15 +174,38 @@ class OptionServiceTest extends ServiceTest {
 				.findModelByTrimIdAndCompositionsId(any(Long.class), any(Long.class), any(Long.class), any(Long.class));
 
 			// then
-			assertThatThrownBy(() -> optionService.getBasicOptions(requestDto))
+			assertThatThrownBy(() -> optionService.getBasicOptions(invalidRequest))
 				.isInstanceOf(ModelNotFoundException.class)
 				.hasMessage(ResultCode.MODEL_NOT_FOUND.getMessage());
+		}
+
+		@Test
+		@DisplayName("기본 옵션의 첫 페이지(8개)를 조회한다")
+		void getFirstPageOfBasicOptions() {
+			// given
+			doReturn(Optional.of(추가옵션가지는_모델)).when(modelRepository)
+				.findModelByTrimIdAndCompositionsId(any(Long.class), any(Long.class), any(Long.class), any(Long.class));
+			List<BaseOptionInfo> baseOptionInfos = List.of(기본옵션O, 기본옵션O);
+			doReturn(baseOptionInfos.size() / 8 + 1).when(baseOptionInfoPage).getTotalPages();
+			doReturn((long)baseOptionInfos.size()).when(baseOptionInfoPage).getTotalElements();
+			doReturn(baseOptionInfos).when(baseOptionInfoPage).getContent();
+			doReturn(baseOptionInfoPage).when(baseOptionInfoRepository)
+				.findByModelIdAndTagId(anyLong(), anyLong(), any(Pageable.class));
+
+			// when
+			BasicOptionsResponse basicOptions = optionService.getBasicOptions(request);
+
+			// then
+			assertThat(basicOptions.getTotalElements()).isEqualTo(baseOptionInfos.size());
+			assertThat(basicOptions.getBaseOptions()).hasSize(baseOptionInfos.size());
 		}
 	}
 
 	@Nested
 	class GetAdditionalOptions {
-		private final OptionListRequest requestDto = new OptionListRequest(-1L, -1L, -1L, -1L, -1L, 0, 1);
+
+		@Mock
+		Page<AdditionalOptionInfo> additionalOptionInfoPage;
 
 		@Test
 		@DisplayName("존재하지 않는 모델에 접근하면 예외를 던진다")
@@ -131,7 +215,7 @@ class OptionServiceTest extends ServiceTest {
 				.findModelByTrimIdAndCompositionsId(any(Long.class), any(Long.class), any(Long.class), any(Long.class));
 
 			// then
-			assertThatThrownBy(() -> optionService.getAdditionalOptions(requestDto))
+			assertThatThrownBy(() -> optionService.getAdditionalOptions(invalidRequest))
 				.isInstanceOf(ModelNotFoundException.class)
 				.hasMessage(ResultCode.MODEL_NOT_FOUND.getMessage());
 		}

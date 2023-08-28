@@ -2,6 +2,7 @@ package com.softeer.caart.domain.common;
 
 import static com.softeer.caart.domain.option.entity.Badge.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.assertj.core.api.SoftAssertions;
@@ -12,7 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import com.softeer.caart.domain.Image;
+import com.softeer.caart.domain.color.entity.AvailableColor;
 import com.softeer.caart.domain.color.entity.Color;
+import com.softeer.caart.domain.color.entity.ColorPreview;
 import com.softeer.caart.domain.composition.entity.BodyType;
 import com.softeer.caart.domain.composition.entity.CarEngine;
 import com.softeer.caart.domain.composition.entity.WheelDrive;
@@ -55,6 +59,11 @@ public abstract class ServiceTest {
 	protected Color exteriorColor2;
 	protected Color interiorColor1;
 	protected Color interiorColor2;
+	protected AvailableColor availableColor1; // 현재 트림(LeBlanc) - 외장 색상(exteriorColor1)
+	protected AvailableColor availableColor2; // 현재 트림(LeBlanc) - 내장 색상(interiorColor1)
+	protected AvailableColor availableColor3; // 다른 트림(Exclusive) - 외장 색상(exteriorColor2)
+	protected AvailableColor availableColor4; // 다른 트림(Exclusive) - 외장 색상(interiorColor2)
+	protected Image colorPreviewImage;
 
 	@InjectSoftAssertions
 	protected SoftAssertions softly;
@@ -74,6 +83,7 @@ public abstract class ServiceTest {
 		initRecommendationResult();
 		initPersona();
 		initColor();
+		initAvailableColor();
 	}
 
 	private void initCarEngine() {
@@ -258,6 +268,8 @@ public abstract class ServiceTest {
 	}
 
 	private void initColor() {
+		colorPreviewImage = Image.from("image.jpg");
+
 		exteriorColor1 = Color.builder()
 			.name("외장 색상1")
 			.price(100000)
@@ -265,6 +277,12 @@ public abstract class ServiceTest {
 			.isExterior(true)
 			.build();
 		ReflectionTestUtils.setField(exteriorColor1, "id", 1L);
+		List<ColorPreview> colorPreviews1 = new ArrayList<>();
+		for (int i = 0; i < 12; i++) {
+			colorPreviews1.add(ColorPreview.builder().color(exteriorColor1).image(colorPreviewImage).build());
+		}
+		ReflectionTestUtils.setField(exteriorColor1, "colorPreviews", colorPreviews1);
+
 		exteriorColor2 = Color.builder()
 			.name("외장 색상2")
 			.price(100000)
@@ -272,6 +290,12 @@ public abstract class ServiceTest {
 			.isExterior(true)
 			.build();
 		ReflectionTestUtils.setField(exteriorColor2, "id", 2L);
+		List<ColorPreview> colorPreviews2 = new ArrayList<>();
+		for (int i = 0; i < 12; i++) {
+			colorPreviews2.add(ColorPreview.builder().color(exteriorColor2).image(colorPreviewImage).build());
+		}
+		ReflectionTestUtils.setField(exteriorColor2, "colorPreviews", colorPreviews2);
+
 		interiorColor1 = Color.builder()
 			.name("내장 색상1")
 			.price(100000)
@@ -279,6 +303,9 @@ public abstract class ServiceTest {
 			.isExterior(false)
 			.build();
 		ReflectionTestUtils.setField(interiorColor1, "id", 3L);
+		ReflectionTestUtils.setField(interiorColor1, "colorPreviews",
+			List.of(ColorPreview.builder().color(interiorColor1).image(colorPreviewImage).build()));
+
 		interiorColor2 = Color.builder()
 			.name("내장 색상2")
 			.price(100000)
@@ -286,5 +313,16 @@ public abstract class ServiceTest {
 			.isExterior(false)
 			.build();
 		ReflectionTestUtils.setField(interiorColor2, "id", 4L);
+		ReflectionTestUtils.setField(interiorColor2, "colorPreviews",
+			List.of(ColorPreview.builder().color(interiorColor2).image(colorPreviewImage).build()));
+	}
+
+	private void initAvailableColor() {
+		availableColor1 = AvailableColor.builder().trim(LeBlanc).color(exteriorColor1).build();
+		availableColor2 = AvailableColor.builder().trim(LeBlanc).color(interiorColor1).build();
+		availableColor3 = AvailableColor.builder().trim(Exclusive).color(exteriorColor2).build();
+		availableColor4 = AvailableColor.builder().trim(Exclusive).color(interiorColor2).build();
+		ReflectionTestUtils.setField(LeBlanc, "availableColors", List.of(availableColor1, availableColor2));
+		ReflectionTestUtils.setField(Exclusive, "availableColors", List.of(availableColor3, availableColor4));
 	}
 }

@@ -28,7 +28,10 @@ VALUES (1, '2WD', '2wd 요약 설명', '2WD 설명', 0, '2wd.jpg'),
 -- 모델
 INSERT INTO model (model_id, trim_id, car_engine_id, body_type_id, wd_id)
 VALUES (1, 1, 1, 1, 1),
-       (2, 2, 2, 2, 2);
+       (2, 2, 2, 2, 2),
+       (3, 1, 1, 1, 2),
+       (4, 1, 1, 2, 2),
+       (5, 1, 2, 2, 2);
 
 -- 태그
 INSERT INTO tag (tag_id, icon, icon_selected, image, name, priority)
@@ -42,16 +45,21 @@ VALUES (1, 'icon1.svg',
 -- 색상
 INSERT INTO color (color_id, name, price, image, is_exterior)
 VALUES (1, '외장 색상1', 0, 'exterior_color.png', 1),
-       (2, '외장 색상2', 0, 'interior_color.png', 1),
+       (2, '외장 색상2', 0, 'exterior_color.png', 1),
        (3, '내장 색상1', 0, 'interior_color.png', 0),
        (4, '내장 색상2', 0, 'interior_color.png', 0);
 
 -- 트림 가능 색상
-INSERT INTO rel_trim_color (rel_trim_color_id, trim_id, color_id)
-VALUES (1, 1, 1),
-       (2, 1, 2),
-       (3, 2, 1),
-       (4, 2, 2);
+INSERT INTO rel_trim_color (rel_trim_color_id, trim_id, color_id, adoption_rate_all, adoption_rate_fifty_or_above,
+                            adoption_rate_forty, adoption_rate_thirty, adoption_rate_twenty)
+VALUES (1, 1, 1, 60, 20, 80, 60, 80),
+       (2, 1, 2, 40, 80, 20, 40, 20),
+       (3, 1, 3, 60, 100, 0, 60, 60),
+       (4, 1, 4, 40, 0, 100, 40, 40),
+       (5, 2, 1, 0, 0, 0, 0, 0),
+       (6, 2, 2, 0, 0, 0, 0, 0),
+       (7, 2, 3, 0, 0, 0, 0, 0),
+       (8, 2, 4, 0, 0, 0, 0, 0);
 
 -- 옵션
 INSERT INTO base_option_info (base_option_info_id, description, image, is_basic, name)
@@ -104,8 +112,25 @@ VALUES (1, 'persona.png', '김현대',
 -- 구매 이력
 INSERT INTO purchase (purchase_id, age, model_id, exterior_color_id, interior_color_id)
 VALUES (1, 22, 1, 1, 3),
-       (2, 28, 1, 1, 4),
-       (3, 28, 1, 2, 4);
+       (2, 26, 1, 1, 3),
+       (3, 26, 1, 1, 3),
+       (4, 28, 1, 1, 4),
+       (5, 28, 1, 2, 4),
+       (6, 33, 1, 2, 3),
+       (7, 33, 1, 2, 3),
+       (8, 38, 1, 1, 3),
+       (9, 38, 1, 1, 4),
+       (10, 38, 1, 1, 4),
+       (11, 42, 1, 1, 4),
+       (12, 45, 1, 2, 4),
+       (13, 48, 1, 1, 4),
+       (14, 48, 1, 1, 4),
+       (15, 48, 1, 1, 4),
+       (16, 52, 1, 2, 3),
+       (17, 52, 1, 2, 3),
+       (18, 58, 1, 2, 3),
+       (19, 62, 1, 2, 3),
+       (20, 62, 1, 1, 3);
 
 -- 카마스터 설문
 INSERT INTO car_master_survey (car_master_survey_id, experience_code, family_code, purpose_code, total_sum, value_code,

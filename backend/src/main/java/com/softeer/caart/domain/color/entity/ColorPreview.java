@@ -12,10 +12,14 @@ import javax.persistence.ManyToOne;
 
 import com.softeer.caart.domain.Image;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ColorPreview {
 
 	@Id
@@ -29,4 +33,10 @@ public class ColorPreview {
 
 	@Embedded
 	private Image image;
+
+	@Builder
+	public ColorPreview(Color color, Image image) {
+		this.color = color;
+		this.image = image;
+	}
 }
