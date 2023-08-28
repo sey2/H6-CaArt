@@ -1,6 +1,7 @@
 package com.softeer.caart.domain.recommendation.lifestyle.controller;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.validation.Valid;
 
@@ -46,7 +47,8 @@ public class LifeStyleController {
 
 	@GetMapping("/recommendation")
 	@Operation(summary = "선택한 라이프스타일에 따른 추천 차량 견적을 조회한다.", description = "최소 budget은 4200, 최대 budget은 6900 이다.")
-	public ResponseDto getRecommendation(@Valid RecommendationRequest request) {
+	public ResponseDto getRecommendation(@Valid RecommendationRequest request)
+		throws ExecutionException, InterruptedException {
 		request.validate();
 		RecommendationResponse recommendationResult = lifeStyleService.getRecommendationByLifestyle(request);
 		return DataResponseDto.of(recommendationResult);

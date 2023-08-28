@@ -23,6 +23,7 @@ import com.softeer.caart.global.exception.BusinessException;
 import com.softeer.caart.global.response.ErrorListResponseDto;
 import com.softeer.caart.global.response.ErrorResponseDto;
 
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
@@ -98,6 +99,13 @@ public class GlobalExceptionHandler {
 	protected ResponseEntity<ErrorResponseDto> handleIllegalArgumentException(IllegalArgumentException e) {
 		log.error("IllegalArgumentException : {}", e.getMessage());
 		final ErrorResponseDto response = ErrorResponseDto.from(ResultCode.INVALID_METHOD_ARGUMENT);
+		return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
+	}
+
+	@ExceptionHandler(FeignException.class)
+	protected ResponseEntity<ErrorResponseDto> handleFeignException(FeignException e) {
+		log.error("FeignException : {}", e.getMessage());
+		final ErrorResponseDto response = ErrorResponseDto.from(ResultCode.INVALID_LAMBDA_CALL);
 		return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatusCode()));
 	}
 

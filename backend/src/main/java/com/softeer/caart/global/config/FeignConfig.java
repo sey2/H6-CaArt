@@ -14,11 +14,5 @@ public class FeignConfig {
 	Logger.Level feignLoggerLevel() {
 		return Logger.Level.FULL;
 	}
-
-	// @Bean
-	// public RequestInterceptor requestInterceptor() {
-	// 	return requestTemplate -> requestTemplate.header("Content-type",
-	// 		"application/x-www-form-urlencoded;charset=utf-8");
-	// }
 }
 

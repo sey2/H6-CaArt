@@ -1,8 +1,8 @@
 package com.softeer.caart.domain.recommendation.lifestyle.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.softeer.caart.domain.color.entity.AgeGroup;
 import com.softeer.caart.domain.color.entity.AvailableColor;
@@ -101,11 +101,8 @@ public class RecommendedDto {
 	public static List<RecommendedOptionDto> createRecommendedOptionDtoList(RecommendationResult recommendationResult) {
 		List<AdditionalOptionInfo> recommendedOptionList = recommendationResult.getRecommendedOptionList();
 		List<String> explanationList = recommendationResult.getExplanationList();
-		List<RecommendedOptionDto> recommendedOptionDtoList = new ArrayList<>();
-		for (int i = 0; i < recommendedOptionList.size(); i++) {
-			recommendedOptionDtoList.add(
-				RecommendedOptionDto.of(recommendedOptionList.get(i), explanationList.get(i)));
-		}
-		return recommendedOptionDtoList;
+		return IntStream.range(0, recommendedOptionList.size())
+			.mapToObj(i -> RecommendedOptionDto.of(recommendedOptionList.get(i), explanationList.get(i)))
+			.collect(Collectors.toList());
 	}
 }

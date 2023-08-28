@@ -57,4 +57,8 @@ public class Model {
 	public Integer calcModelPrice() {
 		return carEngine.getPrice() + wheelDrive.getPrice() + trim.getPrice();
 	}
+
+	public Long getTrimId() {
+		return this.trim.getId();
+	}
 }

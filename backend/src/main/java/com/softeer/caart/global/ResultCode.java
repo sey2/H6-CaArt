@@ -22,7 +22,8 @@ public enum ResultCode {
 	INVALID_ANSWER(400, "답변이 질문과 잘못 매핑되었습니다."),
 	INVALID_BUDGET(400, "예산이 잘못 설정되었습니다."),
 	INVALID_RECOMMENDED_OPTION_SIZE(400, "추천 받은 옵션의 개수는 2개여야 합니다"),
-	SURVEY_NOT_FOUND(400, "조건에 해당하는 설문 결과가 없습니다."),
+	INVALID_SURVEY(400, "조건에 해당하는 설문 결과가 없습니다."),
+	INVALID_LAMBDA_CALL(400, "람다 API 호출에 실패했습니다."),
 
 	// 404
 	MODEL_NOT_FOUND(404, "존재하지 않는 모델입니다."),

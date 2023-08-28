@@ -47,7 +47,7 @@ public class PersonaService {
 	public PersonaRecommendationResponse getPersonaRecommendation(Long personaId, AgeGroup ageGroup) {
 		RecommendationResult recommendationResult = recommendationResultRepository.findByPersona_Id(personaId)
 			.orElseThrow(() -> new PersonaNotFoundException(ResultCode.PERSONA_NOT_FOUND));
-		Long recommendedTrimId = recommendationResult.getModel().getTrim().getId();
+		Long recommendedTrimId = recommendationResult.getModel().getTrimId();
 		List<AvailableColor> recommendedColorList = getRecommendedColors(recommendedTrimId, ageGroup);
 		return PersonaRecommendationResponse.of(recommendationResult, recommendedColorList, ageGroup);
 	}

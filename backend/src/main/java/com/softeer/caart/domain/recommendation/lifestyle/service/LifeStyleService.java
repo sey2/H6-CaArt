@@ -4,7 +4,12 @@ import static com.softeer.caart.domain.recommendation.lifestyle.dto.RecommendedD
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,33 +25,33 @@ import com.softeer.caart.domain.option.exception.InvalidOptionException;
 import com.softeer.caart.domain.option.repository.AdditionalOptionInfoRepository;
 import com.softeer.caart.domain.recommendation.carmaster.repository.RecommendedOptionRepository;
 import com.softeer.caart.domain.recommendation.lifestyle.dto.request.RecommendationRequest;
+import com.softeer.caart.domain.recommendation.lifestyle.dto.response.ReasonDto;
 import com.softeer.caart.domain.recommendation.lifestyle.dto.response.RecommendationResponse;
 import com.softeer.caart.global.ResultCode;
-import com.softeer.caart.global.feign.OpenAiFeign;
+import com.softeer.caart.global.feign.OpenAIFeign;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class LifeStyleService {
 
 	private final ModelRepository modelRepository;
 	private final AdditionalOptionInfoRepository optionInfoRepository;
 	private final RecommendedOptionRepository recommendedOptionRepository;
 	private final AvailableColorRepository availableColorRepository;
-	private final OpenAiFeign openAiFeign;
+	private final OpenAIFeign openAIFeign;
 
-	// TODO : write basic test codes
-	public RecommendationResponse getRecommendationByLifestyle(RecommendationRequest request) {
+	public RecommendationResponse getRecommendationByLifestyle(RecommendationRequest request) throws
+		ExecutionException,
+		InterruptedException {
 		// 모델 추천
 		Model model = getMostRecommendedModel(request);
 		// 옵션 추천
-		List<AdditionalOptionInfo> twoOptions = getMostRecommendedTwoOptions(request, model);
-		List<RecommendedOptionDto> recommendedOptionDtoList = twoOptions.stream()
-			.map(optionInfo -> RecommendedOptionDto.of(optionInfo,
-				generateReasonByChatGPT(request, optionInfo)))
-			.collect(Collectors.toList());
+		List<RecommendedOptionDto> recommendedOptionDtoList = getMostRecommendedOptionDtoList(request, model);
 		// 색상 추천
 		AgeGroup ageGroup = AgeGroup.valueOf(request.getAge().name());
 		List<AvailableColor> recommendedColors = getRecommendedColors(model.getTrim().getId(), ageGroup);
@@ -56,15 +61,41 @@ public class LifeStyleService {
 	private Model getMostRecommendedModel(RecommendationRequest request) {
 		return modelRepository.findMostRecommendedModelByCondition(request.getExperience(), request.getFamily(),
 				request.getPurpose(), request.getValue(), request.getMinBudget(), request.getMaxBudget())
-			.orElseThrow(() -> new ModelNotFoundException(ResultCode.SURVEY_NOT_FOUND));
+			.orElseThrow(() -> new ModelNotFoundException(ResultCode.INVALID_SURVEY));
 	}
 
-	private List<AdditionalOptionInfo> getMostRecommendedTwoOptions(RecommendationRequest request, Model model) {
+	private List<RecommendedOptionDto> getMostRecommendedOptionDtoList(RecommendationRequest request,
+		Model model) {
 		List<AdditionalOptionInfo> twoOptions = optionInfoRepository.findMostRecommendedOptionByCondition(
 			request.getExperience(), request.getFamily(), request.getPurpose(), request.getValue(),
 			request.getMinBudget(), request.getMaxBudget(), model.getId());
 		validateRecommendedOptionCount(twoOptions.size());
-		return twoOptions;
+
+		return createRecommendedOptionBasedOnSummary(request, twoOptions);
+	}
+
+	private List<RecommendedOptionDto> createRecommendedOptionBasedOnSummary(
+		RecommendationRequest request, List<AdditionalOptionInfo> twoOptions) {
+		ExecutorService executorService = Executors.newWorkStealingPool();
+
+		// call async
+		List<CompletableFuture<ReasonDto>> reasonFutures = twoOptions.stream()
+			.map(option -> CompletableFuture.supplyAsync(
+				() -> generateReasonByGPTModel(request, option), executorService))
+			.collect(Collectors.toList());
+
+		// join and add dto list
+		List<RecommendedOptionDto> recommendedOptionDtoList = new ArrayList<>();
+		joinAndAddRecommendedOptionDto(0, recommendedOptionDtoList, reasonFutures, twoOptions);
+		joinAndAddRecommendedOptionDto(1, recommendedOptionDtoList, reasonFutures, twoOptions);
+
+		return recommendedOptionDtoList;
+	}
+
+	private void joinAndAddRecommendedOptionDto(int idx, List<RecommendedOptionDto> dtoList,
+		List<CompletableFuture<ReasonDto>> reasonFutures, List<AdditionalOptionInfo> options) {
+		ReasonDto reason = reasonFutures.get(idx).join();
+		dtoList.add(RecommendedOptionDto.of(options.get(idx), reason.getBody()));
 	}
 
 	private void validateRecommendedOptionCount(int optionSize) {
@@ -73,57 +104,36 @@ public class LifeStyleService {
 		}
 	}
 
-	/**
-	 * OpenAI API를 이용해 GPT 모델로 추천 사유를 요약한다.
-	 * <br>
-	 * Request 예시:<br>
-	 * 	 POST https://dxts501dik.execute-api.ap-northeast-2.amazonaws.com/stage/generate-reason
-	 * 	 <br>
-	 *   {
-	 *      "reasons" : ["운전 중에도 무릎의 따뜻함을 항상 느낄 수 있게 해줍니다.",
-	 *                   "무릎을 따뜻하게 해주면서 건강까지 지켜주는 놀라운 옵션!",
-	 *                   "겨울 운전 중 저체온증을 예방하는 데 도움을 줍니다.",
-	 *                   "냉기로부터 무릎을 보호하는 가장 현대적인 방법입니다.",
-	 *                   "겨울의 까칠한 무릎 문제를 해결하는 스마트한 방법!"]
-	 *   }
-	 * <br>
-	 * Response 예시:<br>
-	 *   "블랙톤 휠은 운전 중에도 무릎의 따뜻함을 느낄 수 있도록 해요."
-	 */
-	private String generateReasonByChatGPT(RecommendationRequest request, AdditionalOptionInfo option) {
+	private ReasonDto generateReasonByGPTModel(RecommendationRequest request, AdditionalOptionInfo option) {
 		List<String> reasons = recommendedOptionRepository.findRecommendReasonsByCondition(
 			request.getExperience(), request.getFamily(), request.getPurpose(), request.getValue(), option.getId());
-		return openAiFeign.getRecommendationMessage(reasons);
+		return openAIFeign.summaryReasons(reasons);
 	}
 
 	public List<AvailableColor> getRecommendedColors(Long trimId, AgeGroup ageGroup) {
-		List<AvailableColor> recommendedColors = new ArrayList<>();
-		AvailableColor recommendedExteriorColor;
-		AvailableColor recommendedInteriorColor;
+		return Stream.of(true, false)
+			.map(isExterior -> findRecommendedColorByAgeGroup(trimId, ageGroup, isExterior))
+			.collect(Collectors.toList());
+	}
+
+	private AvailableColor findRecommendedColorByAgeGroup(Long trimId, AgeGroup ageGroup, boolean isExterior) {
+		AvailableColor recommendedColor;
 		switch (ageGroup) {
 			case TWENTY:
-				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForTwenty(trimId, true);
-				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForTwenty(trimId, false);
+				recommendedColor = availableColorRepository.findMostAdoptedColorForTwenty(trimId, isExterior);
 				break;
 			case THIRTY:
-				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForThirty(trimId, true);
-				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForThirty(trimId, false);
+				recommendedColor = availableColorRepository.findMostAdoptedColorForThirty(trimId, isExterior);
 				break;
 			case FORTY:
-				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForForty(trimId, true);
-				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForForty(trimId, false);
+				recommendedColor = availableColorRepository.findMostAdoptedColorForForty(trimId, isExterior);
 				break;
 			case FIFTY_OR_ABOVE:
-				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForFiftyOrAbove(trimId, true);
-				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForFiftyOrAbove(trimId, false);
+				recommendedColor = availableColorRepository.findMostAdoptedColorForFiftyOrAbove(trimId, isExterior);
 				break;
 			default:
-				recommendedExteriorColor = availableColorRepository.findMostAdoptedColorForAll(trimId, true);
-				recommendedInteriorColor = availableColorRepository.findMostAdoptedColorForAll(trimId, false);
-				break;
+				recommendedColor = availableColorRepository.findMostAdoptedColorForAll(trimId, isExterior);
 		}
-		recommendedColors.add(recommendedExteriorColor);
-		recommendedColors.add(recommendedInteriorColor);
-		return recommendedColors;
+		return recommendedColor;
 	}
 }
