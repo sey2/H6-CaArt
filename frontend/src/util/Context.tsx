@@ -78,18 +78,19 @@ const EstimationProvider = ({ children }: Props): JSX.Element => {
       trim: {
         name: 'Exclusive',
         price: 38960000,
-        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-2.png',
+        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/model/trim/1-2.webp',
       },
-      trimInteriorImage: '',
+      trimInteriorImage:
+        'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/preview/inside/9.webp',
       outerColor: {
         name: '어비스 블랙 펄',
         price: 0,
-        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/11.png',
+        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/exterior/11.webp',
       },
       interiorColor: {
         name: '인조가죽(블랙)',
         price: 0,
-        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/interior/7.png',
+        img: 'https://caart-app-s3-bucket.s3.ap-northeast-2.amazonaws.com/image/color/interior/7.webp',
       },
       options: [] as NameAndPriceAndImg[],
     });

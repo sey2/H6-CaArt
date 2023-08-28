@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useModalContext } from '../../../../store/ModalContext';
+import replaceWonSymbol from "../../../../util/ReplaceWonSymbol";
 
 function OptionExplainModal() {
   const { state, dispatch } = useModalContext();
@@ -31,7 +32,7 @@ function OptionExplainModal() {
       </Title>
       <Image src={state.optionModalData.optionImage} />
       <Content className="body-regular-14 text-grey-200">
-        {state.optionModalData.description}
+        {replaceWonSymbol(state.optionModalData.description)}
       </Content>
       <footer className="caption-regular-12 text-grey-400">
         *사진과 설명은 참고용이며 실제 차량과는 상이할 수 있습니다.
