@@ -16,6 +16,7 @@ import org.softeer_2nd.caArt.R
 import org.softeer_2nd.caArt.databinding.FragmentRecommendCompleteBinding
 import org.softeer_2nd.caArt.model.data.state.RecommendCompleteResultState
 import org.softeer_2nd.caArt.model.factory.DummyItemFactory
+import org.softeer_2nd.caArt.ui.dialog.LoadingDialog
 import org.softeer_2nd.caArt.ui.recycleradapter.ResultOptionAdapter
 import org.softeer_2nd.caArt.ui.recycleradapter.UserSelectedAnswerChipRecyclerAdapter
 import org.softeer_2nd.caArt.viewmodel.RecommendCompleteViewModel
@@ -50,7 +51,7 @@ class RecommendCompleteFragment : Fragment() {
                     family = family,
                     purpose = purpose,
                     value = value,
-                    maxBudget = budget * 10000,
+                    maxBudget = budget,
                     minBudget = 42000000
                 )
             }
@@ -63,6 +64,9 @@ class RecommendCompleteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val loadingDialog = LoadingDialog(requireContext()).apply {
+            show()
+        }
         val optionAdapter =
             ResultOptionAdapter(DummyItemFactory.createResultOptionDummyItem(), true)
 
@@ -86,11 +90,13 @@ class RecommendCompleteFragment : Fragment() {
         }
 
         recommendCompleteViewModel.resultState.observe(viewLifecycleOwner) {
+            loadingDialog.dismiss()
             binding.setBinding(it)
             optionAdapter.setItems(it.resultOptions)
         }
 
         recommendCompleteViewModel.answerList.observe(viewLifecycleOwner) {
+            loadingDialog.dismiss()
             binding.incRecommendCompleteByAdditionalQuestionCover.rvRecommendationCompleteByAdditionalQuestionUserAnswersContainer.setup(
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
                 UserSelectedAnswerChipRecyclerAdapter(it),

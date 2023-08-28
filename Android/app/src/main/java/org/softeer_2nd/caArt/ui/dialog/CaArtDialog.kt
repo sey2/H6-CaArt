@@ -36,7 +36,6 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
         val width = builder.dialogWidth ?: return
         dialog?.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        isCancelable = false
     }
 
     override fun onCreateView(
@@ -106,7 +105,14 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
             titleTextSize = size
         }
 
+        fun setTitle(title: Int, size: Int = 16): Builder = apply {
+            setTitle(context.getString(title), size)
+        }
+
         fun setDescription(description: String) = apply { this.description = description }
+
+        fun setDescription(description: Int) =
+            apply { this.description = context.getString(description) }
 
         fun setPositiveButton(text: String? = null, listener: OnDialogClickListener): Builder {
             positiveButtonText = text ?: context.getString(R.string.yes)
@@ -115,6 +121,11 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
                 it.dismiss()
             }
             return this
+        }
+
+        fun setPositiveButton(text: Int = R.string.yes, listener: OnDialogClickListener): Builder {
+            val mText = context.getText(text).toString()
+            return setPositiveButton(mText, listener)
         }
 
         fun setNegativeButton(text: String? = null, listener: OnDialogClickListener): Builder {
@@ -128,11 +139,19 @@ open class CaArtDialog(private val builder: Builder) : DialogFragment() {
 
         fun setButtonType(type: Int) = apply { buttonType = type }
 
-        fun setContentText(text: String = "", hint: String = "", isEditable: Boolean) = apply {
-            contentText = text
-            contentHintText = hint
-            dialogType = if (isEditable) EDITABLE_TEXT_CONTENT else TEXT_CONTENT
-        }
+        fun setContentText(text: String = "", hint: String = "", isEditable: Boolean = true) =
+            apply {
+                contentText = text
+                contentHintText = hint
+                dialogType = if (isEditable) EDITABLE_TEXT_CONTENT else TEXT_CONTENT
+            }
+
+        fun setContentText(text: Int? = null, hint: Int? = null, isEditable: Boolean = true) =
+            apply {
+                val contentText = if (text == null) "" else context.getString(text)
+                val contentHintText = if (hint == null) "" else context.getString(hint)
+                setContentText(contentText, contentHintText, isEditable)
+            }
 
         fun setDialogContentView(res: Int) = apply {
             dialogWidth = dialogWidth ?: (280f.dp2px(context) + 10f.dp2px(context))

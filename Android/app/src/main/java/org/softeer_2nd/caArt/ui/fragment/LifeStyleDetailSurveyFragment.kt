@@ -55,6 +55,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
             onSliderValueChangedListener =
                 Slider.OnChangeListener { _, value, _ ->
                     selectPrice = value.toLong()
+                    processViewModel.changeBudgetMax(value.toInt())
                 }
         }
 
@@ -104,7 +105,7 @@ class LifeStyleDetailSurveyFragment : ProcessFragment<SurveyQuestion>() {
         findNavController().navigate(
             LifeStyleDetailSurveyFragmentDirections.actionLifeStyleDetailSurveyFragmentToRecommendCompleteFragment(
                 age = args.age,
-                budget = processViewModel.budgetRange.value?.max?.toInt() ?: 6900,
+                budget = processViewModel.budgetMax,
                 experience = processViewModel.selectedExperienceAnswer,
                 family = processViewModel.selectedFamilyAnswer,
                 purpose = processViewModel.selectedPurposeAnswer,

@@ -89,10 +89,21 @@
     <string name="its_question_based_recommendation_car">질문에 기반한 추천 차량이에요</string>
     <string name="car_masters_recommended_it">전국의 Car master 분들이 엄선하여 추천했어요</string>
     <string name="custom">커스텀하기</string>
-    <string name="making_my_palisade">나만의 팰리세이드 \n만들고 있어요</string>
+    <string name="making_my_palisade">나만의 팰리세이드를 \n만들고 있어요</string>
     <string name="zero">0</string>
     <string name="won">원</string>
     <string name="n_performance">N Performance</string>
     <string name="h_genuine_accessories">H Genuine Accessories</string>
     <string name="network_error">에러가 발생했습니다.\n 잠시 후 다시 시도해주세요.</string>
+    <string name="sharing">공유하기</string>
+    <string name="sharing_description">구성하신 견적이 URL로 생성되었어요.\n아래 URL을 공유하시면 견적을 다시 확인하실 수 있어요.\n(30일간 유효)</string>
+    <string name="copy">복사하기</string>
+    <string name="example_url">https://www.hyundai.com/kr/ko/e/vehicles/estimation/</string>
+    <string name="send">보내기</string>
+    <string name="example_email">example@mail.com</string>
+    <string name="input_email_address">메일 주소를 알려주세요</string>
+    <string name="send_email_description">해당 주소로 만들어진 내 차를 보내드립니다.</string>
+    <string name="developing">아직 준비중인 서비스에요</string>
+    <string name="request_login">로그인이 필요한 서비스에요.\n로그인 화면으로 이동하시겠어요?</string>
+    <string name="hyundai_estimate_site_url">https://www.hyundai.com/kr/ko/e/vehicles/purchase-consult</string>
 </resources>

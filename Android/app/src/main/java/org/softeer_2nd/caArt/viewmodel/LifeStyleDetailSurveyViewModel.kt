@@ -33,6 +33,9 @@ class LifeStyleDetailSurveyViewModel @Inject constructor(private val repository:
 
     val budgetRange: LiveData<BudgetRange> = repository.budgetRange.asLiveData()
 
+    var budgetMax: Int = 69000000
+        private set
+
     fun requestAdditionalSurveyQuestion() {
         viewModelScope.launch {
             val questions = repository.fetchAdditionalLifestyleSurveyQuestion() ?: return@launch
@@ -58,5 +61,9 @@ class LifeStyleDetailSurveyViewModel @Inject constructor(private val repository:
                 it[currentProcessIndex] = selectedAnswer
             }
         }
+    }
+
+    fun changeBudgetMax(max: Int) {
+        budgetMax = max * 10000
     }
 }

@@ -44,10 +44,10 @@ class CarOptionChoiceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         model.setSelectedModelInfo(
-            1,//userChoiceViewModel.selectedTrim.value?.trimName?.toTrimId() ?: 1,
-            1,//userChoiceViewModel.selectedEngine.value?.id ?: 1,
-            1,//userChoiceViewModel.selectedBodyType.value?.id ?: 1,
-            1,//userChoiceViewModel.selectedEngine.value?.id ?: 1
+            userChoiceViewModel.selectedTrim.value?.trimId ?: 1,
+            userChoiceViewModel.selectedEngine.value?.id ?: 1,
+            userChoiceViewModel.selectedBodyType.value?.id ?: 1,
+            userChoiceViewModel.selectedEngine.value?.id ?: 1
         )
         model.setInitialSelectedOption(userChoiceViewModel.getSelectedOptionList())
         model.requestTagList()
