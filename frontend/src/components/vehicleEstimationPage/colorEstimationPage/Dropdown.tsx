@@ -4,7 +4,7 @@ import ColorButton from './button/ColorButton';
 import ColorChangePopup, { State } from './ColorChangePopup';
 import useDetectClose from '../../../hooks/useDetectClose';
 import { Trim } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
-import { EstimationContext } from '../../../util/Context';
+import { EstimationContext } from '../../../store/Context';
 
 interface Dropdown {
   type: 'interior' | 'exterior';

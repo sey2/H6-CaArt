@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useModalContext } from '../../../../store/ModalContext';
-import { EstimationContext } from '../../../../util/Context';
+import { EstimationContext } from '../../../../store/Context';
 import { FlexBox } from '../../../common/FlexBox';
 import { Hr } from '../../../common/Hr';
 import SquareButton from '../../../common/SquareButton';

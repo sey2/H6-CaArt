@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import EBWButton from './EBWButton';
-import { EstimationContext } from '../../../util/Context';
+import { EstimationContext } from '../../../store/Context';
 import { FlexBox } from '../../common/FlexBox';
 import { useModalContext } from '../../../store/ModalContext';
 import { preloadContext } from '../../../store/PreloadContext';
@@ -77,7 +77,11 @@ function EBWContainer() {
             }}
             onMouseOver={preloadImages}
           >
-            <EBWButton value="디젤 2.2" price={1480000} onClick={handleButtonClick} />
+            <EBWButton
+              value="디젤 2.2"
+              price={1480000}
+              onClick={handleButtonClick}
+            />
             <EBWButton
               value="가솔린 3.8"
               price={0}
@@ -106,7 +110,11 @@ function EBWContainer() {
             onMouseOver={preloadImages}
           >
             <EBWButton value="2WD" price={0} onClick={handleButtonClick} />
-            <EBWButton value="4WD" price={2370000} onClick={handleButtonClick} />
+            <EBWButton
+              value="4WD"
+              price={2370000}
+              onClick={handleButtonClick}
+            />
           </ButtonBox>
         </FlexBox>
       </Box>

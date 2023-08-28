@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { EstimationContext } from '../util/Context';
+import { EstimationContext } from '../store/Context';
 
 interface AnimationProps {
   prevPrice: number;

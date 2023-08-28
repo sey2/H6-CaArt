@@ -5,7 +5,7 @@ import {
   Trim,
 } from '../../../pages/vehicleEstimationPage/TrimEstimationPage';
 import { useModalContext } from '../../../store/ModalContext';
-import { EstimationContext } from '../../../util/Context';
+import { EstimationContext } from '../../../store/Context';
 import { priceToString } from '../../../util/PriceToString';
 import { FlexBox } from '../../common/FlexBox';
 

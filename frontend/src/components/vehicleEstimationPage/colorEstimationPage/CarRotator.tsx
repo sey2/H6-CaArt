@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { styled } from 'styled-components';
 import { ExteriorColor } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
-import { EstimationContext } from '../../../util/Context';
+import { EstimationContext } from '../../../store/Context';
 
 function CarRotator({ data }: { data: ExteriorColor[] }) {
   const { currentEstimation } = useContext(EstimationContext)!;

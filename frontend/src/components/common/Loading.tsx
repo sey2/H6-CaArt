@@ -4,11 +4,11 @@ import { styled } from 'styled-components';
 import loadingAnimation from '../../static/data/loading.json';
 
 interface LoadingProps {
-  height: string;
-  width: string;
+  $height: string;
+  $width: string;
 }
 
-function Loading({ height, width }: LoadingProps) {
+function Loading({ $height, $width }: LoadingProps) {
   const options = {
     animationData: loadingAnimation,
     loop: true,
@@ -16,7 +16,7 @@ function Loading({ height, width }: LoadingProps) {
 
   const { View } = useLottie(options);
   return (
-    <LoadingBox height={height} width={width}>
+    <LoadingBox $height={$height} $width={$width}>
       {View}
     </LoadingBox>
   );
@@ -30,8 +30,8 @@ const LoadingBox = styled.div<LoadingProps>`
   height: 100%;
 
   div {
-    width: ${props => props.width};
-    height: ${props => props.height};
+    width: ${props => props.$width};
+    height: ${props => props.$height};
   }
 `;
 

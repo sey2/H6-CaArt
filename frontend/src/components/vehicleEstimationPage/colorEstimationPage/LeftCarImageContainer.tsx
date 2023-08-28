@@ -4,7 +4,7 @@ import OptionButton from './button/OptionButton';
 import CarRotator from './CarRotator';
 import RerecommendButton from '../trimEstimationPage/RerecommendButton';
 import RerecommendModal from '../trimEstimationPage/modal/RerecommendModal';
-import { EstimationContext } from '../../../util/Context';
+import { EstimationContext } from '../../../store/Context';
 import { CarData } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
 
 type ViewOptionType = 'ex' | 'in' | '360' | string;

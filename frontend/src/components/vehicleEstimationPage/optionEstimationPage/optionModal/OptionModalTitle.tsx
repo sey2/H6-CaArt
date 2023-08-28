@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { priceToString } from '../../../../util/PriceToString';
 import CircularButton from '../../../common/CircularButton';
-import { EstimationContext } from '../../../../util/Context';
+import { EstimationContext } from '../../../../store/Context';
 import { OptionProps } from '../optionCardList/OptionCardList';
 import replaceWonSymbol from '../../../../util/ReplaceWonSymbol';
 

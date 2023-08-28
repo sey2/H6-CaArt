@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SquareButton from '../SquareButton';
 import HeaderDetail from './HeaderDetail';
-import { EstimationContext, NameAndPrice } from '../../../util/Context';
+import { EstimationContext, NameAndPrice } from '../../../store/Context';
 import { truncateString } from '../../../util/TruncateString';
 import { priceToString } from '../../../util/PriceToString';
 import { Link, useLocation } from 'react-router-dom';

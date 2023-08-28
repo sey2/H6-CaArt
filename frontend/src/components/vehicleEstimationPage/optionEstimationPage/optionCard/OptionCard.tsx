@@ -5,7 +5,7 @@ import OptionCardTag from './OptionCardTag';
 import OptionCardGuide from './OptionCardGuide';
 import { priceToString } from '../../../../util/PriceToString';
 import { truncateString } from '../../../../util/TruncateString';
-import { EstimationContext } from '../../../../util/Context';
+import { EstimationContext } from '../../../../store/Context';
 import { OptionCategoryProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 
 export type OptionCardType = 'additionalAll' | 'additionalTag' | 'basic';

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { styled } from 'styled-components';
-import { EstimationContext } from '../../util/Context';
+import { EstimationContext } from '../../store/Context';
 import { priceToString } from '../../util/PriceToString';
 import { FlexBox } from '../common/FlexBox';
 

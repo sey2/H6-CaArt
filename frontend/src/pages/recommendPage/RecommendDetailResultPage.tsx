@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
-import { EstimationContext } from '../../util/Context';
+import { EstimationContext } from '../../store/Context';
 import ErrorPopup from '../../components/common/ErrorPopup';
 import ResultMain from '../../components/common/result/ResultMain';
 import SquareButton from '../../components/common/SquareButton';
@@ -46,7 +46,7 @@ function RecommendDetailResultPage({
   if (status === 'loading') {
     return (
       <LoadingBox>
-        <Loading width="50vw" height="50vh"></Loading>
+        <Loading $width="50vw" $height="50vh"></Loading>
       </LoadingBox>
     );
   } else if (status === 'error') {

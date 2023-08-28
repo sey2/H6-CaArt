@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useFetch } from '../../../../hooks/useFetch';
 import useModal from '../../../../hooks/useModal';
-import { EstimationContext } from '../../../../util/Context';
+import { EstimationContext } from '../../../../store/Context';
 import ErrorPopup from '../../../common/ErrorPopup';
 import TagList from '../../../common/TagList';
 import { OptionProps, SubOptionProps } from '../optionCardList/OptionCardList';

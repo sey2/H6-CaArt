@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { styled } from 'styled-components';
 import { DarkContext } from '../../hooks/useDark';
 import { useModalContext } from '../../store/ModalContext';
-import { EstimationContext } from '../../util/Context';
+import { EstimationContext } from '../../store/Context';
 
 function ResultImage() {
   const { isDark } = useContext(DarkContext)!;

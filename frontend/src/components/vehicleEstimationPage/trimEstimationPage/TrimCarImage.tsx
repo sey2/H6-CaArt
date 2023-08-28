@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { keyframes, styled } from 'styled-components';
-import { EstimationContext } from '../../../util/Context';
+import { EstimationContext } from '../../../store/Context';
 import RerecommendButton from './RerecommendButton';
 import RerecommendModal from './modal/RerecommendModal';
 

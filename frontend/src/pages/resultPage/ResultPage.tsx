@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TopContainer from '../../components/resultPage/TopContainer';
 import ResultMain from '../../components/common/result/ResultMain';
 import { styled } from 'styled-components';
@@ -10,16 +10,30 @@ import MailModal from '../../components/resultPage/modal/MailModal';
 import { useModalContext } from '../../store/ModalContext';
 import LoginModal from '../../components/resultPage/modal/LoginModal';
 import { useReactToPrint } from 'react-to-print';
+import Loading from '../../components/common/Loading';
 
 function ResultPage() {
   const { state, dispatch } = useModalContext();
+  const [loading, setLoading] = useState(true);
   const printRef = useRef<HTMLDivElement | null>(null);
   const handlePdf = useReactToPrint({
     content: () => printRef.current,
   });
   useEffect(() => {
     window.scroll(0, 0);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, []);
+
+  if (loading) {
+    return (
+      <LoadingBox>
+        <Loading $width="50vw" $height="50vh"></Loading>
+      </LoadingBox>
+    );
+  }
+
   return (
     <>
       {<ShareModal />}
@@ -64,6 +78,14 @@ function ResultPage() {
 }
 
 export default ResultPage;
+
+const LoadingBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+`;
 
 const MainContainer = styled.div`
   display: flex;

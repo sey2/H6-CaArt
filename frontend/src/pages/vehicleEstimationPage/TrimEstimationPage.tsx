@@ -1,22 +1,17 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, Suspense } from 'react';
 import styled from 'styled-components';
 import Header from '../../components/common/header/Header';
 import SquareButton from '../../components/common/SquareButton';
-import ToolTip from '../../components/common/ToolTip';
-import CompareModal from '../../components/vehicleEstimationPage/trimEstimationPage/modal/CompareModal';
 import EBWContainer from '../../components/vehicleEstimationPage/trimEstimationPage/EBWContainer';
-import EBWGuideModal from '../../components/vehicleEstimationPage/trimEstimationPage/modal/EBWGuideModal';
 import TrimCarImage from '../../components/vehicleEstimationPage/trimEstimationPage/TrimCarImage';
 import TrimContainer from '../../components/vehicleEstimationPage/trimEstimationPage/TrimContainer';
-import OptionExplainModal from '../../components/vehicleEstimationPage/trimEstimationPage/modal/OptionExplainModal';
 import { Link } from 'react-router-dom';
 import { useModalContext } from '../../store/ModalContext';
 import { useFetch } from '../../hooks/useFetch';
-import { EstimationContext } from '../../util/Context';
+import { EstimationContext } from '../../store/Context';
 import { PreloadProps } from './VehicleEstimationPage';
 import { preloadContext } from '../../store/PreloadContext';
 import { ExteriorColor, InteriorColor } from './ColorEstimationPage';
-import TrimChangeModal from '../../components/vehicleEstimationPage/trimEstimationPage/modal/TrimChangeModal';
 
 interface TrimCarData {
   data: {
@@ -110,13 +105,47 @@ function TrimEstimationPage() {
     }
   }, [isDataLoad]);
 
+  const EBWGuideModalLazy = React.lazy(
+    () =>
+      import(
+        '../../components/vehicleEstimationPage/trimEstimationPage/modal/EBWGuideModal'
+      ),
+  );
+
+  const CompareModalLazy = React.lazy(
+    () =>
+      import(
+        '../../components/vehicleEstimationPage/trimEstimationPage/modal/CompareModal'
+      ),
+  );
+
+  const ToolTipLazy = React.lazy(
+    () => import('../../components/common/ToolTip'),
+  );
+
+  const OptionExplainModalLazy = React.lazy(
+    () =>
+      import(
+        '../../components/vehicleEstimationPage/trimEstimationPage/modal/OptionExplainModal'
+      ),
+  );
+
+  const TrimChangeModalLazy = React.lazy(
+    () =>
+      import(
+        '../../components/vehicleEstimationPage/trimEstimationPage/modal/TrimChangeModal'
+      ),
+  );
+
   return (
     <>
-      {<EBWGuideModal />}
-      {<CompareModal data={data as Trim[]} />}
-      {<ToolTip />}
-      {<OptionExplainModal />}
-      {<TrimChangeModal />}
+      <Suspense fallback={<div></div>}>
+        <EBWGuideModalLazy />
+        {<CompareModalLazy data={data as Trim[]} />}
+        {<ToolTipLazy />}
+        {<OptionExplainModalLazy />}
+        {<TrimChangeModalLazy />}
+      </Suspense>
       <Wrapper onClick={closeModalHandler}>
         <Header size="large" page={0} />
         <Layout>

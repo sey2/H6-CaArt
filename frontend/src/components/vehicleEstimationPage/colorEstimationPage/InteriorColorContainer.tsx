@@ -4,7 +4,7 @@ import {
   InteriorColor,
   SelectedType,
 } from '../../../pages/vehicleEstimationPage/ColorEstimationPage';
-import { EstimationContext } from '../../../util/Context';
+import { EstimationContext } from '../../../store/Context';
 import ColorButton from './button/ColorButton';
 import { SelectedBox } from './ExteriorColorContainer';
 import RankBanner from './RankBanner';

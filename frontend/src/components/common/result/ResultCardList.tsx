@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import ResultCard from './ResultCard';
-import { EstimationContext } from '../../../util/Context';
+import { EstimationContext } from '../../../store/Context';
 
 function ResultCardList() {
   const { currentEstimation } = useContext(EstimationContext)!;
