@@ -1,4 +1,4 @@
-name: Test & Add coverage to PR
+name: Test & Add coverage to PR - backend
 
 on:
   pull_request:

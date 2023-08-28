@@ -1,5 +1,5 @@
 ## CaArt 백엔드 서비스 배포
-name: Deploy to Amazon EC2
+name: Deploy to Amazon EC2 - backend
 
 on:
   push:

@@ -1,0 +1,47 @@
+name: Test & Deploy - frontend
+
+on:
+  push:
+    branches: 
+      - 'develop'
+      - 'main'
+    paths:
+      - 'frontend/**'
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ap-northeast-2
+  S3_BUCKET_NAME: ca-art.store
+  wd: ./frontend
+                       
+jobs:                               
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code.   
+        uses: actions/checkout@v3
+      
+      - name: Check Node v            
+        run: node -v
+        
+      - name: Install dependencies
+        working-directory: ${{ env.wd }}
+        run: yarn install --frozen-lockfile
+      
+      - name: Generate build         
+        working-directory: ${{ env.wd }}
+        run: yarn build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Upload to AWS S3           
+        working-directory: ${{ env.wd }}
+        run: | 
+            aws s3 cp --recursive --region ${{ env.AWS_REGION }} build s3://${{ env.S3_BUCKET_NAME }}
