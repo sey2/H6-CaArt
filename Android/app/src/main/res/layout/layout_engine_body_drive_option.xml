@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="carTrimChoiceViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.CarTrimChoiceViewModel" />
+
+        <variable
+            name="userChoiceViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_round8_background_gray300">
+
+        <TextView
+            android:id="@+id/tv_engine_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="43dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@string/engine"
+            android:textColor="@color/gray_200"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/rg_engine"
+            app:layout_constraintEnd_toStartOf="@id/rg_engine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/rg_engine"
+            app:onCompositionChanged="@{userChoiceViewModel}"
+            app:carTrimChoiceViewModel="@{carTrimChoiceViewModel}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/btn_engine_left"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/selector_radio_btn_background"
+                android:button="@android:color/transparent"
+                android:checked="@{userChoiceViewModel.selectedEngine.id == 1}"
+                android:textColor="@drawable/selector_radio_btn_text_color"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:text="@{carTrimChoiceViewModel.composition.carEngines[0].itemName}"
+                android:textAlignment="center"
+                tools:text="디젤 2.2" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/btn_engine_right"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/selector_radio_btn_background"
+                android:button="@android:color/transparent"
+                android:checked="@{userChoiceViewModel.selectedEngine.id == 2}"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:textColor="@drawable/selector_radio_btn_text_color"
+                android:text="@{carTrimChoiceViewModel.composition.carEngines[1].itemName}"
+                android:textAlignment="center"
+                tools:text="가솔린 3.8" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_body_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="43dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@string/body"
+            android:textColor="@color/gray_200"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/rg_engine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rg_engine" />
+
+        <RadioGroup
+            android:id="@+id/rg_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            app:onCompositionChanged="@{userChoiceViewModel}"
+            app:carTrimChoiceViewModel="@{carTrimChoiceViewModel}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rg_engine">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/btn_body_left"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/selector_radio_btn_background"
+                android:button="@android:color/transparent"
+                android:checked="@{userChoiceViewModel.selectedBodyType.id == 1}"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:text="@{carTrimChoiceViewModel.composition.bodyTypes[0].itemName}"
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_radio_btn_text_color"
+                tools:text="디젤 2.2" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/btn_body_right"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/selector_radio_btn_background"
+                android:button="@android:color/transparent"
+                android:checked="@{userChoiceViewModel.selectedBodyType.id == 2}"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:text="@{carTrimChoiceViewModel.composition.bodyTypes[1].itemName}"
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_radio_btn_text_color"
+                tools:text="가솔린 3.8" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_driven_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="43dp"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:text="@string/driven"
+            android:textColor="@color/gray_200"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/rg_body"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rg_body" />
+
+        <RadioGroup
+            android:id="@+id/rg_driven"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal"
+            app:onCompositionChanged="@{userChoiceViewModel}"
+            app:carTrimChoiceViewModel="@{carTrimChoiceViewModel}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rg_body">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/btn_driven_left"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/selector_radio_btn_background"
+                android:button="@android:color/transparent"
+                android:checked="@{userChoiceViewModel.selectedWheelDrive.id == 1}"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:text="@{carTrimChoiceViewModel.composition.wheelDrives[0].itemName}"
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_radio_btn_text_color"
+                tools:text="디젤 2.2" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/btn_driven_right"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/selector_radio_btn_background"
+                android:button="@android:color/transparent"
+                android:checked="@{userChoiceViewModel.selectedWheelDrive.id == 2}"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:text="@{carTrimChoiceViewModel.composition.wheelDrives[1].itemName}"
+                android:textColor="@drawable/selector_radio_btn_text_color"
+                android:textAlignment="center"
+
+                tools:text="가솔린 3.8" />
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

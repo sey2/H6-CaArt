@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isDefault"
+            type="boolean" />
+
+        <variable
+            name="option"
+            type="org.softeer_2nd.caArt.model.data.Option" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_option_preview_image"
+            url="@{option.optionImage}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_rect_r4"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="w,112:168"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_more"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_rect_r4"
+            android:backgroundTint="@color/gray_700"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:gravity="center_vertical"
+            android:minHeight="22dp"
+            android:paddingStart="8dp"
+            android:text="@string/more"
+            android:textColor="@color/gray_300"
+            android:textSize="11sp"
+            app:drawableEndCompat="@drawable/ic_arrow_right_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_option_preview_image" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_option_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/hyundaisanshead_medium"
+            android:maxLines="1"
+            android:text="@{option.optionName}"
+            android:textColor="@color/gray_0"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_preview_more"
+            tools:text="컴포트2" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_option_price"
+            formattedPrice="@{option.optionPrice}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:textColor="@color/gray_400"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_preview_option_name"
+            tools:text="1,090,000" />
+
+        <org.softeer_2nd.caArt.ui.custom.SelectLongButton
+            android:id="@+id/sb_option_preview_option_select"
+            style="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_option_check_long_btn_bakcground_180_blue"
+            android:button="@null"
+            android:checked="false"
+            android:textColor="@color/blue"
+            android:textColorHighlight="@android:color/transparent"
+            android:textSize="12sp"
+            app:layout_constraintDimensionRatio="w,28:69"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_preview_option_price" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{isDefault?View.GONE:View.VISIBLE}"
+            app:constraint_referenced_ids="tv_option_preview_option_price,sb_option_preview_option_select" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_option_adoption_background_r4"
+            android:backgroundTint="@{option.badge.equals(@string/n_performance)?@color/badge_red:@color/badge_blue}"
+            android:fontFamily="@font/hyundaisanstextkrbold"
+            android:gravity="center"
+            android:minHeight="24dp"
+            android:paddingHorizontal="6dp"
+            android:text="@{option.badge}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="@{option.badge==null?View.GONE:View.VISIBLE}"
+            app:layout_constraintDimensionRatio="w,24:127"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/iv_option_preview_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="H Genuine Accessories" />
+
+        <TextView
+            android:id="@+id/tv_option_preview_adaptionRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_option_badge_background_r4"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:gravity="center"
+            android:minHeight="34dp"
+            android:paddingHorizontal="8dp"
+            android:text="@{Integer.toString(option.adoptionRate)+`%의 사용자가 선택`}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="@{option.adoptionRate==null||option.adoptionRate&lt;60?View.GONE:View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_option_preview_image"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="65% 의 사용자가 선택" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

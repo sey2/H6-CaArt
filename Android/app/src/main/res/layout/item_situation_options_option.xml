@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isSelected"
+            type="boolean" />
+
+        <variable
+            name="optionImageUrl"
+            type="String" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClickListener="@{onClickListener}"
+        android:visibility="@{optionImageUrl==null?View.INVISIBLE:View.VISIBLE}"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        app:strokeColor="@color/gray_700"
+        app:strokeWidth="1dp">
+
+        <ImageView
+            android:id="@+id/iv_situational_options_image"
+            url="@{optionImageUrl}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/iv_situational_options_select_overlap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/select_blue_500"
+            android:scaleType="centerInside"
+            android:visibility="@{isSelected?View.VISIBLE:View.GONE}"
+            app:srcCompat="@drawable/ic_check_circle_24" />
+    </com.google.android.material.card.MaterialCardView>
+</layout>

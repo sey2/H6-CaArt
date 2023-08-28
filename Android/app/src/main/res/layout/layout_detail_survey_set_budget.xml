@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="org.softeer_2nd.caArt.util.StringFormatter" />
+
+        <variable
+            name="minPrice"
+            type="long" />
+
+        <variable
+            name="maxPrice"
+            type="long" />
+
+        <variable
+            name="step"
+            type="long" />
+
+        <variable
+            name="selectPrice"
+            type="long" />
+
+        <variable
+            name="onSliderValueChangedListener"
+            type="com.google.android.material.slider.Slider.OnChangeListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <TextView
+            android:id="@+id/tv_detail_survey_set_budget_price_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hyundaisansheadkrmedium"
+            android:text="@{StringFormatter.INSTANCE.formatPriceString(minPrice)+`만원 ~ ` + StringFormatter.INSTANCE.formatPriceString(selectPrice)+`만원`}"
+            android:textColor="@color/gray_50"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4200 ~ 6900만원" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/rs_detail_survey_set_budget_slider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:stepSize="@{step}"
+            android:value="@{maxPrice}"
+            android:valueFrom="@{minPrice}"
+            android:valueTo="@{maxPrice}"
+            app:labelBehavior="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_survey_set_budget_price_indicator"
+            app:onChangeListener="@{onSliderValueChangedListener}"
+            app:thumbColor="@color/white"
+            app:thumbRadius="12dp"
+            app:thumbStrokeColor="@color/gray_500"
+            app:thumbStrokeWidth="1dp"
+            app:tickVisible="false"
+            app:trackColorActive="@color/active_blue"
+            app:trackColorInactive="@color/gray_700"
+            app:trackHeight="8dp" />
+
+        <TextView
+            android:id="@+id/tv_detail_survey_set_budget_min_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:text="@{Long.toString(minPrice)+` 만원`}"
+            android:textColor="@color/gray_400"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rs_detail_survey_set_budget_slider" />
+
+        <TextView
+            android:id="@+id/tv_detail_survey_set_budget_max_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:text="@{Long.toString(maxPrice)+` 만원`}"
+            android:textColor="@color/gray_400"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rs_detail_survey_set_budget_slider" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

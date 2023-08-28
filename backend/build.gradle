@@ -1,0 +1,96 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.14'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'jacoco'
+    id "io.sentry.jvm.gradle" version "3.11.1"
+}
+
+group = 'com.softeer'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '11'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2021.0.8")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+    // Spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-aop' // @aspect
+    // OpenFeign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    // Swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
+    // Logging & Sentry
+    implementation 'com.google.code.gson:gson:2.9.0' // Gson
+    implementation 'io.sentry:sentry-spring-boot-starter:6.27.0' // Sentry
+    implementation 'io.sentry:sentry-logback:6.27.0' // logging
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // Database
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    testImplementation 'com.h2database:h2'
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = '0.8.9'
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+}
+
+tasks.register('testCoverage', Test) {
+    group 'verification'
+    description 'Runs the tests with covarage (Create JaCoCo report)'
+
+    dependsOn test, jacocoTestReport
+    tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+}
+
+jar {
+    enabled = false
+}
+
+sentry {
+    includeSourceContext = true
+
+    org = "___ORG_SLUG___"
+    projectName = "ca_art"
+    authToken = "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"
+}
+

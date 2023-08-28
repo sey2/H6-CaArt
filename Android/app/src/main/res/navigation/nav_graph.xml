@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_carTrimChoiceFragment"
+            app:destination="@id/carTrimChoiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_lifeStyleSurveyFragment"
+            app:destination="@id/lifeStyleSurveyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/carTrimChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarTrimChoiceFragment"
+        android:label="CarColorTrimFragment">
+        <action
+            android:id="@+id/action_carTrimChoiceFragment_to_carTrimDescriptionFragment"
+            app:destination="@id/carTrimDescriptionFragment" />
+        <action
+            android:id="@+id/action_carTrimChoiceFragment_to_carColorChoiceFragment"
+            app:destination="@id/carColorChoiceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/carColorChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarColorChoiceFragment"
+        android:label="CarColorChoiceFragment">
+        <action
+            android:id="@+id/action_carColorChoiceFragment_to_carOptionChoiceFragment"
+            app:destination="@id/carOptionChoiceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/carOptionChoiceFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarOptionChoiceFragment"
+        android:label="CarOptionChoiceFragment">
+
+        <action
+            android:id="@+id/action_carOptionChoiceFragment_to_estimateFragment"
+            app:destination="@id/estimateFragment" />
+        <action
+            android:id="@+id/action_carOptionChoiceFragment_to_carBuildingLoadingFragment"
+            app:destination="@id/carBuildingLoadingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/estimateFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.EstimateFragment"
+        android:label="estimateFragment" />
+
+    <fragment
+        android:id="@+id/carTrimDescriptionFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarTrimDescriptionFragment"
+        android:label="carTrimDescriptionFragment" />
+    <fragment
+        android:id="@+id/lifeStyleSurveyFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleSurveyFragment"
+        android:label="LifeStyleSurveyFragment">
+        <action
+            android:id="@+id/action_lifeStyleSurveyFragment_to_lifeStyleDetailSurveyFragment"
+            app:destination="@id/lifeStyleDetailSurveyFragment" />
+        <action
+            android:id="@+id/action_lifeStyleSurveyFragment_to_lifestyleDetailFragment"
+            app:destination="@id/lifestyleDetailFragment" />
+        <action
+            android:id="@+id/action_lifeStyleSurveyFragment_to_recommendCompleteFragment"
+            app:destination="@id/recommendCompleteFragment">
+            <argument
+                android:name="experience"
+                android:defaultValue="@null"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="family"
+                android:defaultValue="@null"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="purpose"
+                android:defaultValue="@null"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="value"
+                android:defaultValue="@null"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="budget"
+                android:defaultValue="6900"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/lifeStyleDetailSurveyFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleDetailSurveyFragment"
+        android:label="LifeStyleDetailSurveyFragment">
+        <action
+            android:id="@+id/action_lifeStyleDetailSurveyFragment_to_recommendCompleteFragment"
+            app:destination="@id/recommendCompleteFragment">
+            <argument
+                android:name="budget"
+                app:argType="integer" />
+            <argument
+                android:name="experience"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="family"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="purpose"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+            <argument
+                android:name="value"
+                app:argType="org.softeer_2nd.caArt.model.data.Answer"
+                app:nullable="true" />
+        </action>
+        <argument
+            android:name="age"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer" />
+    </fragment>
+    <fragment
+        android:id="@+id/lifestyleDetailFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.LifestyleDetailFragment"
+        android:label="LifestyleDetailFragment">
+        <argument
+            android:name="personaId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/recommendCompleteFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.RecommendCompleteFragment"
+        android:label="RecommendCompleteFragment">
+        <argument
+            android:name="age"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer" />
+        <argument
+            android:name="personaId"
+            android:defaultValue="1"
+            app:argType="integer" />
+        <argument
+            android:name="experience"
+            android:defaultValue="@null"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer"
+            app:nullable="true" />
+        <argument
+            android:name="family"
+            android:defaultValue="@null"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer"
+            app:nullable="true" />
+        <argument
+            android:name="purpose"
+            android:defaultValue="@null"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer"
+            app:nullable="true" />
+        <argument
+            android:name="value"
+            android:defaultValue="@null"
+            app:argType="org.softeer_2nd.caArt.model.data.Answer"
+            app:nullable="true" />
+        <argument
+            android:name="budget"
+            android:defaultValue="6900"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_recommendCompleteFragment_to_carTrimChoiceFragment"
+            app:destination="@id/carTrimChoiceFragment" />
+        <action
+            android:id="@+id/action_recommendCompleteFragment_to_estimateFragment"
+            app:destination="@id/estimateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/carBuildingLoadingFragment"
+        android:name="org.softeer_2nd.caArt.ui.fragment.CarBuildingLoadingFragment"
+        android:label="CarBuildingLoadingFragment">
+        <action
+            android:id="@+id/action_carBuildingLoadingFragment_to_estimateFragment"
+            app:destination="@id/estimateFragment"
+            app:popUpTo="@id/carBuildingLoadingFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="loadingDuration"
+            app:argType="long" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_carBuildingLoadingFragment"
+        app:destination="@id/carBuildingLoadingFragment" />
+</navigation>

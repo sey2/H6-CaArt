@@ -1,0 +1,42 @@
+-- 하위 옵션 데이터
+
+-- 하위 옵션
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (2, 17, 1);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (3, 18, 1);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (4, 19, 1);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (5, 20, 1);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (6, 21, 9);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (7, 22, 9);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (8, 23, 9);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (9, 24, 1);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (10, 25, 1);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (11, 24, 5);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (12, 25, 5);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (13, 26, 4);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (14, 48, 2);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (15, 61, 4);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (16, 62, 4);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (17, 75, 3);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (18, 83, 4);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (19, 85, 4);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (20, 105, 3);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (21, 106, 2);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (22, 107, 2);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (23, 108, 1);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (24, 113, 4);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (25, 122, 19);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (26, 123, 19);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (27, 124, 15);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (28, 125, 15);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (29, 126, 18);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (30, 127, 20);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (31, 128, 20);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (32, 129, 20);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (33, 130, 20);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (34, 131, 20);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (35, 132, 20);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (36, 133, 20);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (37, 134, 21);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (38, 135, 21);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (39, 136, 21);
+INSERT INTO ca_art.sub_option_info (sub_option_info_id, base_option_info_id, additional_option_info_id) VALUES (40, 153, 18);

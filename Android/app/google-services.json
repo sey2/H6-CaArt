@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "481826882835",
+    "project_id": "caart-12273",
+    "storage_bucket": "caart-12273.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481826882835:android:56a87156a765641c4586e6",
+        "android_client_info": {
+          "package_name": "org.softeer_2nd.caArt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481826882835-pvauuka2v4adr56kdarebn5m7g75i2lo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWCjvtilfIhl8G2tcWB7aCxzvAdzEGRVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481826882835-pvauuka2v4adr56kdarebn5m7g75i2lo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

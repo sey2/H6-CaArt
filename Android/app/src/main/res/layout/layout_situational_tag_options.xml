@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="imageUrl"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <org.softeer_2nd.caArt.ui.custom.DynamicOptionFloatingImageView
+            android:id="@+id/iv_situational_tag_options_situation_image"
+            url="@{imageUrl}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/gray_400"
+            app:layout_constraintDimensionRatio="w,240:375"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_situational_tag_options_warning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:text="@string/suggest_check_option_detail"
+            android:textColor="@color/gray_500"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inc_situation_option1" />
+
+        <include
+            android:id="@+id/inc_situation_option1"
+            layout="@layout/item_situation_options_option"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/inc_situation_option2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_situational_tag_options_situation_image" />
+
+        <include
+            android:id="@+id/inc_situation_option2"
+            layout="@layout/item_situation_options_option"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintBottom_toBottomOf="@id/inc_situation_option1"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/inc_situation_option3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/inc_situation_option1"
+            app:layout_constraintTop_toTopOf="@id/inc_situation_option1"
+            app:srcCompat="@drawable/drawable_search_156" />
+
+        <include
+            android:id="@+id/inc_situation_option3"
+            layout="@layout/item_situation_options_option"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintBottom_toBottomOf="@id/inc_situation_option2"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toStartOf="@id/inc_situation_option4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/inc_situation_option2"
+            app:layout_constraintTop_toTopOf="@id/inc_situation_option2"
+            app:srcCompat="@drawable/drawable_search_156" />
+
+        <include
+            android:id="@+id/inc_situation_option4"
+            layout="@layout/item_situation_options_option"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/inc_situation_option3"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/inc_situation_option3"
+            app:layout_constraintTop_toTopOf="@id/inc_situation_option3"
+            app:srcCompat="@drawable/drawable_search_156" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

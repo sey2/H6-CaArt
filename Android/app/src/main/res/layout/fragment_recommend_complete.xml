@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isCarmasterRecommend"
+            type="boolean" />
+
+        <variable
+            name="model"
+            type="org.softeer_2nd.caArt.model.data.state.Model" />
+
+        <variable
+            name="recommendationCard"
+            type="org.softeer_2nd.caArt.model.data.state.RecommendationCardState" />
+
+        <variable
+            name="carImage"
+            type="String" />
+
+        <variable
+            name="totalPrice"
+            type="Long" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="30dp">
+
+            <FrameLayout
+                android:id="@+id/fl_recommend_complete_cover_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include
+                    android:id="@+id/inc_recommend_complete_by_lifestyle_cover"
+                    layout="@layout/layout_recommendation_complete_by_lifestyle_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{isCarmasterRecommend?View.GONE:View.VISIBLE}"
+                    bind:carImage="@{carImage}"
+                    bind:card="@{recommendationCard}"
+                    bind:model="@{model}" />
+
+                <include
+                    android:id="@+id/inc_recommend_complete_by_additional_question_cover"
+                    layout="@layout/layout_recommendation_complete_by_additional_question_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{isCarmasterRecommend?View.VISIBLE:View.GONE}"
+                    bind:carImage="@{carImage}" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_recommend_complete_model_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/hyundaisansheadkrbold"
+                android:text="@{model.modelName}"
+                android:textColor="@color/gray_50"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fl_recommend_complete_cover_container"
+                tools:text="펠리세이드" />
+
+            <TextView
+                android:id="@+id/tv_recommend_complete_trim_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:text="@{model.trim.trimName}"
+                android:textColor="@color/gray_300"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_recommend_complete_model_name"
+                app:layout_constraintStart_toEndOf="@id/tv_recommend_complete_model_name"
+                app:layout_constraintTop_toTopOf="@id/tv_recommend_complete_model_name"
+                tools:text="Prestige" />
+
+            <TextView
+                android:id="@+id/tv_recommend_complete_trim_price"
+                formattedPrice="@{model.trim.trimPrice+model.engine.enginePrice+model.wheelDrive.wheelDrivePrice+model.bodyType.bodyTypePrice}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:textColor="@color/gray_100"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_recommend_complete_model_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_recommend_complete_model_name"
+                tools:text="43,460,000원" />
+
+            <TextView
+                android:id="@+id/tv_recommend_complete_compositions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/hyundaisanstextkrregular"
+                android:text="@{model.engine.itemName + ` ・ `+model.wheelDrive.itemName+ ` ・ `+model.bodyType.itemName}"
+                android:textColor="@color/gray_400"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recommend_complete_model_name"
+                tools:text="가솔린  ・ 2WD ・ 8인승" />
+
+            <View
+                android:id="@+id/v_recommend_complete_bottom_border"
+                style="@style/CaArtBorderViewStyle"
+                android:layout_width="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recommend_complete_compositions" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recommend_complete_recommend_options_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_recommend_complete_bottom_border" />
+
+            <TextView
+                android:id="@+id/tv_recommend_complete_total_price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/hyundaisanstextkrmedium"
+                android:text="@string/total_price"
+                android:textColor="@color/gray_400"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_recommend_complete_recommend_options_container" />
+
+            <TextView
+                android:id="@+id/tv_recommend_complete_total_price"
+                formattedPrice="@{totalPrice}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/hyundaisansheadkrmedium"
+                android:text=""
+                android:textColor="@color/gray_0"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_recommend_complete_total_price_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_recommend_complete_total_price_title"
+                tools:text="48,120,000원" />
+
+            <Button
+                android:id="@+id/btn_recommend_complete_go_custom"
+                style="@style/SecondaryButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/custom"
+                app:layout_constraintEnd_toStartOf="@id/btn_recommend_complete_go_estimate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recommend_complete_total_price_title" />
+
+            <Button
+                android:id="@+id/btn_recommend_complete_go_estimate"
+                style="@style/PrimaryButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/estimate"
+                app:layout_constraintBottom_toBottomOf="@id/btn_recommend_complete_go_custom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_recommend_complete_go_custom"
+                app:layout_constraintTop_toTopOf="@id/btn_recommend_complete_go_custom" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

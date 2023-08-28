@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandableView">
+        <attr name="isRotateEffect" format="boolean" />
+        <attr name="rotateIconTint" format="reference" />
+        <attr name="rotateIcon" format="reference" />
+        <attr name="initialState" format="enum">
+            <enum name="contract" value="0" />
+            <enum name="expand" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircleIndicator">
+        <attr name="dotCount" format="integer"/>
+        <attr name="defaultDotRadius" format="float"/>
+        <attr name="selectedDotRadius" format="float"/>
+        <attr name="dotPadding" format="float"/>
+        <attr name="selectedDotIndex" format="integer"/>
+        <attr name="defaultDotColor" format="reference"/>
+        <attr name="selectedDotColor" format="reference"/>
+    </declare-styleable>
+
+</resources>

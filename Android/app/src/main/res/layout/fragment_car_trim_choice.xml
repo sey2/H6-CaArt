@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="trimChoiceViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.CarTrimChoiceViewModel" />
+
+        <variable
+            name="userViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.UserChoiceViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:engineBodyOptionId="@{@id/inc_engine_body_option}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toolTipVisibility="@{trimChoiceViewModel}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include
+                    android:id="@+id/inc_top_indicator"
+                    layout="@layout/layout_detail_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_car_spin_background"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/img_car_background"
+                    android:contentDescription="@string/car_exterior_spin_image"
+                    app:layout_constraintDimensionRatio="w,195:375"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/inc_top_indicator" />
+
+                <ImageView
+                    android:id="@+id/iv_trim_car"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginTop="37dp"
+                    android:layout_marginEnd="42dp"
+                    android:layout_marginBottom="37dp"
+                    android:contentDescription="@string/car_exterior_spin_image"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_car_spin_background"
+                    app:layout_constraintDimensionRatio="w,185:375"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_car_spin_background"
+                    app:url="@{userViewModel.selectedTrim.trimImage}"
+                    tools:background="@drawable/img_car_trim" />
+
+                <TextView
+                    android:id="@+id/tv_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/hyundaisanstext_bold"
+                    android:textColor="@color/active_blue"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_car_spin_background"
+                    app:underlineText="@{@string/difficult_to_choose}"
+                    tools:text="@string/difficult_to_choose" />
+
+                <ImageView
+                    android:id="@+id/iv_question_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/ic_question_mark_16"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_question"
+                    app:layout_constraintEnd_toStartOf="@id/tv_question"
+                    app:layout_constraintTop_toTopOf="@id/tv_question" />
+
+                <include
+                    android:id="@+id/inc_engine_body_option"
+                    layout="@layout/layout_engine_body_drive_option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_question" />
+
+                <View
+                    android:id="@+id/divider"
+                    style="@style/CaArtBorderViewStyleLargerHeight"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_tool_tip" />
+
+                <include
+                    android:id="@+id/view_tool_tip"
+                    layout="@layout/layout_bubble"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="-10dp"
+                    android:background="@drawable/shape_bubble"
+                    app:animatedVisibility="@{trimChoiceViewModel.isToolTipVisible}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/inc_engine_body_option" />
+
+                <ImageView
+                    android:id="@+id/ic_tool_tip_bulb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_bulb_32"
+                    app:layout_constraintBottom_toBottomOf="@id/view_tool_tip"
+                    app:layout_constraintStart_toStartOf="@id/view_tool_tip"
+                    app:layout_constraintTop_toBottomOf="@id/inc_engine_body_option"
+                    app:layout_constraintVertical_bias="0.66" />
+
+                <TextView
+                    android:id="@+id/tv_tool_tip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="18dp"
+                    android:fontFamily="@font/hyundaisansheadkrregular"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@{trimChoiceViewModel.trimChoiceDescription}"
+                    android:textColor="@color/tool_tip_gray_900"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/view_tool_tip"
+                    app:layout_constraintEnd_toEndOf="@id/view_tool_tip"
+                    app:layout_constraintStart_toEndOf="@id/ic_tool_tip_bulb"
+                    app:layout_constraintTop_toBottomOf="@id/inc_engine_body_option"
+                    app:layout_constraintVertical_bias="0.70"
+                    tools:text="디젤은 연비가 좋고, 가솔린 승차감이 더 부드럽고 조용해요" />
+
+                <TextView
+                    android:id="@+id/tv_trim_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/hyundaisanstextkrmedium"
+                    android:text="@string/trim"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_trim"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginBottom="130dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_trim_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <org.softeer_2nd.caArt.ui.custom.SummaryBottomSheet
+            android:id="@+id/trim_summary_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="userChoiceItem"
+            type="org.softeer_2nd.caArt.model.data.UserChoiceBottomsheetState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/tv_option_title"
+            style="@style/BottomSheetTitleTextStyle"
+            android:textSize="14sp"
+            android:text="@{userChoiceItem.optionTitle}"
+            app:layout_constraintStart_toStartOf="@id/iv_line"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="@string/model"/>
+
+        <TextView
+            android:id="@+id/tv_option_detail_top"
+            style="@style/BottomSheetOptionDetailTextStyle"
+            android:layout_width="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{userChoiceItem.optionDetailTop}"
+            app:layout_constraintEnd_toStartOf="@id/tv_price_top"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/iv_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_title"
+            tool:text="@string/trim_desc" />
+
+        <TextView
+            android:id="@+id/tv_price_top"
+            style="@style/PriceTextStyle"
+            android:text="@{userChoiceItem.priceTop}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_line"
+            app:layout_constraintTop_toTopOf="@id/tv_option_detail_top" />
+
+        <TextView
+            android:id="@+id/tv_option_detail_bottom"
+            style="@style/BottomSheetOptionDetailTextStyle"
+            android:layout_width="0dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{userChoiceItem.optionDetailBottom}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_price_bottom"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/iv_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_detail_top"
+            tool:text="@string/seater" />
+
+        <TextView
+            android:id="@+id/tv_price_bottom"
+            style="@style/PriceTextStyle"
+            android:layout_marginTop="4dp"
+            android:text="@{userChoiceItem.priceBottom}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_line"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_detail_top" />
+
+        <View
+            android:id="@+id/iv_line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/gray_700"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_detail_bottom" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

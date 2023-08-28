@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="tagName"
+            type="String" />
+
+        <variable
+            name="iconUrl"
+            type="String" />
+
+        <variable
+            name="clickListener"
+            type="org.softeer_2nd.caArt.ui.callback.OnRecyclerItemClickListener" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_option_tab_icon"
+            svgUrl="@{iconUrl}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/shape_stroke_background_r16_blue"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_option_tag_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/hyundaisanstextkrregular"
+            android:text="@{tagName}"
+            android:textFontWeight="500"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_option_tab_icon"
+            app:layout_constraintStart_toStartOf="@id/iv_option_tab_icon"
+            app:layout_constraintTop_toBottomOf="@id/iv_option_tab_icon"
+            tools:text="전체"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

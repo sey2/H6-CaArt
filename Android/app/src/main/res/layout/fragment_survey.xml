@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="pageCount"
+            type="int" />
+
+        <variable
+            name="pageIndex"
+            type="int" />
+
+        <variable
+            name="questionString"
+            type="String" />
+
+        <variable
+            name="questionHighlightString"
+            type="String" />
+
+        <variable
+            name="processViewModel"
+            type="org.softeer_2nd.caArt.viewmodel.ProcessViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_survey_screen_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/pb_survey_progress_indicator"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:max="@{pageCount}"
+            android:progress="@{pageIndex}"
+            android:progressBackgroundTint="@color/gray_800"
+            android:progressTint="@color/active_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:max="5"
+            tools:progress="2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_survey_answer_options_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="72dp"
+            android:clipToPadding="false"
+            android:paddingBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_survey_next_process"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_survey_question"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/btn_survey_next_process"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:fontFamily="@font/hyundaisanstextkrmedium"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:onClick="@{()->processViewModel.next()}"
+            android:text="@{pageIndex!=pageCount?@string/next:@string/estimate}"
+            android:textSize="16sp"
+            app:backgroundTint="@color/blue"
+            app:cornerRadius="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_survey_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/hyundaisansheadkrregular"
+            android:text="@{questionString}"
+            android:textColor="@color/gray_0"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_survey_progress_text_indicator"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pb_survey_progress_indicator"
+            tools:text="나이를 알려주세요." />
+
+        <TextView
+            android:id="@+id/tv_survey_progress_text_indicator"
+            android:layout_width="65dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/shape_survey_text_indicator_background_r22_gray900"
+            android:fontFamily="@font/hyundaisanshead_bold"
+            android:gravity="center"
+            android:text="@{Integer.toString(pageIndex)+'/'+Integer.toString(pageCount)}"
+            android:textColor="@color/gray_400"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_survey_question"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/tv_survey_question"
+            app:layout_constraintTop_toTopOf="@id/tv_survey_question"
+            tools:text="1/2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
