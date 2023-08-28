@@ -113,7 +113,7 @@ fun TextView.animatePriceChange(newPrice: Long?) {
     val valueAnimator = ValueAnimator.ofInt(oldPrice ?: 0, targetPrice)
     valueAnimator.duration = 1000
     valueAnimator.addUpdateListener { animator ->
-        text = "${animator.animatedValue}".setFormattedPrice()
+        text = "${animator.animatedValue}".setFormattedPrice().trim()
     }
     valueAnimator.start()
 }

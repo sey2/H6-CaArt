@@ -126,6 +126,10 @@ class UserChoiceViewModel : ViewModel() {
         }
     }
 
+    fun setSelectedTrimImage(url: String) {
+        _selectedTrim.value?.trimImage = url
+    }
+
     fun getSpecifications(): String {
         return StringFormatter.combineCarComposition(
             selectedEngine.value?.itemName,

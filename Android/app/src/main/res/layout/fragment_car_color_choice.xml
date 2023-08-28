@@ -58,8 +58,10 @@
                     android:contentDescription="@string/car_exterior_spin_image"
                     app:layout_constraintBottom_toBottomOf="@id/iv_car_spin_background"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/inc_top_color_choice_indicator"
+                    app:layout_constraintVertical_bias="0.0"
                     app:onTouch="@{viewModel}"
                     app:spinActive="@{viewModel.spinActive}"
                     app:url="@{viewModel.currentExteriorColorImage}"
@@ -87,10 +89,9 @@
                     android:visibility="@{viewModel.preloadProgress == 100 ? View.GONE : View.VISIBLE}"
                     app:indicatorColor="@color/active_blue"
                     app:indicatorSize="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_car_spin_background"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/iv_car_spin_background"
-                    app:layout_constraintTop_toTopOf="@+id/iv_car_spin_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_spin_btn"
                     app:trackColor="@color/blue_500"
                     app:trackThickness="6dp" />
 

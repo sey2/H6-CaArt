@@ -19,6 +19,7 @@ import org.softeer_2nd.caArt.databinding.FragmentCarColorChoiceBinding
 import org.softeer_2nd.caArt.databinding.LayoutChangePopupBinding
 import org.softeer_2nd.caArt.model.data.ChoiceColorItem
 import org.softeer_2nd.caArt.model.data.OptionChangePopUpItem
+import org.softeer_2nd.caArt.model.data.dto.ExteriorColor
 import org.softeer_2nd.caArt.model.data.dto.InteriorColor
 import org.softeer_2nd.caArt.model.data.dto.toChoiceColorItems
 import org.softeer_2nd.caArt.ui.callback.OnOtherColorItemClickListener
@@ -179,6 +180,17 @@ class CarColorChoiceFragment() : Fragment(), OnOtherColorItemClickListener {
                                 0,
                                 0,
                                 changeItem.preview
+                            )
+                        )
+                    } else {
+                        userChoiceViewModel.setSelectedExteriorColor(
+                            ExteriorColor(
+                                index,
+                                changeItem.colorName,
+                                changeItem.imgUrl,
+                                0,
+                                0,
+                                listOf(changeItem.preview)
                             )
                         )
                     }
