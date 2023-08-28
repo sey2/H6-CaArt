@@ -29,7 +29,6 @@ function CarRotator({ data }: { data: ExteriorColor[] }) {
         item => item.colorName === currentEstimation.outerColor.name,
       );
       setBaseUrl(nowItem?.previews[0] as string);
-      console.log(baseUrl);
     }
   }, [currentEstimation.outerColor.name, data]);
 

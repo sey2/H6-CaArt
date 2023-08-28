@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SquareButton from '../SquareButton';
 import HeaderDetail from './HeaderDetail';
@@ -7,14 +7,23 @@ import { truncateString } from '../../../util/TruncateString';
 import { priceToString } from '../../../util/PriceToString';
 import { Link, useLocation } from 'react-router-dom';
 import DropDown from './DropDown';
+import { usePriceCount } from '../../../hooks/usePriceCount';
 
 function HeaderMain() {
   const { currentEstimation, totalPrice } = useContext(EstimationContext)!;
+  const [prevPrice, setPrevPrice] = useState(totalPrice);
   const [showDetail, setShowDetail] = useState(false);
   const optionList = getOptionList(currentEstimation.options);
   const url = useLocation().pathname;
   const selectedClassName = 'head-medium-14 text-primary-blue';
   const unSelectedClassName = 'head-regular-14 text-grey-600';
+
+  const { count: calcTotalPrice, startAnimation } = usePriceCount();
+
+  useEffect(() => {
+    startAnimation({ prevPrice, nextPrice: totalPrice });
+    setPrevPrice(totalPrice);
+  }, [prevPrice, totalPrice, startAnimation]);
 
   const estimateList = useMemo(
     () => [
@@ -87,7 +96,7 @@ function HeaderMain() {
               bg={'primary-blue'}
               height={40}
             >
-              {priceToString(totalPrice)} 견적내기
+              {priceToString(calcTotalPrice)} 견적내기
             </SquareButton>
           </Link>
         </ButtonBox>
