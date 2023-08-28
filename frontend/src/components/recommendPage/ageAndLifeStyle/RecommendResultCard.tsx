@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { LifeStyleResultProps } from '../../../pages/recommendPage/RecommendLifeStyleResultPage';
 import replaceWonSymbol from '../../../util/ReplaceWonSymbol';
 
@@ -78,12 +78,36 @@ const RecommendResultCardTitleText = styled.div`
   text-align: center;
 `;
 
+const CarImageAnimation = keyframes`
+  0%{
+    opacity:0;
+    left:35px;
+  }
+  100%{
+    opacity:1;
+    30px;
+  }
+`;
+
 const RecommendResultCardImg = styled.img`
   width: 496px;
   height: 246px;
   position: absolute;
   top: 91px;
   left: 30px;
+  animation: ${CarImageAnimation} 1s;
+`;
+
+const ResultTextAnimation = keyframes`
+  0%{
+    opacity:0;
+    margin-top:215px;
+  }
+
+  100%{
+    opacity:1;
+    margin-top:223px;
+  }
 `;
 
 const RecommendResultCardText = styled.div`
@@ -96,7 +120,9 @@ const RecommendResultCardText = styled.div`
   margin-top: 223px;
   border-radius: 8px;
   background: var(--grey-1000);
-
+  opacity: 0;
+  animation: ${ResultTextAnimation} 1s 1s;
+  animation-fill-mode: forwards;
   &::after {
     content: '';
     position: absolute;

@@ -1,4 +1,7 @@
 /* css variable */
+body {
+  transition: all 0.5s;
+}
 :root {
   --primary-blue: #00428e;
   --primary-blue-10: rgba(0, 66, 142, 0.1);
@@ -37,6 +40,7 @@
   --grey-0: #fff;
 
   background: var(--grey-1000);
+  transition: all 0.5s;
 }
 
 .text-primary-blue {

@@ -65,6 +65,10 @@ const Button = styled.div`
   border-radius: 6px;
   background: var(--grey-800);
   cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: var(--grey-700);
+  }
 `;
 
 const SelectedButton = styled(Button)`
@@ -78,4 +82,7 @@ const SelectedButton = styled(Button)`
   line-height: 22px;
   letter-spacing: -0.2px;
   color: var(--primary-blue);
+  &:hover {
+    background: var(--grey-1000);
+  }
 `;

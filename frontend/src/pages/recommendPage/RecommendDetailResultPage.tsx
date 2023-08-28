@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import { EstimationContext } from '../../store/Context';
@@ -144,11 +144,23 @@ const RecommendDetailResultPageBottomBox = styled.div`
   position: relative;
 `;
 
+const CarImageAnimation = keyframes`
+  0%{
+    right:5%;
+    opacity:0;
+  }
+  100%{
+    right:10%;
+    opacity:1
+  }
+`;
+
 const RecommendDetailResultPageCarImg = styled.img`
   position: absolute;
   top: -180px;
   right: 10%;
   width: 538px;
+  animation: ${CarImageAnimation} 1s;
 `;
 
 const RecommendDetailResultPageBtnBox = styled.div`
