@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import useUnderLine from '../../../../hooks/useUnderLine';
 import { OptionComponentProps } from '../../../../pages/vehicleEstimationPage/OptionEstimationPage';
 
 function OptionNavBarUpper({
@@ -9,34 +10,7 @@ function OptionNavBarUpper({
   const selectedClassName = `head-medium-20 text-grey-200`;
   const unSelectedClassName = `head-medium-20 text-grey-600`;
 
-  const lineRef = useRef<HTMLDivElement>(null);
-
-  const updateLine = useCallback((target: HTMLElement) => {
-    if (lineRef.current) {
-      lineRef.current.style.width = `${target.offsetWidth}px`;
-      lineRef.current.style.left = `${target.offsetLeft}px`;
-      lineRef.current.style.top = `${
-        target.offsetTop + target.offsetHeight - 0.5
-      }px`;
-    }
-  }, []);
-
-  useEffect(() => {
-    if (lineRef.current) {
-      const target: HTMLElement = document.querySelector('.head-medium-20')!;
-      updateLine(target);
-    }
-  }, [updateLine]);
-
-  const lineHandler = useCallback(
-    (e: React.MouseEvent<HTMLSpanElement>) => {
-      if (lineRef.current) {
-        const target = e.currentTarget;
-        updateLine(target);
-      }
-    },
-    [updateLine],
-  );
+  const { lineRef, lineHandler } = useUnderLine('.head-medium-20');
 
   const clickHandler = useCallback(
     (e: React.MouseEvent<HTMLSpanElement>, type: 'additional' | 'basic') => {

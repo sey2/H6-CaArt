@@ -5,6 +5,7 @@ import ErrorPopup from '../../components/common/ErrorPopup';
 import SquareButton from '../../components/common/SquareButton';
 import { DarkContext } from '../../hooks/useDark';
 import { useFetch } from '../../hooks/useFetch';
+import useScrollTop from '../../hooks/useScrollTop';
 import { priceToString } from '../../util/PriceToString';
 
 interface CodeAndAnswer {
@@ -97,6 +98,8 @@ function SurveyPage() {
   const { data, status, error } = useFetch<SurveyProfileProps>(
     '/carmasters/surveys',
   );
+
+  useScrollTop();
 
   useEffect(() => {
     if (!data) return;

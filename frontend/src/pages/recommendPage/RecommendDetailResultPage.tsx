@@ -12,6 +12,7 @@ import { LifeStyleResultProps } from './RecommendLifeStyleResultPage';
 import { RecommendPageProps } from './RecommendPage';
 import { DarkContext } from '../../hooks/useDark';
 import Loading from '../../components/common/Loading';
+import useScrollTop from '../../hooks/useScrollTop';
 
 function RecommendDetailResultPage({
   choice,
@@ -26,6 +27,8 @@ function RecommendDetailResultPage({
       choice.value.code
     }&minBudget=42000000&maxBudget=${choice.budget * 10000}`,
   );
+
+  useScrollTop();
 
   useEffect(() => {
     if (data) {

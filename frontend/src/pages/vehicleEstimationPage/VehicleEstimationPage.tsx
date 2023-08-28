@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import ErrorPopup from '../../components/common/ErrorPopup';
 import { preloadContext } from '../../store/PreloadContext';
 import { preloadImage } from '../../util/PreLoader';
+import useScrollTop from '../../hooks/useScrollTop';
 
 export interface PreloadProps {
   preLoadData: string[][];
@@ -18,6 +19,9 @@ export interface PreloadProps {
 function VehicleEstimationPage() {
   const [preLoadData, setPreLoadData] = useState<string[][]>([]);
   const [loaderIdx, setLoaderIdx] = useState(0);
+
+  useScrollTop();
+
   function preloadImages() {
     if (loaderIdx < preLoadData.length) {
       preLoadData[loaderIdx].map(item => {

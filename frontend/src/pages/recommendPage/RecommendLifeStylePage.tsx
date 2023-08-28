@@ -8,6 +8,7 @@ import PageNum from '../../components/recommendPage/ageAndLifeStyle/PageNum';
 import LifeStyleCard from '../../components/recommendPage/lifeStyleCard/LifeStyleCard';
 import LifeStylePeekModal from '../../components/recommendPage/lifeStylePeek/LifeStylePeekModal';
 import { RecommendPageProps } from './RecommendPage';
+import useScrollTop from '../../hooks/useScrollTop';
 
 export interface lifeStyleProps {
   personaId: number;
@@ -18,6 +19,8 @@ export interface lifeStyleProps {
 
 function RecomendLifeStylePage({ choice, setChoice }: RecommendPageProps) {
   const [openedModalNum, setOpenedModalNum] = useState(0);
+
+  useScrollTop();
 
   const { data, status, error } = useFetch<lifeStyleProps[]>('/personas');
   if (status === 'loading') {

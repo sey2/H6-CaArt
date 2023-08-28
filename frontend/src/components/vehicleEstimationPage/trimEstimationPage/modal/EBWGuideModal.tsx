@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import { useFetch } from '../../../../hooks/useFetch';
+import useUnderLine from '../../../../hooks/useUnderLine';
 import { useModalContext } from '../../../../store/ModalContext';
 import { priceToString } from '../../../../util/PriceToString';
 import { Hr } from '../../../common/Hr';
@@ -41,7 +42,7 @@ function EBWGuideModal() {
   const [widthValue, setWidthValue] = useState(0);
   const { data } = useFetch<CompositionsData>('/compositions');
   const { state, dispatch } = useModalContext();
-  const lineRef = useRef<HTMLDivElement>(null);
+  const { lineRef, lineHandler } = useUnderLine('.carEngines');
 
   function getValueByNavName(name: string) {
     switch (name) {
@@ -63,16 +64,6 @@ function EBWGuideModal() {
         prevValue +
         (getValueByNavName(selectedNav) - getValueByNavName(value)) * 800,
     );
-  }
-
-  function lineHandler(e: React.MouseEvent<HTMLSpanElement>): void {
-    if (lineRef.current) {
-      lineRef.current.style.width = `${e.currentTarget.offsetWidth}px`;
-      lineRef.current.style.left = `${e.currentTarget.offsetLeft}px`;
-      lineRef.current.style.top = `${
-        e.currentTarget.offsetTop + e.currentTarget.offsetHeight - 0.5
-      }px`;
-    }
   }
 
   function getEngineInfo() {
@@ -225,16 +216,6 @@ function EBWGuideModal() {
 
   useEffect(() => {
     setCompositionData(data as CompositionsData);
-    if (data && lineRef.current) {
-      const targetDom: HTMLElement = document.querySelector('.carEngines')!;
-      if (targetDom) {
-        lineRef.current.style.width = `${targetDom.offsetWidth}px`;
-        lineRef.current.style.left = `${targetDom.offsetLeft}px`;
-        lineRef.current.style.top = `${
-          targetDom.offsetTop + targetDom.offsetHeight - 0.5
-        }px`;
-      }
-    }
   }, [data, state.infoModalOpen]);
 
   return (

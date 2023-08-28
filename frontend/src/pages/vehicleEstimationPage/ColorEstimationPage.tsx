@@ -13,6 +13,7 @@ import { EstimationContext } from '../../store/Context';
 import { Hr } from '../../components/common/Hr';
 import { preloadContext } from '../../store/PreloadContext';
 import { PreloadProps } from './VehicleEstimationPage';
+import useScrollTop from '../../hooks/useScrollTop';
 
 export interface ExteriorColor {
   colorId: number;
@@ -88,6 +89,8 @@ function ColorEstimationPage() {
     },
     type: 'exterior',
   });
+
+  useScrollTop();
 
   useEffect(() => {
     if (data) {

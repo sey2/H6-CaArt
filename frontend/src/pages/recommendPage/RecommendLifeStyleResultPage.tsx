@@ -9,6 +9,7 @@ import SquareButton from '../../components/common/SquareButton';
 import RecommendResultCard from '../../components/recommendPage/ageAndLifeStyle/RecommendResultCard';
 import { RecommendPageProps } from './RecommendPage';
 import { DarkContext } from '../../hooks/useDark';
+import useScrollTop from '../../hooks/useScrollTop';
 
 export interface LifeStyleResultProps {
   palisadeImage: string;
@@ -62,6 +63,8 @@ function RecommendLifeStyleResultPage({
   const { data, status, error } = useFetch<LifeStyleResultProps>(
     `/personas/${choice.lifeStyle}/recommendation?age=${choice.age.code}`,
   );
+
+  useScrollTop();
 
   useEffect(() => {
     if (data) {

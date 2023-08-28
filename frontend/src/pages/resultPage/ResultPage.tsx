@@ -11,6 +11,7 @@ import { useModalContext } from '../../store/ModalContext';
 import LoginModal from '../../components/resultPage/modal/LoginModal';
 import { useReactToPrint } from 'react-to-print';
 import Loading from '../../components/common/Loading';
+import useScrollTop from '../../hooks/useScrollTop';
 
 function ResultPage() {
   const { state, dispatch } = useModalContext();
@@ -19,8 +20,10 @@ function ResultPage() {
   const handlePdf = useReactToPrint({
     content: () => printRef.current,
   });
+
+  useScrollTop();
+
   useEffect(() => {
-    window.scroll(0, 0);
     setTimeout(() => {
       setLoading(false);
     }, 2000);

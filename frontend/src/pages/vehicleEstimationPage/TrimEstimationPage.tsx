@@ -12,6 +12,7 @@ import { EstimationContext } from '../../store/Context';
 import { PreloadProps } from './VehicleEstimationPage';
 import { preloadContext } from '../../store/PreloadContext';
 import { ExteriorColor, InteriorColor } from './ColorEstimationPage';
+import useScrollTop from '../../hooks/useScrollTop';
 import EBWGuideModal from "../../components/vehicleEstimationPage/trimEstimationPage/modal/EBWGuideModal";
 import CompareModal from "../../components/vehicleEstimationPage/trimEstimationPage/modal/CompareModal";
 import OptionExplainModal from "../../components/vehicleEstimationPage/trimEstimationPage/modal/OptionExplainModal";
@@ -70,6 +71,8 @@ function TrimEstimationPage() {
     dispatch({ type: 'CLOSE_TOOLTIP_MODAL' });
     dispatch({ type: 'CLOSE_OPTION_MODAL' });
   }
+
+  useScrollTop();
 
   const fetchData = async () => {
     try {

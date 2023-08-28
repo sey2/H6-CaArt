@@ -5,6 +5,7 @@ import OptionNavBar from '../../components/vehicleEstimationPage/optionEstimatio
 import OptionCardList from '../../components/vehicleEstimationPage/optionEstimationPage/optionCardList/OptionCardList';
 import OptionEstimationPageButton from '../../components/vehicleEstimationPage/optionEstimationPage/button/OptionPageButton';
 import OptionModal from '../../components/vehicleEstimationPage/optionEstimationPage/optionModal/OptionModal';
+import useScrollTop from '../../hooks/useScrollTop';
 
 export interface OptionCategoryProps {
   isBasic: boolean;
@@ -28,6 +29,8 @@ function OptionEstimationPage() {
     page: 0,
   });
   const [openedModalId, setOpenedModalId] = useState(0);
+
+  useScrollTop();
 
   useEffect(() => {
     window.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
